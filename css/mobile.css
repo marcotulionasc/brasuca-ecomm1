@@ -1,0 +1,136 @@
+@media (max-width: 768px) {
+    .header-input {
+        width: 100% !important;
+    }
+
+    .header-buttons, .desktop-navbar {
+        display: none;
+    }
+
+    .mobile-header {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mobile-header .search-input {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .mobile-navbar {
+        display: none;
+    }
+}
+
+.sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100%;
+    background-color: #2d2d2d;
+    color: white;
+    z-index: 1000;
+    overflow-y: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.open {
+    display: block;
+    transform: translateX(0);
+}
+
+.sidebar .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.sidebar .menu {
+    padding: 60px 20px;
+}
+
+.sidebar .menu a {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar .menu a:hover {
+    background-color: #1899d5;
+}
+
+.sidebar .menu a i {
+    margin-right: 10px;
+}
+
+/* Hide mobile slides by default */
+.mobile-slide {
+    display: none;
+}
+
+/* Hide desktop slides on mobile devices */
+@media (max-width: 768px) {
+    .desktop-slide {
+        display: none;
+    }
+
+    .mobile-slide {
+        display: block;
+    }
+
+    .desktop-pagination {
+        display: none;
+    }
+
+    .mobile-pagination {
+        display: block;
+    }
+}
+
+/* Hide mobile pagination by default */
+.mobile-pagination {
+    display: none;
+}
+
+/* General styles for icons and text */
+.container-local .flex.items-center .bi {
+    font-size: 1rem;
+}
+
+.container-local .flex.items-center .rounded-full {
+    width: 70px;
+    height: 70px;
+    background-color: #009edf;
+}
+
+.container-local .flex.items-center .text-center {
+    margin-top: 8px;
+}
+
+/* Mobile specific styles */
+@media (max-width: 768px) {
+    .container-local .grid-cols-5 .flex {
+        flex-direction: column;
+        align-items: center;
+        margin: 0 10px;
+
+    }
+
+    .container-local .grid-cols-5 .flex .text-center {
+        margin-top: 8px;
+        text-align: center;
+    }
+
+    .container-local .grid-cols-5 .flex .text-center a {
+        font-size: 8px;
+    }
+}
+

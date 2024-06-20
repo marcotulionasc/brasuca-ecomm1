@@ -1,0 +1,256 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+}
+
+.container-local {
+    max-width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Botões de navegação */
+.nav-button {
+    background-color: #002d3f;
+    color: white;
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.nav-button:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background-color: #004f6b;
+}
+
+/* Estilo da barra de categorias */
+.category-nav {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.category-link {
+    color: #4a5568;
+    /* Cinza escuro */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+}
+
+.category-link:hover {
+    color: #1a202c;
+    /* Cinza mais escuro para hover */
+}
+
+/* Remove shadow */
+.no-shadow {
+    box-shadow: none !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/* Estilos para os bullets da paginação */
+.custom-swiper-pagination .swiper-pagination-bullet {
+    width: 32px;
+    height: 12px;
+    background-color: #ccc; /* Cor de fundo padrão */
+    opacity: 1; /* Remova a transparência padrão */
+    border-radius: 15px; /* Torne os bullets redondos */
+    margin: 0 4px; /* Espaçamento entre os bullets */
+    transition: background-color 0.3s ease; /* Transição suave ao alterar a cor */
+}
+
+/* Estilos para o bullet ativo */
+.custom-swiper-pagination .swiper-pagination-bullet-active {
+    background-color: #ff8800; /* Cor de fundo do bullet ativo */
+}
+
+/* Posicionamento da paginação */
+.swiper-container .swiper-pagination {
+    position: absolute;
+    bottom: 10px; /* Ajuste a posição vertical conforme necessário */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10; /* Garante que a paginação fique sobre a imagem */
+}
+
+.title-custom {
+    border: 1px solid #c3c3c3;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.estrutura-objetivos {
+    width: 40%;
+}
+
+.group:hover .checklist {
+    display: none;
+    align-items: center;
+}
+
+.group:hover .group-hover\:flex {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding-bottom: 50px;
+    
+}
+
+.zoom-on-hover {
+    transition: transform 0.3s ease-in-out;
+}
+
+.zoom-on-hover:hover {
+    transform: scale(1.2);
+}
+
+.custom-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.custom-button:hover {
+    background-color: white;
+    color: #4CAF50;
+    border: 2px solid #4CAF50;
+}
+
+.vermais-button {
+    background-color: white;
+    color: #009edf;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border: 2px solid #009edf;
+    border-radius: 40px;
+    font-weight: bold;
+    width: 300px;
+    height: 70px;
+    
+}
+
+.vermais-button:hover {
+    background-color: #009edf;
+    color: white;
+    border: 2px solid #009edf;
+}
+
+
+.custom-zoom {
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-zoom img {
+    transition: all 0.3s;
+}
+
+.custom-zoom:hover img {
+    transform: scale(1.2);
+}
+
+
+.ajusta-tamanho-whey{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.formatation {
+
+    margin-top: 20px;
+}
+
+.link-size {
+    font-size: 14px;
+    margin: 5px;
+}
+
+/* Estilos para desktop */
+.desktop-slide {
+    display: block;
+}
+
+.mobile-slide {
+    display: none;
+}
+
+.swiper-pagination-desktop {
+    display: block;
+}
+
+.swiper-pagination-mobile {
+    display: none;
+}
+
+/* Estilos para mobile */
+@media (max-width: 768px) {
+    .desktop-slide {
+        display: none;
+    }
+
+    .mobile-slide {
+        display: block;
+    }
+
+    .swiper-pagination-desktop {
+        display: none;
+    }
+
+    .swiper-pagination-mobile {
+        display: block;
+    }
+}
+
