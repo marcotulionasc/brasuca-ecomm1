@@ -1,0 +1,47 @@
+#scrollToTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 1000;
+}
+
+.text-position-obje {
+    position: absolute;
+    left: 20px;
+    bottom: 40%;
+    transform: translateY(-30%);
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.text-position-tivo {
+    position: absolute;
+    left: 60px;
+    bottom: 30px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.custom-width {
+    width: 100%;
+}
+
+.swiper-container {
+    width: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
