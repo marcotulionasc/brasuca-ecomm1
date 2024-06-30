@@ -19,665 +19,674 @@
 
 <body class="font-poppins">
     <div class="main-content">
-    <!-- Navigation Mobile -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50 md:hidden">
-        <div class="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8">
-            <div class="relative flex items-center justify-between h-16">
-                <div class="flex items-center justify-center sm:items-stretch sm:justify-start w-full">
-                    <div class="w-full">
-                        <div class="flex justify-between">
-                            <a href="index.html"
-                                class="flex flex-col items-center text-gray-700 hover:bg-gray-200 px-2 py-1 rounded-md text-sm">
-                                <i class="fas fa-home"></i>
-                                <span>Início</span>
-                            </a>
-                            <a href="#"
-                                class="flex flex-col items-center text-gray-700 hover:bg-gray-200 px-2 py-1 rounded-md text-sm">
-                                <i class="fas fa-star"></i>
-                                <span>Eventos</span>
-                            </a>
-                            <a href="#"
-                                class="flex flex-col items-center text-gray-700 hover:bg-gray-200 px-2 py-1 rounded-md text-sm">
-                                <i class="fas fa-user"></i>
-                                <span>Conta</span>
-                            </a>
-                            <a href="#"
-                                class="flex flex-col items-center text-gray-700 hover:bg-gray-200 px-2 py-1 rounded-md text-sm toggle-cart">
-                                <i class="fas fa-ticket-alt"></i>
-                                <span>Ingressos</span>
-                            </a>
+        <!-- Navigation Mobile -->
+        <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50 md:hidden">
+            <div class="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8">
+                <div class="relative flex items-center justify-between h-16">
+                    <div class="flex items-center justify-center sm:items-stretch sm:justify-start w-full">
+                        <div class="w-full">
+                            <div class="flex justify-between">
+                                <a href="index.html"
+                                    class="flex flex-col items-center text-gray-700 hover:bg-gray-200 px-2 py-1 rounded-md text-sm">
+                                    <i class="fas fa-home"></i>
+                                    <span>Início</span>
+                                </a>
+                                <a href="#"
+                                    class="flex flex-col items-center text-gray-700 hover:bg-gray-200 px-2 py-1 rounded-md text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <span>Eventos</span>
+                                </a>
+                                <a href="#"
+                                    class="flex flex-col items-center text-gray-700 hover:bg-gray-200 px-2 py-1 rounded-md text-sm">
+                                    <i class="fas fa-user"></i>
+                                    <span>Conta</span>
+                                </a>
+                                <a href="#"
+                                    class="flex flex-col items-center text-gray-700 hover:bg-gray-200 px-2 py-1 rounded-md text-sm toggle-cart">
+                                    <i class="fas fa-ticket-alt"></i>
+                                    <span>Ingressos</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <!-- Mobile Header -->
-    <header class="bg-blue-600 p-3 mobile-header hidden mb-2">
-        <div class="flex justify-between items-center w-full">
-            <button class="mobile-menu-icon bg-white text-gray-500 p-1 rounded-lg" aria-label="Menu"
-                onclick="toggleSidebar()">
-                <i class="bi bi-list"></i>
-            </button>
-            <img src="img/logo/brasuca-multicultural-logo.webp" alt="Logo" class="w-1/2">
-            <button class="bg-white text-gray-500 p-1 rounded-lg" aria-label="Carrinho de Compras"
-                onclick="window.location.href='#'">
-                <i class="bi bi-cart-check-fill"></i>
-            </button>
-        </div>
-        <div class="relative w-full mt-2">
-            <input type="text" placeholder="Encontre o evento perfeito para você!"
-                class="px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 w-full h-10 text-sm">
-            <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <i class="bi bi-search text-white bg-blue-600 p-1 rounded-full"></i>
+        <!-- Mobile Header -->
+        <header class="bg-blue-600 p-3 mobile-header hidden mb-2">
+            <div class="flex justify-between items-center w-full">
+                <button class="mobile-menu-icon bg-white text-gray-500 p-1 rounded-lg" aria-label="Menu"
+                    onclick="toggleSidebar()">
+                    <i class="bi bi-list"></i>
+                </button>
+                <img src="img/logo/brasuca-multicultural-logo.webp" alt="Logo" class="w-1/2">
+                <button class="bg-white text-gray-500 p-1 rounded-lg" aria-label="Carrinho de Compras"
+                    onclick="window.location.href='#'">
+                    <i class="bi bi-cart-check-fill"></i>
+                </button>
             </div>
-        </div>
-    </header>
-
-    <!-- Desktop Header -->
-    <header class="bg-blue-600 p-3 hidden md:flex justify-between items-center">
-        <div class="flex items-center space-x-6">
-            <img src="img/logo/brasuca-multicultural-logo.webp" alt="Logo" class="w-32">
-            <div class="relative">
+            <div class="relative w-full mt-2">
                 <input type="text" placeholder="Encontre o evento perfeito para você!"
-                    class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 w-96">
+                    class="px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 w-full h-10 text-sm">
                 <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-                    <i class="bi bi-search text-gray-500"></i>
+                    <i class="bi bi-search text-white bg-blue-600 p-1 rounded-full"></i>
                 </div>
             </div>
-        </div>
-        <div class="flex items-center space-x-4">
-            <button type="button"
-                class="px-4 py-2 bg-white text-gray-500 rounded-lg transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white toggle-login">Entrar</button>
-            <button type="button"
-                class="px-4 py-2 bg-white text-gray-500 rounded-lg transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white toggle-cadastro">Cadastre-se</button>
-            <button type="button"
-                class="px-4 py-2 bg-white text-gray-500 rounded-lg transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white flex items-center toggle-cart">
-                <i class="bi bi-cart-check-fill"></i>
-            </button>
-        </div>
-    </header>
+        </header>
 
-    <!-- Sidebar -->
-    <div id="sidebar"
-        class="fixed top-0 left-0 h-full w-64 bg-gray-900 text-white transition-transform transform -translate-x-full md:hidden z-50">
-        <div class="flex items-center p-4 space-x-1">
-            <div class="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center">
-                <!-- Espaço para a foto de perfil -->
-            </div>
-            <span>Olá, Visitante</span>
-            <span class="absolute top-4 right-4 text-2xl cursor-pointer" onclick="toggleSidebar()">&times;</span>
-        </div>
-        <div class="flex flex-col p-4 space-y-4">
-            <a href="index.html" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded">
-                <i class="bi bi-house-door-fill"></i>
-                <span>Início</span>
-            </a>
-            <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded toggle-login">
-                <i class="bi bi-person-fill"></i>
-                <span>Entrar</span>
-            </a>
-
-            <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded toggle-cadastro">
-                <i class="bi bi-person-fill"></i>
-                <span>Cadastrar-se</span>
-            </a>
-
-            <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded toggle-cart">
-                <i class="bi bi-box-seam"></i>
-                <span>Meus Ingressos</span>
-            </a>
-            <div class="group relative">
-                <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded">
-                    <i class="bi bi-grid-fill"></i>
-                    <span>Eventos</span>
-                </a>
-                <div class="absolute left-full top-0 hidden group-hover:block bg-gray-800 p-2 rounded shadow-lg">
-                    <a href="#" class="block p-2 hover:bg-gray-700 rounded">Categoria 1</a>
-                    <a href="#" class="block p-2 hover:bg-gray-700 rounded">Categoria 2</a>
-                </div>
-            </div>
-            <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded">
-                <i class="bi bi-question-circle-fill"></i>
-                <span>FAQ</span>
-            </a>
-            <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded">
-                <i class="bi bi-headset"></i>
-                <span>Contato</span>
-            </a>
-        </div>
-    </div> 
-
-<!-- Categoria Navbar -->
-<nav class="container-local bg-white mt-2 hidden md:flex justify-center">
-    <ul class="flex items-center space-x-12 text-gray-700">
-        <li><a href="index.html" class="hover:text-gray-900 no-underline"><strong><i class="bi bi-list-ul"></i>
-                    TODOS GENÊROS <i class="bi bi-chevron-down"></i></strong></a></li>
-        <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-star"></i> CARNAVAL</a>
-        </li>
-        <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-megaphone"></i>
-                FLASHBACK</a></li>
-        <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-droplet"></i> FORRÓ</a>
-        </li>
-        <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-lightning"></i> MPB</a>
-        </li>
-        <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-battery-charging"></i>
-                PAGODE</a></li>
-        <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-bullseye"></i> POP</a>
-        </li>
-        <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-handbag-fill"></i>
-                ROCK</a></li>
-    </ul>
-</nav>
-
-<!-- Categoria Navbar for Mobile (Hidden by default) -->
-<nav class="container-local bg-white mt-3 mobile-navbar hidden">
-    <div class="flex justify-center items-center">
-        <ul class="flex flex-col items-center space-y-4">
-            <!-- Add mobile navbar items here -->
-        </ul>
-    </div>
-</nav>
-
-<!-- Swiper Section -->
-<div class="container-local bg-white">
-    <div class="swiper-container relative custom-width mx-auto" style="align-items: center;">
-        <div class="swiper-wrapper">
-            <!-- Slides -->
-            <div class="swiper-slide">
-                <img src="img/banner/MA---Marina-Sena---multi-ingressos (1).jpg" alt="Slide 1" class="w-4/5">
-            </div>
-            <div class="swiper-slide">
-                <img src="img/banner/1080x1080 (5).jpg" alt="Slide 2" class="w-4/5">
-            </div>
-            <div class="swiper-slide">
-                <img src="img/banner/WhatsApp Image 2024-04-24 at 13.59.24.jpeg" alt="Slide 3" class="w-4/5">
-            </div>
-            <div class="swiper-slide">
-                <img src="img/banner/MA---BRF---Pitty-Falcao-multiingressos.jpg" alt="Slide 4" class="w-4/5">
-            </div>
-            <div class="swiper-slide">
-                <img src="img/banner/1080x1080 (5).jpg" alt="Slide 5" class="w-4/5">
-            </div>
-        </div>
-        <!-- Pagination -->
-        <div class="swiper-pagination absolute bottom-2 left-1/2 transform -translate-x-1/2 w-48"></div>
-    </div>
-</div>
-
-<!-- Filtros de Busca Desktop -->
-<div class="container-local bg-white mt-8 p-6 rounded-lg shadow-lg hidden md:block">
-    <div style="margin-left: 40px; margin-right: 40px;">
-        <div class="flex justify-between items-center">
-
-            <div class="flex flex-col">
-                <label for="tipo-evento" class="font-medium text-gray-700">Tipo de Evento</label>
-                <select id="tipo-evento"
-                    class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
-                    <option>Show</option>
-                    <option>Teatro</option>
-                    <option>Esporte</option>
-                    <option>Outros</option>
-                </select>
-            </div>
-            <div class="flex flex-col">
-                <label for="localizacao" class="font-medium text-gray-700">Localização</label>
-                <input type="text" id="localizacao" placeholder="Digite a cidade"
-                    class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
-            </div>
-            <div class="flex flex-col">
-                <label for="data-evento" class="font-medium text-gray-700">Data</label>
-                <input type="date" id="data-evento"
-                    class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
-            </div>
-            <div class="flex flex-col">
-                <label for="preco-evento" class="font-medium text-gray-700">Preço</label>
-                <input type="number" id="preco-evento" placeholder="Máximo"
-                    class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
-            </div>
-            <button
-                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out">Filtrar</button>
-
-        </div>
-    </div>
-</div>
-
-<!-- Filtros de Busca Mobile -->
-<div class="container-local bg-white mt-8 p-4 rounded-lg shadow-lg block md:hidden">
-    <div class="flex flex-col space-y-4">
-        <div class="flex flex-col">
-            <label for="tipo-evento-mobile" class="font-medium text-gray-700">Tipo de Evento</label>
-            <select id="tipo-evento-mobile"
-                class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
-                <option>Show</option>
-                <option>Teatro</option>
-                <option>Esporte</option>
-                <option>Outros</option>
-            </select>
-        </div>
-        <div class="flex flex-col">
-            <label for="localizacao-mobile" class="font-medium text-gray-700">Localização</label>
-            <input type="text" id="localizacao-mobile" placeholder="Digite a cidade"
-                class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
-        </div>
-        <div class="flex flex-col">
-            <label for="data-evento-mobile" class="font-medium text-gray-700">Data</label>
-            <input type="date" id="data-evento-mobile"
-                class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
-        </div>
-        <div class="flex flex-col">
-            <label for="preco-evento-mobile" class="font-medium text-gray-700">Preço</label>
-            <input type="number" id="preco-evento-mobile" placeholder="Máximo"
-                class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
-        </div>
-        <button
-            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out">Filtrar</button>
-    </div>
-</div>
-
-<!-- Event Grid -->
-<div class="container mx-auto px-4 py-8">
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-        <!-- Evento 1 -->
-        <div class="relative group border border-gray-300 rounded-lg p-4">
-            <img src="img/banner/MA---Marina-Sena---multi-ingressos (1).jpg" alt="Evento 1"
-                class="w-full h-auto rounded-lg">
-            <div class="mt-4 text-center">
-                <h2 class="text-xl font-bold text-orange-500">Marina Sena</h2>
-                <p class="text-gray-700">Sexta-Feira, 21 de junho</p>
-                <p class="text-gray-700">Shopping Iguatemi Campinas (Estacionamento C)</p>
-                <p class="text-gray-700">CAMPINAS - SP</p>
-            </div>
-            <div
-                class="absolute inset-0 bg-white bg-opacity-75 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <button class="bg-green-500 text-white px-4 py-2 rounded">COMPRAR</button>
-            </div>
-        </div>
-
-        <!-- Evento 2 -->
-        <div class="relative group border border-gray-300 rounded-lg p-4">
-            <img src="img/banner/1080x1080 (5).jpg" alt="Evento 2" class="w-full h-auto rounded-lg">
-            <div class="mt-4 text-center">
-                <h2 class="text-xl font-bold text-orange-500">Orquestra Rock convida CPM22</h2>
-                <p class="text-gray-700">Sexta-Feira, 21 de junho</p>
-                <p class="text-gray-700">Espaço na Mata</p>
-                <p class="text-gray-700">Botucatu - SP</p>
-            </div>
-            <div
-                class="absolute inset-0 bg-white bg-opacity-75 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <button class="bg-green-500 text-white px-4 py-2 rounded">COMPRAR</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Ver Mais Button -->
-<div class="container-local flex justify-center bg-white py-4">
-    <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out">+
-        VER MAIS</button>
-</div>
-
-<!-- Mobile Newsletter Section -->
-<div class="container-local mx-auto mt-12 block md:hidden">
-    <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <div class="bg-blue-600 text-white text-center py-6">
-            <h1 class="text-xl font-bold">Cadastre seu e-mail e receba nossas novidades!</h1>
-        </div>
-        <div class="p-6 flex flex-col items-center justify-center space-y-4">
-            <form action="#" method="POST" class="w-full flex flex-col items-center space-y-4">
-                <div class="w-full">
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" name="email" id="email" required
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        placeholder="Digite seu melhor email">
-                </div>
-                <div class="w-full">
-                    <button type="submit"
-                        class="w-full bg-blue-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                        Inscreva-se agora!
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="bg-gray-100 py-8">
-    <div class="container-local mx-auto flex justify-between items-center hidden md:flex">
-        <div class="bg-white shadow-md rounded-lg p-4">
-            <img src="img/confianca/site blindado.jpg" alt="Selo autoridade" class="w-full h-auto">
-        </div>
-        <div class="bg-white shadow-md rounded-lg p-4">
-            <img src="img/confianca/img_33128.png" alt="Selo autoridade" class="w-full h-auto">
-        </div>
-        <div class="bg-white shadow-md rounded-lg p-4">
-            <img src="img/confianca/site-sustentável.jpg" alt="Selo autoridade" class="w-full h-auto">
-        </div>
-        <div class="bg-white shadow-md rounded-lg p-4">
-            <img src="img/confianca/garantimos-dinheiro.jpg" alt="Selo autoridade" class="w-full h-auto">
-        </div>
-    </div>
-
-    <div class="container-local grid grid-cols-2 gap-4 mt-10 mb-10 md:hidden">
-        <div class="bg-white shadow-md rounded-lg flex justify-center items-center p-4">
-            <img src="img/confianca/site blindado.jpg" alt="Selo autoridade"
-                class="w-full h-auto rounded-md max-h-48 object-contain">
-        </div>
-        <div class="bg-white shadow-md rounded-lg flex justify-center items-center p-4">
-            <img src="img/confianca/img_33128.png" alt="Selo autoridade"
-                class="w-full h-auto rounded-md max-h-48 object-contain">
-        </div>
-        <div class="bg-white shadow-md rounded-lg flex justify-center items-center p-4">
-            <img src="img/confianca/site-sustentável.jpg" alt="Selo autoridade"
-                class="w-full h-auto rounded-md max-h-48 object-contain">
-        </div>
-        <div class="bg-white shadow-md rounded-lg flex justify-center items-center p-4">
-            <img src="img/confianca/garantimos-dinheiro.jpg" alt="Selo autoridade"
-                class="w-full h-auto rounded-md max-h-48 object-contain">
-        </div>
-    </div>
-
-    <div class="container-local mx-auto my-10">
-        <h3 class="text-xl font-bold text-center mb-6">Formas de Pagamento</h3>
-        <div class="flex flex-wrap justify-center items-center space-y-4 sm:space-y-0">
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
-                    <img src="img/payment-methods/visa.svg" alt="Visa" class="h-6">
-                </div>
-                <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
-                    <img src="img/payment-methods/master.svg" alt="MasterCard" class="h-6">
-                </div>
-                <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
-                    <img src="img/payment-methods/3.svg" alt="Method 3" class="h-6">
-                </div>
-                <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
-                    <img src="img/payment-methods/american-express.svg" alt="American Express" class="h-6">
-                </div>
-                <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
-                    <img src="img/payment-methods/hipercard.svg" alt="Hipercard" class="h-6">
-                </div>
-                <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
-                    <img src="img/payment-methods/aura.svg" alt="Aura" class="h-6">
-                </div>
-                <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
-                    <img src="img/payment-methods/elo.svg" alt="Elo" class="h-10">
-                </div>
-                <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
-                    <img src="img/payment-methods/codebars.svg" alt="Codebars" class="h-6">
-                </div>
-                <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
-                    <img src="img/payment-methods/bancobrasil.svg" alt="Banco do Brasil" class="h-6">
-                </div>
-                <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
-                    <img src="img/payment-methods/caixa.svg" alt="Caixa" class="h-6">
-                </div>
-                <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
-                    <img src="img/payment-methods/paypal.svg" alt="PayPal" class="h-6">
-                </div>
-                <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
-                    <img src="img/payment-methods/pix.svg" alt="Pix" class="h-6">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-local mx-auto my-10 px-5 block md:hidden">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div>
-                <h2 class="text-2xl font-bold mb-4">Acesso rápido</h2>
-                <ul class="space-y-2">
-                    <li><a href="#" class="text-gray-700 hover:text-blue-600">Minhas compras</a></li>
-                    <li><a href="#" class="text-gray-700 hover:text-blue-600">Meu perfil</a></li>
-                    <li><a href="#" class="text-gray-700 hover:text-blue-600">Suporte ao Fâ</a></li>
-                    <li><a href="#" class="text-gray-700 hover:text-blue-600">Acessibilidade</a></li>
-                </ul>
-            </div>
-            <div>
-                <h2 class="text-2xl font-bold mb-4">Termos e Políticas</h2>
-                <ul class="space-y-2">
-                    <li><a href="#" class="text-gray-700 hover:text-blue-600">Termos de uso</a></li>
-                    <li><a href="#" class="text-gray-700 hover:text-blue-600">Política de Compra</a></li>
-                    <li><a href="#" class="text-gray-700 hover:text-blue-600">Politíca de Cookies</a></li>
-                    <li><a href="#" class="text-gray-700 hover:text-blue-600">Politíca de Privacidade</a></li>
-                </ul>
-            </div>
-            <div>
-                <h2 class="text-2xl font-bold mb-4">Sobre o Brasuca</h2>
-                <ul class="space-y-2">
-                    <li><a href="#" class="text-gray-700 hover:text-blue-600">História</a></li>
-                    <li><a href="#" class="text-gray-700 hover:text-blue-600">Localização</a></li>
-                    <li><a href="#" class="text-gray-700 hover:text-blue-600">A casa</a></li>
-                </ul>
-            </div>
-            <div>
-                <h2 class="text-2xl font-bold mb-4">Contato</h2>
-                <div class="flex items-center space-x-2 mb-6">
-                    <i class="bi bi-telephone-fill text-black-600"></i>
-                    <div>
-                        <p class="text-gray-700">Telefone para atendimento: (19) 99999-9999</p>
-                        <p class="text-gray-700">Seg a Sex das 8h às 12h | das 13h30 às 18h</p>
+        <!-- Desktop Header -->
+        <header class="bg-blue-600 p-3 hidden md:flex justify-between items-center">
+            <div class="flex items-center space-x-6">
+                <img src="img/logo/brasuca-multicultural-logo.webp" alt="Logo" class="w-32">
+                <div class="relative">
+                    <input type="text" placeholder="Encontre o evento perfeito para você!"
+                        class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 w-96">
+                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                        <i class="bi bi-search text-gray-500"></i>
                     </div>
                 </div>
-                <div class="flex items-center space-x-2 mb-6">
-                    <i class="bi bi-envelope-fill text-black-600"></i>
-                    <p class="text-gray-700">E-mail: produtora@multiprodutora.com.br</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button type="button"
+                    class="px-4 py-2 bg-white text-gray-500 rounded-lg transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white toggle-login">Entrar</button>
+                <button type="button"
+                    class="px-4 py-2 bg-white text-gray-500 rounded-lg transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white toggle-cadastro">Cadastre-se</button>
+                <button type="button"
+                    class="px-4 py-2 bg-white text-gray-500 rounded-lg transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white flex items-center toggle-cart">
+                    <i class="bi bi-cart-check-fill"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <div id="sidebar"
+            class="fixed top-0 left-0 h-full w-64 bg-gray-900 text-white transition-transform transform -translate-x-full md:hidden z-50">
+            <div class="flex items-center p-4 space-x-1">
+                <div class="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center">
+                    <!-- Espaço para a foto de perfil -->
                 </div>
-                <h2 class="text-2xl font-bold mb-4">Siga nas redes sociais</h2>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-tiktok"></i></a>
+                <span>Olá, Visitante</span>
+                <span class="absolute top-4 right-4 text-2xl cursor-pointer" onclick="toggleSidebar()">&times;</span>
+            </div>
+            <div class="flex flex-col p-4 space-y-4">
+                <a href="index.html" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded">
+                    <i class="bi bi-house-door-fill"></i>
+                    <span>Início</span>
+                </a>
+                <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded toggle-login">
+                    <i class="bi bi-person-fill"></i>
+                    <span>Entrar</span>
+                </a>
+
+                <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded toggle-cadastro">
+                    <i class="bi bi-person-fill"></i>
+                    <span>Cadastrar-se</span>
+                </a>
+
+                <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded toggle-cart">
+                    <i class="bi bi-box-seam"></i>
+                    <span>Meus Ingressos</span>
+                </a>
+                <div class="group relative">
+                    <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded">
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Eventos</span>
+                    </a>
+                    <div class="absolute left-full top-0 hidden group-hover:block bg-gray-800 p-2 rounded shadow-lg">
+                        <a href="#" class="block p-2 hover:bg-gray-700 rounded">Categoria 1</a>
+                        <a href="#" class="block p-2 hover:bg-gray-700 rounded">Categoria 2</a>
+                    </div>
+                </div>
+                <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded">
+                    <i class="bi bi-question-circle-fill"></i>
+                    <span>FAQ</span>
+                </a>
+                <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded">
+                    <i class="bi bi-headset"></i>
+                    <span>Contato</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Categoria Navbar -->
+        <nav class="container-local bg-white mt-2 hidden md:flex justify-center">
+            <ul class="flex items-center space-x-12 text-gray-700">
+                <li><a href="index.html" class="hover:text-gray-900 no-underline"><strong><i class="bi bi-list-ul"></i>
+                            TODOS GENÊROS <i class="bi bi-chevron-down"></i></strong></a></li>
+                <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-star"></i>
+                        CARNAVAL</a>
+                </li>
+                <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-megaphone"></i>
+                        FLASHBACK</a></li>
+                <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-droplet"></i>
+                        FORRÓ</a>
+                </li>
+                <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-lightning"></i>
+                        MPB</a>
+                </li>
+                <li><a href="products.html" class="hover:text-gray-900 no-underline"><i
+                            class="bi bi-battery-charging"></i>
+                        PAGODE</a></li>
+                <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-bullseye"></i>
+                        POP</a>
+                </li>
+                <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-handbag-fill"></i>
+                        ROCK</a></li>
+            </ul>
+        </nav>
+
+        <!-- Categoria Navbar for Mobile (Hidden by default) -->
+        <nav class="container-local bg-white mt-3 mobile-navbar hidden">
+            <div class="flex justify-center items-center">
+                <ul class="flex flex-col items-center space-y-4">
+                    <!-- Add mobile navbar items here -->
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Swiper Section -->
+        <div class="container-local bg-white">
+            <div class="swiper-container relative custom-width mx-auto" style="align-items: center;">
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide">
+                        <img src="img/banner/MA---Marina-Sena---multi-ingressos (1).jpg" alt="Slide 1" class="w-4/5">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="img/banner/1080x1080 (5).jpg" alt="Slide 2" class="w-4/5">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="img/banner/WhatsApp Image 2024-04-24 at 13.59.24.jpeg" alt="Slide 3" class="w-4/5">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="img/banner/MA---BRF---Pitty-Falcao-multiingressos.jpg" alt="Slide 4" class="w-4/5">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="img/banner/1080x1080 (5).jpg" alt="Slide 5" class="w-4/5">
+                    </div>
+                </div>
+                <!-- Pagination -->
+                <div class="swiper-pagination absolute bottom-2 left-1/2 transform -translate-x-1/2 w-48"></div>
+            </div>
+        </div>
+
+        <!-- Filtros de Busca Desktop -->
+        <div class="container-local bg-white mt-8 p-6 rounded-lg shadow-lg hidden md:block">
+            <div style="margin-left: 40px; margin-right: 40px;">
+                <div class="flex justify-between items-center">
+
+                    <div class="flex flex-col">
+                        <label for="tipo-evento" class="font-medium text-gray-700">Tipo de Evento</label>
+                        <select id="tipo-evento"
+                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                            <option>Show</option>
+                            <option>Teatro</option>
+                            <option>Esporte</option>
+                            <option>Outros</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="localizacao" class="font-medium text-gray-700">Localização</label>
+                        <input type="text" id="localizacao" placeholder="Digite a cidade"
+                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="data-evento" class="font-medium text-gray-700">Data</label>
+                        <input type="date" id="data-evento"
+                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="preco-evento" class="font-medium text-gray-700">Preço</label>
+                        <input type="number" id="preco-evento" placeholder="Máximo"
+                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                    </div>
+                    <button
+                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out">Filtrar</button>
+
                 </div>
             </div>
-            <div>
-                <h2 class="text-2xl font-bold mb-4">Segurança</h2>
-                <div class="flex space-x-4 mb-4">
-                    <img src="img/logo/selo-trustvox-22e50071258ff3907cdc27dd91584016.png" alt="Segurança" class="h-24">
-                    <img src="img/logo/02.png" alt="Google Safe Browsing" class="h-24">
+        </div>
+
+        <!-- Filtros de Busca Mobile -->
+        <div class="container-local bg-white mt-8 p-4 rounded-lg shadow-lg block md:hidden">
+            <div class="flex flex-col space-y-4">
+                <div class="flex flex-col">
+                    <label for="tipo-evento-mobile" class="font-medium text-gray-700">Tipo de Evento</label>
+                    <select id="tipo-evento-mobile"
+                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        <option>Show</option>
+                        <option>Teatro</option>
+                        <option>Esporte</option>
+                        <option>Outros</option>
+                    </select>
                 </div>
-                <p class="text-gray-700 text-sm">Copyright 2024 Brasuca - Todos os Direitos Reservados.</p>
-                <p class="text-gray-700 text-sm">Preços e condições de pagamento apresentados neste 'site' somente
-                    são válidos para as compras efetuadas no ato da sua exibição. *Condições de pagamento à vista
-                    somente para depósitos, transferências e boleto bancário.</p>
+                <div class="flex flex-col">
+                    <label for="localizacao-mobile" class="font-medium text-gray-700">Localização</label>
+                    <input type="text" id="localizacao-mobile" placeholder="Digite a cidade"
+                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                </div>
+                <div class="flex flex-col">
+                    <label for="data-evento-mobile" class="font-medium text-gray-700">Data</label>
+                    <input type="date" id="data-evento-mobile"
+                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                </div>
+                <div class="flex flex-col">
+                    <label for="preco-evento-mobile" class="font-medium text-gray-700">Preço</label>
+                    <input type="number" id="preco-evento-mobile" placeholder="Máximo"
+                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                </div>
+                <button
+                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out">Filtrar</button>
+            </div>
+        </div>
+
+        <!-- Event Grid -->
+        <div class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <!-- Evento 1 -->
+                <div class="relative group border border-gray-300 rounded-lg p-4">
+                    <img src="img/banner/MA---Marina-Sena---multi-ingressos (1).jpg" alt="Evento 1"
+                        class="w-full h-auto rounded-lg">
+                    <div class="mt-4 text-center">
+                        <h2 class="text-xl font-bold text-orange-500">Marina Sena</h2>
+                        <p class="text-gray-700">Sexta-Feira, 21 de junho</p>
+                        <p class="text-gray-700">Shopping Iguatemi Campinas (Estacionamento C)</p>
+                        <p class="text-gray-700">CAMPINAS - SP</p>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-white bg-opacity-75 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <button class="bg-green-500 text-white px-4 py-2 rounded">COMPRAR</button>
+                    </div>
+                </div>
+
+                <!-- Evento 2 -->
+                <div class="relative group border border-gray-300 rounded-lg p-4">
+                    <img src="img/banner/1080x1080 (5).jpg" alt="Evento 2" class="w-full h-auto rounded-lg">
+                    <div class="mt-4 text-center">
+                        <h2 class="text-xl font-bold text-orange-500">Orquestra Rock convida CPM22</h2>
+                        <p class="text-gray-700">Sexta-Feira, 21 de junho</p>
+                        <p class="text-gray-700">Espaço na Mata</p>
+                        <p class="text-gray-700">Botucatu - SP</p>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-white bg-opacity-75 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <button class="bg-green-500 text-white px-4 py-2 rounded">COMPRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ver Mais Button -->
+        <div class="container-local flex justify-center bg-white py-4">
+            <button
+                class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out">+
+                VER MAIS</button>
+        </div>
+
+        <!-- Mobile Newsletter Section -->
+        <div class="container-local mx-auto mt-12 block md:hidden">
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <div class="bg-blue-600 text-white text-center py-6">
+                    <h1 class="text-xl font-bold">Cadastre seu e-mail e receba nossas novidades!</h1>
+                </div>
+                <div class="p-6 flex flex-col items-center justify-center space-y-4">
+                    <form action="#" method="POST" class="w-full flex flex-col items-center space-y-4">
+                        <div class="w-full">
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" name="email" id="email" required
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                placeholder="Digite seu melhor email">
+                        </div>
+                        <div class="w-full">
+                            <button type="submit"
+                                class="w-full bg-blue-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Inscreva-se agora!
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-100 py-8">
+            <div class="container-local mx-auto flex justify-between items-center hidden md:flex">
+                <div class="bg-white shadow-md rounded-lg p-4">
+                    <img src="img/confianca/site blindado.jpg" alt="Selo autoridade" class="w-full h-auto">
+                </div>
+                <div class="bg-white shadow-md rounded-lg p-4">
+                    <img src="img/confianca/img_33128.png" alt="Selo autoridade" class="w-full h-auto">
+                </div>
+                <div class="bg-white shadow-md rounded-lg p-4">
+                    <img src="img/confianca/site-sustentável.jpg" alt="Selo autoridade" class="w-full h-auto">
+                </div>
+                <div class="bg-white shadow-md rounded-lg p-4">
+                    <img src="img/confianca/garantimos-dinheiro.jpg" alt="Selo autoridade" class="w-full h-auto">
+                </div>
+            </div>
+
+            <div class="container-local grid grid-cols-2 gap-4 mt-10 mb-10 md:hidden">
+                <div class="bg-white shadow-md rounded-lg flex justify-center items-center p-4">
+                    <img src="img/confianca/site blindado.jpg" alt="Selo autoridade"
+                        class="w-full h-auto rounded-md max-h-48 object-contain">
+                </div>
+                <div class="bg-white shadow-md rounded-lg flex justify-center items-center p-4">
+                    <img src="img/confianca/img_33128.png" alt="Selo autoridade"
+                        class="w-full h-auto rounded-md max-h-48 object-contain">
+                </div>
+                <div class="bg-white shadow-md rounded-lg flex justify-center items-center p-4">
+                    <img src="img/confianca/site-sustentável.jpg" alt="Selo autoridade"
+                        class="w-full h-auto rounded-md max-h-48 object-contain">
+                </div>
+                <div class="bg-white shadow-md rounded-lg flex justify-center items-center p-4">
+                    <img src="img/confianca/garantimos-dinheiro.jpg" alt="Selo autoridade"
+                        class="w-full h-auto rounded-md max-h-48 object-contain">
+                </div>
+            </div>
+
+            <div class="container-local mx-auto my-10">
+                <h3 class="text-xl font-bold text-center mb-6">Formas de Pagamento</h3>
+                <div class="flex flex-wrap justify-center items-center space-y-4 sm:space-y-0">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                            <img src="img/payment-methods/visa.svg" alt="Visa" class="h-6">
+                        </div>
+                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                            <img src="img/payment-methods/master.svg" alt="MasterCard" class="h-6">
+                        </div>
+                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                            <img src="img/payment-methods/3.svg" alt="Method 3" class="h-6">
+                        </div>
+                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                            <img src="img/payment-methods/american-express.svg" alt="American Express" class="h-6">
+                        </div>
+                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                            <img src="img/payment-methods/hipercard.svg" alt="Hipercard" class="h-6">
+                        </div>
+                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                            <img src="img/payment-methods/aura.svg" alt="Aura" class="h-6">
+                        </div>
+                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                            <img src="img/payment-methods/elo.svg" alt="Elo" class="h-10">
+                        </div>
+                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                            <img src="img/payment-methods/codebars.svg" alt="Codebars" class="h-6">
+                        </div>
+                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                            <img src="img/payment-methods/bancobrasil.svg" alt="Banco do Brasil" class="h-6">
+                        </div>
+                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                            <img src="img/payment-methods/caixa.svg" alt="Caixa" class="h-6">
+                        </div>
+                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                            <img src="img/payment-methods/paypal.svg" alt="PayPal" class="h-6">
+                        </div>
+                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                            <img src="img/payment-methods/pix.svg" alt="Pix" class="h-6">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-local mx-auto my-10 px-5 block md:hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">Acesso rápido</h2>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Minhas compras</a></li>
+                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Meu perfil</a></li>
+                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Suporte ao Fâ</a></li>
+                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Acessibilidade</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">Termos e Políticas</h2>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Termos de uso</a></li>
+                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Política de Compra</a></li>
+                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Politíca de Cookies</a></li>
+                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Politíca de Privacidade</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">Sobre o Brasuca</h2>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-700 hover:text-blue-600">História</a></li>
+                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Localização</a></li>
+                            <li><a href="#" class="text-gray-700 hover:text-blue-600">A casa</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">Contato</h2>
+                        <div class="flex items-center space-x-2 mb-6">
+                            <i class="bi bi-telephone-fill text-black-600"></i>
+                            <div>
+                                <p class="text-gray-700">Telefone para atendimento: (19) 99999-9999</p>
+                                <p class="text-gray-700">Seg a Sex das 8h às 12h | das 13h30 às 18h</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 mb-6">
+                            <i class="bi bi-envelope-fill text-black-600"></i>
+                            <p class="text-gray-700">E-mail: produtora@multiprodutora.com.br</p>
+                        </div>
+                        <h2 class="text-2xl font-bold mb-4">Siga nas redes sociais</h2>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-youtube"></i></a>
+                            <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">Segurança</h2>
+                        <div class="flex space-x-4 mb-4">
+                            <img src="img/logo/selo-trustvox-22e50071258ff3907cdc27dd91584016.png" alt="Segurança"
+                                class="h-24">
+                            <img src="img/logo/02.png" alt="Google Safe Browsing" class="h-24">
+                        </div>
+                        <p class="text-gray-700 text-sm">Copyright 2024 Brasuca - Todos os Direitos Reservados.</p>
+                        <p class="text-gray-700 text-sm">Preços e condições de pagamento apresentados neste 'site'
+                            somente
+                            são válidos para as compras efetuadas no ato da sua exibição. *Condições de pagamento à
+                            vista
+                            somente para depósitos, transferências e boleto bancário.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 p-6 bg-blue-500 text-white rounded shadow-lg text-center text-sm">
+                <div>
+                    Brasuca LTDA - Todos os direitos reservados - CNPJ 11.111.111/0001-01 Endereço
+                </div>
+                <div class="mt-4">
+                    &copy; <span id="copyrightYear"></span> Marco Nascimento. Todos os direitos reservados.
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-bold">Entrar</h2>
+                    <button onclick="toggleModal('loginModal')" class="text-gray-600 hover:text-gray-900">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <form action="#" method="POST" class="mt-4 space-y-4">
+                    <div>
+                        <label for="loginEmail" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="loginEmail" name="email" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            placeholder="Digite seu email">
+                    </div>
+                    <div>
+                        <label for="loginPassword" class="block text-sm font-medium text-gray-700">Senha</label>
+                        <input type="password" id="loginPassword" name="password" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            placeholder="Digite sua senha">
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-sm text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Entrar</button>
+                </form>
             </div>
         </div>
     </div>
 
-    <div class="mt-10 p-6 bg-blue-500 text-white rounded shadow-lg text-center text-sm">
-        <div>
-            Brasuca LTDA - Todos os direitos reservados - CNPJ 11.111.111/0001-01 Endereço
-        </div>
-        <div class="mt-4">
-            &copy; <span id="copyrightYear"></span> Marco Nascimento. Todos os direitos reservados.
+    <!-- Cadastro Modal -->
+    <div id="cadastroModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-bold">Cadastro</h2>
+                    <button onclick="toggleModal('cadastroModal')" class="text-gray-600 hover:text-gray-900">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <form action="#" method="POST" class="mt-4 space-y-4">
+                    <div>
+                        <label for="cadastroNome" class="block text-sm font-medium text-gray-700">Nome</label>
+                        <input type="text" id="cadastroNome" name="nome" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            placeholder="Digite seu nome">
+                    </div>
+                    <div>
+                        <label for="cadastroEmail" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="cadastroEmail" name="email" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            placeholder="Digite seu email">
+                    </div>
+                    <div>
+                        <label for="cadastroSenha" class="block text-sm font-medium text-gray-700">Senha</label>
+                        <input type="password" id="cadastroSenha" name="senha" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            placeholder="Digite sua senha">
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-sm text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Cadastrar</button>
+                </form>
+            </div>
         </div>
     </div>
-</footer>
 
-</div>
-
- <!-- Login Modal -->
- <div id="loginModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
-    <div class="flex items-center justify-center min-h-screen">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
+    <!-- Carrinho Sidebar -->
+    <div id="cartSidebar"
+        class="fixed right-0 top-0 h-full w-72 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+        <div class="p-4">
             <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-bold">Entrar</h2>
-                <button onclick="toggleModal('loginModal')" class="text-gray-600 hover:text-gray-900">
+                <h2 class="text-2xl font-bold">Meus ingressos</h2>
+                <button onclick="toggleSidebarCart('cartSidebar')" class="text-gray-600 hover:text-gray-900">
                     <i class="bi bi-x-lg"></i>
                 </button>
             </div>
-            <form action="#" method="POST" class="mt-4 space-y-4">
-                <div>
-                    <label for="loginEmail" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="loginEmail" name="email" required
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        placeholder="Digite seu email">
-                </div>
-                <div>
-                    <label for="loginPassword" class="block text-sm font-medium text-gray-700">Senha</label>
-                    <input type="password" id="loginPassword" name="password" required
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        placeholder="Digite sua senha">
-                </div>
-                <button type="submit"
-                    class="w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-sm text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Entrar</button>
-            </form>
+            <ul id="cartItems" class="mt-4 space-y-4">
+                <!-- Lista de ingressos selecionados -->
+            </ul>
+            <button
+                class="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-sm text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Finalizar
+                Compra</button>
         </div>
     </div>
-</div>
-
-<!-- Cadastro Modal -->
-<div id="cadastroModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
-    <div class="flex items-center justify-center min-h-screen">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
-            <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-bold">Cadastro</h2>
-                <button onclick="toggleModal('cadastroModal')" class="text-gray-600 hover:text-gray-900">
-                    <i class="bi bi-x-lg"></i>
-                </button>
-            </div>
-            <form action="#" method="POST" class="mt-4 space-y-4">
-                <div>
-                    <label for="cadastroNome" class="block text-sm font-medium text-gray-700">Nome</label>
-                    <input type="text" id="cadastroNome" name="nome" required
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        placeholder="Digite seu nome">
-                </div>
-                <div>
-                    <label for="cadastroEmail" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="cadastroEmail" name="email" required
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        placeholder="Digite seu email">
-                </div>
-                <div>
-                    <label for="cadastroSenha" class="block text-sm font-medium text-gray-700">Senha</label>
-                    <input type="password" id="cadastroSenha" name="senha" required
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        placeholder="Digite sua senha">
-                </div>
-                <button type="submit"
-                    class="w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-sm text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Cadastrar</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Carrinho Sidebar -->
-<div id="cartSidebar"
-    class="fixed right-0 top-0 h-full w-72 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out z-50">
-    <div class="p-4">
-        <div class="flex justify-between items-center">
-            <h2 class="text-2xl font-bold">Meus ingressos</h2>
-            <button onclick="toggleSidebarCart('cartSidebar')" class="text-gray-600 hover:text-gray-900">
-                <i class="bi bi-x-lg"></i>
-            </button>
-        </div>
-        <ul id="cartItems" class="mt-4 space-y-4">
-            <!-- Lista de ingressos selecionados -->
-        </ul>
-        <button
-            class="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-sm text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Finalizar
-            Compra</button>
-    </div>
-</div>
 
 
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<script src="js/app.js"></script>
-<script src="js/Modal.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="js/app.js"></script>
+    <script src="js/Modal.js"></script>
 
-<script>
-    var swiper = new Swiper('.swiper-container', {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        breakpoints: {
-            768: {
-                slidesPerView: 3,
-                spaceBetween: 30,
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                }
+            }
+        });
+
+        function adjustCarousel() {
+            var desktopSlides = document.querySelectorAll('.desktop-slide');
+            var mobileSlides = document.querySelectorAll('.mobile-slide');
+            var desktopPagination = document.querySelector('.desktop-pagination');
+            var mobilePagination = document.querySelector('.mobile-pagination');
+
+            if (window.innerWidth <= 768) {
+                desktopSlides.forEach(function (slide) {
+                    slide.style.display = 'none';
+                });
+                mobileSlides.forEach(function (slide) {
+                    slide.style.display = 'block';
+                });
+                desktopPagination.style.display = 'none';
+                mobilePagination.style.display = 'block';
+            } else {
+                desktopSlides.forEach(function (slide) {
+                    slide.style.display = 'block';
+                });
+                mobileSlides.forEach(function (slide) {
+                    slide.style.display = 'none';
+                });
+                desktopPagination.style.display = 'block';
+                mobilePagination.style.display = 'none';
             }
         }
-    });
 
-    function adjustCarousel() {
-        var desktopSlides = document.querySelectorAll('.desktop-slide');
-        var mobileSlides = document.querySelectorAll('.mobile-slide');
-        var desktopPagination = document.querySelector('.desktop-pagination');
-        var mobilePagination = document.querySelector('.mobile-pagination');
+        window.addEventListener('resize', adjustCarousel);
+        adjustCarousel();
 
-        if (window.innerWidth <= 768) {
-            desktopSlides.forEach(function (slide) {
-                slide.style.display = 'none';
-            });
-            mobileSlides.forEach(function (slide) {
-                slide.style.display = 'block';
-            });
-            desktopPagination.style.display = 'none';
-            mobilePagination.style.display = 'block';
-        } else {
-            desktopSlides.forEach(function (slide) {
-                slide.style.display = 'block';
-            });
-            mobileSlides.forEach(function (slide) {
-                slide.style.display = 'none';
-            });
-            desktopPagination.style.display = 'block';
-            mobilePagination.style.display = 'none';
+        document.getElementById("toggle-text").addEventListener("click", function (event) {
+            event.preventDefault();
+            var extraText = document.getElementById("extra-text");
+            var toggleText = document.getElementById("toggle-text");
+            if (extraText.style.display === "none") {
+                extraText.style.display = "block";
+                toggleText.innerHTML = "<strong>Leia menos</strong>";
+            } else {
+                extraText.style.display = "none";
+                toggleText.innerHTML = "<strong>Leia mais</strong>";
+            }
+        });
+
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
+        let mybutton = document.getElementById("scrollToTopBtn");
+
+        window.onscroll = function () {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
         }
-    }
 
-    window.addEventListener('resize', adjustCarousel);
-    adjustCarousel();
+        mybutton.onclick = function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
 
-    document.getElementById("toggle-text").addEventListener("click", function (event) {
-        event.preventDefault();
-        var extraText = document.getElementById("extra-text");
-        var toggleText = document.getElementById("toggle-text");
-        if (extraText.style.display === "none") {
-            extraText.style.display = "block";
-            toggleText.innerHTML = "<strong>Leia menos</strong>";
-        } else {
-            extraText.style.display = "none";
-            toggleText.innerHTML = "<strong>Leia mais</strong>";
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle('-translate-x-full');
         }
-    });
 
-    document.getElementById('copyrightYear').textContent = new Date().getFullYear();
-
-    let mybutton = document.getElementById("scrollToTopBtn");
-
-    window.onscroll = function () {
-        scrollFunction();
-    };
-
-    function scrollFunction() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            mybutton.style.display = "block";
-        } else {
-            mybutton.style.display = "none";
-        }
-    }
-
-    mybutton.onclick = function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    function toggleSidebar() {
-        var sidebar = document.getElementById("sidebar");
-        sidebar.classList.toggle('-translate-x-full');
-    }
-
-</script>
+    </script>
 </body>
 
 </html>
