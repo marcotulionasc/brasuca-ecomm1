@@ -54,6 +54,21 @@
         .custom-width {
             width: 100%;
         }
+
+        .swiper-container {
+            width: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+
+            /* Center slide text vertically */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 
 </head>
@@ -123,14 +138,14 @@
     </header>
 
     <!-- Desktop Header -->
-    <header class="bg-blue-600 p-8 desktop-header">
+    <header class="bg-blue-600 p-3 desktop-header">
         <div class="container-local flex justify-between items-center mx-auto">
             <div class="flex items-center space-x-6">
                 <img src="img/logo/brasuca-multicultural-logo.webp" alt="Logo" class="w-32">
                 <div class="relative">
                     <input type="text" placeholder="Encontre o evento perfeito para você!"
                         class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 header-input w-96"
-                        style="width: 700px; margin-left: 100px;">
+                        style="width: 600px; margin-left: 30px">
                     <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
                         <i class="bi bi-search text-gray-500"></i>
                     </div>
@@ -163,6 +178,7 @@
             </div>
         </div>
     </header>
+
 
 
 
@@ -279,77 +295,29 @@
         <div class="bg-white">
             <div class="swiper-container relative custom-width mx-auto" style="align-items: center;">
                 <div class="swiper-wrapper">
-                    <!-- Desktop Slides -->
-                    <div class="swiper-slide desktop-slide">
-                        <img src="img/banner/MA---Marina-Sena---multi-ingressos (1).jpg" style="width: 30%;"
-                            alt="Slide 1">
+                    <!-- Slides -->
+                    <div class="swiper-slide">
+                        <img src="img/banner/MA---Marina-Sena---multi-ingressos (1).jpg" alt="Slide 1" style="width: 80%;">
                     </div>
-                    <div class="swiper-slide desktop-slide">
-                        <img src="img/carrossel/1114e27e8c8de9b4722effa7a9aa7095.webp" style="width: 30%;"
-                            alt="Slide 2">
+                    <div class="swiper-slide">
+                        <img src="img/banner/1080x1080 (5).jpg" alt="Slide 2" style="width: 80%;">
                     </div>
-                    <div class="swiper-slide desktop-slide">
-                        <img src="img/carrossel/5d4676d4b5462169eec5b0c272774ab2.webp" style="width: 30%;"
-                            alt="Slide 3">
+                    <div class="swiper-slide">
+                        <img src="img/banner/WhatsApp Image 2024-04-24 at 13.59.24.jpeg" alt="Slide 3" style="width: 80%;">
                     </div>
-                    <div class="swiper-slide desktop-slide">
-                        <img src="img/carrossel/81404b5b5892d32636c064acf1b9bef9.webp" style="width: 30%;"
-                            alt="Slide 4">
+                    <div class="swiper-slide">
+                        <img src="img/banner/MA---BRF---Pitty-Falcao-multiingressos.jpg" alt="Slide 4" style="width: 80%;">
                     </div>
-                    <div class="swiper-slide desktop-slide">
-                        <img src="img/carrossel/a5172ea0e5d6083132307db858fef059.webp" style="width: 30%;"
-                            alt="Slide 5">
+                    <div class="swiper-slide">
+                        <img src="img/banner/1080x1080 (5).jpg" alt="Slide 5" style="width: 80%;">
                     </div>
-
-                    <!-- More Slides 
-                    <div class="swiper-slide desktop-slide">
-                        <img src="img/carrossel/a965aad1949155129d29a786e86ffc29.webp" alt="Slide 6">
-                    </div>
-                    <div class="swiper-slide desktop-slide">
-                        <img src="img/carrossel/ecc5a8888a2debe8eebef946fbb329f9.webp" alt="Slide 7">
-                    </div>
-                    <div class="swiper-slide desktop-slide">
-                        <img src="img/carrossel/f9d3ecd404339766911a2881845f7a58.webp" alt="Slide 8">
-                    </div>-->
-
-                    <!-- Mobile Slides -->
-                    <div class="swiper-slide mobile-slide">
-                        <img src="img/banner/MA---Marina-Sena---multi-ingressos (1).jpg" alt="Slide 1">
-                    </div>
-                    <div class="swiper-slide mobile-slide">
-                        <img src="img/banner/1080x1080 (5).jpg" alt="Slide 2">
-                    </div>
-                    <div class="swiper-slide mobile-slide">
-                        <img src="img/banner/WhatsApp Image 2024-04-24 at 13.59.24.jpeg" alt="Slide 3">
-                    </div>
-                    <div class="swiper-slide mobile-slide">
-                        <img src="img/banner/MA---BRF---Pitty-Falcao-multiingressos.jpg" alt="Slide 4">
-                    </div>
-                    <div class="swiper-slide mobile-slide">
-                        <img src="img/banner/WhatsApp Image 2024-04-02 at 10.20.09.jpeg" alt="Slide 5">
-                    </div>
-                    <!-- More Slides 
-                    <div class="swiper-slide mobile-slide">
-                        <img src="img/carrossel-mobile/6.webp" alt="Slide 6">
-                    </div>
-                    <div class="swiper-slide mobile-slide">
-                        <img src="img/carrossel-mobile/7.webp" alt="Slide 7">
-                    </div>
-                    <div class="swiper-slide mobile-slide">
-                        <img src="img/carrossel-mobile/8.webp" alt="Slide 8">
-                    </div>-->
-                    <!-- Paginação Desktop -->
-                    <!-- Paginação Desktop -->
-                    <div class="swiper-pagination swiper-pagination-desktop"
-                        style="position: absolute; bottom: 10px; left: 0; width: 100%;"></div>
-
-                    <!-- Paginação Mobile -->
-                    <div class="swiper-pagination swiper-pagination-mobile"
-                        style="position: absolute; bottom: 10px; left: 0; width: 100%;"></div>
                 </div>
+                <!-- Paginação -->
+                <div class="swiper-pagination" style="position: absolute; bottom: 10px; left: 50%; width: 200px;"></div>
             </div>
         </div>
     </div>
+
 
 
     <!-- Desktop Version -->
@@ -880,14 +848,20 @@
 
 
         var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 30,
             pagination: {
-                el: '.swiper-pagination-desktop, .swiper-pagination-mobile',
+                el: '.swiper-pagination',
                 clickable: true,
-                bulletClass: 'swiper-pagination-bullet',
-                bulletActiveClass: 'swiper-pagination-bullet-active'
             },
-
+            breakpoints: {
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                }
+            }
         });
+
 
         function adjustCarousel() {
             var desktopSlides = document.querySelectorAll('.desktop-slide');
