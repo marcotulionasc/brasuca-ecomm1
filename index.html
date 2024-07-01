@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ingressar</title>
+    <link href="css/properties.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"
@@ -17,7 +18,7 @@
     <link rel="stylesheet" href="css/complement.css">
 </head>
 
-<body class="font-poppins">
+<body class="font-poppins" style="background-color: var(--background-color); color: var(--primary-text-color);">
     <div class="main-content">
         <!-- Navigation Mobile -->
         <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50 md:hidden">
@@ -54,46 +55,47 @@
         </nav>
 
         <!-- Mobile Header -->
-        <header class="bg-blue-600 p-3 mobile-header hidden mb-2">
+        <header class="p-3 mobile-header hidden mb-2" style="background-color: var(--primary-color);">
             <div class="flex justify-between items-center w-full">
                 <button class="mobile-menu-icon bg-white text-gray-500 p-1 rounded-lg" aria-label="Menu"
                     onclick="toggleSidebar()">
                     <i class="bi bi-list"></i>
                 </button>
                 <img src="img/logo/brasuca-multicultural-logo.webp" alt="Logo" class="w-1/2">
-                <button class="bg-white text-gray-500 p-1 rounded-lg" aria-label="Carrinho de Compras"
+                <button class="bg-white text-gray-500 p-1 rounded-lg toggle-cart" aria-label="Carrinho de Compras"
                     onclick="window.location.href='#'">
                     <i class="bi bi-cart-check-fill"></i>
                 </button>
             </div>
             <div class="relative w-full mt-2">
                 <input type="text" placeholder="Encontre o evento perfeito para você!"
-                    class="px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 w-full h-10 text-sm">
+                    class="px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-action-color w-full h-10 text-sm">
                 <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-                    <i class="bi bi-search text-white bg-blue-600 p-1 rounded-full"></i>
+                    <i class="bi bi-search text-white"
+                        style="background-color: var(--primary-color); padding: 4px; border-radius: 50%;"></i>
                 </div>
             </div>
         </header>
 
         <!-- Desktop Header -->
-        <header class="bg-blue-600 p-3 hidden md:flex justify-between items-center">
+        <header class="p-3 hidden md:flex justify-between items-center" style="background-color: var(--primary-color);">
             <div class="flex items-center space-x-6">
                 <img src="img/logo/brasuca-multicultural-logo.webp" alt="Logo" class="w-32">
                 <div class="relative">
                     <input type="text" placeholder="Encontre o evento perfeito para você!"
-                        class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 w-96">
+                        class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-action-color w-96">
                     <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-                        <i class="bi bi-search text-gray-500"></i>
+                        <i class="bi bi-search" style="color: var(--secondary-text-color);"></i>
                     </div>
                 </div>
             </div>
             <div class="flex items-center space-x-4">
                 <button type="button"
-                    class="px-4 py-2 bg-white text-gray-500 rounded-lg transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white toggle-login">Entrar</button>
+                    class="px-4 py-2 bg-white text-gray-500 rounded-lg transition duration-300 ease-in-out hover:bg-primary-color hover:text-white toggle-login">Entrar</button>
                 <button type="button"
-                    class="px-4 py-2 bg-white text-gray-500 rounded-lg transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white toggle-cadastro">Cadastre-se</button>
+                    class="px-4 py-2 bg-white text-gray-500 rounded-lg transition duration-300 ease-in-out hover:bg-primary-color hover:text-white toggle-cadastro">Cadastre-se</button>
                 <button type="button"
-                    class="px-4 py-2 bg-white text-gray-500 rounded-lg transition duration-300 ease-in-out hover:bg-blue-700 hover:text-white flex items-center toggle-cart">
+                    class="px-4 py-2 bg-white text-gray-500 rounded-lg transition duration-300 ease-in-out hover:bg-primary-color hover:text-white flex items-center toggle-cart">
                     <i class="bi bi-cart-check-fill"></i>
                 </button>
             </div>
@@ -101,48 +103,50 @@
 
         <!-- Sidebar -->
         <div id="sidebar"
-            class="fixed top-0 left-0 h-full w-64 bg-gray-900 text-white transition-transform transform -translate-x-full md:hidden z-50">
+            class="fixed top-0 left-0 h-full w-64 text-white transition-transform transform -translate-x-full md:hidden z-50"
+            style="background-color: var(--background-color)">
             <div class="flex items-center p-4 space-x-1">
-                <div class="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center">
+                <div class="w-12 h-12 rounded-full flex items-center justify-center"
+                    style="background-color: var(--primary-color);">
                     <!-- Espaço para a foto de perfil -->
                 </div>
-                <span>Olá, Visitante</span>
-                <span class="absolute top-4 right-4 text-2xl cursor-pointer" onclick="toggleSidebar()">&times;</span>
+                <span style="margin-left: 10px; color: var(--primary-text-color);">Olá, Visitante</span>
+                <span style="color: var(--primary-text-color);" class="absolute top-4 right-4 text-2xl cursor-pointer" onclick="toggleSidebar()">&times;</span>
             </div>
             <div class="flex flex-col p-4 space-y-4">
-                <a href="index.html" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded">
+                <a href="index.html" style="color: var(--primary-text-color);" class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded">
                     <i class="bi bi-house-door-fill"></i>
-                    <span>Início</span>
+                    <span style="color: var(--primary-text-color);">Início</span>
                 </a>
-                <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded toggle-login">
+                <a href="#" style="color: var(--primary-text-color);" class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded toggle-login">
                     <i class="bi bi-person-fill"></i>
-                    <span>Entrar</span>
+                    <span style="color: var(--primary-text-color);">Entrar</span>
                 </a>
 
-                <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded toggle-cadastro">
+                <a href="#" style="color: var(--primary-text-color);" class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded toggle-cadastro">
                     <i class="bi bi-person-fill"></i>
-                    <span>Cadastrar-se</span>
+                    <span style="color: var(--primary-text-color);">Cadastrar-se</span>
                 </a>
 
-                <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded toggle-cart">
+                <a href="#" style="color: var(--primary-text-color);" class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded toggle-cart">
                     <i class="bi bi-box-seam"></i>
-                    <span>Meus Ingressos</span>
+                    <span style="color: var(--primary-text-color);">Meus Ingressos</span>
                 </a>
                 <div class="group relative">
-                    <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded">
+                    <a href="#" style="color: var(--primary-text-color);" class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded">
                         <i class="bi bi-grid-fill"></i>
-                        <span>Eventos</span>
+                        <span style="color: var(--primary-text-color);">Eventos</span>
                     </a>
-                    <div class="absolute left-full top-0 hidden group-hover:block bg-gray-800 p-2 rounded shadow-lg">
-                        <a href="#" class="block p-2 hover:bg-gray-700 rounded">Categoria 1</a>
-                        <a href="#" class="block p-2 hover:bg-gray-700 rounded">Categoria 2</a>
+                    <div style="color: var(--primary-text-color);" class="absolute left-full top-0 hidden group-hover:block bg-gray-800 p-2 rounded shadow-lg">
+                        <a href="#" class="block p-2 hover:bg-secondary-color rounded">Categoria 1</a>
+                        <a href="#" class="block p-2 hover:bg-secondary-color rounded">Categoria 2</a>
                     </div>
                 </div>
-                <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded">
+                <a href="#" style="color: var(--primary-text-color);" class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded">
                     <i class="bi bi-question-circle-fill"></i>
-                    <span>FAQ</span>
+                    <span style="color: var(--primary-text-color);">FAQ</span>
                 </a>
-                <a href="#" class="flex items-center space-x-1 hover:bg-gray-700 p-2 rounded">
+                <a href="#" style="color: var(--primary-text-color);" class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded">
                     <i class="bi bi-headset"></i>
                     <span>Contato</span>
                 </a>
@@ -150,34 +154,30 @@
         </div>
 
         <!-- Categoria Navbar -->
-        <nav class="container-local bg-white mt-2 hidden md:flex justify-center">
-            <ul class="flex items-center space-x-12 text-gray-700">
-                <li><a href="index.html" class="hover:text-gray-900 no-underline"><strong><i class="bi bi-list-ul"></i>
-                            TODOS GENÊROS <i class="bi bi-chevron-down"></i></strong></a></li>
-                <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-star"></i>
-                        CARNAVAL</a>
+        <nav class="container-local mt-2 hidden md:flex justify-center" style="background-color: #FFFFFF;">
+            <ul class="flex items-center space-x-12" style="color: #333333;">
+                <li><a href="index.html" style="text-decoration: none; color: var(--second-text-color);"><strong><i
+                                class="bi bi-list-ul"></i> TODOS GENÊROS <i class="bi bi-chevron-down"></i></strong></a>
                 </li>
-                <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-megaphone"></i>
-                        FLASHBACK</a></li>
-                <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-droplet"></i>
-                        FORRÓ</a>
-                </li>
-                <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-lightning"></i>
-                        MPB</a>
-                </li>
-                <li><a href="products.html" class="hover:text-gray-900 no-underline"><i
-                            class="bi bi-battery-charging"></i>
-                        PAGODE</a></li>
-                <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-bullseye"></i>
-                        POP</a>
-                </li>
-                <li><a href="products.html" class="hover:text-gray-900 no-underline"><i class="bi bi-handbag-fill"></i>
-                        ROCK</a></li>
+                <li><a href="products.html" style="text-decoration: none; color: var(--second-text-color);"><i
+                            class="bi bi-star"></i> CARNAVAL</a></li>
+                <li><a href="products.html" style="text-decoration: none; color: var(--second-text-color);"><i
+                            class="bi bi-megaphone"></i> FLASHBACK</a></li>
+                <li><a href="products.html" style="text-decoration: none; color: var(--second-text-color);"><i
+                            class="bi bi-droplet"></i> FORRÓ</a></li>
+                <li><a href="products.html" style="text-decoration: none; color: var(--second-text-color);"><i
+                            class="bi bi-lightning"></i> MPB</a></li>
+                <li><a href="products.html" style="text-decoration: none; color: var(--second-text-color);"><i
+                            class="bi bi-battery-charging"></i> PAGODE</a></li>
+                <li><a href="products.html" style="text-decoration: none; color: var(--second-text-color);"><i
+                            class="bi bi-bullseye"></i> POP</a></li>
+                <li><a href="products.html" style="text-decoration: none; color: var(--second-text-color);"><i
+                            class="bi bi-handbag-fill"></i> ROCK</a></li>
             </ul>
         </nav>
 
         <!-- Categoria Navbar for Mobile (Hidden by default) -->
-        <nav class="container-local bg-white mt-3 mobile-navbar hidden">
+        <nav class="container-local bg-background-color mt-3 mobile-navbar hidden">
             <div class="flex justify-center items-center">
                 <ul class="flex flex-col items-center space-y-4">
                     <!-- Add mobile navbar items here -->
@@ -186,7 +186,7 @@
         </nav>
 
         <!-- Swiper Section -->
-        <div class="container-local bg-white">
+        <div class="container-local bg-background-color">
             <div class="swiper-container relative custom-width mx-auto" style="align-items: center;">
                 <div class="swiper-wrapper">
                     <!-- Slides -->
@@ -212,14 +212,14 @@
         </div>
 
         <!-- Filtros de Busca Desktop -->
-        <div class="container-local bg-white mt-8 p-6 rounded-lg shadow-lg hidden md:block">
+        <div class="container-local bg-background-color mt-8 p-6 rounded-lg shadow-lg hidden md:block">
             <div style="margin-left: 40px; margin-right: 40px;">
                 <div class="flex justify-between items-center">
 
                     <div class="flex flex-col">
-                        <label for="tipo-evento" class="font-medium text-gray-700">Tipo de Evento</label>
+                        <label for="tipo-evento" class="font-medium text-primary-text-color">Tipo de Evento</label>
                         <select id="tipo-evento"
-                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
                             <option>Show</option>
                             <option>Teatro</option>
                             <option>Esporte</option>
@@ -227,34 +227,34 @@
                         </select>
                     </div>
                     <div class="flex flex-col">
-                        <label for="localizacao" class="font-medium text-gray-700">Localização</label>
+                        <label for="localizacao" class="font-medium text-primary-text-color">Localização</label>
                         <input type="text" id="localizacao" placeholder="Digite a cidade"
-                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
                     </div>
                     <div class="flex flex-col">
-                        <label for="data-evento" class="font-medium text-gray-700">Data</label>
+                        <label for="data-evento" class="font-medium text-primary-text-color">Data</label>
                         <input type="date" id="data-evento"
-                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
                     </div>
                     <div class="flex flex-col">
-                        <label for="preco-evento" class="font-medium text-gray-700">Preço</label>
+                        <label for="preco-evento" class="font-medium text-primary-text-color">Preço</label>
                         <input type="number" id="preco-evento" placeholder="Máximo"
-                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
                     </div>
-                    <button
-                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out">Filtrar</button>
+                    <button class="px-4 py-2 rounded-lg transition duration-300 ease-in-out"
+                        style="background-color: var(--action-color); color: var(--background-color);">Filtrar</button>
 
                 </div>
             </div>
         </div>
 
         <!-- Filtros de Busca Mobile -->
-        <div class="container-local bg-white mt-8 p-4 rounded-lg shadow-lg block md:hidden">
+        <div class="container-local bg-background-color mt-8 p-4 rounded-lg shadow-lg block md:hidden">
             <div class="flex flex-col space-y-4">
                 <div class="flex flex-col">
-                    <label for="tipo-evento-mobile" class="font-medium text-gray-700">Tipo de Evento</label>
+                    <label for="tipo-evento-mobile" class="font-medium text-primary-text-color">Tipo de Evento</label>
                     <select id="tipo-evento-mobile"
-                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
                         <option>Show</option>
                         <option>Teatro</option>
                         <option>Esporte</option>
@@ -262,22 +262,22 @@
                     </select>
                 </div>
                 <div class="flex flex-col">
-                    <label for="localizacao-mobile" class="font-medium text-gray-700">Localização</label>
+                    <label for="localizacao-mobile" class="font-medium text-primary-text-color">Localização</label>
                     <input type="text" id="localizacao-mobile" placeholder="Digite a cidade"
-                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
                 </div>
                 <div class="flex flex-col">
-                    <label for="data-evento-mobile" class="font-medium text-gray-700">Data</label>
+                    <label for="data-evento-mobile" class="font-medium text-primary-text-color">Data</label>
                     <input type="date" id="data-evento-mobile"
-                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
                 </div>
                 <div class="flex flex-col">
-                    <label for="preco-evento-mobile" class="font-medium text-gray-700">Preço</label>
+                    <label for="preco-evento-mobile" class="font-medium text-primary-text-color">Preço</label>
                     <input type="number" id="preco-evento-mobile" placeholder="Máximo"
-                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
                 </div>
-                <button
-                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out">Filtrar</button>
+                <button class="px-4 py-2 rounded-lg transition duration-300 ease-in-out"
+                    style="background-color: var(--action-color); color: var(--background-color);">Filtrar</button>
             </div>
         </div>
 
@@ -289,14 +289,15 @@
                     <img src="img/banner/MA---Marina-Sena---multi-ingressos (1).jpg" alt="Evento 1"
                         class="w-full h-auto rounded-lg">
                     <div class="mt-4 text-center">
-                        <h2 class="text-xl font-bold text-orange-500">Marina Sena</h2>
-                        <p class="text-gray-700">Sexta-Feira, 21 de junho</p>
-                        <p class="text-gray-700">Shopping Iguatemi Campinas (Estacionamento C)</p>
-                        <p class="text-gray-700">CAMPINAS - SP</p>
+                        <h2 class="text-xl font-bold" style="color: var(--secondary-color);">Marina Sena</h2>
+                        <p style="color: var(--primary-text-color);">Sexta-Feira, 21 de junho</p>
+                        <p style="color: var(--primary-text-color);">Shopping Iguatemi Campinas (Estacionamento C)</p>
+                        <p style="color: var(--primary-text-color);">CAMPINAS - SP</p>
                     </div>
                     <div
-                        class="absolute inset-0 bg-white bg-opacity-75 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <button class="bg-green-500 text-white px-4 py-2 rounded">COMPRAR</button>
+                        class="absolute inset-0 bg-background-color bg-opacity-75 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <button class="px-4 py-2 rounded"
+                            style="background-color: var(--primary-color); color: var(--background-color);">COMPRAR</button>
                     </div>
                 </div>
 
@@ -304,43 +305,47 @@
                 <div class="relative group border border-gray-300 rounded-lg p-4">
                     <img src="img/banner/1080x1080 (5).jpg" alt="Evento 2" class="w-full h-auto rounded-lg">
                     <div class="mt-4 text-center">
-                        <h2 class="text-xl font-bold text-orange-500">Orquestra Rock convida CPM22</h2>
-                        <p class="text-gray-700">Sexta-Feira, 21 de junho</p>
-                        <p class="text-gray-700">Espaço na Mata</p>
-                        <p class="text-gray-700">Botucatu - SP</p>
+                        <h2 class="text-xl font-bold" style="color: var(--secondary-color);">Orquestra Rock convida
+                            CPM22</h2>
+                        <p style="color: var(--primary-text-color);">Sexta-Feira, 21 de junho</p>
+                        <p style="color: var(--primary-text-color);">Espaço na Mata</p>
+                        <p style="color: var(--primary-text-color);">Botucatu - SP</p>
                     </div>
                     <div
-                        class="absolute inset-0 bg-white bg-opacity-75 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <button class="bg-green-500 text-white px-4 py-2 rounded">COMPRAR</button>
+                        class="absolute inset-0 bg-background-color bg-opacity-75 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <button class="px-4 py-2 rounded"
+                            style="background-color: var(--primary-color); color: var(--background-color);">COMPRAR</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Ver Mais Button -->
-        <div class="container-local flex justify-center bg-white py-4">
-            <button
-                class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out">+
-                VER MAIS</button>
+        <div class="container-local flex justify-center py-4" style="background-color: var(--background-color);">
+            <button class="px-6 py-2 rounded-lg hover:bg-primary-color transition duration-300 ease-in-out"
+                style="background-color: var(--action-color); color: var(--background-color);">+ VER MAIS</button>
         </div>
 
         <!-- Mobile Newsletter Section -->
         <div class="container-local mx-auto mt-12 block md:hidden">
-            <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                <div class="bg-blue-600 text-white text-center py-6">
+            <div class="shadow-md rounded-lg overflow-hidden" style="background-color: var(--background-color);">
+                <div class="text-center py-6"
+                    style="background-color: var(--primary-color); color: var(--background-color);">
                     <h1 class="text-xl font-bold">Cadastre seu e-mail e receba nossas novidades!</h1>
                 </div>
                 <div class="p-6 flex flex-col items-center justify-center space-y-4">
                     <form action="#" method="POST" class="w-full flex flex-col items-center space-y-4">
                         <div class="w-full">
-                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <label for="email" class="block text-sm font-medium"
+                                style="color: var(--primary-text-color);">Email</label>
                             <input type="email" name="email" id="email" required
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
                                 placeholder="Digite seu melhor email">
                         </div>
                         <div class="w-full">
                             <button type="submit"
-                                class="w-full bg-blue-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium hover:bg-primary-color focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-color"
+                                style="background-color: var(--action-color); color: var(--background-color);">
                                 Inscreva-se agora!
                             </button>
                         </div>
@@ -352,34 +357,38 @@
         <!-- Footer -->
         <footer class="bg-gray-100 py-8">
             <div class="container-local mx-auto flex justify-between items-center hidden md:flex">
-                <div class="bg-white shadow-md rounded-lg p-4">
+                <div class="shadow-md rounded-lg p-4" style="background-color: var(--background-color);">
                     <img src="img/confianca/site blindado.jpg" alt="Selo autoridade" class="w-full h-auto">
                 </div>
-                <div class="bg-white shadow-md rounded-lg p-4">
+                <div class="shadow-md rounded-lg p-4" style="background-color: var(--background-color);">
                     <img src="img/confianca/img_33128.png" alt="Selo autoridade" class="w-full h-auto">
                 </div>
-                <div class="bg-white shadow-md rounded-lg p-4">
+                <div class="shadow-md rounded-lg p-4" style="background-color: var(--background-color);">
                     <img src="img/confianca/site-sustentável.jpg" alt="Selo autoridade" class="w-full h-auto">
                 </div>
-                <div class="bg-white shadow-md rounded-lg p-4">
+                <div class="shadow-md rounded-lg p-4" style="background-color: var(--background-color);">
                     <img src="img/confianca/garantimos-dinheiro.jpg" alt="Selo autoridade" class="w-full h-auto">
                 </div>
             </div>
 
             <div class="container-local grid grid-cols-2 gap-4 mt-10 mb-10 md:hidden">
-                <div class="bg-white shadow-md rounded-lg flex justify-center items-center p-4">
+                <div class="shadow-md rounded-lg flex justify-center items-center p-4"
+                    style="background-color: var(--background-color);">
                     <img src="img/confianca/site blindado.jpg" alt="Selo autoridade"
                         class="w-full h-auto rounded-md max-h-48 object-contain">
                 </div>
-                <div class="bg-white shadow-md rounded-lg flex justify-center items-center p-4">
+                <div class="shadow-md rounded-lg flex justify-center items-center p-4"
+                    style="background-color: var(--background-color);">
                     <img src="img/confianca/img_33128.png" alt="Selo autoridade"
                         class="w-full h-auto rounded-md max-h-48 object-contain">
                 </div>
-                <div class="bg-white shadow-md rounded-lg flex justify-center items-center p-4">
+                <div class="shadow-md rounded-lg flex justify-center items-center p-4"
+                    style="background-color: var(--background-color);">
                     <img src="img/confianca/site-sustentável.jpg" alt="Selo autoridade"
                         class="w-full h-auto rounded-md max-h-48 object-contain">
                 </div>
-                <div class="bg-white shadow-md rounded-lg flex justify-center items-center p-4">
+                <div class="shadow-md rounded-lg flex justify-center items-center p-4"
+                    style="background-color: var(--background-color);">
                     <img src="img/confianca/garantimos-dinheiro.jpg" alt="Selo autoridade"
                         class="w-full h-auto rounded-md max-h-48 object-contain">
                 </div>
@@ -389,40 +398,52 @@
                 <h3 class="text-xl font-bold text-center mb-6">Formas de Pagamento</h3>
                 <div class="flex flex-wrap justify-center items-center space-y-4 sm:space-y-0">
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
+                            style="background-color: var(--background-color);">
                             <img src="img/payment-methods/visa.svg" alt="Visa" class="h-6">
                         </div>
-                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
+                            style="background-color: var(--background-color);">
                             <img src="img/payment-methods/master.svg" alt="MasterCard" class="h-6">
                         </div>
-                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
+                            style="background-color: var(--background-color);">
                             <img src="img/payment-methods/3.svg" alt="Method 3" class="h-6">
                         </div>
-                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
+                            style="background-color: var(--background-color);">
                             <img src="img/payment-methods/american-express.svg" alt="American Express" class="h-6">
                         </div>
-                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
+                            style="background-color: var(--background-color);">
                             <img src="img/payment-methods/hipercard.svg" alt="Hipercard" class="h-6">
                         </div>
-                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
+                            style="background-color: var(--background-color);">
                             <img src="img/payment-methods/aura.svg" alt="Aura" class="h-6">
                         </div>
-                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
+                            style="background-color: var(--background-color);">
                             <img src="img/payment-methods/elo.svg" alt="Elo" class="h-10">
                         </div>
-                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
+                            style="background-color: var(--background-color);">
                             <img src="img/payment-methods/codebars.svg" alt="Codebars" class="h-6">
                         </div>
-                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
+                            style="background-color: var(--background-color);">
                             <img src="img/payment-methods/bancobrasil.svg" alt="Banco do Brasil" class="h-6">
                         </div>
-                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
+                            style="background-color: var(--background-color);">
                             <img src="img/payment-methods/caixa.svg" alt="Caixa" class="h-6">
                         </div>
-                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
+                            style="background-color: var(--background-color);">
                             <img src="img/payment-methods/paypal.svg" alt="PayPal" class="h-6">
                         </div>
-                        <div class="bg-white shadow-md rounded-lg p-4 flex justify-center items-center">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
+                            style="background-color: var(--background-color);">
                             <img src="img/payment-methods/pix.svg" alt="Pix" class="h-6">
                         </div>
                     </div>
@@ -488,15 +509,15 @@
                         </div>
                         <p class="text-gray-700 text-sm">Copyright 2024 Brasuca - Todos os Direitos Reservados.</p>
                         <p class="text-gray-700 text-sm">Preços e condições de pagamento apresentados neste 'site'
-                            somente
-                            são válidos para as compras efetuadas no ato da sua exibição. *Condições de pagamento à
-                            vista
-                            somente para depósitos, transferências e boleto bancário.</p>
+                            somente são válidos para as compras efetuadas no ato da sua exibição. *Condições de
+                            pagamento à
+                            vista somente para depósitos, transferências e boleto bancário.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-10 p-6 bg-blue-500 text-white rounded shadow-lg text-center text-sm">
+            <div class="mt-10 p-6 rounded shadow-lg text-center text-sm"
+                style="background-color: var(--primary-color); color: var(--background-color);">
                 <div>
                     Brasuca LTDA - Todos os direitos reservados - CNPJ 11.111.111/0001-01 Endereço
                 </div>
@@ -522,17 +543,18 @@
                     <div>
                         <label for="loginEmail" class="block text-sm font-medium text-gray-700">Email</label>
                         <input type="email" id="loginEmail" name="email" required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
                             placeholder="Digite seu email">
                     </div>
                     <div>
                         <label for="loginPassword" class="block text-sm font-medium text-gray-700">Senha</label>
                         <input type="password" id="loginPassword" name="password" required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
                             placeholder="Digite sua senha">
                     </div>
                     <button type="submit"
-                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-sm text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Entrar</button>
+                        class="w-full py-2 px-4 rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-color"
+                        style="background-color: var(--primary-color); color: var(--background-color);">Entrar</button>
                 </form>
             </div>
         </div>
@@ -552,23 +574,24 @@
                     <div>
                         <label for="cadastroNome" class="block text-sm font-medium text-gray-700">Nome</label>
                         <input type="text" id="cadastroNome" name="nome" required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
                             placeholder="Digite seu nome">
                     </div>
                     <div>
                         <label for="cadastroEmail" class="block text-sm font-medium text-gray-700">Email</label>
                         <input type="email" id="cadastroEmail" name="email" required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
                             placeholder="Digite seu email">
                     </div>
                     <div>
                         <label for="cadastroSenha" class="block text-sm font-medium text-gray-700">Senha</label>
                         <input type="password" id="cadastroSenha" name="senha" required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
                             placeholder="Digite sua senha">
                     </div>
                     <button type="submit"
-                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-sm text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Cadastrar</button>
+                        class="w-full py-2 px-4 rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-color"
+                        style="background-color: var(--primary-color); color: var(--background-color);">Cadastrar</button>
                 </form>
             </div>
         </div>
@@ -588,7 +611,8 @@
                 <!-- Lista de ingressos selecionados -->
             </ul>
             <button
-                class="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-sm text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Finalizar
+                class="mt-4 w-full py-2 px-4 rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-color"
+                style="background-color: var(--primary-color); color: var(--background-color);">Finalizar
                 Compra</button>
         </div>
     </div>
@@ -685,7 +709,6 @@
             var sidebar = document.getElementById("sidebar");
             sidebar.classList.toggle('-translate-x-full');
         }
-
     </script>
 </body>
 
