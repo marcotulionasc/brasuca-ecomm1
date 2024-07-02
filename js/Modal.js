@@ -35,56 +35,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const cadastroForm = document.getElementById('cadastroForm');
-    if (cadastroForm) {
-        cadastroForm.addEventListener('submit', async function (event) {
-            event.preventDefault();
-
-            const tenantId = 1; // Altere conforme necessário
-            const url = `http://localhost:9090/api/tenants/${tenantId}/user/create`;
-
-            const formData = new FormData(this);
-            const imageFile = formData.get('imageProfile');
-
-            if (imageFile) {
-                const reader = new FileReader();
-                reader.onloadend = async function () {
-                    const imageBase64 = reader.result.split(',')[1]; // Pega apenas a parte base64 da string
-
-                    const data = {
-                        name: formData.get('nome'),
-                        cpf: formData.get('cpf'),
-                        birthDate: formData.get('dataNascimento'),
-                        email: formData.get('email'),
-                        password: formData.get('senha'),
-                        phone: formData.get('phone'), // Adicione se necessário
-                        imageProfileBase64: imageBase64
-                    };
-
-                    try {
-                        const response = await fetch(url, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(data)
-                        });
-
-                        if (!response.ok) {
-                            throw new Error('Erro ao cadastrar usuário');
-                        }
-
-                        const result = await response.json();
-                        console.log('Usuário cadastrado com sucesso:', result);
-                        toggleModal('cadastroModal'); // Fechar o modal após o sucesso
-
-                    } catch (error) {
-                        console.error('Erro:', error);
-                        alert('Erro ao cadastrar usuário');
-                    }
+    document.getElementById('cadastroForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        const tenantId = 1; // Altere conforme necessário
+        const url = `http://localhost:9090/api/tenants/${tenantId}/user/create`;
+        
+        const formData = new FormData(this);
+        const imageFile = formData.get('imageProfile');
+    
+        if (imageFile && imageFile.size > 0) {
+            const reader = new FileReader();
+            reader.onloadend = async function () {
+                const imageBase64 = reader.result.split(',')[1]; // Pega apenas a parte base64 da string
+    
+                const data = {
+                    name: formData.get('nome'),
+                    cpf: formData.get('cpf'),
+                    birthDate: formData.get('dataNascimento'),
+                    email: formData.get('email'),
+                    password: formData.get('senha'),
+                    phone: formData.get('phone'), // Adicione se necessário
+                    imageProfileBase64: imageBase64 // Garante que a imagem convertida em base64 seja enviada
                 };
-                reader.readAsDataURL(imageFile);
-            }
-        });
-    }
+    
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+    
+                    if (!response.ok) {
+                        throw new Error('Erro ao cadastrar usuário');
+                    }
+    
+                    const result = await response.json();
+                    console.log('Usuário cadastrado com sucesso:', result);
+                    toggleModal('cadastroModal'); // Fechar o modal após o sucesso
+    
+                } catch (error) {
+                    console.error('Erro:', error);
+                    alert('Erro ao cadastrar usuário');
+                }
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            alert('Por favor, selecione uma imagem de perfil.');
+        }
+    });
+    
+    
 });

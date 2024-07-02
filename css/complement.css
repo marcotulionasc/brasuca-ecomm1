@@ -51,3 +51,18 @@
     align-items: center;
 }
 
+.profile-image-container {
+    width: 70px; 
+    height: 70px; 
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color); 
+}
+
+.profile-image-container img {
+    width: 100%;
+    height: auto; 
+}
