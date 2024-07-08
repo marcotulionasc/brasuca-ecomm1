@@ -1,5 +1,13 @@
 import config from './Config/config.js';
 
+function toggleModal(modalId) {
+    const modal = document.getElementById(modalId);
+    const mainContent = document.querySelector('.main-content');
+
+    modal.classList.toggle('hidden');
+    mainContent.classList.toggle('blurred');
+}
+
 document.getElementById('loginForm').addEventListener('submit', async function (event) {
     event.preventDefault();
 
