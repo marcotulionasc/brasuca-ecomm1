@@ -37,20 +37,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    document.getElementById('cadastroForm').addEventListener('submit', async function(event) {
+    document.getElementById('cadastroForm').addEventListener('submit', async function (event) {
         event.preventDefault();
-        
+
         const tenantId = 1; // Altere conforme necessário
         const url = `${config.apiBaseUrl}/tenants/${tenantId}/user/create`;
-        
+
         const formData = new FormData(this);
         const imageFile = formData.get('imageProfile');
-    
+
         if (imageFile && imageFile.size > 0) {
             const reader = new FileReader();
             reader.onloadend = async function () {
                 const imageBase64 = reader.result.split(',')[1]; // Pega apenas a parte base64 da string
-    
+
                 const data = {
                     name: formData.get('nome'),
                     cpf: formData.get('cpf'),
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     phone: formData.get('phone'), // Adicione se necessário
                     imageProfileBase64: imageBase64 // Garante que a imagem convertida em base64 seja enviada
                 };
-    
+
                 try {
                     const response = await fetch(url, {
                         method: 'POST',
@@ -69,15 +69,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         },
                         body: JSON.stringify(data)
                     });
-    
+
                     if (!response.ok) {
                         throw new Error('Erro ao cadastrar usuário');
                     }
-    
+
                     const result = await response.json();
                     console.log('Usuário cadastrado com sucesso:', result);
                     toggleModal('cadastroModal'); // Fechar o modal após o sucesso
-    
+
                 } catch (error) {
                     console.error('Erro:', error);
                     alert('Erro ao cadastrar usuário');
@@ -88,6 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Por favor, selecione uma imagem de perfil.');
         }
     });
-    
-    
+
+
 });
