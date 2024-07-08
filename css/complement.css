@@ -59,10 +59,12 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    border: 2px solid var(--primary-color); 
+    border: 3px solid #c9480c;
+    box-sizing: border-box; /* Inclui a borda nas dimensões do contêiner */
 }
 
 .profile-image-container img {
     width: 100%;
-    height: auto; 
+    height: 100%;
+    object-fit: cover; /* Faz a imagem preencher o contêiner mantendo a proporção e cortando o excesso */
 }

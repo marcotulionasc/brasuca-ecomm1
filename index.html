@@ -9,8 +9,7 @@
     <link href="css/properties.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"
-        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet">
@@ -58,15 +57,13 @@
         <!-- Mobile Header -->
         <header class="p-3 mobile-header hidden mb-2" style="background-color: var(--primary-color);">
             <div class="flex justify-between items-center w-full">
-                <button class="mobile-menu-icon bg-white text-gray-500 p-1 rounded-lg" aria-label="Menu"
-                    onclick="toggleSidebar()">
+                <button class="mobile-menu-icon bg-white text-gray-500 p-1 rounded-lg" aria-label="Menu" onclick="toggleSidebar()">
                     <i class="bi bi-list"></i>
                 </button>
                 <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-1/2">
-                <button class="bg-white text-gray-500 p-1 rounded-lg toggle-cart" aria-label="Carrinho de Compras"
-                    onclick="window.location.href='#'">
+                <button class="bg-white text-gray-500 p-1 rounded-lg toggle-cart" aria-label="Carrinho de Compras">
                     <i class="bi bi-cart-check-fill"></i>
-                </button>
+                </button>                
             </div>
             <div class="relative w-full mt-2">
                 <input type="text" placeholder="Encontre o evento perfeito para você!"
@@ -135,7 +132,7 @@
                 <a href="#" style="color: var(--primary-text-color);"
                     class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded toggle-cart">
                     <i class="bi bi-box-seam"></i>
-                    <span style="color: var (--primary-text-color);">Meus Ingressos</span>
+                    <span style="color: var(--primary-text-color);">Meus Ingressos</span>
                 </a>
                 <div class="group relative">
                     <a href="#" style="color: var(--primary-text-color);"
@@ -166,6 +163,23 @@
                 </a>
             </div>
         </div>
+
+        <div id="cartSidebar" class="fixed right-0 top-0 h-full w-72 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+            <div class="p-4">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-bold">Meus ingressos</h2>
+                    <button onclick="toggleSidebarCart('cartSidebar')" class="text-gray-600 hover:text-gray-900">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <ul id="cartItems" class="mt-4 space-y-4">
+                    <!-- Lista de ingressos selecionados -->
+                </ul>
+                <button class="mt-4 w-full py-2 px-4 rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-color"
+                    style="background-color: var(--primary-color); color: var(--background-color);">Finalizar Compra</button>
+            </div>
+        </div>
+        
 
         <!-- Categoria Navbar -->
         <nav class="container-local mt-2 hidden md:flex justify-center" style="background-color: #FFFFFF;">
@@ -300,18 +314,15 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <!-- Evento 1 -->
                 <div class="relative group border border-gray-300 rounded-lg p-4">
-                    <img src="img/banner/MA---Marina-Sena---multi-ingressos (1).jpg" alt="Evento 1"
-                        class="w-full h-auto rounded-lg">
+                    <img src="img/banner/MA---Marina-Sena---multi-ingressos (1).jpg" alt="Evento 1" class="w-full h-auto rounded-lg">
                     <div class="mt-4 text-center">
                         <h2 class="text-xl font-bold" style="color: var(--secondary-color);">Marina Sena</h2>
                         <p style="color: var(--primary-text-color);">Sexta-Feira, 21 de junho</p>
                         <p style="color: var(--primary-text-color);">Shopping Iguatemi Campinas (Estacionamento C)</p>
                         <p style="color: var(--primary-text-color);">CAMPINAS - SP</p>
                     </div>
-                    <div
-                        class="absolute inset-0 bg-background-color bg-opacity-75 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <button class="px-4 py-2 rounded"
-                            style="background-color: var(--primary-color); color: var(--background-color);">COMPRAR</button>
+                    <div class="absolute inset-0 bg-background-color bg-opacity-75 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <button class="px-4 py-2 rounded" style="background-color: var(--primary-color); color: var(--background-color);">COMPRAR</button>
                     </div>
                 </div>
 
@@ -319,16 +330,13 @@
                 <div class="relative group border border-gray-300 rounded-lg p-4">
                     <img src="img/banner/1080x1080 (5).jpg" alt="Evento 2" class="w-full h-auto rounded-lg">
                     <div class="mt-4 text-center">
-                        <h2 class="text-xl font-bold" style="color: var(--secondary-color);">Orquestra Rock convida
-                            CPM22</h2>
+                        <h2 class="text-xl font-bold" style="color: var(--secondary-color);">Orquestra Rock convida CPM22</h2>
                         <p style="color: var(--primary-text-color);">Sexta-Feira, 21 de junho</p>
                         <p style="color: var(--primary-text-color);">Espaço na Mata</p>
                         <p style="color: var(--primary-text-color);">Botucatu - SP</p>
                     </div>
-                    <div
-                        class="absolute inset-0 bg-background-color bg-opacity-75 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <button class="px-4 py-2 rounded"
-                            style="background-color: var(--primary-color); color: var(--background-color);">COMPRAR</button>
+                    <div class="absolute inset-0 bg-background-color bg-opacity-75 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <button class="px-4 py-2 rounded" style="background-color: var(--primary-color); color: var(--background-color);">COMPRAR</button>
                     </div>
                 </div>
             </div>
@@ -343,15 +351,13 @@
         <!-- Mobile Newsletter Section -->
         <div class="container-local mx-auto mt-12 block md:hidden">
             <div class="shadow-md rounded-lg overflow-hidden" style="background-color: var(--background-color);">
-                <div class="text-center py-6"
-                    style="background-color: var(--primary-color); color: var(--background-color);">
+                <div class="text-center py-6" style="background-color: var(--primary-color); color: var(--background-color);">
                     <h1 class="text-xl font-bold">Cadastre seu e-mail e receba nossas novidades!</h1>
                 </div>
                 <div class="p-6 flex flex-col items-center justify-center space-y-4">
                     <form action="#" method="POST" class="w-full flex flex-col items-center space-y-4">
                         <div class="w-full">
-                            <label for="email" class="block text-sm font-medium"
-                                style="color: var(--primary-text-color);">Email</label>
+                            <label for="email" class="block text-sm font-medium" style="color: var(--primary-text-color);">Email</label>
                             <input type="email" name="email" id="email" required
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
                                 placeholder="Digite seu melhor email">
@@ -386,25 +392,17 @@
             </div>
 
             <div class="container-local grid grid-cols-2 gap-4 mt-10 mb-10 md:hidden">
-                <div class="shadow-md rounded-lg flex justify-center items-center p-4"
-                    style="background-color: var(--background-color);">
-                    <img src="img/confianca/site blindado.jpg" alt="Selo autoridade"
-                        class="w-full h-auto rounded-md max-h-48 object-contain">
+                <div class="shadow-md rounded-lg flex justify-center items-center p-4" style="background-color: var(--background-color);">
+                    <img src="img/confianca/site blindado.jpg" alt="Selo autoridade" class="w-full h-auto rounded-md max-h-48 object-contain">
                 </div>
-                <div class="shadow-md rounded-lg flex justify-center items-center p-4"
-                    style="background-color: var(--background-color);">
-                    <img src="img/confianca/img_33128.png" alt="Selo autoridade"
-                        class="w-full h-auto rounded-md max-h-48 object-contain">
+                <div class="shadow-md rounded-lg flex justify-center items-center p-4" style="background-color: var(--background-color);">
+                    <img src="img/confianca/img_33128.png" alt="Selo autoridade" class="w-full h-auto rounded-md max-h-48 object-contain">
                 </div>
-                <div class="shadow-md rounded-lg flex justify-center items-center p-4"
-                    style="background-color: var(--background-color);">
-                    <img src="img/confianca/site-sustentável.jpg" alt="Selo autoridade"
-                        class="w-full h-auto rounded-md max-h-48 object-contain">
+                <div class="shadow-md rounded-lg flex justify-center items-center p-4" style="background-color: var(--background-color);">
+                    <img src="img/confianca/site-sustentável.jpg" alt="Selo autoridade" class="w-full h-auto rounded-md max-h-48 object-contain">
                 </div>
-                <div class="shadow-md rounded-lg flex justify-center items-center p-4"
-                    style="background-color: var(--background-color);">
-                    <img src="img/confianca/garantimos-dinheiro.jpg" alt="Selo autoridade"
-                        class="w-full h-auto rounded-md max-h-48 object-contain">
+                <div class="shadow-md rounded-lg flex justify-center items-center p-4" style="background-color: var(--background-color);">
+                    <img src="img/confianca/garantimos-dinheiro.jpg" alt="Selo autoridade" class="w-full h-auto rounded-md max-h-48 object-contain">
                 </div>
             </div>
 
@@ -412,52 +410,40 @@
                 <h3 class="text-xl font-bold text-center mb-6">Formas de Pagamento</h3>
                 <div class="flex flex-wrap justify-center items-center space-y-4 sm:space-y-0">
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
-                            style="background-color: var(--background-color);">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center" style="background-color: var(--background-color);">
                             <img src="img/payment-methods/visa.svg" alt="Visa" class="h-6">
                         </div>
-                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
-                            style="background-color: var(--background-color);">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center" style="background-color: var(--background-color);">
                             <img src="img/payment-methods/master.svg" alt="MasterCard" class="h-6">
                         </div>
-                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
-                            style="background-color: var(--background-color);">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center" style="background-color: var(--background-color);">
                             <img src="img/payment-methods/3.svg" alt="Method 3" class="h-6">
                         </div>
-                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
-                            style="background-color: var(--background-color);">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center" style="background-color: var(--background-color);">
                             <img src="img/payment-methods/american-express.svg" alt="American Express" class="h-6">
                         </div>
-                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
-                            style="background-color: var(--background-color);">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center" style="background-color: var(--background-color);">
                             <img src="img/payment-methods/hipercard.svg" alt="Hipercard" class="h-6">
                         </div>
-                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
-                            style="background-color: var(--background-color);">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center" style="background-color: var(--background-color);">
                             <img src="img/payment-methods/aura.svg" alt="Aura" class="h-6">
                         </div>
-                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
-                            style="background-color: var(--background-color);">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center" style="background-color: var(--background-color);">
                             <img src="img/payment-methods/elo.svg" alt="Elo" class="h-10">
                         </div>
-                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
-                            style="background-color: var(--background-color);">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center" style="background-color: var(--background-color);">
                             <img src="img/payment-methods/codebars.svg" alt="Codebars" class="h-6">
                         </div>
-                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
-                            style="background-color: var(--background-color);">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center" style="background-color: var(--background-color);">
                             <img src="img/payment-methods/bancobrasil.svg" alt="Banco do Brasil" class="h-6">
                         </div>
-                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
-                            style="background-color: var(--background-color);">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center" style="background-color: var(--background-color);">
                             <img src="img/payment-methods/caixa.svg" alt="Caixa" class="h-6">
                         </div>
-                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
-                            style="background-color: var(--background-color);">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center" style="background-color: var(--background-color);">
                             <img src="img/payment-methods/paypal.svg" alt="PayPal" class="h-6">
                         </div>
-                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center"
-                            style="background-color: var(--background-color);">
+                        <div class="shadow-md rounded-lg p-4 flex justify-center items-center" style="background-color: var(--background-color);">
                             <img src="img/payment-methods/pix.svg" alt="Pix" class="h-6">
                         </div>
                     </div>
@@ -517,15 +503,11 @@
                     <div>
                         <h2 class="text-2xl font-bold mb-4">Segurança</h2>
                         <div class="flex space-x-4 mb-4">
-                            <img src="img/logo/selo-trustvox-22e50071258ff3907cdc27dd91584016.png" alt="Segurança"
-                                class="h-24">
+                            <img src="img/logo/selo-trustvox-22e50071258ff3907cdc27dd91584016.png" alt="Segurança" class="h-24">
                             <img src="img/logo/02.png" alt="Google Safe Browsing" class="h-24">
                         </div>
                         <p class="text-gray-700 text-sm">Copyright 2024 Brasuca - Todos os Direitos Reservados.</p>
-                        <p class="text-gray-700 text-sm">Preços e condições de pagamento apresentados neste 'site'
-                            somente são válidos para as compras efetuadas no ato da sua exibição. *Condições de
-                            pagamento à
-                            vista somente para depósitos, transferências e boleto bancário.</p>
+                        <p class="text-gray-700 text-sm">Preços e condições de pagamento apresentados neste 'site' somente são válidos para as compras efetuadas no ato da sua exibição. *Condições de pagamento à vista somente para depósitos, transferências e boleto bancário.</p>
                     </div>
                 </div>
             </div>
@@ -575,7 +557,7 @@
     </div>
 
     <!-- Cadastro Modal -->
-    <div id="cadastroModal" class="fixed z-50 inset-0 overflow-y-auto  hidden">
+    <div id="cadastroModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
         <div class="flex items-center justify-center min-h-screen">
             <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
                 <div class="flex justify-between items-center">
@@ -616,8 +598,7 @@
                             placeholder="Digite sua senha">
                     </div>
                     <div>
-                        <label for="imageProfile" class="block text-sm font-medium text-gray-700">Imagem de
-                            Perfil</label>
+                        <label for="imageProfile" class="block text-sm font-medium text-gray-700">Imagem de Perfil</label>
                         <input type="file" id="imageProfile" name="imageProfile"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm">
                     </div>
@@ -628,28 +609,6 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Carrinho Sidebar -->
-    <div id="cartSidebar"
-        class="fixed right-0 top-0 h-full w-72 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out z-50 hidden">
-        <div class="p-4">
-            <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-bold">Meus ingressos</h2>
-                <button onclick="toggleSidebarCart('cartSidebar')" class="text-gray-600 hover:text-gray-900">
-                    <i class="bi bi-x-lg"></i>
-                </button>
-            </div>
-            <ul id="cartItems" class="mt-4 space-y-4">
-                <!-- Lista de ingressos selecionados -->
-            </ul>
-            <button
-                class="mt-4 w-full py-2 px-4 rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-color"
-                style="background-color: var(--primary-color); color: var(--background-color);">Finalizar
-                Compra</button>
-        </div>
-    </div>
-
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -743,6 +702,99 @@
             var sidebar = document.getElementById("sidebar");
             sidebar.classList.toggle('-translate-x-full');
         }
+
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const mainContent = document.querySelector('.main-content');
+        
+            modal.classList.toggle('hidden');
+            mainContent.classList.toggle('blurred');
+        }
+
+        function toggleSidebarCart(sidebarId) {
+            const sidebar = document.getElementById(sidebarId);
+            sidebar.classList.toggle('translate-x-full');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.toggle-login').forEach(button => {
+                button.addEventListener('click', () => toggleModal('loginModal'));
+            });
+
+            document.querySelectorAll('.toggle-cadastro').forEach(button => {
+                button.addEventListener('click', () => toggleModal('cadastroModal'));
+            });
+
+            document.querySelectorAll('.toggle-cart').forEach(button => {
+                button.addEventListener('click', () => toggleSidebarCart('cartSidebar'));
+            });
+
+            const cpfInput = document.getElementById('cadastroCPF');
+            if (cpfInput) {
+                cpfInput.addEventListener('input', function (e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                    value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                    value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                    e.target.value = value;
+                });
+            }
+
+            const cadastroForm = document.getElementById('cadastroForm');
+            if (cadastroForm) {
+                cadastroForm.addEventListener('submit', async function(event) {
+                    event.preventDefault();
+                    
+                    const tenantId = 1; // Altere conforme necessário
+                    const url = `${config.apiBaseUrl}/tenants/${tenantId}/user/create`;
+                    
+                    const formData = new FormData(this);
+                    const imageFile = formData.get('imageProfile');
+                
+                    if (imageFile && imageFile.size > 0) {
+                        const reader = new FileReader();
+                        reader.onloadend = async function () {
+                            const imageBase64 = reader.result.split(',')[1]; // Pega apenas a parte base64 da string
+                
+                            const data = {
+                                name: formData.get('nome'),
+                                cpf: formData.get('cpf'),
+                                birthDate: formData.get('dataNascimento'),
+                                email: formData.get('email'),
+                                password: formData.get('senha'),
+                                phone: formData.get('phone'), // Adicione se necessário
+                                imageProfileBase64: imageBase64 // Garante que a imagem convertida em base64 seja enviada
+                            };
+                
+                            try {
+                                const response = await fetch(url, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify(data)
+                                });
+                
+                                if (!response.ok) {
+                                    throw new Error('Erro ao cadastrar usuário');
+                                }
+                
+                                const result = await response.json();
+                                console.log('Usuário cadastrado com sucesso:', result);
+                                toggleModal('cadastroModal'); // Fechar o modal após o sucesso
+                
+                            } catch (error) {
+                                console.error('Erro:', error);
+                                alert('Erro ao cadastrar usuário');
+                            }
+                        };
+                        reader.readAsDataURL(imageFile);
+                    } else {
+                        alert('Por favor, selecione uma imagem de perfil.');
+                    }
+                });
+            }
+        });
     </script>
 </body>
 
