@@ -1,8 +1,10 @@
+import config from './Config/config.js';
+
 document.getElementById('loginForm').addEventListener('submit', async function (event) {
     event.preventDefault();
 
     const tenantId = 1; // Altere conforme necessário
-    const url = `http://localhost:9090/api/tenants/${tenantId}/users/login`;
+    const url = `${config.apiBaseUrl}/tenants/${tenantId}/users/login`;
 
     const data = {
         email: document.getElementById('loginEmail').value,

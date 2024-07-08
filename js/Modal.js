@@ -1,3 +1,5 @@
+import config from './Config/config.js';
+
 function toggleModal(modalId) {
     const modal = document.getElementById(modalId);
     const mainContent = document.querySelector('.main-content');
@@ -39,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         
         const tenantId = 1; // Altere conforme necessário
-        const url = `http://localhost:9090/api/tenants/${tenantId}/user/create`;
+        const url = `${config.apiBaseUrl}/api/tenants/${tenantId}/user/create`;
         
         const formData = new FormData(this);
         const imageFile = formData.get('imageProfile');
