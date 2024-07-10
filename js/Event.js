@@ -9,7 +9,6 @@ function fetchEvents() {
     const tenantId = 1; // Substitua pelo ID real do tenant
     fetch(`https://concrete-logically-kit.ngrok-free.app/api/tenants/${tenantId}/events`, {
         method: "GET",
-        mode: "cors",
         headers: {
             'ngrok-skip-browser-warning': 'true'
         }
