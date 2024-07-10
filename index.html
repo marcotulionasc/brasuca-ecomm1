@@ -21,6 +21,47 @@
         .modal-overlay {
             background-color: rgba(0, 0, 0, 0.5);
         }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .search-box {
+            display: flex;
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .search-box div {
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .search-box input,
+        .search-box select {
+            padding: 0.75rem;
+            border: none;
+            outline: none;
+        }
+
+        .search-box button {
+            background: #b7791f;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-box button:hover {
+            background: #975a16;
+        }
     </style>
 
 </head>
@@ -86,26 +127,38 @@
 
         <!-- Desktop Header -->
         <header class="p-3 hidden md:flex justify-between items-center" style="background-color: var(--primary-color);">
-            <div class="flex items-center space-x-6">
-                <img src="img/logo/brasuca-multicultural-logo.webp" alt="Logo" class="w-32">
-                <div class="relative">
-                    <input type="text" placeholder="Encontre o evento perfeito para você!"
-                        class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-action-color w-96">
-                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-                        <i class="bi bi-search" style="color: var(--secondary-text-color);"></i>
+           
+                <div class="flex items-center space-x-6" style="margin-left: 50px;">
+                    <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-32">
+                    <div class="relative w-96">
+                        <input type="text" placeholder="Buscar eventos, artistas, etc..."
+                            class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-action-color w-full">
+                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                            <i class="bi bi-search text-gray-400"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="flex items-center space-x-4">
-                <button type="button"
-                    class="px-4 py-2 bg-white text-gray-500 rounded-lg transition duration-300 ease-in-out hover:bg-primary-color hover:text-white toggle-login">Entrar</button>
-                <button type="button"
-                    class="px-4 py-2 bg-white text-gray-500 rounded-lg transition duration-300 ease-in-out hover:bg-primary-color hover:text-white toggle-cadastro">Cadastre-se</button>
-                <button type="button"
-                    class="px-4 py-2 bg-white text-gray-500 rounded-lg transition duration-300 ease-in-out hover:bg-primary-color hover:text-white flex items-center toggle-cart">
-                    <i class="bi bi-cart-check-fill"></i>
-                </button>
-            </div>
+                <div class="flex items-center space-x-4">
+                    <button type="button"
+                        class="px-4 py-2 bg-red-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-red-400 flex items-center">
+                        Meus ingressos <i class="bi bi-ticket ml-2"></i>
+                    </button>
+                    <button type="button"
+                        class="px-4 py-2 bg-blue-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 flex items-center">
+                        Criar conta <i class="bi bi-person-plus ml-2"></i>
+                    </button>
+                    <button type="button"
+                        class="px-4 py-2 bg-blue-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 flex items-center">
+                        Entrar <i class="bi bi-person ml-2"></i>
+                    </button>
+                    <div class="flex items-center space-x-4" style="margin-right: 50px;">
+                        <button type="button"
+                            class="px-4 py-2 bg-gray-800 text-white rounded-lg transition duration-300 ease-in-out hover:bg-gray-700 flex items-center toggle-cart">
+                            <i class="bi bi-cart-fill"></i>
+                        </button>
+                    </div>
+                </div>
+      
         </header>
 
         <!-- Sidebar -->
@@ -174,33 +227,15 @@
         </div>
 
         <!-- Categoria Navbar -->
-        <nav class="container-local mt-2 hidden md:flex justify-center" style="background-color: #FFFFFF;">
-            <ul class="flex items-center space-x-12" style="color: #333333;">
-                <li><a href="index.html" style="text-decoration: none; color: var(--second-text-color);"><strong><i
-                                class="bi bi-list-ul"></i> TODOS GENÊROS <i class="bi bi-chevron-down"></i></strong></a>
-                </li>
-                <li><a href="products.html" style="text-decoration: none; color: var(--second-text-color);"><i
-                            class="bi bi-star"></i> CARNAVAL</a></li>
-                <li><a href="products.html" style="text-decoration: none; color: var(--second-text-color);"><i
-                            class="bi bi-megaphone"></i> FLASHBACK</a></li>
-                <li><a href="products.html" style="text-decoration: none; color: var(--second-text-color);"><i
-                            class="bi bi-droplet"></i> FORRÓ</a></li>
-                <li><a href="products.html" style="text-decoration: none; color: var(--second-text-color);"><i
-                            class="bi bi-lightning"></i> MPB</a></li>
-                <li><a href="products.html" style="text-decoration: none; color: var(--second-text-color);"><i
-                            class="bi bi-battery-charging"></i> PAGODE</a></li>
-                <li><a href="products.html" style="text-decoration: none; color: var(--second-text-color);"><i
-                            class="bi bi-bullseye"></i> POP</a></li>
-                <li><a href="products.html" style="text-decoration: none; color: var(--second-text-color);"><i
-                            class="bi bi-handbag-fill"></i> ROCK</a></li>
-            </ul>
+        <nav class="container-local mt-4 hidden md:flex justify-center" style="background-color: #FFFFFF;">
+            <!-- Só para dar espaçamento no DESKTOP -->
         </nav>
 
-        <!-- Categoria Navbar for Mobile (Hidden by default) -->
+
         <nav class="container-local bg-background-color mt-3 mobile-navbar hidden">
             <div class="flex justify-center items-center">
                 <ul class="flex flex-col items-center space-y-4">
-                    <!-- Add mobile navbar items here -->
+                    <!-- Só para dar espaçamento no MOBILE -->
                 </ul>
             </div>
         </nav>
@@ -211,19 +246,19 @@
                 <div class="swiper-wrapper">
                     <!-- Slides -->
                     <div class="swiper-slide">
-                        <img src="img/banner/MA---Marina-Sena---multi-ingressos (1).jpg" alt="Slide 1" class="w-4/5">
+                        <img src="img/banner/MA---Marina-Sena---multi-ingressos (1).jpg" alt="Slide 1" class="w-3/4">
                     </div>
                     <div class="swiper-slide">
-                        <img src="img/banner/1080x1080 (5).jpg" alt="Slide 2" class="w-4/5">
+                        <img src="img/banner/1080x1080 (5).jpg" alt="Slide 2" class="w-3/4">
                     </div>
                     <div class="swiper-slide">
-                        <img src="img/banner/WhatsApp Image 2024-04-24 at 13.59.24.jpeg" alt="Slide 3" class="w-4/5">
+                        <img src="img/banner/WhatsApp Image 2024-04-24 at 13.59.24.jpeg" alt="Slide 3" class="w-3/4">
                     </div>
                     <div class="swiper-slide">
-                        <img src="img/banner/MA---BRF---Pitty-Falcao-multiingressos.jpg" alt="Slide 4" class="w-4/5">
+                        <img src="img/banner/MA---BRF---Pitty-Falcao-multiingressos.jpg" alt="Slide 4" class="w-3/4">
                     </div>
                     <div class="swiper-slide">
-                        <img src="img/banner/1080x1080 (5).jpg" alt="Slide 5" class="w-4/5">
+                        <img src="img/banner/1080x1080 (5).jpg" alt="Slide 5" class="w-3/4">
                     </div>
                 </div>
                 <!-- Pagination -->
@@ -232,41 +267,42 @@
         </div>
 
         <!-- Filtros de Busca Desktop -->
-        <div class="container-local bg-background-color mt-8 p-6 rounded-lg shadow-lg hidden md:block">
-            <div style="margin-left: 40px; margin-right: 40px;">
-                <div class="flex justify-between items-center">
-
-                    <div class="flex flex-col">
-                        <label for="tipo-evento" class="font-medium text-primary-text-color">Tipo de Evento</label>
-                        <select id="tipo-evento"
-                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
-                            <option>Show</option>
-                            <option>Teatro</option>
-                            <option>Esporte</option>
-                            <option>Outros</option>
-                        </select>
+        <div class="container-local mt-8 p-6 rounded-lg hidden md:block" style="background-color: var(--primary-color);">
+            <div class="mx-6">
+                <div class="flex justify-between items-center" >
+                    <div class="container-local flex justify-center">
+                        <form class="search-box space-y-4 p-8">
+                            <div class="flex items-center space-x-2">
+                                <i class="bi bi-geo-alt-fill " style="color: var(--secondary-color);"></i>
+                                <input type="text" placeholder="Campinas" class="form-input" />
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="bi bi-calendar-event-fill " style="color: var(--secondary-color);"></i>
+                                <input type="text" placeholder="12 Jun 2018" class="datepicker form-input"
+                                    id="startDate" />
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="bi bi-cash"  style="color: var(--secondary-color);"></i>
+                                <input type="text" placeholder="Preço" class="form-input" />
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="bi bi-music-note"  style="color: var(--secondary-color);"></i>
+                                <select class="form-select" style="background-color: #FFFFFF; color: #b1b0b0;">
+                                    <option value="2">ROCK</option>
+                                    <option value="3">FORRÓ</option>
+                                    <option value="4">FUNK</option>
+                                    <option value="5">MPB</option>
+                                </select>
+                            </div>
+                            <div class="flex justify-center">
+                                <button type="button" class="btn btn-primary" style="background-color: var(--secondary-color);">Procurar!</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="flex flex-col">
-                        <label for="localizacao" class="font-medium text-primary-text-color">Localização</label>
-                        <input type="text" id="localizacao" placeholder="Digite a cidade"
-                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
-                    </div>
-                    <div class="flex flex-col">
-                        <label for="data-evento" class="font-medium text-primary-text-color">Data</label>
-                        <input type="date" id="data-evento"
-                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
-                    </div>
-                    <div class="flex flex-col">
-                        <label for="preco-evento" class="font-medium text-primary-text-color">Preço</label>
-                        <input type="number" id="preco-evento" placeholder="Máximo"
-                            class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
-                    </div>
-                    <button class="px-4 py-2 rounded-lg transition duration-300 ease-in-out"
-                        style="background-color: var(--action-color); color: var(--background-color);">Filtrar</button>
-
                 </div>
             </div>
         </div>
+
 
         <!-- Filtros de Busca Mobile -->
         <div class="container-local bg-background-color mt-8 p-4 rounded-lg shadow-lg block md:hidden">
@@ -378,43 +414,6 @@
 
         <!-- Footer -->
         <footer class="bg-gray-100 py-8">
-            <div class="container-local mx-auto flex justify-between items-center hidden md:flex">
-                <div class="shadow-md rounded-lg p-4" style="background-color: var(--background-color);">
-                    <img src="img/confianca/site blindado.jpg" alt="Selo autoridade" class="w-full h-auto">
-                </div>
-                <div class="shadow-md rounded-lg p-4" style="background-color: var(--background-color);">
-                    <img src="img/confianca/img_33128.png" alt="Selo autoridade" class="w-full h-auto">
-                </div>
-                <div class="shadow-md rounded-lg p-4" style="background-color: var(--background-color);">
-                    <img src="img/confianca/site-sustentável.jpg" alt="Selo autoridade" class="w-full h-auto">
-                </div>
-                <div class="shadow-md rounded-lg p-4" style="background-color: var(--background-color);">
-                    <img src="img/confianca/garantimos-dinheiro.jpg" alt="Selo autoridade" class="w-full h-auto">
-                </div>
-            </div>
-
-            <div class="container-local grid grid-cols-2 gap-4 mt-10 mb-10 md:hidden">
-                <div class="shadow-md rounded-lg flex justify-center items-center p-4"
-                    style="background-color: var(--background-color);">
-                    <img src="img/confianca/site blindado.jpg" alt="Selo autoridade"
-                        class="w-full h-auto rounded-md max-h-48 object-contain">
-                </div>
-                <div class="shadow-md rounded-lg flex justify-center items-center p-4"
-                    style="background-color: var(--background-color);">
-                    <img src="img/confianca/img_33128.png" alt="Selo autoridade"
-                        class="w-full h-auto rounded-md max-h-48 object-contain">
-                </div>
-                <div class="shadow-md rounded-lg flex justify-center items-center p-4"
-                    style="background-color: var(--background-color);">
-                    <img src="img/confianca/site-sustentável.jpg" alt="Selo autoridade"
-                        class="w-full h-auto rounded-md max-h-48 object-contain">
-                </div>
-                <div class="shadow-md rounded-lg flex justify-center items-center p-4"
-                    style="background-color: var(--background-color);">
-                    <img src="img/confianca/garantimos-dinheiro.jpg" alt="Selo autoridade"
-                        class="w-full h-auto rounded-md max-h-48 object-contain">
-                </div>
-            </div>
 
             <div class="container-local mx-auto my-10">
                 <h3 class="text-xl font-bold text-center mb-6">Formas de Pagamento</h3>
@@ -539,7 +538,7 @@
             </div>
 
             <div class="mt-10 p-6 rounded shadow-lg text-center text-sm"
-                style="background-color: var(--primary-color); color: var(--background-color); margin-bottom: 50px;">
+                style="background-color: var(--primary-color); color: var(--background-color); padding-bottom: 50px;">
                 <div>
                     Ingressar LTDA - Todos os direitos reservados - CNPJ 11.111.111/0001-01 Endereço
                 </div>
@@ -569,93 +568,93 @@
         </div>
     </div>
 
-    
-        <div id="loginModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
-            <div class="flex items-center justify-center min-h-screen">
-                <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-2xl font-bold">Entrar</h2>
-                        <button onclick="toggleModal('loginModal')" class="text-gray-600 hover:text-gray-900">
-                            <i class="bi bi-x-lg"></i>
-                        </button>
-                    </div>
-                    <form id="loginForm" class="mt-4 space-y-4">
-                        <div>
-                            <label for="loginEmail" class="block text-sm font-medium text-gray-700">Email</label>
-                            <input type="email" id="loginEmail" name="email" required
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
-                                placeholder="Digite seu email">
-                        </div>
-                        <div>
-                            <label for="loginPassword" class="block text-sm font-medium text-gray-700">Senha</label>
-                            <input type="password" id="loginPassword" name="password" required
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
-                                placeholder="Digite sua senha">
-                        </div>
-                        <button type="submit"
-                            class="w-full py-2 px-4 rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-color"
-                            style="background-color: var(--primary-color); color: var(--background-color);">Entrar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
 
-        <!-- Cadastro Modal -->
-        <div id="cadastroModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
-            <div class="flex items-center justify-center min-h-screen">
-                <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-2xl font-bold">Cadastro</h2>
-                        <button onclick="toggleModal('cadastroModal')" class="text-gray-600 hover:text-gray-900">
-                            <i class="bi bi-x-lg"></i>
-                        </button>
-                    </div>
-                    <form id="cadastroForm" class="mt-4 space-y-4">
-                        <div>
-                            <label for="cadastroNome" class="block text-sm font-medium text-gray-700">Nome
-                                Completo</label>
-                            <input type="text" id="cadastroNome" name="nome" required
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
-                                placeholder="Digite seu nome">
-                        </div>
-                        <div>
-                            <label for="cadastroCPF" class="block text-sm font-medium text-gray-700">CPF</label>
-                            <input type="text" id="cadastroCPF" name="cpf" required
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
-                                placeholder="Digite seu CPF" maxlength="14">
-                        </div>
-                        <div>
-                            <label for="cadastroDataNascimento" class="block text-sm font-medium text-gray-700">Data de
-                                Nascimento</label>
-                            <input type="date" id="cadastroDataNascimento" name="dataNascimento" required
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm">
-                        </div>
-                        <div>
-                            <label for="cadastroEmail" class="block text-sm font-medium text-gray-700">Email</label>
-                            <input type="email" id="cadastroEmail" name="email" required
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
-                                placeholder="Digite seu email">
-                        </div>
-                        <div>
-                            <label for="cadastroSenha" class="block text-sm font-medium text-gray-700">Senha</label>
-                            <input type="password" id="cadastroSenha" name="senha" required
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
-                                placeholder="Digite sua senha">
-                        </div>
-                        <div>
-                            <label for="imageProfile" class="block text-sm font-medium text-gray-700">Imagem de
-                                Perfil</label>
-                            <input type="file" id="imageProfile" name="imageProfile"
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm">
-                        </div>
-                        <button type="submit"
-                            class="w-full py-2 px-4 rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-color"
-                            style="background-color: var(--primary-color); color: var(--background-color);">Cadastrar</button>
-                    </form>
+    <div id="loginModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-bold">Entrar</h2>
+                    <button onclick="toggleModal('loginModal')" class="text-gray-600 hover:text-gray-900">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
                 </div>
+                <form id="loginForm" class="mt-4 space-y-4">
+                    <div>
+                        <label for="loginEmail" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="loginEmail" name="email" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
+                            placeholder="Digite seu email">
+                    </div>
+                    <div>
+                        <label for="loginPassword" class="block text-sm font-medium text-gray-700">Senha</label>
+                        <input type="password" id="loginPassword" name="password" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
+                            placeholder="Digite sua senha">
+                    </div>
+                    <button type="submit"
+                        class="w-full py-2 px-4 rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-color"
+                        style="background-color: var(--primary-color); color: var(--background-color);">Entrar</button>
+                </form>
             </div>
         </div>
-  
+    </div>
+
+    <!-- Cadastro Modal -->
+    <div id="cadastroModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-bold">Cadastro</h2>
+                    <button onclick="toggleModal('cadastroModal')" class="text-gray-600 hover:text-gray-900">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <form id="cadastroForm" class="mt-4 space-y-4">
+                    <div>
+                        <label for="cadastroNome" class="block text-sm font-medium text-gray-700">Nome
+                            Completo</label>
+                        <input type="text" id="cadastroNome" name="nome" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
+                            placeholder="Digite seu nome">
+                    </div>
+                    <div>
+                        <label for="cadastroCPF" class="block text-sm font-medium text-gray-700">CPF</label>
+                        <input type="text" id="cadastroCPF" name="cpf" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
+                            placeholder="Digite seu CPF" maxlength="14">
+                    </div>
+                    <div>
+                        <label for="cadastroDataNascimento" class="block text-sm font-medium text-gray-700">Data de
+                            Nascimento</label>
+                        <input type="date" id="cadastroDataNascimento" name="dataNascimento" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="cadastroEmail" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="cadastroEmail" name="email" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
+                            placeholder="Digite seu email">
+                    </div>
+                    <div>
+                        <label for="cadastroSenha" class="block text-sm font-medium text-gray-700">Senha</label>
+                        <input type="password" id="cadastroSenha" name="senha" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
+                            placeholder="Digite sua senha">
+                    </div>
+                    <div>
+                        <label for="imageProfile" class="block text-sm font-medium text-gray-700">Imagem de
+                            Perfil</label>
+                        <input type="file" id="imageProfile" name="imageProfile"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm">
+                    </div>
+                    <button type="submit"
+                        class="w-full py-2 px-4 rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-color"
+                        style="background-color: var(--primary-color); color: var(--background-color);">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -788,6 +787,19 @@
                 });
             }
 
+        });
+
+        function formatDate(date) {
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            return new Intl.DateTimeFormat('en-US', options).format(date).replace(/ /g, ' ').toUpperCase();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const today = new Date();
+            document.getElementById('startDate').placeholder = formatDate(today);
+            document.getElementById('endDate').placeholder = formatDate(today);
+
+            flatpickr(".datepicker", {});
         });
     </script>
 </body>
