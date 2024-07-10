@@ -62,6 +62,36 @@
         .search-box button:hover {
             background: #975a16;
         }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 2rem;
+        }
+        @media (min-width: 640px) {
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .pagination button {
+            margin: 0 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
     </style>
 
 </head>
@@ -244,22 +274,7 @@
         <div class="container-local bg-background-color">
             <div class="swiper-container relative custom-width mx-auto" style="align-items: center;">
                 <div class="swiper-wrapper">
-                    <!-- Slides -->
-                    <div class="swiper-slide">
-                        <img src="img/banner/MA---Marina-Sena---multi-ingressos (1).jpg" alt="Slide 1" class="w-3/4">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="img/banner/1080x1080 (5).jpg" alt="Slide 2" class="w-3/4">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="img/banner/WhatsApp Image 2024-04-24 at 13.59.24.jpeg" alt="Slide 3" class="w-3/4">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="img/banner/MA---BRF---Pitty-Falcao-multiingressos.jpg" alt="Slide 4" class="w-3/4">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="img/banner/1080x1080 (5).jpg" alt="Slide 5" class="w-3/4">
-                    </div>
+                    <!-- Slides serão carregados aqui dinamicamente -->
                 </div>
                 <!-- Pagination -->
                 <div class="swiper-pagination absolute bottom-2 left-1/2 transform -translate-x-1/2 w-48"></div>
@@ -340,48 +355,17 @@
 
         <!-- Event Grid -->
         <div class="container mx-auto px-4 py-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <!-- Evento 1 -->
-                <div class="relative group border border-gray-300 rounded-lg p-4">
-                    <img src="img/banner/MA---Marina-Sena---multi-ingressos (1).jpg" alt="Evento 1"
-                        class="w-full h-auto rounded-lg">
-                    <div class="mt-4 text-center">
-                        <h2 class="text-xl font-bold" style="color: var(--secondary-color);">Marina Sena</h2>
-                        <p style="color: var(--primary-text-color);">Sexta-Feira, 21 de junho</p>
-                        <p style="color: var(--primary-text-color);">Shopping Iguatemi Campinas (Estacionamento C)
-                        </p>
-                        <p style="color: var(--primary-text-color);">CAMPINAS - SP</p>
-                    </div>
-                    <div
-                        class="absolute inset-0 bg-background-color bg-opacity-75 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <button class="px-4 py-2 rounded"
-                            style="background-color: var(--primary-color); color: var(--background-color);">COMPRAR</button>
-                    </div>
-                </div>
-
-                <!-- Evento 2 -->
-                <div class="relative group border border-gray-300 rounded-lg p-4">
-                    <img src="img/banner/1080x1080 (5).jpg" alt="Evento 2" class="w-full h-auto rounded-lg">
-                    <div class="mt-4 text-center">
-                        <h2 class="text-xl font-bold" style="color: var(--secondary-color);">Orquestra Rock convida
-                            CPM22</h2>
-                        <p style="color: var(--primary-text-color);">Sexta-Feira, 21 de junho</p>
-                        <p style="color: var(--primary-text-color);">Espaço na Mata</p>
-                        <p style="color: var(--primary-text-color);">Botucatu - SP</p>
-                    </div>
-                    <div
-                        class="absolute inset-0 bg-background-color bg-opacity-75 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <button class="px-4 py-2 rounded"
-                            style="background-color: var(--primary-color); color: var(--background-color);">COMPRAR</button>
-                    </div>
-                </div>
+            <div class="grid" id="eventGrid">
+                <!-- Eventos serão carregados aqui dinamicamente -->
+            </div>
+            <div class="pagination" id="pagination">
+                <!-- Botões de paginação serão carregados aqui dinamicamente -->
             </div>
         </div>
 
         <!-- Ver Mais Button -->
         <div class="container-local flex justify-center py-4" style="background-color: var(--background-color);">
-            <button class="px-6 py-2 rounded-lg hover:bg-primary-color transition duration-300 ease-in-out"
-                style="background-color: var(--action-color); color: var(--background-color);">+ VER MAIS</button>
+            <!-- Só para espaçamento mesmo -->
         </div>
 
         <!-- Mobile Newsletter Section -->
@@ -665,6 +649,8 @@
     <script src="js/app.js"></script>
     <script src="js/Modal.js" type="module"></script>
     <script src="js/Login.js" type="module"></script>
+    <script src="js/Event.js"></script>
+    <script src="js/Flyers.js"></script>
 
     <script>
         var swiper = new Swiper('.swiper-container', {

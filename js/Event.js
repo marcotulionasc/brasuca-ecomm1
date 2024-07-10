@@ -2,20 +2,43 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchEvents();
 });
 
+let currentPage = 1;
+const eventsPerPage = 12; // 4 colunas * 3 linhas
+
 function fetchEvents() {
     const tenantId = 1; // Substitua pelo ID real do tenant
-    fetch(`https://concrete-logically-kit.ngrok-free.app/api/tenants/${tenantId}/events`)
-        .then(response => response.json())
-        .then(events => {
-            const container = document.querySelector(".grid");
-            container.innerHTML = ''; // Limpar o conteúdo existente
+    fetch(`https://concrete-logically-kit.ngrok-free.app/api/tenants/${tenantId}/events`, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+            'ngrok-skip-browser-warning': 'true'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(events => {
+        displayEvents(events);
+        setupPagination(events);
+    })
+    .catch(error => console.error('Erro ao buscar eventos:', error));
+}
 
-            events.forEach(event => {
-                const eventElement = createEventElement(event);
-                container.appendChild(eventElement);
-            });
-        })
-        .catch(error => console.error('Erro ao buscar eventos:', error));
+function displayEvents(events) {
+    const container = document.querySelector("#eventGrid");
+    container.innerHTML = ''; // Limpar o conteúdo existente
+
+    const start = (currentPage - 1) * eventsPerPage;
+    const end = start + eventsPerPage;
+    const paginatedEvents = events.slice(start, end);
+
+    paginatedEvents.forEach(event => {
+        const eventElement = createEventElement(event);
+        container.appendChild(eventElement);
+    });
 }
 
 function createEventElement(event) {
@@ -23,9 +46,12 @@ function createEventElement(event) {
     eventDiv.classList.add("relative", "group", "border", "border-gray-300", "rounded-lg", "p-4");
 
     const img = document.createElement("img");
-    img.src = `data:image/jpeg;base64,${event.imageEvent}`;
-    img.alt = event.nameEvent;
-    img.classList.add("w-full", "h-auto", "rounded-lg");
+    const imagePath = event.imageFlyer 
+        ? `https://concrete-logically-kit.ngrok-free.app${event.imageFlyer}` 
+        : 'https://concrete-logically-kit.ngrok-free.app/uploads/default_image.jpg';
+    img.src = imagePath;
+    img.alt = event.titleEvent ? event.titleEvent : 'Imagem do Evento';
+    img.classList.add("w-full", "h-48", "object-cover", "rounded-lg"); // Definindo altura fixa
 
     const textContainer = document.createElement("div");
     textContainer.classList.add("mt-4", "text-center");
@@ -45,31 +71,48 @@ function createEventElement(event) {
 
     const address = document.createElement("p");
     address.style.color = "var(--primary-text-color)";
-    address.textContent = event.address;
+    address.textContent = event.address ? `${event.address.street}, ${event.address.city}` : 'Endereço não disponível';
 
     textContainer.appendChild(title);
     textContainer.appendChild(date);
     textContainer.appendChild(local);
     textContainer.appendChild(address);
 
-    const buttonContainer = document.createElement("div");
-    buttonContainer.classList.add("absolute", "inset-0", "bg-background-color", "bg-opacity-75", "flex", "justify-center", "items-center", "opacity-0", "group-hover:opacity-100", "transition-opacity", "duration-300");
-
     const button = document.createElement("button");
-    button.classList.add("px-4", "py-2", "rounded");
+    button.classList.add("px-4", "py-2", "rounded", "mt-4");
     button.style.backgroundColor = "var(--primary-color)";
     button.style.color = "var(--background-color)";
     button.textContent = "COMPRAR";
     button.addEventListener("click", () => {
         // Redirecionar para a página de compra do evento específico
-        window.location.href = `../index.html}`; // comprar-evento/${event.id}
+        window.location.href = `../index.html`; // Substitua pela URL correta
     });
 
-    buttonContainer.appendChild(button);
+    textContainer.appendChild(button);
 
     eventDiv.appendChild(img);
     eventDiv.appendChild(textContainer);
-    eventDiv.appendChild(buttonContainer);
 
     return eventDiv;
+}
+
+function setupPagination(events) {
+    const paginationContainer = document.querySelector("#pagination");
+    paginationContainer.innerHTML = ''; // Limpar a paginação existente
+
+    const pageCount = Math.ceil(events.length / eventsPerPage);
+
+    for (let i = 1; i <= pageCount; i++) {
+        const button = document.createElement("button");
+        button.textContent = i;
+        if (i === currentPage) {
+            button.style.backgroundColor = "var(--secondary-color)";
+        }
+        button.addEventListener("click", () => {
+            currentPage = i;
+            displayEvents(events);
+            setupPagination(events);
+        });
+        paginationContainer.appendChild(button);
+    }
 }
