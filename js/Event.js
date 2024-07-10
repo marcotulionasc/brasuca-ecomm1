@@ -41,58 +41,65 @@ function displayEvents(events) {
 }
 
 function createEventElement(event) {
-    const eventDiv = document.createElement("div");
-    eventDiv.classList.add("relative", "group", "border", "border-gray-300", "rounded-lg", "p-4");
-
-    const img = document.createElement("img");
-    const imagePath = event.imageFlyer 
-        ? `https://concrete-logically-kit.ngrok-free.app${event.imageFlyer}` 
-        : 'https://concrete-logically-kit.ngrok-free.app/uploads/default_image.jpg';
-    img.src = imagePath;
-    img.alt = event.titleEvent ? event.titleEvent : 'Imagem do Evento';
-    img.classList.add("w-full", "h-48", "object-cover", "rounded-lg"); // Definindo altura fixa
-
-    const textContainer = document.createElement("div");
-    textContainer.classList.add("mt-4", "text-center");
-
-    const title = document.createElement("h2");
-    title.classList.add("text-xl", "font-bold");
-    title.style.color = "var(--secondary-color)";
-    title.textContent = event.titleEvent;
-
-    const date = document.createElement("p");
-    date.style.color = "var(--primary-text-color)";
-    date.textContent = new Date(event.date).toLocaleDateString();
-
-    const local = document.createElement("p");
-    local.style.color = "var(--primary-text-color)";
-    local.textContent = event.local;
-
-    const address = document.createElement("p");
-    address.style.color = "var(--primary-text-color)";
-    address.textContent = event.address ? `${event.address.street}, ${event.address.city}` : 'Endereço não disponível';
-
-    textContainer.appendChild(title);
-    textContainer.appendChild(date);
-    textContainer.appendChild(local);
-    textContainer.appendChild(address);
-
-    const button = document.createElement("button");
-    button.classList.add("px-4", "py-2", "rounded", "mt-4");
-    button.style.backgroundColor = "var(--primary-color)";
-    button.style.color = "var(--background-color)";
-    button.textContent = "COMPRAR";
-    button.addEventListener("click", () => {
-        // Redirecionar para a página de compra do evento específico
-        window.location.href = `../index.html`; // Substitua pela URL correta
-    });
-
-    textContainer.appendChild(button);
-
-    eventDiv.appendChild(img);
-    eventDiv.appendChild(textContainer);
-
-    return eventDiv;
+    
+    try{
+        const eventDiv = document.createElement("div");
+        eventDiv.classList.add("relative", "group", "border", "border-gray-300", "rounded-lg", "p-4");
+    
+        const img = document.createElement("img");
+        const imagePath = event.imageFlyer 
+            ? `https://concrete-logically-kit.ngrok-free.app${event.imageFlyer}` 
+            : 'https://concrete-logically-kit.ngrok-free.app/uploads/default_image.jpg';
+        img.src = imagePath;
+        img.alt = event.titleEvent ? event.titleEvent : 'Imagem do Evento';
+        img.classList.add("w-full", "h-48", "object-cover", "rounded-lg"); // Definindo altura fixa
+    
+        const textContainer = document.createElement("div");
+        textContainer.classList.add("mt-4", "text-center");
+    
+        const title = document.createElement("h2");
+        title.classList.add("text-xl", "font-bold");
+        title.style.color = "var(--secondary-color)";
+        title.textContent = event.titleEvent;
+    
+        const date = document.createElement("p");
+        date.style.color = "var(--primary-text-color)";
+        date.textContent = new Date(event.date).toLocaleDateString();
+    
+        const local = document.createElement("p");
+        local.style.color = "var(--primary-text-color)";
+        local.textContent = event.local;
+    
+        const address = document.createElement("p");
+        address.style.color = "var(--primary-text-color)";
+        address.textContent = event.address ? `${event.address.street}, ${event.address.city}` : 'Endereço não disponível';
+    
+        textContainer.appendChild(title);
+        textContainer.appendChild(date);
+        textContainer.appendChild(local);
+        textContainer.appendChild(address);
+    
+        const button = document.createElement("button");
+        button.classList.add("px-4", "py-2", "rounded", "mt-4");
+        button.style.backgroundColor = "var(--primary-color)";
+        button.style.color = "var(--background-color)";
+        button.textContent = "COMPRAR";
+        button.addEventListener("click", () => {
+            // Redirecionar para a página de compra do evento específico
+            window.location.href = `../index.html`; // Substitua pela URL correta
+        });
+    
+        textContainer.appendChild(button);
+    
+        eventDiv.appendChild(img);
+        eventDiv.appendChild(textContainer);
+    
+        return eventDiv;
+    } catch(error){
+        console.error("Error in createEventElement: ", error);
+    }
+    
+   
 }
 
 function setupPagination(events) {
