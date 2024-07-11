@@ -1,14 +1,17 @@
 async function fetchImageFlyers(tenantId) {
-    const url = (`https://concrete-logically-kit.ngrok-free.app/api/tenants/${tenantId}/flyers`, {
+    const url = `https://concrete-logically-kit.ngrok-free.app/api/tenants/${tenantId}/flyers`;
+    const options = {
         method: "GET",
         headers: {
             'ngrok-skip-browser-warning': 'true',
             'Accept': 'application/json'
         }
-    });
+    };
     
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, options);
+        console.log("URL:", url);
+        console.log("Response:", response);
         if (!response.ok) {
             throw new Error(`Error: ${response.status}`);
         }
@@ -46,10 +49,7 @@ async function loadFlyers() {
         imagePaths.forEach(imagePath => {
             const slide = document.createElement('div');
             slide.classList.add('swiper-slide');
-            const finalImagePath = imagePath 
-                ? `https://concrete-logically-kit.ngrok-free.app${imagePath}` 
-                : 'https://via.placeholder.com/300x150.png?text=Imagem+Indisponível';
-            slide.innerHTML = `<img src="${finalImagePath}" alt="Flyer Image" class="w-full h-auto">`;
+            slide.innerHTML = `<img src="${imagePath}" alt="Flyer Image" class="w-full h-auto">`;
             swiperWrapper.appendChild(slide);
         });
         initializeSwiper();
