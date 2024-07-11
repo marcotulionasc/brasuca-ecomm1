@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     const result = await response.json();
-                    console.log('Usuário cadastrado com sucesso:', result);
                     toggleModal('cadastroModal'); // Fechar o modal após o sucesso
 
                 } catch (error) {

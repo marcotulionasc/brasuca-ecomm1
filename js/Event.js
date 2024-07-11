@@ -45,7 +45,6 @@ function displayEvents(events) {
 }
 
 function createEventElement(event) {
-    console.log('Creating element for event:', event);
 
     const eventDiv = document.createElement("div");
     eventDiv.classList.add("relative", "group", "border", "border-gray-300", "rounded-lg", "p-4");
@@ -89,7 +88,6 @@ function createEventElement(event) {
     eventDiv.appendChild(img);
     eventDiv.appendChild(textContainer);
 
-    console.log('Created element:', eventDiv);
     return eventDiv;
 }
 

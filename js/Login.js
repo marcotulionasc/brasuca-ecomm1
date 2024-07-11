@@ -33,7 +33,6 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         }
 
         const result = await response.json();
-        console.log('Login successful:', result);
         toggleModal('loginModal'); // Fechar o modal após o sucesso
 
         // Atualizar a interface com as informações do usuário

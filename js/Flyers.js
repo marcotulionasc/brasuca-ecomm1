@@ -10,13 +10,10 @@ async function fetchImageFlyers(tenantId) {
     
     try {
         const response = await fetch(url, options);
-        console.log("URL:", url);
-        console.log("Response:", response);
         if (!response.ok) {
             throw new Error(`Error: ${response.status}`);
         }
         const imagePaths = await response.json();
-        console.log("Image Flyers:", imagePaths);
         return imagePaths;
     } catch (error) {
         console.error("Failed to fetch image flyers:", error);
