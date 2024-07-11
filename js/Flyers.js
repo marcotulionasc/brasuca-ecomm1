@@ -40,7 +40,10 @@ async function loadFlyers() {
         imagePaths.forEach(imagePath => {
             const slide = document.createElement('div');
             slide.classList.add('swiper-slide');
-            slide.innerHTML = `<img src="${imagePath}" alt="Flyer Image" class="w-full h-auto">`;
+            const finalImagePath = imagePath 
+                ? `https://concrete-logically-kit.ngrok-free.app${imagePath}` 
+                : 'https://via.placeholder.com/300x150.png?text=Imagem+Indisponível';
+            slide.innerHTML = `<img src="${finalImagePath}" alt="Flyer Image" class="w-full h-auto">`;
             swiperWrapper.appendChild(slide);
         });
         initializeSwiper();

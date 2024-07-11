@@ -67,21 +67,25 @@
             grid-template-columns: repeat(1, minmax(0, 1fr));
             gap: 2rem;
         }
+
         @media (min-width: 640px) {
             .grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
+
         @media (min-width: 1024px) {
             .grid {
                 grid-template-columns: repeat(4, minmax(0, 1fr));
             }
         }
+
         .pagination {
             display: flex;
             justify-content: center;
             margin-top: 2rem;
         }
+
         .pagination button {
             margin: 0 0.5rem;
             padding: 0.5rem 1rem;
@@ -156,38 +160,38 @@
 
         <!-- Desktop Header -->
         <header class="p-3 hidden md:flex justify-between items-center" style="background-color: var(--primary-color);">
-           
-                <div class="flex items-center space-x-6" style="margin-left: 50px;">
-                    <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-32">
-                    <div class="relative w-96">
-                        <input type="text" placeholder="Buscar eventos, artistas, etc..."
-                            class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-action-color w-full">
-                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-                            <i class="bi bi-search text-gray-400"></i>
-                        </div>
+
+            <div class="flex items-center space-x-6" style="margin-left: 50px;">
+                <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-32">
+                <div class="relative w-96">
+                    <input type="text" placeholder="Buscar eventos, artistas, etc..."
+                        class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-action-color w-full">
+                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                        <i class="bi bi-search text-gray-400"></i>
                     </div>
                 </div>
-                <div class="flex items-center space-x-4">
+            </div>
+            <div class="flex items-center space-x-4">
+                <button type="button"
+                    class="px-4 py-2 bg-red-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-red-400 flex items-center">
+                    Meus ingressos <i class="bi bi-ticket ml-2"></i>
+                </button>
+                <button type="button"
+                    class="px-4 py-2 bg-blue-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 flex items-center toggle-cadastro">
+                    Criar conta <i class="bi bi-person-plus ml-2"></i>
+                </button>
+                <button type="button"
+                    class="px-4 py-2 bg-blue-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 flex items-center toggle-login">
+                    Entrar <i class="bi bi-person ml-2"></i>
+                </button>
+                <div class="flex items-center space-x-4" style="margin-right: 50px;">
                     <button type="button"
-                        class="px-4 py-2 bg-red-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-red-400 flex items-center">
-                        Meus ingressos <i class="bi bi-ticket ml-2"></i>
+                        class="px-4 py-2 bg-gray-800 text-white rounded-lg transition duration-300 ease-in-out hover:bg-gray-700 flex items-center toggle-cart">
+                        <i class="bi bi-cart-fill"></i>
                     </button>
-                    <button type="button"
-                        class="px-4 py-2 bg-blue-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 flex items-center toggle-cadastro">
-                        Criar conta <i class="bi bi-person-plus ml-2"></i>
-                    </button>
-                    <button type="button"
-                        class="px-4 py-2 bg-blue-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 flex items-center toggle-login">
-                        Entrar <i class="bi bi-person ml-2"></i>
-                    </button>
-                    <div class="flex items-center space-x-4" style="margin-right: 50px;">
-                        <button type="button"
-                            class="px-4 py-2 bg-gray-800 text-white rounded-lg transition duration-300 ease-in-out hover:bg-gray-700 flex items-center toggle-cart">
-                            <i class="bi bi-cart-fill"></i>
-                        </button>
-                    </div>
                 </div>
-      
+            </div>
+
         </header>
 
         <!-- Sidebar -->
@@ -281,9 +285,10 @@
         </div>
 
         <!-- Filtros de Busca Desktop -->
-        <div class="container-local mt-8 p-6 rounded-lg hidden md:block" style="background-color: var(--primary-color);">
+        <div class="container-local mt-8 p-6 rounded-lg hidden md:block"
+            style="background-color: var(--primary-color);">
             <div class="mx-6">
-                <div class="flex justify-between items-center" >
+                <div class="flex justify-between items-center">
                     <div class="container-local flex justify-center">
                         <form class="search-box space-y-4 p-8">
                             <div class="flex items-center space-x-2">
@@ -296,11 +301,11 @@
                                     id="startDate" />
                             </div>
                             <div class="flex items-center space-x-2">
-                                <i class="bi bi-cash"  style="color: var(--secondary-color);"></i>
+                                <i class="bi bi-cash" style="color: var(--secondary-color);"></i>
                                 <input type="text" placeholder="Preço" class="form-input" />
                             </div>
                             <div class="flex items-center space-x-2">
-                                <i class="bi bi-music-note"  style="color: var(--secondary-color);"></i>
+                                <i class="bi bi-music-note" style="color: var(--secondary-color);"></i>
                                 <select class="form-select" style="background-color: #FFFFFF; color: #b1b0b0;">
                                     <option value="2">ROCK</option>
                                     <option value="3">FORRÓ</option>
@@ -309,7 +314,8 @@
                                 </select>
                             </div>
                             <div class="flex justify-center">
-                                <button type="button" class="btn btn-primary" style="background-color: var(--secondary-color);">Procurar!</button>
+                                <button type="button" class="btn btn-primary"
+                                    style="background-color: var(--secondary-color);">Procurar!</button>
                             </div>
                         </form>
                     </div>
@@ -505,7 +511,7 @@
                             <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-tiktok"></i></a>
                         </div>
                     </div>
-                   <!-- <div>
+                    <!-- <div>
                         <h2 class="text-2xl font-bold mb-4">Segurança</h2>
                         <div class="flex space-x-4 mb-4">
                             <img src="img/logo/selo-trustvox-22e50071258ff3907cdc27dd91584016.png" alt="Segurança"
