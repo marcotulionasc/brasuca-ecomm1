@@ -1,0 +1,49 @@
+/* Preloader Styles */
+#preloader-active {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preloader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preloader-inner {
+    position: relative;
+}
+
+.preloader-circle {
+    width: 130px; /* doubled from 80px */
+    height: 130px; /* doubled from 80px */
+    border: 10px solid rgba(0, 0, 0, 0.1); /* doubled from 10px */
+    border-top: 10px solid #161b14; /* doubled from 10px */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.preloader-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.pere-text img {
+    width: 300%; /* doubled from 50px */
+    height: 300%; /* doubled from 50px */
+}

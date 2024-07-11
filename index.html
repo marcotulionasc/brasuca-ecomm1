@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="css/complement.css">
+    <link rel="stylesheet" href="css/loader.css">
     <style>
         .modal-overlay {
             background-color: rgba(0, 0, 0, 0.5);
@@ -100,6 +101,21 @@
 </head>
 
 <body class="font-poppins" style="background-color: var(--background-color); color: var(--primary-text-color);">
+    
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="img/logo/logo-ingressar.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
     <div class="main-content">
 
         <!-- Navigation Mobile -->
@@ -655,6 +671,7 @@
     <script src="js/Login.js" type="module"></script>
     <script src="js/Event.js"></script>
     <script src="js/Flyers.js"></script>
+    <script src="js/loader.js"></script>
 
     <script>
         var swiper = new Swiper('.swiper-container', {
