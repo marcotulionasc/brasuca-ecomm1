@@ -5,26 +5,29 @@ document.addEventListener("DOMContentLoaded", function () {
 let currentPage = 1;
 const eventsPerPage = 12; // 4 colunas * 3 linhas
 
-function fetchEvents() {
+async function fetchEvents() {
     const tenantId = 1; // Substitua pelo ID real do tenant
-    fetch(`https://concrete-logically-kit.ngrok-free.app/api/tenants/${tenantId}/events`, {
-        method: "GET",
-        headers: {
-            'ngrok-skip-browser-warning': 'true',
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => {
+    const url = `https://concrete-logically-kit.ngrok-free.app/api/tenants/${tenantId}/events/image`;
+
+    try {
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                'ngrok-skip-browser-warning': 'true',
+                'Accept': 'application/json'
+            }
+        });
+
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.json();
-    })
-    .then(events => {
+
+        const events = await response.json();
         displayEvents(events);
         setupPagination(events);
-    })
-    .catch(error => console.error('Erro ao buscar eventos:', error));
+    } catch (error) {
+        console.error('Erro ao buscar eventos:', error);
+    }
 }
 
 function displayEvents(events) {
@@ -42,26 +45,15 @@ function displayEvents(events) {
 }
 
 function createEventElement(event) {
+    console.log('Creating element for event:', event);
+
     const eventDiv = document.createElement("div");
     eventDiv.classList.add("relative", "group", "border", "border-gray-300", "rounded-lg", "p-4");
 
     const img = document.createElement("img");
-    const imagePath = event.imageFlyer 
-        ? `https://concrete-logically-kit.ngrok-free.app${event.imageFlyer}` 
-        : 'https://via.placeholder.com/300x150.png?text=Imagem+Indisponível';
-    img.src = imagePath;
+    img.src = event.base64Image;
     img.alt = event.titleEvent ? event.titleEvent : 'Imagem do Evento';
-    img.classList.add("w-full", "h-48", "object-cover", "rounded-lg"); // Definindo altura fixa
-
-    // Adicionando cabeçalho de aceitação para imagens
-    img.addEventListener('load', () => {
-        fetch(imagePath, {
-            method: "GET",
-            headers: {
-                'Accept': 'image/*'
-            }
-        });
-    });
+    img.classList.add("w-full", "h-48", "object-cover", "rounded-lg");
 
     const textContainer = document.createElement("div");
     textContainer.classList.add("mt-4", "text-center");
@@ -75,17 +67,12 @@ function createEventElement(event) {
     date.style.color = "var(--primary-text-color)";
     date.textContent = new Date(event.date).toLocaleDateString();
 
-    const local = document.createElement("p");
-    local.style.color = "var(--primary-text-color)";
-    local.textContent = event.local;
-
     const address = document.createElement("p");
     address.style.color = "var(--primary-text-color)";
-    address.textContent = event.address ? `${event.address.street}, ${event.address.city}` : 'Endereço não disponível';
+    address.textContent = event.address;
 
     textContainer.appendChild(title);
     textContainer.appendChild(date);
-    textContainer.appendChild(local);
     textContainer.appendChild(address);
 
     const button = document.createElement("button");
@@ -94,8 +81,7 @@ function createEventElement(event) {
     button.style.color = "var(--background-color)";
     button.textContent = "COMPRAR";
     button.addEventListener("click", () => {
-        // Redirecionar para a página de compra do evento específico
-        window.location.href = `../index.html`; // Substitua pela URL correta
+        window.location.href = `../index.html`;
     });
 
     textContainer.appendChild(button);
@@ -103,6 +89,7 @@ function createEventElement(event) {
     eventDiv.appendChild(img);
     eventDiv.appendChild(textContainer);
 
+    console.log('Created element:', eventDiv);
     return eventDiv;
 }
 

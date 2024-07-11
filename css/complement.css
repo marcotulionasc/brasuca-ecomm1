@@ -49,6 +49,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 200px; /* Largura fixa */
+    height: 400px; /* Altura fixa */
+    object-fit: cover; /* Ajusta a imagem para cobrir o elemento */
 }
 
 .profile-image-container {
