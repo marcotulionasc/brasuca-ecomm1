@@ -101,7 +101,7 @@
 </head>
 
 <body class="font-poppins" style="background-color: var(--background-color); color: var(--primary-text-color);">
-    
+
     <!-- Preloader Start -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
@@ -114,8 +114,8 @@
         </div>
     </div>
 
-    
-    
+
+
     <div class="main-content">
 
         <!-- Navigation Mobile -->
@@ -176,10 +176,9 @@
 
         <!-- Desktop Header -->
         <header class="p-3 hidden md:flex justify-between items-center" style="background-color: var(--primary-color);">
-
-            <div class="flex items-center space-x-6" style="margin-left: 50px;">
-                <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-32">
-                <div class="relative w-96">
+            <div class="flex items-center space-x-6 ml-4 md:ml-10 lg:ml-20">
+                <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-24 md:w-32">
+                <div class="relative w-48 md:w-64 lg:w-96">
                     <input type="text" placeholder="Buscar eventos, artistas, etc..."
                         class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-action-color w-full">
                     <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
@@ -187,28 +186,26 @@
                     </div>
                 </div>
             </div>
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-2 md:space-x-4 mr-4 md:mr-10 lg:mr-20">
                 <button type="button"
-                    class="px-4 py-2 bg-red-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-red-400 flex items-center">
+                    class="px-3 md:px-4 py-2 bg-red-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-red-400 flex items-center">
                     Meus ingressos <i class="bi bi-ticket ml-2"></i>
                 </button>
                 <button type="button"
-                    class="px-4 py-2 bg-blue-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 flex items-center toggle-cadastro">
+                    class="px-3 md:px-4 py-2 bg-blue-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 flex items-center toggle-cadastro">
                     Criar conta <i class="bi bi-person-plus ml-2"></i>
                 </button>
                 <button type="button"
-                    class="px-4 py-2 bg-blue-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 flex items-center toggle-login">
+                    class="px-3 md:px-4 py-2 bg-blue-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 flex items-center toggle-login">
                     Entrar <i class="bi bi-person ml-2"></i>
                 </button>
-                <div class="flex items-center space-x-4" style="margin-right: 50px;">
-                    <button type="button"
-                        class="px-4 py-2 bg-gray-800 text-white rounded-lg transition duration-300 ease-in-out hover:bg-gray-700 flex items-center toggle-cart">
-                        <i class="bi bi-cart-fill"></i>
-                    </button>
-                </div>
+                <button type="button"
+                    class="px-3 md:px-4 py-2 bg-gray-800 text-white rounded-lg transition duration-300 ease-in-out hover:bg-gray-700 flex items-center toggle-cart">
+                    <i class="bi bi-cart-fill"></i>
+                </button>
             </div>
-
         </header>
+
 
         <!-- Sidebar -->
         <div id="sidebar"
@@ -304,40 +301,38 @@
         <div class="container-local mt-8 p-6 rounded-lg hidden md:block"
             style="background-color: var(--primary-color);">
             <div class="mx-6">
-                <div class="flex justify-between items-center">
-                    <div class="container-local flex justify-center">
-                        <form class="search-box space-y-4 p-8">
-                            <div class="flex items-center space-x-2">
-                                <i class="bi bi-geo-alt-fill " style="color: var(--secondary-color);"></i>
-                                <input type="text" placeholder="Campinas" class="form-input" />
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <i class="bi bi-calendar-event-fill " style="color: var(--secondary-color);"></i>
-                                <input type="text" placeholder="12 Jun 2018" class="datepicker form-input"
-                                    id="startDate" />
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <i class="bi bi-cash" style="color: var(--secondary-color);"></i>
-                                <input type="text" placeholder="Preço" class="form-input" />
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <i class="bi bi-music-note" style="color: var(--secondary-color);"></i>
-                                <select class="form-select" style="background-color: #FFFFFF; color: #b1b0b0;">
-                                    <option value="2">ROCK</option>
-                                    <option value="3">FORRÓ</option>
-                                    <option value="4">FUNK</option>
-                                    <option value="5">MPB</option>
-                                </select>
-                            </div>
-                            <div class="flex justify-center">
-                                <button type="button" class="btn btn-primary"
-                                    style="background-color: var(--secondary-color);">Procurar!</button>
-                            </div>
-                        </form>
-                    </div>
+                <div class="flex justify-center items-center flex-wrap">
+                    <form class="search-box flex flex-wrap justify-center space-y-4 p-8">
+                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
+                            <i class="bi bi-geo-alt-fill" style="color: var(--secondary-color);"></i>
+                            <input type="text" placeholder="Campinas" class="form-input" />
+                        </div>
+                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
+                            <i class="bi bi-calendar-event-fill" style="color: var(--secondary-color);"></i>
+                            <input type="text" placeholder="12 Jun 2018" class="datepicker form-input" id="startDate" />
+                        </div>
+                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
+                            <i class="bi bi-cash" style="color: var(--secondary-color);"></i>
+                            <input type="text" placeholder="Preço" class="form-input" />
+                        </div>
+                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
+                            <i class="bi bi-music-note" style="color: var(--secondary-color);"></i>
+                            <select class="form-select" style="background-color: #FFFFFF; color: #b1b0b0;">
+                                <option value="2">ROCK</option>
+                                <option value="3">FORRÓ</option>
+                                <option value="4">FUNK</option>
+                                <option value="5">MPB</option>
+                            </select>
+                        </div>
+                        <div class="w-full md:w-auto flex justify-center">
+                            <button type="button" class="btn btn-primary"
+                                style="background-color: var(--secondary-color);">Procurar!</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+
 
 
         <!-- Filtros de Busca Mobile -->
