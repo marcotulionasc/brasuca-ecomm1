@@ -1,5 +1,11 @@
 async function fetchImageFlyers(tenantId) {
-    const url = `https://concrete-logically-kit.ngrok-free.app/api/tenants/${tenantId}/flyers`;
+    const url = (`https://concrete-logically-kit.ngrok-free.app/api/tenants/${tenantId}/flyers`, {
+        method: "GET",
+        headers: {
+            'ngrok-skip-browser-warning': 'true',
+            'Accept': 'application/json'
+        }
+    });
     
     try {
         const response = await fetch(url);
