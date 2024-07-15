@@ -80,7 +80,7 @@ function createEventElement(event) {
     button.style.color = "var(--background-color)";
     button.textContent = "COMPRAR";
     button.addEventListener("click", () => {
-        window.location.href = `../index.html`;
+        handleEventClick(1, event.id);
     });
 
     textContainer.appendChild(button);
@@ -90,6 +90,11 @@ function createEventElement(event) {
 
     return eventDiv;
 }
+
+function handleEventClick(tenantId, eventId) {
+    window.location.href = `event.html?tenantId=${tenantId}&eventId=${eventId}`;
+}
+
 
 function setupPagination(events) {
     const paginationContainer = document.querySelector("#pagination");

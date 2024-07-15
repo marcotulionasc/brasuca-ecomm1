@@ -286,131 +286,14 @@
             </div>
         </nav>
 
-        <!-- Swiper Section -->
-        <div class="container-local bg-background-color">
-            <div class="swiper-container relative custom-width mx-auto" style="align-items: center;">
-                <div class="swiper-wrapper">
-                    <!-- Slides serão carregados aqui dinamicamente -->
-                </div>
-                <!-- Pagination -->
-                <div class="swiper-pagination absolute bottom-2 left-1/2 transform -translate-x-1/2 w-48"></div>
-            </div>
-        </div>
-
-        <!-- Filtros de Busca Desktop -->
-        <div class="container-local mt-8 p-6 rounded-lg hidden md:block"
-            style="background-color: var(--primary-color);">
-            <div class="mx-6">
-                <div class="flex justify-center items-center flex-wrap">
-                    <form class="search-box flex flex-wrap justify-center space-y-4 p-8">
-                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
-                            <i class="bi bi-geo-alt-fill" style="color: var(--secondary-color);"></i>
-                            <input type="text" placeholder="Campinas" class="form-input" />
-                        </div>
-                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
-                            <i class="bi bi-calendar-event-fill" style="color: var(--secondary-color);"></i>
-                            <input type="text" placeholder="12 Jun 2018" class="datepicker form-input" id="startDate" />
-                        </div>
-                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
-                            <i class="bi bi-cash" style="color: var(--secondary-color);"></i>
-                            <input type="text" placeholder="Preço" class="form-input" />
-                        </div>
-                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
-                            <i class="bi bi-music-note" style="color: var(--secondary-color);"></i>
-                            <select class="form-select" style="background-color: #FFFFFF; color: #b1b0b0;">
-                                <option value="2">ROCK</option>
-                                <option value="3">FORRÓ</option>
-                                <option value="4">FUNK</option>
-                                <option value="5">MPB</option>
-                            </select>
-                        </div>
-                        <div class="w-full md:w-auto flex justify-center">
-                            <button type="button" class="btn btn-primary"
-                                style="background-color: var(--secondary-color);">Procurar!</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- Filtros de Busca Mobile -->
-        <div class="container-local bg-background-color mt-8 p-4 rounded-lg shadow-lg block md:hidden">
-            <div class="flex flex-col space-y-4">
-                <div class="flex flex-col">
-                    <label for="tipo-evento-mobile" class="font-medium text-primary-text-color">Tipo de
-                        Evento</label>
-                    <select id="tipo-evento-mobile"
-                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
-                        <option>Show</option>
-                        <option>Teatro</option>
-                        <option>Esporte</option>
-                        <option>Outros</option>
-                    </select>
-                </div>
-                <div class="flex flex-col">
-                    <label for="localizacao-mobile" class="font-medium text-primary-text-color">Localização</label>
-                    <input type="text" id="localizacao-mobile" placeholder="Digite a cidade"
-                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
-                </div>
-                <div class="flex flex-col">
-                    <label for="data-evento-mobile" class="font-medium text-primary-text-color">Data</label>
-                    <input type="date" id="data-evento-mobile"
-                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
-                </div>
-                <div class="flex flex-col">
-                    <label for="preco-evento-mobile" class="font-medium text-primary-text-color">Preço</label>
-                    <input type="number" id="preco-evento-mobile" placeholder="Máximo"
-                        class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-action-color">
-                </div>
-                <button class="px-4 py-2 rounded-lg transition duration-300 ease-in-out"
-                    style="background-color: var(--action-color); color: var(--background-color);">Filtrar</button>
-            </div>
-        </div>
-
-        <!-- Event Grid -->
+    
+        <!-- Event Details Section -->
         <div class="container mx-auto px-4 py-8">
-            <div class="grid" id="eventGrid">
-                <!-- Eventos serão carregados aqui dinamicamente -->
-            </div>
-            <div class="pagination" id="pagination">
-                <!-- Botões de paginação serão carregados aqui dinamicamente -->
+            <div id="eventDetails" class="bg-white rounded-lg shadow-md p-6">
+                <!-- Detalhes do evento serão carregados aqui -->
             </div>
         </div>
 
-        <!-- Ver Mais Button -->
-        <div class="container-local flex justify-center py-4" style="background-color: var(--background-color);">
-            <!-- Só para espaçamento mesmo -->
-        </div>
-
-        <!-- Mobile Newsletter Section -->
-        <div class="container-local mx-auto mt-12 block md:hidden">
-            <div class="shadow-md rounded-lg overflow-hidden" style="background-color: var(--background-color);">
-                <div class="text-center py-6"
-                    style="background-color: var(--primary-color); color: var(--background-color);">
-                    <h1 class="text-xl font-bold">Cadastre seu e-mail e receba nossas novidades!</h1>
-                </div>
-                <div class="p-6 flex flex-col items-center justify-center space-y-4">
-                    <form action="#" method="POST" class="w-full flex flex-col items-center space-y-4">
-                        <div class="w-full">
-                            <label for="email" class="block text-sm font-medium"
-                                style="color: var(--primary-text-color);">Email</label>
-                            <input type="email" name="email" id="email" required
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
-                                placeholder="Digite seu melhor email">
-                        </div>
-                        <div class="w-full">
-                            <button type="submit"
-                                class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium hover:bg-primary-color focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-color"
-                                style="background-color: var(--action-color); color: var(--background-color);">
-                                Inscreva-se agora!
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
         <!-- Footer -->
         <footer class="bg-gray-100 py-8">
@@ -655,8 +538,6 @@
         </div>
     </div>
 
-
-
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -669,140 +550,105 @@
     <script src="js/loader.js"></script>
 
     <script>
-        var swiper = new Swiper('.swiper-container', {
-            slidesPerView: 1,
-            spaceBetween: 30,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            breakpoints: {
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 30,
+         document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tenantId = urlParams.get('tenantId');
+        const eventId = urlParams.get('eventId');
+
+        if (tenantId && eventId) {
+            fetchEventDetails(tenantId, eventId);
+        }
+    });
+
+    async function fetchEventDetails(tenantId, eventId) {
+        const url = `https://concrete-logically-kit.ngrok-free.app/api/tenants/${tenantId}/events/${eventId}`;
+
+        try {
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    'ngrok-skip-browser-warning': 'true',
+                    'Accept': 'application/json'
                 }
-            }
-        });
-
-        function adjustCarousel() {
-            var desktopSlides = document.querySelectorAll('.desktop-slide');
-            var mobileSlides = document.querySelectorAll('.mobile-slide');
-            var desktopPagination = document.querySelector('.desktop-pagination');
-            var mobilePagination = document.querySelector('.mobile-pagination');
-
-            if (window.innerWidth <= 768) {
-                desktopSlides.forEach(function (slide) {
-                    slide.style.display = 'none';
-                });
-                mobileSlides.forEach(function (slide) {
-                    slide.style.display = 'block';
-                });
-                desktopPagination.style.display = 'none';
-                mobilePagination.style.display = 'block';
-            } else {
-                desktopSlides.forEach(function (slide) {
-                    slide.style.display = 'block';
-                });
-                mobileSlides.forEach(function (slide) {
-                    slide.style.display = 'none';
-                });
-                desktopPagination.style.display = 'block';
-                mobilePagination.style.display = 'none';
-            }
-        }
-
-        window.addEventListener('resize', adjustCarousel);
-        adjustCarousel();
-
-        document.getElementById("toggle-text").addEventListener("click", function (event) {
-            event.preventDefault();
-            var extraText = document.getElementById("extra-text");
-            var toggleText = document.getElementById("toggle-text");
-            if (extraText.style.display === "none") {
-                extraText.style.display = "block";
-                toggleText.innerHTML = "<strong>Leia menos</strong>";
-            } else {
-                extraText.style.display = "none";
-                toggleText.innerHTML = "<strong>Leia mais</strong>";
-            }
-        });
-
-        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
-
-        let mybutton = document.getElementById("scrollToTopBtn");
-
-        window.onscroll = function () {
-            scrollFunction();
-        };
-
-        function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                mybutton.style.display = "block";
-            } else {
-                mybutton.style.display = "none";
-            }
-        }
-
-        mybutton.onclick = function () {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
-
-        function toggleSidebar() {
-            var sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle('-translate-x-full');
-        }
-
-        function toggleModal(modalId) {
-            const modal = document.getElementById(modalId);
-            const mainContent = document.querySelector('.main-content');
-
-            modal.classList.toggle('hidden');
-            mainContent.classList.toggle('blurred');
-        }
-
-        function toggleSidebarCart(sidebarId) {
-            const sidebar = document.getElementById(sidebarId);
-            sidebar.classList.toggle('translate-x-full');
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.toggle-login').forEach(button => {
-                button.addEventListener('click', () => toggleModal('loginModal'));
             });
 
-            document.querySelectorAll('.toggle-cadastro').forEach(button => {
-                button.addEventListener('click', () => toggleModal('cadastroModal'));
-            });
-
-            document.querySelectorAll('.toggle-cart').forEach(button => {
-                button.addEventListener('click', () => toggleSidebarCart('cartSidebar'));
-            });
-
-            const cpfInput = document.getElementById('cadastroCPF');
-            if (cpfInput) {
-                cpfInput.addEventListener('input', function (e) {
-                    let value = e.target.value.replace(/\D/g, '');
-                    value = value.replace(/(\d{3})(\d)/, '$1.$2');
-                    value = value.replace(/(\d{3})(\d)/, '$1.$2');
-                    value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-                    e.target.value = value;
-                });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
 
-        });
+            const event = await response.json();
+            displayEventDetails(event);
 
-        function formatDate(date) {
-            const options = { day: '2-digit', month: 'short', year: 'numeric' };
-            return new Intl.DateTimeFormat('en-US', options).format(date).replace(/ /g, ' ').toUpperCase();
+            if (event.imageEvent) {
+                const imageUrl = `https://concrete-logically-kit.ngrok-free.app${event.imageEvent}`;
+                fetchEventImage(imageUrl);
+            }
+        } catch (error) {
+            console.error('Erro ao buscar detalhes do evento:', error);
         }
+    }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const today = new Date();
-            document.getElementById('startDate').placeholder = formatDate(today);
-            document.getElementById('endDate').placeholder = formatDate(today);
+    async function fetchEventImage(imageUrl) {
+        try {
+            const response = await fetch(imageUrl, {
+                method: "GET",
+                headers: {
+                    'ngrok-skip-browser-warning': 'true',
+                    'Accept': 'application/json'
+                }
+            });
 
-            flatpickr(".datepicker", {});
-        });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const imageBlob = await response.blob();
+            const reader = new FileReader();
+            reader.onloadend = function () {
+                const base64data = reader.result;
+                displayEventImage(base64data);
+            }
+            reader.readAsDataURL(imageBlob);
+        } catch (error) {
+            console.error('Erro ao buscar a imagem do evento:', error);
+        }
+    }
+
+    function displayEventImage(base64Image) {
+        const container = document.querySelector("#eventDetails");
+        const image = document.createElement("img");
+        image.src = base64Image;
+        image.alt = "Imagem do Evento";
+        image.classList.add("w-full", "h-64", "object-cover", "rounded-lg");
+        container.appendChild(image);
+    }
+
+    function displayEventDetails(event) {
+        const container = document.querySelector("#eventDetails");
+        container.innerHTML = ''; // Limpar o conteúdo existente
+
+        const title = document.createElement("h2");
+        title.classList.add("text-2xl", "font-bold");
+        title.style.color = "var(--secondary-color)";
+        title.textContent = event.titleEvent;
+
+        const date = document.createElement("p");
+        date.style.color = "var(--primary-text-color)";
+        date.textContent = new Date(event.date).toLocaleDateString();
+
+        const address = document.createElement("p");
+        address.style.color = "var(--primary-text-color)";
+        address.textContent = event.address;
+
+        const description = document.createElement("p");
+        description.style.color = "var(--primary-text-color)";
+        description.textContent = event.description;
+
+        container.appendChild(title);
+        container.appendChild(date);
+        container.appendChild(address);
+        container.appendChild(description);
+    }
     </script>
 </body>
 
