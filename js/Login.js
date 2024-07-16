@@ -23,7 +23,8 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         const response = await fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'true' // Adicionando o cabeçalho para ignorar o aviso do ngrok
             },
             body: JSON.stringify(data)
         });
@@ -33,6 +34,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         }
 
         const result = await response.json();
+        console.log('Login result:', result);
         toggleModal('loginModal'); // Fechar o modal após o sucesso
 
         // Atualizar a interface com as informações do usuário
@@ -41,15 +43,35 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         document.querySelector('.toggle-cadastro').style.display = 'none';
         document.getElementById('logoutLink').style.display = 'flex';
 
-        // Exibir a imagem de perfil
+        // Buscar a imagem de perfil
         if (result.imageProfileBase64) {
-            const img = document.createElement('img');
-            img.src = `data:image/png;base64,${result.imageProfileBase64}`;
-            img.classList.add('profile-image');
+            try {
+                const imgResponse = await fetch(result.imageProfileBase64, {
+                    headers: {
+                        'ngrok-skip-browser-warning': 'true'
+                    }
+                });
 
-            const profileImageContainer = document.getElementById('profileImageContainer');
-            profileImageContainer.innerHTML = '';
-            profileImageContainer.appendChild(img);
+                if (imgResponse.ok) {
+                    const imageBlob = await imgResponse.blob();
+                    const reader = new FileReader();
+                    reader.readAsDataURL(imageBlob);
+                    reader.onloadend = function () {
+                        const base64data = reader.result;
+                        const img = document.createElement('img');
+                        img.src = base64data; // Usar a URL base64 da imagem
+                        img.classList.add('profile-image');
+
+                        const profileImageContainer = document.getElementById('profileImageContainer');
+                        profileImageContainer.innerHTML = '';
+                        profileImageContainer.appendChild(img);
+                    };
+                } else {
+                    console.error('Erro ao buscar a imagem de perfil:', imgResponse.statusText);
+                }
+            } catch (imgError) {
+                console.error('Erro ao buscar a imagem de perfil:', imgError);
+            }
         }
 
     } catch (error) {

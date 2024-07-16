@@ -286,11 +286,19 @@
             </div>
         </nav>
 
-    
+
         <!-- Event Details Section -->
         <div class="container mx-auto px-4 py-8">
             <div id="eventDetails" class="bg-white rounded-lg shadow-md p-6">
                 <!-- Detalhes do evento serão carregados aqui -->
+            </div>
+
+            <div id="seatMapContainer" class="mt-8">
+                <!-- Imagem do mapa de assentos será carregada aqui -->
+            </div>
+
+            <div id="ticketOptions" class="mt-8">
+                <!-- Opções de ingressos serão carregadas aqui -->
             </div>
         </div>
 
@@ -405,7 +413,7 @@
                             <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-tiktok"></i></a>
                         </div>
                     </div>
-                     <div>
+                    <div>
                         <!--<h2 class="text-2xl font-bold mb-4">Segurança</h2>
                         <div class="flex space-x-4 mb-4">
                             <img src="img/logo/selo-trustvox-22e50071258ff3907cdc27dd91584016.png" alt="Segurança"
@@ -550,105 +558,194 @@
     <script src="js/loader.js"></script>
 
     <script>
-         document.addEventListener("DOMContentLoaded", function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const tenantId = urlParams.get('tenantId');
-        const eventId = urlParams.get('eventId');
+        document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tenantId = urlParams.get('tenantId');
+    const eventId = urlParams.get('eventId');
 
-        if (tenantId && eventId) {
-            fetchEventDetails(tenantId, eventId);
+    if (tenantId && eventId) {
+        fetchEventDetails(tenantId, eventId);
+    }
+});
+
+async function fetchEventDetails(tenantId, eventId) {
+    const url = `https://concrete-logically-kit.ngrok-free.app/api/tenants/${tenantId}/events/${eventId}`;
+
+    try {
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                'ngrok-skip-browser-warning': 'true',
+                'Accept': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
+
+        const event = await response.json();
+        displayEventDetails(event);
+
+        if (event.imageEvent) {
+            const imageUrl = `https://concrete-logically-kit.ngrok-free.app${event.imageEvent}`;
+            fetchEventImage(imageUrl);
+        }
+
+        // Carregar imagem do mapa de assentos
+        if (event.seatMapImage) {
+            const seatMapUrl = `https://concrete-logically-kit.ngrok-free.app${event.seatMapImage}`;
+            fetchSeatMapImage(seatMapUrl);
+        }
+
+        // Carregar opções de ingressos
+        if (event.tickets) {
+            displayTicketOptions(event.tickets);
+        }
+    } catch (error) {
+        console.error('Erro ao buscar detalhes do evento:', error);
+    }
+}
+
+async function fetchEventImage(imageUrl) {
+    try {
+        const response = await fetch(imageUrl, {
+            method: "GET",
+            headers: {
+                'ngrok-skip-browser-warning': 'true',
+                'Accept': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const imageBlob = await response.blob();
+        const reader = new FileReader();
+        reader.onloadend = function () {
+            const base64data = reader.result;
+            displayEventImage(base64data);
+        }
+        reader.readAsDataURL(imageBlob);
+    } catch (error) {
+        console.error('Erro ao buscar a imagem do evento:', error);
+    }
+}
+
+function displayEventImage(base64Image) {
+    const container = document.querySelector("#eventDetails");
+    const image = document.createElement("img");
+    image.src = base64Image;
+    image.alt = "Imagem do Evento";
+    image.classList.add("w-full", "h-64", "object-cover", "rounded-lg");
+    container.appendChild(image);
+}
+
+function displayEventDetails(event) {
+    const container = document.querySelector("#eventDetails");
+    container.innerHTML = ''; // Limpar o conteúdo existente
+
+    const title = document.createElement("h2");
+    title.classList.add("text-2xl", "font-bold");
+    title.style.color = "var(--secondary-color)";
+    title.textContent = event.titleEvent;
+
+    const date = document.createElement("p");
+    date.style.color = "var(--primary-text-color)";
+    date.textContent = new Date(event.date).toLocaleDateString();
+
+    const address = document.createElement("p");
+    address.style.color = "var(--primary-text-color)";
+    address.textContent = event.address;
+
+    const description = document.createElement("p");
+    description.style.color = "var(--primary-text-color)";
+    description.textContent = event.description;
+
+    container.appendChild(title);
+    container.appendChild(date);
+    container.appendChild(address);
+    container.appendChild(description);
+}
+
+async function fetchSeatMapImage(seatMapUrl) {
+    try {
+        const response = await fetch(seatMapUrl, {
+            method: "GET",
+            headers: {
+                'ngrok-skip-browser-warning': 'true',
+                'Accept': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const imageBlob = await response.blob();
+        const reader = new FileReader();
+        reader.onloadend = function () {
+            const base64data = reader.result;
+            displaySeatMapImage(base64data);
+        }
+        reader.readAsDataURL(imageBlob);
+    } catch (error) {
+        console.error('Erro ao buscar a imagem do mapa de assentos:', error);
+    }
+}
+
+function displaySeatMapImage(base64Image) {
+    const container = document.querySelector("#seatMapContainer");
+    const image = document.createElement("img");
+    image.src = base64Image;
+    image.alt = "Mapa de Assentos";
+    image.classList.add("w-full", "h-64", "object-cover", "rounded-lg");
+    container.appendChild(image);
+}
+
+function displayTicketOptions(tickets) {
+    const container = document.querySelector("#ticketOptions");
+    container.innerHTML = ''; // Limpar o conteúdo existente
+
+    const title = document.createElement("h3");
+    title.classList.add("text-xl", "font-bold", "mt-4");
+    title.style.color = "var(--secondary-color)";
+    title.textContent = "Selecione os Lugares";
+
+    container.appendChild(title);
+
+    tickets.forEach(ticket => {
+        const ticketContainer = document.createElement("div");
+        ticketContainer.classList.add("mt-4");
+
+        const label = document.createElement("label");
+        label.textContent = `${ticket.name} - R$${ticket.price.toFixed(2)}`;
+
+        const select = document.createElement("select");
+        select.classList.add("ml-4", "p-2", "border", "rounded");
+
+        for (let i = 0; i <= ticket.availableQuantity; i++) {
+            const option = document.createElement("option");
+            option.value = i;
+            option.textContent = i;
+            select.appendChild(option);
+        }
+
+        ticketContainer.appendChild(label);
+        ticketContainer.appendChild(select);
+        container.appendChild(ticketContainer);
     });
 
-    async function fetchEventDetails(tenantId, eventId) {
-        const url = `https://concrete-logically-kit.ngrok-free.app/api/tenants/${tenantId}/events/${eventId}`;
+    const button = document.createElement("button");
+    button.classList.add("mt-4", "w-full", "py-2", "px-4", "rounded-md", "shadow-sm", "text-sm", "font-medium", "focus:outline-none", "focus:ring-2", "focus:ring-offset-2", "focus:ring-primary-color");
+    button.style.backgroundColor = "var(--primary-color)";
+    button.style.color = "var(--background-color)";
+    button.textContent = "Comprar";
 
-        try {
-            const response = await fetch(url, {
-                method: "GET",
-                headers: {
-                    'ngrok-skip-browser-warning': 'true',
-                    'Accept': 'application/json'
-                }
-            });
+    container.appendChild(button);
+}
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const event = await response.json();
-            displayEventDetails(event);
-
-            if (event.imageEvent) {
-                const imageUrl = `https://concrete-logically-kit.ngrok-free.app${event.imageEvent}`;
-                fetchEventImage(imageUrl);
-            }
-        } catch (error) {
-            console.error('Erro ao buscar detalhes do evento:', error);
-        }
-    }
-
-    async function fetchEventImage(imageUrl) {
-        try {
-            const response = await fetch(imageUrl, {
-                method: "GET",
-                headers: {
-                    'ngrok-skip-browser-warning': 'true',
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const imageBlob = await response.blob();
-            const reader = new FileReader();
-            reader.onloadend = function () {
-                const base64data = reader.result;
-                displayEventImage(base64data);
-            }
-            reader.readAsDataURL(imageBlob);
-        } catch (error) {
-            console.error('Erro ao buscar a imagem do evento:', error);
-        }
-    }
-
-    function displayEventImage(base64Image) {
-        const container = document.querySelector("#eventDetails");
-        const image = document.createElement("img");
-        image.src = base64Image;
-        image.alt = "Imagem do Evento";
-        image.classList.add("w-full", "h-64", "object-cover", "rounded-lg");
-        container.appendChild(image);
-    }
-
-    function displayEventDetails(event) {
-        const container = document.querySelector("#eventDetails");
-        container.innerHTML = ''; // Limpar o conteúdo existente
-
-        const title = document.createElement("h2");
-        title.classList.add("text-2xl", "font-bold");
-        title.style.color = "var(--secondary-color)";
-        title.textContent = event.titleEvent;
-
-        const date = document.createElement("p");
-        date.style.color = "var(--primary-text-color)";
-        date.textContent = new Date(event.date).toLocaleDateString();
-
-        const address = document.createElement("p");
-        address.style.color = "var(--primary-text-color)";
-        address.textContent = event.address;
-
-        const description = document.createElement("p");
-        description.style.color = "var(--primary-text-color)";
-        description.textContent = event.description;
-
-        container.appendChild(title);
-        container.appendChild(date);
-        container.appendChild(address);
-        container.appendChild(description);
-    }
     </script>
 </body>
 
