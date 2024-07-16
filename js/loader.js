@@ -3,5 +3,5 @@ document.addEventListener("DOMContentLoaded", function() {
     setTimeout(function() {
         document.getElementById('preloader-active').style.display = 'none';
         document.getElementById('main-content').style.display = 'block';
-    }, 4000); // 3 seconds
+    }, 3000); // 3 seconds
 });
