@@ -1,4 +1,6 @@
-import config from './Config/config.js';
+import config from './Configuration.js';
+
+const getBaseUrl = config.getBaseUrl();
 
 function toggleModal(modalId) {
     const modal = document.getElementById(modalId);
@@ -43,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
 
             const tenantId = 1; // Altere conforme necessário
-            const userCreateUrl = `${config.apiBaseUrl}/tenants/${tenantId}/user/create`;
+            const userCreateUrl = `${getBaseUrl}/tenants/${tenantId}/user/create`;
 
             const formData = new FormData(this);
             const imageFile = formData.get('imageProfileBase64');
@@ -98,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('file', file);
 
         try {
-            const response = await fetch('https://concrete-logically-kit.ngrok-free.app/api/upload', {
+            const response = await fetch(`${getBaseUrl}/api/upload`, {
                 method: 'POST',
                 body: formData
             });

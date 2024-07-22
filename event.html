@@ -287,14 +287,20 @@
         </nav>
 
 
-        <!-- Event Details Section -->
         <div class="container mx-auto px-4 py-8">
-            <div id="eventDetails" class="bg-white rounded-lg shadow-md p-6">
-                <!-- Detalhes do evento serão carregados aqui -->
+            <div id="eventDetailsContainer" class="bg-white rounded-lg shadow-md p-6">
+                <!-- New event details will be loaded here -->
             </div>
+        </div>
 
+        <div class="container mx-auto px-4 py-8">
+            <!-- <div id="eventDetails" class="bg-white rounded-lg shadow-md p-6">
+            </div>
             <div id="ticketOptions" class="mt-8">
-                <!-- Opções de ingressos serão carregadas aqui -->
+                Opções de ingressos serão carregadas aqui -->
+            </div>
+            <div id="checkoutSection" class="mt-8">
+                <!-- Checkout button will be appended here -->
             </div>
         </div>
 
@@ -549,28 +555,14 @@
     <script src="js/app.js"></script>
     <script src="js/Modal.js" type="module"></script>
     <script src="js/Login.js" type="module"></script>
-    <script src="js/Event.js"></script>
-    <script src="js/loader.js"></script>
+    <script src="js/Event.js" type="module"></script>
+    <script src="js/Flyers.js" type="module"></script>
+    <script src="js/loader.js" type="module"></script>
+    <script src="js/Checkout.js" type="module"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            console.log("DOM fully loaded and parsed");
-            const urlParams = new URLSearchParams(window.location.search);
-            const tenantId = urlParams.get('tenantId');
-            const eventId = urlParams.get('eventId');
-
-            console.log("Tenant ID:", tenantId);
-            console.log("Event ID:", eventId);
-
-            if (tenantId && eventId) {
-                fetchEventDetails(tenantId, eventId);
-            }
-        });
-
         async function fetchEventDetails(tenantId, eventId) {
-            const url = `https://concrete-logically-kit.ngrok-free.app/api/tenants/${tenantId}/events/${eventId}`;
-
-            console.log("Fetching event details from URL:", url);
+            const url = `https://assuring-amazingly-monitor.ngrok-free.app/api/tenants/${tenantId}/events/${eventId}`;
 
             try {
                 const response = await fetch(url, {
@@ -586,201 +578,95 @@
                 }
 
                 const event = await response.json();
-                console.log("Event details:", event);
+                console.log('Event details:', event);
                 displayEventDetails(event);
-
-                if (event.imageEvent) {
-                    const imageUrl = `https://concrete-logically-kit.ngrok-free.app${event.imageEvent}`;
-                    console.log("Fetching event image from URL:", imageUrl);
-                    fetchEventImage(imageUrl);
-                }
-
-                if (event.tickets) {
-                    console.log("Event tickets:", event.tickets);
-                    displayTicketOptions(tenantId, event.tickets);
-                }
             } catch (error) {
                 console.error('Erro ao buscar detalhes do evento:', error);
             }
         }
 
-        async function fetchEventImage(imageUrl) {
-            try {
-                const response = await fetch(imageUrl, {
-                    method: "GET",
-                    headers: {
-                        'ngrok-skip-browser-warning': 'true',
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const imageBlob = await response.blob();
-                const reader = new FileReader();
-                reader.onloadend = function () {
-                    const base64data = reader.result;
-                    console.log("Event image base64 data:", base64data);
-                    displayEventImage(base64data);
-                }
-                reader.readAsDataURL(imageBlob);
-            } catch (error) {
-                console.error('Erro ao buscar a imagem do evento:', error);
-            }
-        }
-
-        function displayEventImage(base64Image) {
-            const container = document.querySelector("#eventDetails");
-            if (!container) {
-                console.error('Container for event details not found');
-                return;
-            }
-            console.log("Displaying event image in container");
-            const image = document.createElement("img");
-            image.src = base64Image;
-            image.alt = "Imagem do Evento";
-            image.classList.add("w-full", "h-64", "object-cover", "rounded-lg");
-            container.appendChild(image);
-        }
-
         function displayEventDetails(event) {
-            const container = document.querySelector("#eventDetails");
+            const container = document.querySelector("#eventDetailsContainer");
             if (!container) {
-                console.error('Container for event details not found');
                 return;
             }
-            console.log("Displaying event details in container");
-            container.innerHTML = ''; // Limpar o conteúdo existente
+            container.innerHTML = '';
 
+            const imageUrl = `${event.imageEvent.split(',')[0]}`;
+
+            const imageDiv = document.createElement("div");
+            imageDiv.classList.add("w-full", "h-64", "overflow-hidden", "rounded-lg", "mb-4");
+            const image = document.createElement("img");
+            image.src = imageUrl;
+            image.alt = "Imagem do Evento";
+            image.classList.add("w-full", "h-full", "object-cover");
+            imageDiv.appendChild(image);
+
+            const titleDiv = document.createElement("div");
+            titleDiv.classList.add("mb-4");
             const title = document.createElement("h2");
-            title.classList.add("text-2xl", "font-bold");
-            title.style.color = "var(--secondary-color)";
+            title.classList.add("text-3xl", "font-bold", "text-gray-800");
             title.textContent = event.titleEvent;
+            titleDiv.appendChild(title);
 
-            const date = document.createElement("p");
-            date.style.color = "var(--primary-text-color)";
+            const dateDiv = document.createElement("div");
+            dateDiv.classList.add("mb-4");
+            const dateLabel = document.createElement("span");
+            dateLabel.classList.add("text-lg", "font-semibold", "text-gray-600");
+            dateLabel.textContent = "Data do Evento: ";
+            const date = document.createElement("span");
+            date.classList.add("text-lg", "text-gray-800");
             date.textContent = new Date(event.date).toLocaleDateString();
+            dateDiv.appendChild(dateLabel);
+            dateDiv.appendChild(date);
 
-            const address = document.createElement("p");
-            address.style.color = "var(--primary-text-color)";
+            const addressDiv = document.createElement("div");
+            addressDiv.classList.add("mb-4");
+            const addressLabel = document.createElement("span");
+            addressLabel.classList.add("text-lg", "font-semibold", "text-gray-600");
+            addressLabel.textContent = "Endereço: ";
+            const address = document.createElement("span");
+            address.classList.add("text-lg", "text-gray-800");
             address.textContent = event.address;
+            addressDiv.appendChild(addressLabel);
+            addressDiv.appendChild(address);
 
-            const description = document.createElement("p");
-            description.style.color = "var(--primary-text-color)";
-            description.textContent = event.description;
+            container.appendChild(imageDiv);
+            container.appendChild(titleDiv);
+            container.appendChild(dateDiv);
+            container.appendChild(addressDiv);
 
-            container.appendChild(title);
-            container.appendChild(date);
-            container.appendChild(address);
-            container.appendChild(description);
-        }
-
-        async function fetchTicketLots(ticketId) {
-            const url = `https://concrete-logically-kit.ngrok-free.app/api/tickets/${ticketId}/lots`;
-
-            console.log("Fetching ticket lots from URL:", url);
-
-            try {
-                const response = await fetch(url, {
-                    method: "GET",
-                    headers: {
-                        'ngrok-skip-browser-warning': 'true',
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const lots = await response.json();
-                console.log("Ticket lots:", lots);
-                return lots;
-            } catch (error) {
-                console.error('Erro ao buscar lotes do ingresso:', error);
-                return [];
+            if (event.description) {
+                const descriptionDiv = document.createElement("div");
+                descriptionDiv.classList.add("mb-4");
+                const descriptionLabel = document.createElement("span");
+                descriptionLabel.classList.add("text-lg", "font-semibold", "text-gray-600");
+                descriptionLabel.textContent = "Descrição: ";
+                const description = document.createElement("p");
+                description.classList.add("text-lg", "text-gray-800");
+                description.textContent = event.description;
+                descriptionDiv.appendChild(descriptionLabel);
+                descriptionDiv.appendChild(description);
+                container.appendChild(descriptionDiv);
             }
         }
 
-        async function displayTicketOptions(tenantId, tickets) {
-            const container = document.querySelector("#ticketOptions");
-            if (!container) {
-                console.error('Container for ticket options not found');
-                return;
-            }
-            console.log("Displaying ticket options in container");
-            container.innerHTML = ''; // Limpar o conteúdo existente
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                tenantId: params.get('tenantId'),
+                eventId: params.get('eventId')
+            };
+        }
 
-            const title = document.createElement("h3");
-            title.classList.add("text-xl", "font-bold", "mt-4");
-            title.style.color = "var(--secondary-color)";
-            title.textContent = "Selecione os Lugares";
-
-            container.appendChild(title);
-
-            for (const ticket of tickets) {
-                const ticketContainer = document.createElement("div");
-                ticketContainer.classList.add("mt-4");
-
-                const ticketHeader = document.createElement("div");
-                ticketHeader.classList.add("flex", "justify-between", "items-center", "cursor-pointer");
-                ticketHeader.textContent = `${ticket.name} - R$${ticket.price.toFixed(2)}`;
-
-                const dropdownIcon = document.createElement("span");
-                dropdownIcon.textContent = "▼";
-                dropdownIcon.classList.add("ml-2");
-
-                ticketHeader.appendChild(dropdownIcon);
-                ticketContainer.appendChild(ticketHeader);
-
-                const lotContainer = document.createElement("div");
-                lotContainer.classList.add("hidden", "mt-2", "pl-4");
-
-                ticketHeader.addEventListener("click", async () => {
-                    lotContainer.classList.toggle("hidden");
-                    if (lotContainer.classList.contains("hidden")) {
-                        dropdownIcon.textContent = "▼";
-                    } else {
-                        dropdownIcon.textContent = "▲";
-                        if (lotContainer.innerHTML === '') {
-                            console.log("Fetching lots for ticket ID:", ticket.id);
-                            const lots = await fetchTicketLots(ticket.id);
-                            lots.forEach(lot => {
-                                const lotLabel = document.createElement("label");
-                                lotLabel.textContent = `${lot.name} - R$${lot.price.toFixed(2)}`;
-                                const lotSelect = document.createElement("select");
-                                lotSelect.classList.add("ml-4", "p-2", "border", "rounded");
-                                for (let i = 0; i <= lot.availableQuantity; i++) {
-                                    const option = document.createElement("option");
-                                    option.value = i;
-                                    option.textContent = i;
-                                    lotSelect.appendChild(option);
-                                }
-                                const lotItem = document.createElement("div");
-                                lotItem.classList.add("mt-2");
-                                lotItem.appendChild(lotLabel);
-                                lotItem.appendChild(lotSelect);
-                                lotContainer.appendChild(lotItem);
-                            });
-                        }
-                    }
-                });
-
-                ticketContainer.appendChild(lotContainer);
-                container.appendChild(ticketContainer);
-            }
-
-            const button = document.createElement("button");
-            button.classList.add("mt-4", "w-full", "py-2", "px-4", "rounded-md", "shadow-sm", "text-sm", "font-medium", "focus:outline-none", "focus:ring-2", "focus:ring-offset-2", "focus:ring-primary-color");
-            button.style.backgroundColor = "var(--primary-color)";
-            button.style.color = "var(--background-color)";
-            button.textContent = "Comprar";
-
-            container.appendChild(button);
+        const { tenantId, eventId } = getUrlParams();
+        if (tenantId && eventId) {
+            fetchEventDetails(tenantId, eventId);
+        } else {
+            console.error('Parâmetros tenantId e eventId não encontrados na URL.');
         }
     </script>
+
 
 </body>
 

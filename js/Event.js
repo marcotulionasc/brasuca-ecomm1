@@ -1,3 +1,7 @@
+import config from './Configuration.js';
+
+const getBaseUrl = config.getBaseUrl();
+
 document.addEventListener("DOMContentLoaded", function () {
     fetchEvents();
 });
@@ -7,7 +11,7 @@ const eventsPerPage = 12; // 4 colunas * 3 linhas
 
 async function fetchEvents() {
     const tenantId = 1; // Substitua pelo ID real do tenant
-    const url = `https://concrete-logically-kit.ngrok-free.app/api/tenants/${tenantId}/events/image`;
+    const url = `${getBaseUrl}/api/tenants/${tenantId}/events/image`;
 
     try {
         const response = await fetch(url, {

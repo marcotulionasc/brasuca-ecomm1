@@ -1,5 +1,9 @@
+import config from './Configuration.js';
+
+const getBaseUrl = config.getBaseUrl();
+
 async function fetchImageFlyers(tenantId) {
-    const url = `https://concrete-logically-kit.ngrok-free.app/api/tenants/${tenantId}/flyers`;
+    const url = `${getBaseUrl}/api/tenants/${tenantId}/flyers`;
     const options = {
         method: "GET",
         headers: {

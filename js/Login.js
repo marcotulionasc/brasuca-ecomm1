@@ -1,4 +1,6 @@
-import config from './Config/config.js';
+import config from './Configuration.js';
+
+const getBaseUrl = config.getBaseUrl();
 
 function toggleModal(modalId) {
     const modal = document.getElementById(modalId);
@@ -12,7 +14,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
     event.preventDefault();
 
     const tenantId = 1; // Altere conforme necessário
-    const url = `${config.apiBaseUrl}/tenants/${tenantId}/users/login`;
+    const url = `${getBaseUrl}/tenants/${tenantId}/users/login`;
 
     const data = {
         email: document.getElementById('loginEmail').value,
