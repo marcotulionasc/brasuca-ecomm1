@@ -14,7 +14,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
     event.preventDefault();
 
     const tenantId = 1; // Altere conforme necessário
-    const url = `${getBaseUrl}/tenants/${tenantId}/users/login`;
+    const url = `${getBaseUrl}/api/tenants/${tenantId}/users/login`;
 
     const data = {
         email: document.getElementById('loginEmail').value,

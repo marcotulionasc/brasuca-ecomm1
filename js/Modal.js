@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
 
             const tenantId = 1; // Altere conforme necessário
-            const userCreateUrl = `${getBaseUrl}/tenants/${tenantId}/user/create`;
+            const userCreateUrl = `${getBaseUrl}/api/tenants/${tenantId}/user/create`;
 
             const formData = new FormData(this);
             const imageFile = formData.get('imageProfileBase64');
