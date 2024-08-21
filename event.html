@@ -11,6 +11,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"
         rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
@@ -101,6 +102,7 @@
         .custom-bg-ticket {
             background-color: #b7791f;
         }
+
     </style>
 
 </head>
@@ -123,31 +125,28 @@
 
     <div class="main-content">
 
-        <nav class="custom-nav fixed bottom-0 left-0 right-0 text-white shadow-lg z-50"
-            style="background-color: #1f2122;">
+         <!-- Componente de Temporizador -->
+    <div id="countdown-timer-container">
+        <i class="bi bi-clock"></i> <span id="countdown-timer">00:10:00</span>
+    </div>
+
+        <nav class="custom-nav fixed bottom-0 left-0 right-0 text-white shadow-lg z-50">
             <div class="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8">
                 <div class="relative flex items-center justify-between h-16">
-                    <div class="flex items-center justify-between w-full">
-                        <!-- Left section with the timer -->
-                        <div class="flex items-center space-x-4">
-                            <div class="flex items-center text-white">
-                                <i class="bi bi-clock"></i>
-                                <span class="ml-1">tempo restante</span>
-                            </div>
-                            <div id="countdown-timer" class="text-white font-bold">00:10:00</div>
-                        </div>
-                        <!-- Right section with the button -->
-                        <button
-                            class="bg-[#3b5a51] hover:bg-[#2f4e47] text-white font-bold py-2 px-4 rounded inline-flex items-center">
-                            <i class="bi bi-cart-fill mr-2"></i>
-                            <span>Comprar</span>
-                        </button>
+                    <!-- Center section with quantity and price -->
+                    <div class="text-center">
+                        <div class="text-white font-bold">0 Ingressos por</div>
+                        <div class="text-white text-2xl font-bold">R$ 0,00</div>
                     </div>
+                    <!-- Right section with the button -->
+                    <button
+                        class="bg-[#3b5a51] hover:bg-[#2f4e47] text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                        <i class="bi bi-cart-fill mr-2"></i>
+                        <span>Comprar</span>
+                    </button>
                 </div>
             </div>
         </nav>
-
-
 
         <!-- Mobile Header -->
         <header class="p-3 mobile-header hidden mb-2" style="background-color: var(--primary-color);">
@@ -485,7 +484,7 @@
             </div>
         </div>
 
-       
+
 
     </div>
 
@@ -493,6 +492,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/Modal.js" type="module"></script>
     <script src="js/Login.js" type="module"></script>

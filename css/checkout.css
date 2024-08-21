@@ -23,3 +23,50 @@
 .custom-nav .font-bold {
     font-weight: 700 !important; /* Ensures bold text */
 }
+
+.custom-nav .text-center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.custom-nav .bi-cart-fill {
+    font-size: 1.2rem;
+}
+
+/* Estilos personalizados do modal se necessário */
+.modal-header {
+    background-color: #1f2122;
+    color: #ffffff;
+}
+
+.modal-body {
+    background-color: #1f2122;
+    color: #ffffff;
+}
+
+#countdown-timer-container {
+    position: fixed;
+    top: 10px;
+    right: 40px;
+    background-color: rgba(31, 33, 34, 0.8); /* Fundo com transparência */
+    color: #ffffff;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    z-index: 1000; /* Mantém o temporizador acima de outros elementos */
+    backdrop-filter: blur(5px); /* Adiciona um efeito de desfoque de fundo */
+    transition: all 0.3s ease-in-out; /* Transições suaves para hover */
+}
+
+#countdown-timer-container:hover {
+    background-color: rgba(31, 33, 34, 0.9); /* Escurece um pouco ao passar o mouse */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Sombra um pouco mais intensa ao passar o mouse */
+}
+
+#countdown-timer {
+    font-family: 'Roboto', sans-serif; /* Fonte mais moderna */
+    letter-spacing: 0.05rem; /* Espacamento entre letras */
+}

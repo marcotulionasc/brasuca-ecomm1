@@ -35,28 +35,26 @@ function startCountdown(duration, display) {
             clearInterval(countdownInterval);
             showModalAndRedirect();
         } else {
-            localStorage.setItem('timer', timer); // Save remaining time to local storage
+            localStorage.setItem('timer', timer); // Salva o tempo restante no local storage
         }
     }, 1000);
 }
 
 function showModalAndRedirect() {
-   
     alert('O tempo expirou! Você será redirecionado para a página inicial.');
-
     localStorage.removeItem('timer');
-
     window.location.href = 'index.html';
 }
 
-
 window.onload = function () {
-    var tenMinutes = 60 * 10;
+    var tenMinutes = 60 * 10; // 10 minutos em segundos
     var savedTime = localStorage.getItem('timer');
     var remainingTime = savedTime !== null ? parseInt(savedTime) : tenMinutes;
 
     var display = document.querySelector('#countdown-timer');
-    startCountdown(remainingTime, display);
+    if (display) {
+        startCountdown(remainingTime, display);
+    }
 };
 
 
