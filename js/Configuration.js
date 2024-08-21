@@ -1,5 +1,5 @@
 const config = {
-    production: false, // Altere para false em desenvolvimento
+    production: true, // Altere para false em desenvolvimento
     urls: {
         production: "https://assuring-amazingly-monitor.ngrok-free.app",
         development: "http://187.34.212.10:9090"
