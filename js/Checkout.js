@@ -177,65 +177,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function createTicketElement(ticket) {
         const ticketDiv = document.createElement("div");
-        ticketDiv.classList.add("custom-bg-ticket", "rounded-xl", "shadow-lg", "p-6", "mb-6", "text-white", "relative");
+        ticketDiv.classList.add("bg-gradient-to-r", "from-blue-500", "to-indigo-600", "rounded-xl", "shadow-2xl", "p-6", "mb-8", "text-white", "relative", "hover:shadow-xl", "transition", "duration-300", "ease-in-out");
 
         ticketDiv.innerHTML = `
-            <p class="mb-2">Selecione os lugares:</p>
-            <p class="mb-4 text-sm">Você pode selecionar até 10 lugares</p>
-            <p class="mb-4 text-sm-bold">(Nenhum selecionado)</p>
-            <details id="lots_${ticket.id}" class="bg-gray-200 text-black rounded-md p-4">
-                <summary class="font-semibold cursor-pointer">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-bold">${ticket.areaTicket}</h3>
+                <span class="bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded-lg">Novo</span> <!-- Optional -->
+            </div>
+            <p class="mt-4 text-sm">Selecione os lugares:</p>
+            <p class="mb-4 text-xs text-gray-200">Você pode selecionar até 10 lugares</p>
+            <p class="mb-4 text-sm font-semibold">(Nenhum selecionado)</p>
+            <details id="lots_${ticket.id}" class="bg-gray-100 text-black rounded-lg p-4">
+                <summary class="font-semibold cursor-pointer hover:text-indigo-600">
                     ${ticket.areaTicket}
                 </summary>
                 <!-- Lotes serão carregados aqui -->
             </details>
         `;
         return ticketDiv;
-    }
-
-    function displayError(message) {
-        const errorDiv = document.createElement('div');
-        errorDiv.classList.add('bg-red-500', 'text-white', 'p-4', 'rounded-lg', 'mb-6');
-        errorDiv.textContent = message;
-        ticketOptions.innerHTML = '';
-        ticketOptions.appendChild(errorDiv);
-    }
-
-    async function fetchTicket(tenantId, eventId, ticketId) {
-        const lotsUrl = `${getBaseUrl}/api/tenants/${tenantId}/events/${eventId}/tickets/${ticketId}/lots`;
-
-        try {
-            const response = await fetch(lotsUrl, {
-                method: 'GET',
-                headers: {
-                    'ngrok-skip-browser-warning': 'true'
-                }
-            });
-
-            const text = await response.text();
-
-            if (text.startsWith('<')) {
-                throw new Error('Received HTML response instead of JSON. Please check the endpoint URL.');
-            }
-
-            const lots = JSON.parse(text);
-
-            const lotsDiv = document.getElementById(`lots_${ticketId}`);
-            lots.forEach(lot => {
-                const lotDiv = document.createElement("div");
-                lotDiv.classList.add("bg-white", "rounded-lg", "shadow-md", "p-2", "mb-2");
-                lotDiv.innerHTML = `
-                <p>${lot.nameLot}</p>
-                <p>R$ ${lot.priceTicket} + R$ ${(lot.priceTicket * (lot.taxPriceTicket / 100)).toFixed(2)}</p>
-                <label for="quantity_${lot.id}" class="block text-sm font-medium text-gray-700">Quantidade:</label>
-                <input type="number" id="quantity_${lot.id}" name="quantity_${lot.id}" min="1" max="${lot.amountTicket}" value="1" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                `;
-                lotsDiv.appendChild(lotDiv);
-            });
-
-        } catch (error) {
-            console.error('Error fetching lots:', error);
-        }
     }
 
     async function fetchLots(tenantId, eventId, ticketId) {
@@ -260,30 +219,74 @@ document.addEventListener("DOMContentLoaded", () => {
             const lotsDiv = document.getElementById(`lots_${ticketId}`);
             lots.forEach(lot => {
                 const lotDiv = document.createElement("div");
-                lotDiv.classList.add("bg-white", "rounded-lg", "shadow-md", "p-2", "mb-2");
+                lotDiv.classList.add("bg-white", "rounded-xl", "shadow-lg", "p-4", "mb-4", "hover:shadow-xl", "transition", "duration-300", "ease-in-out");
+            
                 lotDiv.innerHTML = `
-                <p>${lot.nameLot}</p>
-                <p>R$ ${lot.priceTicket} + R$ ${(lot.priceTicket * (lot.taxPriceTicket / 100)).toFixed(2)}</p>
-                <label for="quantity_${lot.id}" class="block text-sm font-medium text-gray-700">Quantidade:</label>
-                <input type="number" id="quantity_${lot.id}" name="quantity_${lot.id}" min="1" max="${lot.amountTicket}" value="1" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="text-lg font-semibold text-gray-800">${lot.nameLot}</h4>
+                        <span class="text-sm text-gray-600">R$ ${lot.priceTicket} + Taxa: R$ ${(lot.priceTicket * (lot.taxPriceTicket / 100)).toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between items-center mt-2">
+                        <label for="quantity_${lot.id}" class="block text-sm font-medium text-gray-700">Quantidade:</label>
+                        <div class="flex items-center">
+                            <button id="decrement_${lot.id}" class="bg-gray-700 text-white rounded-l-md px-3 py-1 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">-</button>
+                            <input type="number" id="quantity_${lot.id}" name="quantity_${lot.id}" min="1" max="${lot.amountTicket}" value="1" class="text-center w-16 px-3 py-2 bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm text-right no-spinner">
+                            <button id="increment_${lot.id}" class="bg-gray-700 text-white rounded-r-md px-3 py-1 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">+</button>
+                        </div>
+                    </div>
                 `;
+            
                 lotsDiv.appendChild(lotDiv);
+            
+                // Função para incrementar e decrementar
+                const decrementButton = lotDiv.querySelector(`#decrement_${lot.id}`);
+                const incrementButton = lotDiv.querySelector(`#increment_${lot.id}`);
+                const quantityInput = lotDiv.querySelector(`#quantity_${lot.id}`);
+            
+                decrementButton.addEventListener('click', () => {
+                    const currentValue = parseInt(quantityInput.value, 10);
+                    if (currentValue > 1) {
+                        quantityInput.value = currentValue - 1;
+                    }
+                });
+            
+                incrementButton.addEventListener('click', () => {
+                    const currentValue = parseInt(quantityInput.value, 10);
+                    if (currentValue < lot.amountTicket) {
+                        quantityInput.value = currentValue + 1;
+                    }
+                });
             });
+            
+            // CSS customizado para remover os botões de incremento/decremento nativos
+            const style = document.createElement('style');
+            style.innerHTML = `
+                /* Remove os botões de incremento/decremento no input de número */
+                input[type="number"]::-webkit-outer-spin-button,
+                input[type="number"]::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+            
+                input[type="number"] {
+                    -moz-appearance: textfield; /* Firefox */
+                }
+            `;
+            document.head.appendChild(style);
+            
+
+
         } catch (error) {
             console.error('Error fetching lots:', error);
         }
     }
 
-    function proceedToPayment(tenantId, eventId, ticketId) {
-
-        const quantities = {};
-        document.querySelectorAll(`input[id^="quantity_"]`).forEach(input => {
-            quantities[input.id.replace("quantity_", "")] = input.value;
-        });
-
-        console.log('Selected quantities:', quantities);
-
-        window.location.href = `payment.html?tenantId=${tenantId}&eventId=${eventId}&quantities=${JSON.stringify(quantities)}`;
+    function displayError(message) {
+        const errorDiv = document.createElement('div');
+        errorDiv.classList.add('bg-red-500', 'text-white', 'p-4', 'rounded-lg', 'mb-6');
+        errorDiv.textContent = message;
+        ticketOptions.innerHTML = '';
+        ticketOptions.appendChild(errorDiv);
     }
 
     const { tenantId, eventId } = getUrlParams();
