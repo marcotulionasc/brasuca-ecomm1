@@ -1,0 +1,25 @@
+.custom-nav {
+    background-color: #1f2122 !important; /* Ensures that the custom background color is applied */
+    color: #ffffff !important; /* Ensures text remains white */
+    z-index: 50; /* Ensures it's on top of other elements */
+}
+
+.custom-nav .text-white {
+    color: #ffffff !important;
+}
+
+.custom-nav button {
+    background-color: #3b5a51 !important;
+}
+
+.custom-nav button:hover {
+    background-color: #2f4e47 !important;
+}
+
+.custom-nav .bi-clock {
+    font-size: 1.2rem; /* Adjust the icon size if needed */
+}
+
+.custom-nav .font-bold {
+    font-weight: 700 !important; /* Ensures bold text */
+}

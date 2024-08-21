@@ -250,3 +250,13 @@ a:hover {
     }
 }
 
+.blur-scale {
+    filter: blur(5px);
+    transform: scale(1.1);
+    z-index: 0;
+}
+
+#eventDetails {
+    position: relative;
+    overflow: hidden;
+}
