@@ -2,16 +2,6 @@ import config from './Configuration.js';
 
 const getBaseUrl = config.getBaseUrl();
 
-const cpfInput = document.getElementById('cadastroCPF');
-    if (cpfInput) {
-        cpfInput.addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, '');
-            value = value.replace(/(\d{3})(\d)/, '$1.$2');
-            value = value.replace(/(\d{3})(\d)/, '$1.$2');
-            value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-            e.target.value = value;
-        });
-    }
 
 const cadastroForm = document.getElementById('cadastroForm');
     if (cadastroForm) {
