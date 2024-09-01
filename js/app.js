@@ -2,7 +2,6 @@ function toggleSidebar() {
     document.getElementById("sidebar").classList.toggle("open");
 }
 
-// Script to switch between desktop and mobile headers
 function checkScreenSize() {
     if (window.innerWidth <= 768) {
         document.querySelector('.desktop-header').classList.add('hidden');
