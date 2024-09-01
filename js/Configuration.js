@@ -1,8 +1,8 @@
 const config = {
     production: true, // Altere para false em desenvolvimento
     urls: {
-        production: "https://assuring-amazingly-monitor.ngrok-free.app",
-        development: "http://187.34.212.10:9090"
+      production: "https://backend-ingressar.onrender.com",
+        development: "http://201.92.184.45:9090"
     },
     getBaseUrl: function() {
         return this.production ? this.urls.production : this.urls.development;
