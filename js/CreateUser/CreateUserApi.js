@@ -12,7 +12,6 @@ const cadastroForm = document.getElementById('cadastroForm');
             const userCreateUrl = `${getBaseUrl}/api/tenants/${tenantId}/user/create`;
 
             const formData = new FormData(this);
-            const imageFile = formData.get('imageProfileBase64');
 
             const data = {
                 name: formData.get('nome'),
@@ -24,18 +23,13 @@ const cadastroForm = document.getElementById('cadastroForm');
             };
 
             try {
-                // Faz o upload da imagem e obtém a URL
-                if (imageFile && imageFile.size > 0) {
-                    console.log('Iniciando upload da imagem...');
-                    data.imageProfileBase64 = await uploadImage(imageFile);
-                    console.log('Imagem enviada:', data.imageProfileBase64);
-                } else {
-                    console.log('Nenhuma imagem foi selecionada ou o arquivo está vazio.');
-                    data.imageProfileBase64 = "https://via.placeholder.com/300x150.png?text=Imagem+Indisponível";
+                
+                const imageUser = formData.get('imageProfileBase64');
+
+                if(imageUser){
+                    data.imageProfileBase64 = await uploadImage(imageUser);
                 }
 
-                // Enviar os dados do usuário
-                console.log('Enviando dados do usuário para', userCreateUrl);
                 const response = await fetch(userCreateUrl, {
                     method: 'POST',
                     headers: {
@@ -46,6 +40,7 @@ const cadastroForm = document.getElementById('cadastroForm');
 
                 if (response.ok) {
                     const result = await response.json();
+                    alert('Usuário cadastrado com sucesso');
                     console.log('Usuário cadastrado com sucesso:', result);
                     toggleModal('cadastroModal'); // Fechar o modal após o sucesso
                 } else {
@@ -72,7 +67,7 @@ const cadastroForm = document.getElementById('cadastroForm');
             if (response.ok) {
                 const result = await response.json();
                 console.log('Upload result:', result);
-                return result.filePath; // Assumindo que a resposta contém a URL do arquivo
+                return result.filePath;
             } else {
                 const errorText = await response.text();
                 console.error('Erro ao fazer upload da imagem:', errorText);
@@ -81,6 +76,6 @@ const cadastroForm = document.getElementById('cadastroForm');
         } catch (error) {
             console.error('Erro no upload da imagem:', error);
             alert('Erro ao fazer upload da imagem');
-            throw error; // Rethrow to handle the error in the caller
+            throw error;
         }
     }

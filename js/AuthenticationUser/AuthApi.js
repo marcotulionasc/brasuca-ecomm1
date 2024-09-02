@@ -19,7 +19,7 @@ export async function loginUser(tenantId, email, password) {
         if (!response.ok) {
             throw new Error('Erro ao fazer login');
         }
-
+        alert('Login realizado com sucesso');
         return await response.json();
     } catch (error) {
         console.error('Erro:', error);
