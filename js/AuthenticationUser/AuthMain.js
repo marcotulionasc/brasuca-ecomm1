@@ -2,7 +2,7 @@ import { loginUser, fetchUserProfileImage } from './AuthApi.js';
 import { toggleLoginModal, updateLoginGreeting, toggleAuthButtons, updateProfilePicture, clearProfilePicture, showLoginError } from './AuthUiHandlers.js';
 
 document.getElementById('loginForm').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Evita o recarregamento da página
+    event.preventDefault();
 
     const tenantId = 1;
     const email = document.getElementById('loginEmail').value;
@@ -16,7 +16,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         toggleAuthButtons(false);
 
         if (result.imageUrl) {
-            updateProfilePicture(result.imageUrl); // Atualiza a imagem do perfil com a URL
+            updateProfilePicture(result.imageUrl);
         }
 
     } catch (error) {
@@ -30,7 +30,7 @@ document.getElementById('logoutLink').addEventListener('click', function(event) 
 });
 
 function logoutUser() {
-    updateLoginGreeting('Olá, Visitante');
+    updateLoginGreeting('Visitante');
     toggleAuthButtons(true);
     clearProfilePicture();
     showLoginError('Logout successful');

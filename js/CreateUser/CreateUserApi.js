@@ -8,7 +8,7 @@ const cadastroForm = document.getElementById('cadastroForm');
         cadastroForm.addEventListener('submit', async function (event) {
             event.preventDefault();
 
-            const tenantId = 1; // Altere conforme necessário
+            const tenantId = 1;
             const userCreateUrl = `${getBaseUrl}/api/tenants/${tenantId}/user/create`;
 
             const formData = new FormData(this);
@@ -42,7 +42,7 @@ const cadastroForm = document.getElementById('cadastroForm');
                     const result = await response.json();
                     alert('Usuário cadastrado com sucesso');
                     console.log('Usuário cadastrado com sucesso:', result);
-                    toggleModal('cadastroModal'); // Fechar o modal após o sucesso
+                    toggleModal('cadastroModal');
                 } else {
                     const errorData = await response.json();
                     console.error('Erro ao cadastrar usuário', errorData);
