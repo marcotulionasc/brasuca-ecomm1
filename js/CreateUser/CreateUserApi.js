@@ -1,4 +1,4 @@
-import config from './Configuration.js';
+import config from '../Configuration.js';
 
 const getBaseUrl = config.getBaseUrl();
 
