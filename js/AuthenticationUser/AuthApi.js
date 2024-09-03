@@ -30,15 +30,11 @@ export async function loginUser(tenantId, email, password) {
 export async function fetchUserProfileImage(imageUrl) {
     try {
         const response = await fetch(imageUrl, {
-            headers: {
-                'ngrok-skip-browser-warning': 'true'
-            }
         });
 
         if (!response.ok) {
             throw new Error('Erro ao buscar a imagem de perfil');
         }
-
         return await response.blob();
     } catch (error) {
         console.error('Erro ao buscar a imagem de perfil:', error);

@@ -1,38 +1,48 @@
-import { loginUser, fetchUserProfileImage } from './AuthApi.js';
-import { toggleLoginModal, updateLoginGreeting, toggleAuthButtons, updateProfilePicture, clearProfilePicture, showLoginError } from './AuthUiHandlers.js';
+export function toggleLoginModal(modalId) {
+    const modal = document.getElementById(modalId);
+    const mainContent = document.querySelector('.main-content');
 
-document.getElementById('loginForm').addEventListener('submit', async function (event) {
-    event.preventDefault();
+    console.log("Toggle Login Modal:", { modalId, modal, mainContent });
 
-    const tenantId = 1;
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
+    modal.classList.toggle('hidden');
+    mainContent.classList.toggle('blurred');
+}
 
-    try {
-        const result = await loginUser(tenantId, email, password);
-        console.log('Login result:', result);
-        toggleLoginModal('loginModal');
-        updateLoginGreeting(result.name);
-        toggleAuthButtons(false);
+export function updateLoginGreeting(name) {
+    console.log("Updating login greeting for:", name);
+    document.getElementById('userGreeting').innerText = `Olá, ${name}`;
+}
 
-        if (result.imageProfileBase64) {
-            const imageBlob = await fetchUserProfileImage(result.imageProfileBase64);
-            updateProfilePicture(imageBlob);
-        }
+export function toggleAuthButtons(showLogin) {
+    console.log("Toggle Auth Buttons:", { showLogin });
+    document.querySelector('.toggle-login').style.display = showLogin ? 'flex' : 'none';
+    document.querySelector('.toggle-cadastro').style.display = showLogin ? 'flex' : 'none';
+    document.getElementById('logoutLink').style.display = showLogin ? 'none' : 'flex';
+}
 
-    } catch (error) {
-        showLoginError('Erro ao fazer login');
-    }
-});
+export function updateProfilePicture(imageUrl) {
+    console.log("Updating profile picture with image URL:", imageUrl);
 
-document.getElementById('logoutLink').addEventListener('click', function (event) {
-    event.preventDefault();
-    logoutUser();
-});
+    const img = document.createElement('img');
+    img.src = imageUrl; // Usa diretamente a URL da imagem
+    console.log("Profile Image URL:", img.src);
+    img.classList.add('profile-image');
 
-function logoutUser() {
-    updateLoginGreeting('Olá, Visitante');
-    toggleAuthButtons(true);
-    clearProfilePicture();
-    showLoginError('Logout successful');
+    const profileImageContainer = document.getElementById('profileImageContainer');
+    console.log("Profile Image Container:", profileImageContainer);
+
+    profileImageContainer.innerHTML = ''; // Limpa o conteúdo anterior
+    profileImageContainer.appendChild(img); // Adiciona a nova imagem
+}
+
+
+export function clearProfilePicture() {
+    console.log("Clearing profile picture");
+    const profileImageContainer = document.getElementById('profileImageContainer');
+    profileImageContainer.innerHTML = '';
+}
+
+export function showLoginError(message) {
+    console.log("Login Error:", message);
+    alert(message);
 }

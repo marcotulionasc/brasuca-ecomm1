@@ -20,25 +20,18 @@ export function toggleAuthButtons(showLogin) {
     document.getElementById('logoutLink').style.display = showLogin ? 'none' : 'flex';
 }
 
-export function updateProfilePicture(imageBlob) {
-    console.log("Updating profile picture with image blob:", imageBlob);
+export function updateProfilePicture(imageUrl) {
+    console.log("Updating profile picture with image URL:", imageUrl);
 
-    const reader = new FileReader();
-    reader.readAsDataURL(imageBlob);
-    reader.onloadend = function () {
-        const base64data = reader.result;
-        console.log("Base64 Image Data:", base64data);
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.classList.add('profile-image');
 
-        const img = document.createElement('img');
-        img.src = base64data;
-        img.classList.add('profile-image');
+    const profileImageContainer = document.getElementById('profileImageContainer');
+    console.log("Profile Image Container:", profileImageContainer);
 
-        const profileImageContainer = document.getElementById('profileImageContainer');
-        console.log("Profile Image Container:", profileImageContainer);
-
-        profileImageContainer.innerHTML = '';
-        profileImageContainer.appendChild(img);
-    };
+    profileImageContainer.innerHTML = '';
+    profileImageContainer.appendChild(img);
 }
 
 export function clearProfilePicture() {
