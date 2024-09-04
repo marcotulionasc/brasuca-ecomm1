@@ -21,3 +21,8 @@ function toggleModal(modalId) {
     modal.classList.toggle('hidden');
     mainContent.classList.toggle('blurred');
 }
+
+function toggleSidebar() {
+    var sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle('-translate-x-full');
+}
