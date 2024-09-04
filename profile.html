@@ -21,13 +21,13 @@
         .modal-overlay {
             background-color: rgba(0, 0, 0, 0.5);
         }
-           /* Estilo inicial para esconder as seções */
-           #personal-info,
-        #address-info {
-            display: none; /* Ocultar por padrão */
-        }
-        
 
+        /* Estilo inicial para esconder as seções */
+        #personal-info,
+        #address-info {
+            display: none;
+            /* Ocultar por padrão */
+        }
     </style>
 </head>
 
@@ -78,7 +78,7 @@
             </div>
         </nav>
         <!-- Mobile Header -->
-        <header class="p-3 mobile-header hidden mb-2" style="background-color: var(--primary-color);">
+        <header class="p-2 mobile-header hidden mb-2" style="background-color: var(--primary-color);">
             <div class="flex justify-between items-center w-full">
                 <button class="mobile-menu-icon bg-white text-gray-500 p-1 rounded-lg" aria-label="Menu"
                     onclick="toggleSidebar()">
@@ -189,27 +189,22 @@
         <nav class="container-local mt-4 hidden md:flex justify-center" style="background-color: #FFFFFF;">
             <!-- Só para dar espaçamento no DESKTOP -->
         </nav>
-        <nav class="container-local bg-background-color mt-3 mobile-navbar hidden">
-            <div class="flex justify-center items-center">
-                <ul class="flex flex-col items-center space-y-4">
-                    <!-- Só para dar espaçamento no MOBILE -->
-                </ul>
-            </div>
-        </nav>
         <!-- Profile Section -->
-        <div class="bg-gray-50 min-h-screen p-4">
+        <div class="bg-gray-50 min-h-screen p-3">
             <div class="flex justify-center relative">
                 <div class="w-48 h-48 bg-gray-300 rounded-full flex items-center justify-center shadow-lg relative">
-                    <img src="https://via.placeholder.com/150" alt="Profile Image" class="w-44 h-44 rounded-full object-cover">
-                    <button class="absolute bottom-2 right-2 bg-gray-800 text-white rounded-full p-2" style="width: 18%;">
+                    <img src="https://via.placeholder.com/150" alt="Profile Image"
+                        class="w-44 h-44 rounded-full object-cover">
+                    <button class="absolute bottom-2 right-2 bg-gray-800 text-white rounded-full p-2"
+                        style="width: 18%;">
                         <i class="bi bi-camera"></i>
                     </button>
                 </div>
             </div>
             <h2 class="text-center text-2xl font-semibold p-1">John Doe</h2>
-    
+
             <!-- Personal Information Section -->
-            <div class="mt-10 bg-white p-4 rounded-lg shadow-lg">
+            <div class="mt-10 bg-white p-3 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center cursor-pointer" onclick="toggleDropdown('personal-info')">
                     <h3 class="text-gray-800 text-lg font-semibold">Minha conta</h3>
                     <button class="text-gray-500">
@@ -222,15 +217,18 @@
                 <form id="personal-info" class="space-y-4">
                     <div>
                         <label class="block text-gray-600">Nome completo</label>
-                        <input type="text" name="name" class="w-full mt-1 p-2 border border-gray-300 rounded-md" placeholder="John Doe">
+                        <input type="text" name="name" class="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                            placeholder="John Doe">
                     </div>
                     <div>
                         <label class="block text-gray-600">Email</label>
-                        <input type="email" name="email" class="w-full mt-1 p-2 border border-gray-300 rounded-md" placeholder="john@example.com">
+                        <input type="email" name="email" class="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                            placeholder="john@example.com">
                     </div>
                     <div>
                         <label class="block text-gray-600">Celular</label>
-                        <input type="text" name="phone" class="w-full mt-1 p-2 border border-gray-300 rounded-md" placeholder="(00) 00000-0000">
+                        <input type="text" name="phone" class="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                            placeholder="(00) 00000-0000">
                     </div>
                     <div>
                         <label class="block text-gray-600">Data de nascimento</label>
@@ -238,9 +236,9 @@
                     </div>
                 </form>
             </div>
-    
+
             <!-- Address Information Section -->
-            <div class="mt-8 bg-white p-4 rounded-lg shadow-lg">
+            <div class="mt-3 bg-white p-3 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center cursor-pointer" onclick="toggleDropdown('address-info')">
                     <h3 class="text-gray-800 text-lg font-semibold">Meu endereço</h3>
                     <button class="text-gray-500">
@@ -253,49 +251,54 @@
                 <form id="address-info" class="space-y-4">
                     <div>
                         <label class="block text-gray-600">Rua</label>
-                        <input type="text" name="street" class="w-full mt-1 p-2 border border-gray-300 rounded-md" placeholder="Av. Paulista">
+                        <input type="text" name="street" class="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                            placeholder="Av. Paulista">
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-gray-600">Número</label>
-                            <input type="text" name="number_address" class="w-full mt-1 p-2 border border-gray-300 rounded-md" placeholder="1234">
+                            <input type="text" name="number_address"
+                                class="w-full mt-1 p-2 border border-gray-300 rounded-md" placeholder="1234">
                         </div>
                         <div>
                             <label class="block text-gray-600">Complemento</label>
-                            <input type="text" name="complement" class="w-full mt-1 p-2 border border-gray-300 rounded-md" placeholder="Apt 101">
+                            <input type="text" name="complement"
+                                class="w-full mt-1 p-2 border border-gray-300 rounded-md" placeholder="Apt 101">
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-gray-600">CEP</label>
-                            <input type="text" name="cep" class="w-full mt-1 p-2 border border-gray-300 rounded-md" placeholder="00000-000">
+                            <input type="text" name="cep" class="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                                placeholder="00000-000">
                         </div>
                         <div>
                             <label class="block text-gray-600">UF</label>
-                            <input type="text" name="uf" class="w-full mt-1 p-2 border border-gray-300 rounded-md" placeholder="SP">
+                            <input type="text" name="uf" class="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                                placeholder="SP">
                         </div>
                     </div>
                     <div>
                         <label class="block text-gray-600">Cidade</label>
-                        <input type="text" name="city" class="w-full mt-1 p-2 border border-gray-300 rounded-md" placeholder="São Paulo">
+                        <input type="text" name="city" class="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                            placeholder="São Paulo">
                     </div>
                 </form>
             </div>
-        <!-- Action Buttons -->
-        <div class="mt-8 flex justify-between w-full"
-        style="padding-bottom: 20%;">
-            <div>
-                <button
-                    class="bg-red-400 hover:bg-red-600 text-white px-3 py-3 rounded-lg shadow-md transition duration-150">Excluir
-                    conta</button>
-            </div>
-            <div>
-                <button
-                    class="bg-blue-400 hover:bg-blue-600 text-white px-3 py-3 rounded-lg shadow-md transition duration-150">Salvar
-                    mudanças</button>
+            <!-- Action Buttons -->
+            <div class="mt-8 flex justify-between w-full" style="padding-bottom: 20%;">
+                <div>
+                    <button
+                        class="bg-red-400 hover:bg-red-600 text-white px-3 py-3 rounded-lg shadow-md transition duration-150">Excluir
+                        conta</button>
+                </div>
+                <div>
+                    <button
+                        class="bg-blue-400 hover:bg-blue-600 text-white px-3 py-3 rounded-lg shadow-md transition duration-150">Salvar
+                        mudanças</button>
+                </div>
             </div>
         </div>
-    </div>
         <!-- End Profile Section -->
     </div>
 
