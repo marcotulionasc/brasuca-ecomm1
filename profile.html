@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="css/complement.css">
     <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/wait.css">
     <style>
         .modal-overlay {
             background-color: rgba(0, 0, 0, 0.5);
@@ -194,16 +195,14 @@
             <div class="flex justify-center relative">
                 <div class="w-48 h-48 bg-gray-300 rounded-full flex items-center justify-center shadow-lg relative">
                     <img src="https://via.placeholder.com/150" alt="Profile Image"
-                        class="w-44 h-44 rounded-full object-cover">
+                        class="w-44 h-44 rounded-full object-cover profile-img"> <!-- Classe adicionada aqui -->
                     <button class="absolute bottom-2 right-2 bg-gray-800 text-white rounded-full p-2"
                         style="width: 18%;">
                         <i class="bi bi-camera"></i>
                     </button>
                 </div>
             </div>
-            <h2 class="text-center text-2xl font-semibold p-1">John Doe</h2>
-
-            <!-- Personal Information Section -->
+            <h2 class="text-center text-2xl font-semibold p-1 name">Nome do Usuário</h2>
             <div class="mt-10 bg-white p-3 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center cursor-pointer" onclick="toggleDropdown('personal-info')">
                     <h3 class="text-gray-800 text-lg font-semibold">Minha conta</h3>
@@ -428,6 +427,7 @@
     <!-- Profile -->
     <script src="js/ProfileUser/ProfileUiHandler.js"></script>
     <script src="js/ProfileUser/ComponentsPage.js"></script>
+    <script src="js/ProfileUser/ProfileApi.js" type="module"></script>
 
 </body>
 
