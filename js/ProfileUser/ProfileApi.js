@@ -29,16 +29,12 @@ async function fetchUserData(userId) {
         document.querySelector('input[name="uf"]').value = userData.uf;
         document.querySelector('input[name="city"]').value = userData.city;
 
-
-        // Atualizar o nome do usuário no título
         const userNameDisplay = document.querySelector('.name');
         userNameDisplay.textContent = userData.name;
 
-
-        // Se houver imagem de perfil, substitui a imagem do placeholder
         const profileImg = document.querySelector('.profile-img');
         if (userData.imageProfileBase64) {
-            profileImg.src = userData.imageProfileBase64;
+            profileImg.src = `${userData.imageProfileBase64}`;  // Ajuste para pegar a imagem atualizada
         }
 
     } catch (error) {
@@ -46,7 +42,121 @@ async function fetchUserData(userId) {
     }
 }
 
-// Executar a função quando o DOM estiver carregado
+// Função para salvar as alterações do usuário
+async function saveUserChanges(userId) {
+    const tenantId = 1; // Supondo que o tenantId seja 1
+    const userApiUrl = `${getBaseUrl}/api/tenants/${tenantId}/users/${userId}`;
+
+    // Obter os valores dos campos
+    const name = document.querySelector('input[name="name"]').value;
+    const email = document.querySelector('input[name="email"]').value;
+    const phone = document.querySelector('input[name="phone"]').value;
+    const birth_date = document.querySelector('input[name="birth_date"]').value;
+    const street = document.querySelector('input[name="street"]').value;
+    const number_address = document.querySelector('input[name="number_address"]').value;
+    const complement = document.querySelector('input[name="complement"]').value;
+    const cep = document.querySelector('input[name="cep"]').value;
+    const uf = document.querySelector('input[name="uf"]').value;
+    const city = document.querySelector('input[name="city"]').value;
+    const profileImg = document.querySelector('.profile-img').src;
+
+    // Utiliza a classe URL para manipular a URL da imagem
+    const url = new URL(profileImg);
+    
+    // Obter apenas o caminho relativo
+    const relativePath = url.pathname; 
+    
+    console.log(relativePath); 
+
+    // Criar objeto com os dados do usuário
+    const updateUserDTO = {
+        name: name || undefined,
+        email: email || undefined,
+        phone: phone || undefined,
+        birth_date: birth_date || undefined,
+        imageProfileBase64: relativePath || undefined,
+        address: {
+            street: street || undefined,
+            numberAddress: number_address || undefined,
+            complement: complement || undefined,
+            cep: cep || undefined,
+            uf: uf || undefined,
+            city: city || undefined
+        }
+    };
+
+    try {
+        const response = await fetch(userApiUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updateUserDTO)
+        });
+
+        if (response.ok) {
+            alert('Usuário atualizado com sucesso!');
+        } else {
+            console.error('Erro ao atualizar o usuário:', response.statusText);
+            alert('Erro ao atualizar o usuário.');
+        }
+    } catch (error) {
+        console.error('Erro ao fazer a requisição:', error);
+        alert('Erro ao atualizar o usuário.');
+    }
+}
+
+// Função para fazer o upload da imagem
+async function uploadProfileImage(file) {
+    const uploadUrl = `${getBaseUrl}/api/upload`;
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+        const response = await fetch(uploadUrl, {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            const profileImg = document.querySelector('.profile-img');
+            profileImg.src = `${getBaseUrl}${result.filePath}`; // Atualiza a imagem no frontend
+            alert(`Imagem de perfil atualizada com sucesso!`);
+        } else {
+            console.error('Erro ao fazer upload da imagem:', response.statusText);
+            alert('Erro ao fazer upload da imagem.');
+        }
+    } catch (error) {
+        console.error('Erro ao fazer a requisição de upload:', error);
+        alert('Erro ao fazer upload da imagem.');
+    }
+}
+
+// Adiciona o event listener para o botão de salvar
+document.querySelector('button.bg-blue-400').addEventListener('click', function (event) {
+    event.preventDefault();
+    const userId = getUserIdFromUrl();
+    if (userId) {
+        saveUserChanges(userId);
+    }
+});
+
+// Adiciona o event listener para o botão de upload da imagem
+document.getElementById('uploadImageButton').addEventListener('click', function (event) {
+    event.preventDefault();
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.onchange = () => {
+        const file = fileInput.files[0];
+        if (file) {
+            uploadProfileImage(file); // Chama a função para fazer o upload
+        }
+    };
+    fileInput.click(); // Abre o seletor de arquivo
+});
+
 document.addEventListener("DOMContentLoaded", function () {
     const userId = getUserIdFromUrl();
     if (userId) {

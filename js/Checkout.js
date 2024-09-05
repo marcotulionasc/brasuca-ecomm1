@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <span class="text-sm text-gray-600">R$ ${lot.priceTicket} + Taxa: R$ ${(lot.priceTicket * (lot.taxPriceTicket / 100)).toFixed(2)}</span>
                     </div>
                     <div class="flex justify-center items-center mt-2">
-                        <div class="flex items-center">
+                        <div id="quantity_ticket" class="flex items-center">
                             <button id="decrement_${lot.id}" class="bg-blue-500 text-white rounded-l-md px-3 py-1 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-red-300"
                             style="height: 43px">-</button>
                             <input type="number" id="quantity_${lot.id}" name="quantity_${lot.id}" min="1" max="${lot.amountTicket}" value="0" class="text-center w-16 px-3 py-2 bg-gray-100 text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 sm:text-sm text-right no-spinner">
@@ -278,38 +278,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateNavDisplay(totalQuantity, totalPrice) {
-        const totalQuantityElement = document.querySelector('.custom-nav .text-center .font-bold');
-        const totalPriceElement = document.querySelector('.custom-nav .text-center .text-2xl');
+        const totalQuantityElement = document.getElementById('ticketCount');
+        const totalPriceElement = document.getElementById('amountTotalTicket');
 
-        totalQuantityElement.textContent = `${totalQuantity} Ingressos por`;
-        totalPriceElement.textContent = `R$ ${totalPrice.toFixed(2)}`;
+        totalQuantityElement.innerHTML = `${totalQuantity} Ingressos por`;
+        totalPriceElement.innerHTML = `R$ ${totalPrice.toFixed(2)}`;
     }
 
     function calculateTotals() {
-        let totalQuantity = 0;
+        let totalQuantity = document.getElementById('quantity_ticket').querySelectorAll('input[type="number"]')[0];
         let totalPrice = 0;
     
-        document.querySelectorAll('[id^=quantity_]').forEach(input => {
-            const quantity = parseInt(input.value, 10);
-            const lotId = input.id.split('_')[1];
+               
     
-            // Seleciona o contêiner principal do lote
-            const lotDiv = document.querySelector(`#increment_${lotId}`).closest('.flex').parentElement;
-    
-            // Extrai o preço diretamente do elemento do preço
-            const priceElement = lotDiv ? lotDiv.querySelector('span') : null;
-    
-            if (priceElement) {
-                // Extrai o preço do texto do elemento
-                const priceText = priceElement.textContent.match(/R\$\s*([\d,.]+)/);
-                const lotPrice = priceText ? parseFloat(priceText[1].replace('.', '').replace(',', '.')) : 0;
-    
-                totalQuantity += quantity;
-                totalPrice += quantity * lotPrice;
-            }
-        });
-    
-        // Atualiza a exibição na barra de navegação
         updateNavDisplay(totalQuantity, totalPrice);
     }
     

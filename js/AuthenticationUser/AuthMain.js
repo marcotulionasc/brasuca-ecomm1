@@ -1,42 +1,37 @@
 import { loginUser } from './AuthApi.js';
 import { toggleLoginModal, updateLoginGreeting, toggleAuthButtons, updateProfilePicture, clearProfilePicture, showLoginError } from './AuthUiHandlers.js';
 
-// Função para salvar o estado do usuário no localStorage
 export function saveUserSession(userData) {
-    localStorage.setItem('user', JSON.stringify(userData)); // Salva o estado do usuário, incluindo o id
+    localStorage.setItem('user', JSON.stringify(userData));
 }
 
-// Função para recuperar o estado do usuário do localStorage
 function getUserSession() {
     const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null; // Retorna os dados do usuário ou null se não estiver logado
+    return user ? JSON.parse(user) : null;
 }
 
-// Função para remover o estado do usuário do localStorage (usado no logout)
 function clearUserSession() {
-    localStorage.removeItem('user'); // Limpa o estado do usuário
+    localStorage.removeItem('user');
 }
 
-// Função para verificar o estado de login ao carregar a página
 document.addEventListener("DOMContentLoaded", function () {
-    const user = getUserSession(); // Recupera o estado de login do localStorage
+    const user = getUserSession(); 
 
     if (user) {
-        // Se o usuário estiver logado, atualiza a interface
+       
         updateLoginGreeting(user.name);
-        toggleAuthButtons(false); // Exibe o botão de logout, oculta login/cadastro
+        toggleAuthButtons(false); 
         if (user.imageUrl) {
-            updateProfilePicture(user.imageUrl); // Atualiza a foto de perfil, se existir
+            updateProfilePicture(user.imageUrl);
         }
     } else {
-        // Se o usuário não estiver logado, exibe login e cadastro
+     
         updateLoginGreeting('Visitante');
-        toggleAuthButtons(true); // Exibe os botões de login/cadastro
-        clearProfilePicture(); // Limpa a foto de perfil, se existir
+        toggleAuthButtons(true); 
+        clearProfilePicture(); 
     }
 });
 
-// Função de login
 document.getElementById('loginForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
@@ -45,10 +40,9 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     const password = document.getElementById('loginPassword').value;
 
     try {
-        const result = await loginUser(tenantId, email, password); // Faz login usando a API
+        const result = await loginUser(tenantId, email, password);
         console.log('Login result:', result);
         
-        // Atualiza a UI após o login bem-sucedido
         toggleLoginModal('loginModal');
         updateLoginGreeting(result.name);
         toggleAuthButtons(false);
@@ -57,9 +51,8 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             updateProfilePicture(result.imageUrl);
         }
 
-        // Salva o estado do usuário no localStorage (incluindo o ID)
         saveUserSession({
-            id: result.id, // Salva o ID do usuário
+            id: result.id,
             name: result.name,
             imageUrl: result.imageUrl
         });
@@ -69,16 +62,15 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     }
 });
 
-// Função de logout
 document.getElementById('logoutLink').addEventListener('click', function(event) {
     event.preventDefault();
     logoutUser();
 });
 
 function logoutUser() {
-    updateLoginGreeting('Visitante'); // Volta a saudação para "Visitante"
-    toggleAuthButtons(true); // Mostra os botões de login/cadastro
-    clearProfilePicture(); // Limpa a foto de perfil
-    clearUserSession(); // Limpa o estado do usuário no localStorage
-    showLoginError('Logout successful'); // Mostra uma mensagem de logout (ou sucesso)
+    updateLoginGreeting('Visitante');
+    toggleAuthButtons(true); 
+    clearProfilePicture(); 
+    clearUserSession(); 
+    showLoginError('Logout successful');
 }

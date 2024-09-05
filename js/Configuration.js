@@ -1,5 +1,5 @@
 const config = {
-    production: true, // Altere para false em desenvolvimento
+    production: false, // Altere para false em desenvolvimento
     urls: {
       production: "https://backend-ingressar.onrender.com",
         development: "http://localhost:8080"
