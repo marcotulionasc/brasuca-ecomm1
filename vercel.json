@@ -24,7 +24,7 @@
     ],
     "rewrites": [
         {
-            "source": "/profile",
+            "source": "/profile/:id",
             "destination": "/profile.html?id=:id"
         }
     ]
