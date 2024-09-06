@@ -19,15 +19,23 @@ async function fetchUserData(userId) {
 
         // Preencher os campos do formulário com os dados do usuário
         document.querySelector('input[name="name"]').value = userData.name;
+        document.querySelector('input[name="cpf"]').value = userData.cpf;
         document.querySelector('input[name="email"]').value = userData.email;
         document.querySelector('input[name="phone"]').value = userData.phone;
-        document.querySelector('input[name="birth_date"]').value = userData.birth_date;
+        document.querySelector('input[name="birth_date"]').value = userData.birthDate;
         document.querySelector('input[name="street"]').value = userData.street;
         document.querySelector('input[name="number_address"]').value = userData.numberAddress;
         document.querySelector('input[name="complement"]').value = userData.complement;
         document.querySelector('input[name="cep"]').value = userData.cep;
         document.querySelector('input[name="uf"]').value = userData.uf;
         document.querySelector('input[name="city"]').value = userData.city;
+        document.querySelector('input[name="neighborhood"]').value = userData.neighborhood; // Adicionando bairro
+        document.querySelector('input[name="password"]').value = ''; // Senha deve ser deixada vazia por segurança
+
+        console.log("Data de nascimento: ", userData);
+
+
+
 
         const userNameDisplay = document.querySelector('.name');
         userNameDisplay.textContent = userData.name;
@@ -49,6 +57,7 @@ async function saveUserChanges(userId) {
 
     // Obter os valores dos campos
     const name = document.querySelector('input[name="name"]').value;
+    const cpf = document.querySelector('input[name="cpf"]').value;
     const email = document.querySelector('input[name="email"]').value;
     const phone = document.querySelector('input[name="phone"]').value;
     const birth_date = document.querySelector('input[name="birth_date"]').value;
@@ -58,22 +67,26 @@ async function saveUserChanges(userId) {
     const cep = document.querySelector('input[name="cep"]').value;
     const uf = document.querySelector('input[name="uf"]').value;
     const city = document.querySelector('input[name="city"]').value;
+    const neighborhood = document.querySelector('input[name="neighborhood"]').value; // Adicionando bairro
+    const password = document.querySelector('input[name="password"]').value; // Adicionando senha
     const profileImg = document.querySelector('.profile-img').src;
 
     // Utiliza a classe URL para manipular a URL da imagem
     const url = new URL(profileImg);
-    
+
     // Obter apenas o caminho relativo
-    const relativePath = url.pathname; 
-    
-    console.log(relativePath); 
+    const relativePath = url.pathname;
+
+    console.log(relativePath);
 
     // Criar objeto com os dados do usuário
     const updateUserDTO = {
         name: name || undefined,
         email: email || undefined,
+        cpf: cpf || undefined,
         phone: phone || undefined,
-        birth_date: birth_date || undefined,
+        birthDate: birth_date || undefined,
+        password: password || undefined, // Incluindo o campo de senha
         imageProfileBase64: relativePath || undefined,
         address: {
             street: street || undefined,
@@ -81,7 +94,8 @@ async function saveUserChanges(userId) {
             complement: complement || undefined,
             cep: cep || undefined,
             uf: uf || undefined,
-            city: city || undefined
+            city: city || undefined,
+            neighborhood: neighborhood || undefined // Incluindo bairro
         }
     };
 
@@ -95,7 +109,8 @@ async function saveUserChanges(userId) {
         });
 
         if (response.ok) {
-            alert('Usuário atualizado com sucesso!');
+            alert('Seus dados foram alterados com sucesso!');
+            window.location.reload();
         } else {
             console.error('Erro ao atualizar o usuário:', response.statusText);
             alert('Erro ao atualizar o usuário.');
@@ -157,9 +172,11 @@ document.getElementById('uploadImageButton').addEventListener('click', function 
     fileInput.click(); // Abre o seletor de arquivo
 });
 
+// Carregar os dados do usuário quando o documento for carregado
 document.addEventListener("DOMContentLoaded", function () {
     const userId = getUserIdFromUrl();
     if (userId) {
         fetchUserData(userId);
     }
 });
+

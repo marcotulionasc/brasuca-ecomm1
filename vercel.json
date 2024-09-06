@@ -15,12 +15,17 @@
                     "key": "Access-Control-Allow-Headers",
                     "value": "X-Requested-With, Content-Type, Accept, Authorization"
                 },
-
                 {
                     "key": "ngrok-skip-browser-warning",
                     "value": "true"
                 }
             ]
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/profile",
+            "destination": "/profile.html?id=:id"
         }
     ]
 }

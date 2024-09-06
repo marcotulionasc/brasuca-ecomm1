@@ -2,12 +2,30 @@ import { loginUser } from './AuthApi.js';
 import { toggleLoginModal, updateLoginGreeting, toggleAuthButtons, updateProfilePicture, clearProfilePicture, showLoginError } from './AuthUiHandlers.js';
 
 export function saveUserSession(userData) {
-    localStorage.setItem('user', JSON.stringify(userData));
+    const currentTime = new Date().getTime();
+    const dataToStore = {
+        user: userData,
+        timestamp: currentTime
+    };
+    localStorage.setItem('user', JSON.stringify(dataToStore));
 }
 
 function getUserSession() {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
+    const data = localStorage.getItem('user');
+    if (data) {
+        const parsedData = JSON.parse(data);
+        const currentTime = new Date().getTime();
+        const time = 60 * 60 * 1000; // 1 hour
+        if (currentTime - parsedData.timestamp > time) {
+            clearUserSession();
+            log.console('Session expired');
+            return null;
+        }
+        console.log('Session still valid');
+        return parsedData.user;
+    }
+    console.log('No session found');
+    return null;
 }
 
 function clearUserSession() {
@@ -15,24 +33,24 @@ function clearUserSession() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    const user = getUserSession(); 
+    const user = getUserSession();
 
     if (user) {
-       
+
         updateLoginGreeting(user.name);
-        toggleAuthButtons(false); 
+        toggleAuthButtons(false);
         if (user.imageUrl) {
             updateProfilePicture(user.imageUrl);
         }
     } else {
-     
+
         updateLoginGreeting('Visitante');
-        toggleAuthButtons(true); 
-        clearProfilePicture(); 
+        toggleAuthButtons(true);
+        clearProfilePicture();
     }
 });
 
-document.getElementById('loginForm').addEventListener('submit', async function(event) {
+document.getElementById('loginForm').addEventListener('submit', async function (event) {
     event.preventDefault();
 
     const tenantId = 1;
@@ -42,7 +60,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     try {
         const result = await loginUser(tenantId, email, password);
         console.log('Login result:', result);
-        
+
         toggleLoginModal('loginModal');
         updateLoginGreeting(result.name);
         toggleAuthButtons(false);
@@ -62,15 +80,15 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     }
 });
 
-document.getElementById('logoutLink').addEventListener('click', function(event) {
+document.getElementById('logoutLink').addEventListener('click', function (event) {
     event.preventDefault();
     logoutUser();
 });
 
 function logoutUser() {
     updateLoginGreeting('Visitante');
-    toggleAuthButtons(true); 
-    clearProfilePicture(); 
-    clearUserSession(); 
+    toggleAuthButtons(true);
+    clearProfilePicture();
+    clearUserSession();
     showLoginError('Logout successful');
 }
