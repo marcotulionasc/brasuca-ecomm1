@@ -74,8 +74,15 @@ if (cadastroForm) {
     });
 }
 
-// Função de upload de imagem
 async function uploadImage(file) {
+    const maxSizeMB = 5;
+    const maxSizeBytes = maxSizeMB * 1024 * 1024;
+
+    if (file.size > maxSizeBytes) {
+        alert(`O arquivo excede o limite de ${maxSizeMB} MB. Por favor, envie uma imagem menor.`);
+        return;
+    }
+
     const formData = new FormData();
     formData.append('file', file);
 
@@ -100,4 +107,5 @@ async function uploadImage(file) {
         throw error;
     }
 }
+
 
