@@ -200,13 +200,9 @@
                     class="px-3 md:px-4 py-2 bg-blue-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 flex items-center toggle-login">
                     Entrar <i class="bi bi-person ml-2"></i>
                 </button>
-                <div class="flex items-center p-4 space-x-1">
-                    <div id="profileImageContainer" class="profile-image-container"
-                        style="background-color: var(--primary-color);">
-                        <!-- Espaço para a foto de perfil -->
-                    </div>
-                    <span id="userGreeting" style="margin-left: 10px; color: white;">Olá,
-                        Visitante</span>
+                <div class="flex items-center space-x-6 ml-4 md:ml-10 lg:ml-20">
+                    <div id="profileImageContainerDesktop" class="profile-image-container"></div>
+                    <span id="userGreetingDesktop" style="margin-left: 10px; color: white;">Olá, Visitante</span>
                 </div>
 
                 <hr></hr>
@@ -224,12 +220,8 @@
             class="fixed top-0 left-0 h-full w-64 text-white transition-transform transform -translate-x-full md:hidden z-50"
             style="background-color: var(--background-color)">
             <div class="flex items-center p-4 space-x-1">
-                <div id="profileImageContainer" class="profile-image-container"
-                    style="background-color: var(--primary-color);">
-                    <!-- Espaço para a foto de perfil -->
-                </div>
-                <span id="userGreeting" style="margin-left: 10px; color: var(--primary-text-color);">Olá,
-                    Visitante</span>
+                <div id="profileImageContainerMobile" class="profile-image-container"></div>
+                <span id="userGreetingMobile" style="margin-left: 10px; color: var(--primary-text-color);">Olá, Visitante</span>
                 <span style="color: var(--primary-text-color);" class="absolute top-4 right-4 text-2xl cursor-pointer"
                     onclick="toggleSidebar()">&times;</span>
             </div>
@@ -240,11 +232,13 @@
                     <span style="color: var(--primary-text-color);">Início</span>
                 </a>
                 <a href="#" style="color: var(--primary-text-color);"
+                    id="loginSideBarLink"
                     class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded toggle-login">
                     <i class="bi bi-person-fill"></i>
                     <span style="color: var(--primary-text-color);">Entrar</span>
                 </a>
                 <a href="#" style="color: var(--primary-text-color);"
+                    id="cadastroSideBarLink"
                     class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded toggle-cadastro">
                     <i class="bi bi-person-fill"></i>
                     <span style="color: var(--primary-text-color);">Cadastrar-se</span>
@@ -688,9 +682,9 @@
     <script src="js/CreateUser/CreateUserApi.js" type="module"></script>
 
     <!-- Profile User -->
-    <script src="js/ProfileUser/ProfileApi.js"></script>
-    <script src="js/ProfileUser/ProfileUiHandler.js"></script>
-    <script src="js/ProfileUser/ComponentsPage.js"></script>
+    <script src="js/ProfileUser/ProfileApi.js" type="module"></script>
+    <script src="js/ProfileUser/ProfileUiHandler.js" type="module"></script>
+    <script src="js/ProfileUser/ComponentsPage.js" type="module"></script>
 
     <script>
         var swiper = new Swiper('.swiper-container', {

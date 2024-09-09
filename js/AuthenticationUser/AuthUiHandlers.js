@@ -10,13 +10,27 @@ export function toggleLoginModal(modalId) {
 
 export function updateLoginGreeting(name) {
     console.log("Updating login greeting for:", name);
-    document.getElementById('userGreeting').innerText = `Olá, ${name}`;
+
+    // Atualiza o nome no Header (Desktop)
+    const desktopGreeting = document.getElementById('userGreetingDesktop');
+    if (desktopGreeting) {
+        desktopGreeting.innerText = `Olá, ${name}`;
+    }
+
+    // Atualiza o nome na Sidebar (Mobile)
+    const mobileGreeting = document.getElementById('userGreetingMobile');
+    if (mobileGreeting) {
+        mobileGreeting.innerText = `Olá, ${name}`;
+    }
 }
+
 
 export function toggleAuthButtons(showLogin) {
     console.log("Toggle Auth Buttons:", { showLogin });
     document.querySelector('.toggle-login').style.display = showLogin ? 'flex' : 'none';
     document.querySelector('.toggle-cadastro').style.display = showLogin ? 'flex' : 'none';
+    document.getElementById('loginSideBarLink').style.display = showLogin ? 'flex' : 'none';
+    document.getElementById('cadastroSideBarLink').style.display = showLogin ? 'flex' : 'none';
     document.getElementById('logoutLink').style.display = showLogin ? 'none' : 'flex';
 }
 
@@ -27,11 +41,19 @@ export function updateProfilePicture(imageUrl) {
     img.src = imageUrl;
     img.classList.add('profile-image');
 
-    const profileImageContainer = document.getElementById('profileImageContainer');
-    console.log("Profile Image Container:", profileImageContainer);
+    // Atualiza a imagem no Header (Desktop)
+    const desktopProfileImageContainer = document.getElementById('profileImageContainerDesktop');
+    if (desktopProfileImageContainer) {
+        desktopProfileImageContainer.innerHTML = '';
+        desktopProfileImageContainer.appendChild(img.cloneNode());  // Clona a imagem
+    }
 
-    profileImageContainer.innerHTML = '';
-    profileImageContainer.appendChild(img);
+    // Atualiza a imagem na Sidebar (Mobile)
+    const mobileProfileImageContainer = document.getElementById('profileImageContainerMobile');
+    if (mobileProfileImageContainer) {
+        mobileProfileImageContainer.innerHTML = '';
+        mobileProfileImageContainer.appendChild(img.cloneNode());  // Clona a imagem
+    }
 }
 
 export function clearProfilePicture() {
