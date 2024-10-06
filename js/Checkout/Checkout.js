@@ -1,4 +1,5 @@
-import config from './Configuration.js';
+import config from '../Configuration.js';
+import { updatePriceAndQuantity } from './TicketTotal.js'; // Importação do novo arquivo
 
 const getBaseUrl = config.getBaseUrl();
 
@@ -26,10 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const response = await fetch(url, {
                 method: "GET",
-                headers: {
-                    'ngrok-skip-browser-warning': 'true',
-                    'Accept': 'application/json'
-                }
             });
 
             if (!response.ok) {
@@ -53,10 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const response = await fetch(imageUrl, {
                 method: "GET",
-                headers: {
-                    'ngrok-skip-browser-warning': 'true',
-                    'Accept': 'application/json'
-                }
             });
 
             if (!response.ok) {
@@ -82,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-
         container.innerHTML = '';
 
         const backgroundContainer = document.createElement("div");
@@ -97,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
         container.appendChild(backgroundContainer);
         container.appendChild(image);
     }
-
 
     function displayEventDetails(event) {
         const container = document.querySelector("#eventDetailsContainer");
@@ -128,9 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         container.appendChild(date);
         container.appendChild(address);
         container.appendChild(description);
-
     }
-
 
     async function viewDetails(tenantId, eventId) {
         const ticketsUrl = `${getBaseUrl}/api/tenants/${tenantId}/events/${eventId}/tickets`;
@@ -138,9 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const response = await fetch(ticketsUrl, {
                 method: 'GET',
-                headers: {
-                    'ngrok-skip-browser-warning': 'true'
-                }
             });
 
             const text = await response.text();
@@ -196,9 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const response = await fetch(lotsUrl, {
                 method: 'GET',
-                headers: {
-                    'ngrok-skip-browser-warning': 'true'
-                }
             });
 
             const text = await response.text();
@@ -216,18 +199,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 lotDiv.innerHTML = `
                     <div class="flex justify-between items-center mb-2">
-                        <h4 class="text-lg font-semibold text-gray-800">${lot.nameLot}</h4>
-                        <span class="text-sm text-gray-600">R$ ${lot.priceTicket} + Taxa: R$ ${(lot.priceTicket * (lot.taxPriceTicket / 100)).toFixed(2)}</span>
+                        <h4 class="text-md font-semibold text-gray-800">${lot.nameLot}</h4>
+                    </div>
+                    <div class="flex flex-col items-start mb-2"> <!-- Alterado para exibir o preço e a taxa abaixo do nome -->
+                        <span class="text-sm text-gray-600">R$ ${lot.priceTicket} + Taxa: R$ ${(lot.priceTicket * (lot.taxPriceTicket / 100)).toFixed(2).replace('.', ',')}</span>
                     </div>
                     <div class="flex justify-center items-center mt-2">
                         <div id="quantity_ticket" class="flex items-center">
-                            <button id="decrement_${lot.id}" class="bg-blue-500 text-white rounded-l-md px-3 py-1 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-red-300"
-                            style="height: 43px">-</button>
+                            <button id="decrement_${lot.id}" class="bg-blue-500 text-white rounded-l-md px-3 py-1 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-red-300" style="height: 43px">-</button>
                             <input type="number" id="quantity_${lot.id}" name="quantity_${lot.id}" min="1" max="${lot.amountTicket}" value="0" class="text-center w-16 px-3 py-2 bg-gray-100 text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 sm:text-sm text-right no-spinner">
-                            <button id="increment_${lot.id}" class="bg-blue-500 text-white rounded-r-md px-3 py-1 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-green-300"
-                            style="height: 43px">+</button>
+                            <button id="increment_${lot.id}" class="bg-blue-500 text-white rounded-r-md px-3 py-1 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-green-300" style="height: 43px">+</button>
                         </div>
                     </div>
+
                 `;
 
                 lotsDiv.appendChild(lotDiv);
@@ -236,24 +220,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 const incrementButton = lotDiv.querySelector(`#increment_${lot.id}`);
                 const quantityInput = lotDiv.querySelector(`#quantity_${lot.id}`);
 
+                // Listener para decremento
                 decrementButton.addEventListener('click', () => {
                     const currentValue = parseInt(quantityInput.value, 10);
-                    if (currentValue > 1) {
+                    if (currentValue > 0) {
                         quantityInput.value = currentValue - 1;
-                        calculateTotals(); // Atualiza os totais após cada mudança
+                        updatePriceAndQuantity(lot.priceTicket, lot.taxPriceTicket, -1);  // Atualiza o preço e quantidade com a taxa
                     }
                 });
 
+                // Listener para incremento
                 incrementButton.addEventListener('click', () => {
                     const currentValue = parseInt(quantityInput.value, 10);
                     if (currentValue < lot.amountTicket) {
                         quantityInput.value = currentValue + 1;
-                        calculateTotals(); // Atualiza os totais após cada mudança
+                        updatePriceAndQuantity(lot.priceTicket, lot.taxPriceTicket, 1);  // Atualiza o preço e quantidade com a taxa
                     }
                 });
             });
 
-            // CSS customizado para remover os botões de incremento/decremento nativos
             const style = document.createElement('style');
             style.innerHTML = `
                 /* Remove os botões de incremento/decremento no input de número */
@@ -269,37 +254,11 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             document.head.appendChild(style);
 
-            // Configura os eventos de clique ao carregar os lotes
-        setupEventListenersForLots();
+            setupEventListenersForLots();
 
         } catch (error) {
             console.error('Error fetching lots:', error);
         }
-    }
-
-    function updateNavDisplay(totalQuantity, totalPrice) {
-        const totalQuantityElement = document.getElementById('ticketCount');
-        const totalPriceElement = document.getElementById('amountTotalTicket');
-
-        totalQuantityElement.innerHTML = `${totalQuantity} Ingressos por`;
-        totalPriceElement.innerHTML = `R$ ${totalPrice.toFixed(2)}`;
-    }
-
-    function calculateTotals() {
-        let totalQuantity = document.getElementById('quantity_ticket').querySelectorAll('input[type="number"]')[0];
-        let totalPrice = 0;
-    
-               
-    
-        updateNavDisplay(totalQuantity, totalPrice);
-    }
-    
-    function setupEventListenersForLots() {
-        document.querySelectorAll('[id^=decrement_], [id^=increment_]').forEach(button => {
-            button.addEventListener('click', function () {
-                calculateTotals();
-            });
-        });
     }
 
 
