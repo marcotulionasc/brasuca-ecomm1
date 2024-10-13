@@ -103,7 +103,6 @@
         .custom-bg-ticket {
             background-color: #b7791f;
         }
-
     </style>
 
 </head>
@@ -126,33 +125,36 @@
 
     <div class="main-content">
 
-         <!-- Componente de Temporizador -->
-    <div id="countdown-timer-container">
-        <i class="bi bi-clock"></i> <span id="countdown-timer">00:10:00</span>
-    </div>
-
-    <nav class="custom-nav fixed bottom-0 left-0 right-0 text-white shadow-lg z-50 bg-gray-900"
-    style="padding-bottom: 20px; padding-top: 20px">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="relative flex items-center justify-between h-20"> <!-- Aumenta a altura -->
-                <!-- Seção central com quantidade e preço -->
-                <div class="text-center">
-                    <div id="ticketCount" class="text-white font-bold text-lg sm:text-xl lg:text-2xl mb-1"> <!-- Aumenta o tamanho da fonte -->
-                        0 Ingressos por
-                    </div>
-                    <div id="amountTotalTicket" class="text-white text-3xl sm:text-4xl lg:text-5xl font-bold"> <!-- Aumenta o tamanho do valor -->
-                        R$ 0,00
-                    </div>
-                </div>
-                <!-- Seção direita com o botão -->
-                <button
-                    class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-lg sm:text-xl lg:text-2xl flex items-center transition duration-300 ease-in-out transform hover:scale-105"> <!-- Aumenta o tamanho do botão e adiciona animação -->
-                    <i class="bi bi-cart-fill mr-2"></i>
-                    <span>Comprar</span>
-                </button>
-            </div>
+        <!-- Componente de Temporizador -->
+        <div id="countdown-timer-container">
+            <i class="bi bi-clock"></i> <span id="countdown-timer">00:10:00</span>
         </div>
-    </nav>
+
+        <nav class="custom-nav fixed bottom-0 left-0 right-0 text-white shadow-lg z-50 bg-gray-900"
+            style="padding-bottom: 20px; padding-top: 20px">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative flex items-center justify-between h-20"> <!-- Aumenta a altura -->
+                    <!-- Seção central com quantidade e preço -->
+                    <div class="text-center">
+                        <div id="ticketCount" class="text-white font-bold text-lg sm:text-xl lg:text-2xl mb-1">
+                            <!-- Aumenta o tamanho da fonte -->
+                            0 Ingressos por
+                        </div>
+                        <div id="amountTotalTicket" class="text-white text-3xl sm:text-4xl lg:text-5xl font-bold">
+                            <!-- Aumenta o tamanho do valor -->
+                            R$ 0,00
+                        </div>
+                    </div>
+                    <!-- Seção direita com o botão -->
+                    <button
+                        class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-lg sm:text-xl lg:text-2xl flex items-center transition duration-300 ease-in-out transform hover:scale-105"
+                        onclick="checkUserIdAndRedirect()">
+                        <i class="bi bi-cart-fill mr-2"></i>
+                        <span>Comprar</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
 
         <!-- Mobile Header -->
         <header class="p-3 mobile-header hidden mb-2" style="background-color: var(--primary-color);">
@@ -210,8 +212,9 @@
                     <span id="userGreeting" style="margin-left: 10px; color: white;">Olá,
                         Visitante</span>
                 </div>
-                <hr></hr>
-                
+                <hr>
+                </hr>
+
                 <button type="button"
                     class="px-3 md:px-4 py-2 bg-gray-800 text-white rounded-lg transition duration-300 ease-in-out hover:bg-gray-700 flex items-center toggle-cart">
                     <i class="bi bi-cart-fill"></i>
@@ -524,14 +527,69 @@
     <script src="js/AuthenticationUser/AuthUiHandlers.js" type="module"></script>
 
     <!-- Create User -->
-     <script src="js/CreateUser/CreateUserApi.js" type="module"></script>
+    <script src="js/CreateUser/CreateUserApi.js" type="module"></script>
 
-     <!-- Profile User -->
+    <!-- Profile User -->
     <script src="js/ProfileUser/ProfileApi.js" type="module"></script>
     <script src="js/ProfileUser/ProfileUiHandler.js" type="module"></script>
     <script src="js/ProfileUser/ComponentsPage.js" type="module"></script>
 
+    <!-- Mercado Pago -->
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+
+
     <script>
+
+
+        function checkUserIdAndRedirect() {
+
+            const data = localStorage.getItem('user');
+            if (data) {
+                const parsedData = JSON.parse(data);
+                console.log('Dados do usuário:', parsedData);
+
+                const eventName = "Compra de evento Teste";
+                const ticketPrice = 10.00;
+                const ticketQuantity = 1;
+                const userId = parsedData.id;
+
+                fetch('http://localhost:8080/api/payments/create-preference', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        eventName: eventName,
+                        ticketPrice: ticketPrice,
+                        ticketQuantity: ticketQuantity,
+                        userId: userId
+                    })
+                })
+                    .then(response => response.text())
+                    .then(preferenceId => {
+                        console.log('ID da preferência:', preferenceId);
+
+                        const mp = new MercadoPago('APP_USR-82cf6735-6432-4efe-bd3e-f1dba9ba3459', {
+                            locale: 'pt-BR'
+                        });
+
+
+                        mp.checkout({
+                            preference: {
+                                id: preferenceId
+                            },
+                            autoOpen: true
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Erro ao criar a preferência:', error);
+                    });
+            } else {
+                alert('Você precisa estar logado para continuar.');
+                window.location.href = 'index.html';
+            }
+        }
+
 
         document.getElementById('copyrightYear').textContent = new Date().getFullYear();
 
@@ -587,7 +645,7 @@
 
 
 
-        async function fetchEventDetails(tenantId, eventId) {
+        /*async function fetchEventDetails(tenantId, eventId) {
             const url = `https://assuring-amazingly-monitor.ngrok-free.app/api/tenants/${tenantId}/events/${eventId}`;
 
             try {
@@ -609,7 +667,7 @@
             } catch (error) {
                 console.error('Erro ao buscar detalhes do evento:', error);
             }
-        }
+        }*/
 
         function displayEventDetails(event) {
             const container = document.querySelector("#eventDetailsContainer");
