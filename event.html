@@ -542,26 +542,33 @@
 
 
         function checkUserIdAndRedirect() {
-
             const data = localStorage.getItem('user');
             if (data) {
                 const parsedData = JSON.parse(data);
                 console.log('Dados do usuário:', parsedData);
 
-                const eventName = "Compra de evento Teste";
-                const ticketPrice = 10.00;
-                const ticketQuantity = 1;
-                const userId = parsedData.id;
+                const eventDetails = document.getElementById('eventDetailsContainer');
+                console.log('Detalhes do evento:', eventDetails);
 
-                fetch('http://localhost:8080/api/payments/create-preference', {
+                const eventName = eventDetails.querySelector('h2').innerText.trim(); // Garantindo que o nome do evento é uma string
+                const ticketPriceAmount = document.getElementById('amountTotalTicket');
+
+                // Removendo "R$" e formatando o valor como float
+                const ticketPriceText = ticketPriceAmount.innerText.replace('R$', '').trim();
+                const ticketPriceTotal = parseFloat(ticketPriceText.replace('.', '').replace(',', '.'));
+
+                const buyQuantity = parseInt(1); // Quantidade de ingressos como Integer
+                const userId = String(parsedData.user?.id) || "ID não encontrado"; // Convertendo o userId para string
+
+                fetch('https://backend-ingressar.onrender.com/api/payments/create-preference', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
                         eventName: eventName,
-                        ticketPrice: ticketPrice,
-                        ticketQuantity: ticketQuantity,
+                        ticketPriceTotal: ticketPriceTotal,
+                        buyQuantity: 1,
                         userId: userId
                     })
                 })
@@ -572,7 +579,6 @@
                         const mp = new MercadoPago('APP_USR-82cf6735-6432-4efe-bd3e-f1dba9ba3459', {
                             locale: 'pt-BR'
                         });
-
 
                         mp.checkout({
                             preference: {
@@ -642,32 +648,6 @@
                 button.addEventListener('click', () => toggleSidebarCart('cartSidebar'));
             });
         });
-
-
-
-        /*async function fetchEventDetails(tenantId, eventId) {
-            const url = `https://assuring-amazingly-monitor.ngrok-free.app/api/tenants/${tenantId}/events/${eventId}`;
-
-            try {
-                const response = await fetch(url, {
-                    method: "GET",
-                    headers: {
-                        'ngrok-skip-browser-warning': 'true',
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const event = await response.json();
-                console.log('Event details:', event);
-                displayEventDetails(event);
-            } catch (error) {
-                console.error('Erro ao buscar detalhes do evento:', error);
-            }
-        }*/
 
         function displayEventDetails(event) {
             const container = document.querySelector("#eventDetailsContainer");
