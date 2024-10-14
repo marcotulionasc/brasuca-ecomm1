@@ -147,10 +147,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderTickets(tickets, tenantId, eventId) {
         ticketOptions.innerHTML = '';
-    
+        
         // Agrupar tickets por areaTicket
         const ticketsByArea = {};
-    
+        
         tickets.forEach(ticket => {
             const area = ticket.areaTicket;
             if (!ticketsByArea[area]) {
@@ -158,12 +158,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             ticketsByArea[area].push(ticket);
         });
-    
+        
         // Para cada areaTicket, criar um elemento de ticket
         for (const area in ticketsByArea) {
-            const ticketDiv = createTicketElement(area);
+            const firstTicket = ticketsByArea[area][0];  // Pegue o primeiro ticket para obter nameTicket
+            const ticketDiv = createTicketElement(area, firstTicket.nameTicket); // Passando nameTicket
             ticketOptions.appendChild(ticketDiv);
-    
+        
             // Obter os IDs dos tickets nessa área
             const ticketIds = ticketsByArea[area].map(ticket => ticket.id);
         
@@ -172,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
     
-    function createTicketElement(areaTicket) {
+    function createTicketElement(areaTicket, nameTicket) {
         const ticketDiv = document.createElement("div");
         ticketDiv.classList.add("bg-gradient-to-r", "from-blue-400", "to-indigo-500", "rounded-xl", "shadow-xl", "p-6", "mb-8", "text-white", "relative", "hover:shadow-2xl", "transition", "duration-300", "ease-in-out");
     
@@ -188,12 +189,13 @@ document.addEventListener("DOMContentLoaded", () => {
             <p class="mb-4 text-sm font-semibold">(Nenhum selecionado)</p>
             <details id="lots_${areaId}" class="bg-white text-black rounded-lg p-4 shadow-sm">
                 <summary class="font-semibold cursor-pointer hover:text-indigo-500 bg-gray-100 p-2 rounded-lg transition duration-300 ease-in-out">
-                    ${areaTicket}
+                    ${nameTicket} <!-- Agora exibimos nameTicket em vez de areaTicket -->
                 </summary>
             </details>
         `;
         return ticketDiv;
     }
+    
     
     async function fetchLotsForArea(tenantId, eventId, ticketIds, ticketDiv, areaTicket) {
         let allLots = [];
