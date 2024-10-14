@@ -147,118 +147,143 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderTickets(tickets, tenantId, eventId) {
         ticketOptions.innerHTML = '';
-
+    
+        // Agrupar tickets por areaTicket
+        const ticketsByArea = {};
+    
         tickets.forEach(ticket => {
-            const ticketDiv = createTicketElement(ticket);
-            ticketOptions.appendChild(ticketDiv);
-            fetchLots(tenantId, eventId, ticket.id);
+            const area = ticket.areaTicket;
+            if (!ticketsByArea[area]) {
+                ticketsByArea[area] = [];
+            }
+            ticketsByArea[area].push(ticket);
         });
+    
+        // Para cada areaTicket, criar um elemento de ticket
+        for (const area in ticketsByArea) {
+            const ticketDiv = createTicketElement(area);
+            ticketOptions.appendChild(ticketDiv);
+    
+            // Obter os IDs dos tickets nessa área
+            const ticketIds = ticketsByArea[area].map(ticket => ticket.id);
+        
+            // Passar o areaTicket explicitamente
+            fetchLotsForArea(tenantId, eventId, ticketIds, ticketDiv, area);
+        }
     }
-
-    function createTicketElement(ticket) {
+    
+    function createTicketElement(areaTicket) {
         const ticketDiv = document.createElement("div");
         ticketDiv.classList.add("bg-gradient-to-r", "from-blue-400", "to-indigo-500", "rounded-xl", "shadow-xl", "p-6", "mb-8", "text-white", "relative", "hover:shadow-2xl", "transition", "duration-300", "ease-in-out");
-
+    
+        const areaId = areaTicket.replace(/\s+/g, '_');
+    
         ticketDiv.innerHTML = `
             <div class="flex items-center justify-between">
-                <h3 class="text-lg font-bold">${ticket.areaTicket}</h3>
-                <span class="bg-yellow-500 text-black text-xs font-semibold px-3 py-1 rounded-full">Novo</span> <!-- Opção -->
+                <h3 class="text-lg font-bold">${areaTicket}</h3>
+                <span class="bg-yellow-500 text-black text-xs font-semibold px-3 py-1 rounded-full">Novo</span>
             </div>
             <p class="mt-4 text-sm">Selecione os lugares:</p>
             <p class="mb-4 text-xs text-gray-200">Você pode selecionar até 10 lugares</p>
             <p class="mb-4 text-sm font-semibold">(Nenhum selecionado)</p>
-            <details id="lots_${ticket.id}" class="bg-white text-black rounded-lg p-4 shadow-sm">
+            <details id="lots_${areaId}" class="bg-white text-black rounded-lg p-4 shadow-sm">
                 <summary class="font-semibold cursor-pointer hover:text-indigo-500 bg-gray-100 p-2 rounded-lg transition duration-300 ease-in-out">
-                    ${ticket.areaTicket}
+                    ${areaTicket}
                 </summary>
             </details>
         `;
         return ticketDiv;
     }
-
-    async function fetchLots(tenantId, eventId, ticketId) {
-        const lotsUrl = `${getBaseUrl}/api/tenants/${tenantId}/events/${eventId}/tickets/${ticketId}/lots`;
-
-        try {
-            const response = await fetch(lotsUrl, {
-                method: 'GET',
-            });
-
-            const text = await response.text();
-
-            if (text.startsWith('<')) {
-                throw new Error('Received HTML response instead of JSON. Please check the endpoint URL.');
+    
+    async function fetchLotsForArea(tenantId, eventId, ticketIds, ticketDiv, areaTicket) {
+        let allLots = [];
+    
+        for (const ticketId of ticketIds) {
+            const lotsUrl = `${getBaseUrl}/api/tenants/${tenantId}/events/${eventId}/tickets/${ticketId}/lots`;
+    
+            try {
+                const response = await fetch(lotsUrl, { method: 'GET' });
+                const text = await response.text();
+    
+                if (text.startsWith('<')) {
+                    throw new Error('Received HTML response instead of JSON. Please check the endpoint URL.');
+                }
+    
+                const lots = JSON.parse(text);
+                allLots = allLots.concat(lots);
+            } catch (error) {
+                console.error(`Error fetching lots for ticketId ${ticketId}:`, error);
             }
-
-            const lots = JSON.parse(text);
-
-            const lotsDiv = document.getElementById(`lots_${ticketId}`);
-            lots.forEach(lot => {
-                const lotDiv = document.createElement("div");
-                lotDiv.classList.add("bg-gray-50", "rounded-xl", "shadow-lg", "p-4", "mb-4", "hover:shadow-xl", "transition", "duration-300", "ease-in-out");
-
-                lotDiv.innerHTML = `
-                    <div class="flex justify-between items-center mb-2">
-                        <h4 class="text-md font-semibold text-gray-800">${lot.nameLot}</h4>
-                    </div>
-                    <div class="flex flex-col items-start mb-2"> <!-- Alterado para exibir o preço e a taxa abaixo do nome -->
-                        <span class="text-sm text-gray-600">R$ ${lot.priceTicket} + Taxa: R$ ${(lot.priceTicket * (lot.taxPriceTicket / 100)).toFixed(2).replace('.', ',')}</span>
-                    </div>
-                    <div class="flex justify-center items-center mt-2">
-                        <div id="quantity_ticket" class="flex items-center">
-                            <button id="decrement_${lot.id}" class="bg-blue-500 text-white rounded-l-md px-3 py-1 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-red-300" style="height: 43px">-</button>
-                            <input type="number" id="quantity_${lot.id}" name="quantity_${lot.id}" min="1" max="${lot.amountTicket}" value="0" class="text-center w-16 px-3 py-2 bg-gray-100 text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 sm:text-sm text-right no-spinner">
-                            <button id="increment_${lot.id}" class="bg-blue-500 text-white rounded-r-md px-3 py-1 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-green-300" style="height: 43px">+</button>
-                        </div>
-                    </div>
-
-                `;
-
-                lotsDiv.appendChild(lotDiv);
-
-                const decrementButton = lotDiv.querySelector(`#decrement_${lot.id}`);
-                const incrementButton = lotDiv.querySelector(`#increment_${lot.id}`);
-                const quantityInput = lotDiv.querySelector(`#quantity_${lot.id}`);
-
-                // Listener para decremento
-                decrementButton.addEventListener('click', () => {
-                    const currentValue = parseInt(quantityInput.value, 10);
-                    if (currentValue > 0) {
-                        quantityInput.value = currentValue - 1;
-                        updatePriceAndQuantity(lot.priceTicket, lot.taxPriceTicket, -1);  // Atualiza o preço e quantidade com a taxa
-                    }
-                });
-
-                // Listener para incremento
-                incrementButton.addEventListener('click', () => {
-                    const currentValue = parseInt(quantityInput.value, 10);
-                    if (currentValue < lot.amountTicket) {
-                        quantityInput.value = currentValue + 1;
-                        updatePriceAndQuantity(lot.priceTicket, lot.taxPriceTicket, 1);  // Atualiza o preço e quantidade com a taxa
-                    }
-                });
-            });
-
-            const style = document.createElement('style');
-            style.innerHTML = `
-                /* Remove os botões de incremento/decremento no input de número */
-                input[type="number"]::-webkit-outer-spin-button,
-                input[type="number"]::-webkit-inner-spin-button {
-                    -webkit-appearance: none;
-                    margin: 0;
-                }
-            
-                input[type="number"] {
-                    -moz-appearance: textfield; /* Firefox */
-                }
-            `;
-            document.head.appendChild(style);
-
-            setupEventListenersForLots();
-
-        } catch (error) {
-            console.error('Error fetching lots:', error);
         }
+    
+        // Filtrar lotes ativos comparando com a string "ACTIVE"
+        const activeLots = allLots.filter(lot => lot.isLotActive === "ACTIVE");
+    
+        if (activeLots.length > 0) {
+            // Ordenar lotes ativos pela data de criação
+            activeLots.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    
+            // Selecionar o lote ativo criado primeiro
+            const firstLot = activeLots[0];
+    
+            // Criar o elemento do lote e adicionar ao ticketDiv
+            const lotsDiv = ticketDiv.querySelector(`#lots_${areaTicket.replace(/\s+/g, '_')}`);
+    
+            const lotDiv = createLotElement(firstLot);
+            lotsDiv.appendChild(lotDiv);
+    
+            // Adicionar event listeners
+            setupLotEventListeners(lotDiv, firstLot);
+        } else {
+            console.log(`No active lots found for areaTicket: ${areaTicket}`);
+        }
+    }
+    
+    
+    function createLotElement(lot) {
+        const lotDiv = document.createElement("div");
+        lotDiv.classList.add("bg-gray-50", "rounded-xl", "shadow-lg", "p-4", "mb-4", "hover:shadow-xl", "transition", "duration-300", "ease-in-out");
+    
+        lotDiv.innerHTML = `
+            <div class="flex justify-between items-center mb-2">
+                <h4 class="text-md font-semibold text-gray-800">${lot.nameLot}</h4>
+            </div>
+            <div class="flex flex-col items-start mb-2">
+                <span class="text-sm text-gray-600">R$ ${parseFloat(lot.priceTicket).toFixed(2).replace('.', ',')} + Taxa: R$ ${(parseFloat(lot.priceTicket) * (lot.taxPriceTicket / 100)).toFixed(2).replace('.', ',')}</span>
+            </div>
+            <div class="flex justify-center items-center mt-2">
+                <div class="flex items-center">
+                    <button id="decrement_${lot.id}" class="bg-blue-500 text-white rounded-l-md px-3 py-1 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-red-300" style="height: 43px">-</button>
+                    <input type="number" id="quantity_${lot.id}" name="quantity_${lot.id}" min="0" max="${lot.amountTicket}" value="0" class="text-center w-16 px-3 py-2 bg-gray-100 text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 sm:text-sm text-right no-spinner">
+                    <button id="increment_${lot.id}" class="bg-blue-500 text-white rounded-r-md px-3 py-1 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-green-300" style="height: 43px">+</button>
+                </div>
+            </div>
+        `;
+    
+        return lotDiv;
+    }
+    
+    
+    function setupLotEventListeners(lotDiv, lot) {
+        const decrementButton = lotDiv.querySelector(`#decrement_${lot.id}`);
+        const incrementButton = lotDiv.querySelector(`#increment_${lot.id}`);
+        const quantityInput = lotDiv.querySelector(`#quantity_${lot.id}`);
+    
+        decrementButton.addEventListener('click', () => {
+            const currentValue = parseInt(quantityInput.value, 10);
+            if (currentValue > 0) {
+                quantityInput.value = currentValue - 1;
+                updatePriceAndQuantity(lot.priceTicket, lot.taxPriceTicket, -1);
+            }
+        });
+    
+        incrementButton.addEventListener('click', () => {
+            const currentValue = parseInt(quantityInput.value, 10);
+            if (currentValue < lot.amountTicket) {
+                quantityInput.value = currentValue + 1;
+                updatePriceAndQuantity(lot.priceTicket, lot.taxPriceTicket, 1);
+            }
+        });
     }
 
 
