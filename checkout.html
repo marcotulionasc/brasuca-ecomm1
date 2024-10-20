@@ -7,7 +7,7 @@
     <title>Ingressar</title>
     <link rel="icon" href="img/logo/logo-ingressar.png" type="image/x-icon">
     <link href="css/properties.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"
         rel="stylesheet">
@@ -121,26 +121,30 @@
         </div>
     </div>
 
-
-
     <div class="main-content">
 
         <!-- Mobile Header -->
-        <header class="p-3 mobile-header hidden mb-2" style="background-color: var(--primary-color);">
+        <header class="p-3 bg-blue-950 shadow-2xl">
             <div class="flex justify-between items-center w-full">
-                <button class="mobile-menu-icon bg-white text-gray-500 p-1 rounded-lg" aria-label="Menu"
-                    onclick="toggleSidebar()">
-                    <i class="bi bi-list"></i>
+                <button class="text-white" aria-label="Menu" onclick="toggleSidebar()">
+                    <i class="bi bi-list text-2xl"></i>
                 </button>
-                <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-1/2">
-                <button class="bg-white text-gray-500 p-1 rounded-lg toggle-cart" aria-label="Carrinho de Compras">
-                    <i class="bi bi-cart-check-fill"></i>
+                <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-1/3">
+                <button class="text-white" aria-label="Carrinho de Compras">
+                    <i class="bi bi-cart-check-fill text-2xl "></i>
                 </button>
+            </div>
+            <div class="relative w-full mt-4">
+                <input type="text" placeholder="Encontre o evento perfeito para você!"
+                    class="w-full h-12 pl-4 pr-12 rounded-full bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <i class="bi bi-search absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
             </div>
         </header>
 
+
+
         <!-- Desktop Header -->
-        <header class="p-3 hidden md:flex justify-between items-center" style="background-color: var(--primary-color);">
+        <header class="p-3 hidden md:flex justify-between items-center bg-gray-950">
             <div class="flex items-center space-x-6 ml-4 md:ml-10 lg:ml-20">
                 <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-24 md:w-32">
                 <div class="relative w-48 md:w-64 lg:w-96">
@@ -248,172 +252,168 @@
                 </a>
             </div>
         </div>
-
-        <!-- Categoria Navbar -->
-        <nav class="container-local mt-4 hidden md:flex justify-center" style="background-color: #FFFFFF;">
-            <!-- Só para dar espaçamento no DESKTOP -->
-        </nav>
-
-
-        <nav class="container-local bg-background-color mt-3 mobile-navbar hidden">
-            <div class="flex justify-center items-center">
-                <ul class="flex flex-col items-center space-y-4">
-                    <!-- Só para dar espaçamento no MOBILE -->
-                </ul>
-            </div>
-        </nav>
-
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="w-full max-w-md bg-slate-800 text-black rounded-lg shadow-lg overflow-hidden">
-                <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-2xl font-bold">Pagamento Pix</h2>
-                        <button class="text-gray-400 hover:text-black">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                    <p class="text-sm text-gray-400 mb-6">
-                        Realize o pagamento do seu pedido dentro do tempo abaixo. Utilizando o QR Code ou código Pix
-                        Copia e Cola.
-                    </p>
-                    <div class="flex justify-between items-center mb-6">
-                        <div class="flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-900 mr-2" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span class="text-sm">tempo restante</span>
+        <div class="bg-gray-900 container mx-auto px-4 py-8">
+            <div class="bg-gray-800 max-w-4xl mx-auto mt-10 p-6 rounded-lg shadow-md">
+                <h1 class="text-2xl text-white font-bold mb-6">Resumo</h1>
+                <div class="flex flex-col md:flex-row justify-between">
+                    <!-- Resumo dos Ingressos -->
+                    <div class="w-full md:w-1/2 mb-6 md:mb-0">
+                        <h2 class="text-xl text-blue-500 font-semibold mb-4 flex items-center">
+                            <i class="bi bi-ticket-fill text-xl mr-2"></i>
+                            Ingressos Selecionados
+                        </h2>
+                        <div class="mb-4">
+                            <div class="flex justify-between text-gray-300">
+                                <p>Ingresso VIP x2</p>
+                                <p class="font-semibold">R$ 200,00</p>
+                            </div>
+                            <div class="flex justify-between text-gray-300">
+                                <p>Ingresso Regular x1</p>
+                                <p class="font-semibold">R$ 50,00</p>
+                            </div>
                         </div>
-                        <span class="text-xl font-bold text-gray-900">00:07:45</span>
+                        <div class="flex justify-between border-t border-gray-700 pt-2 text-white">
+                            <p class="font-semibold">Total</p>
+                            <p class="font-semibold text-xl">R$ 250,00</p>
+                        </div>
                     </div>
-                    <div class="bg-white p-4 rounded-lg mb-6">
-                        <img src="https://via.placeholder.com/200" alt="QR Code" class="w-full h-auto">
+
+                    <!-- Informações do Comprador -->
+                    <div class="w-full md:w-1/2 md:pl-8">
+                        <h2 class="text-xl font-semibold mb-4 flex items-center text-blue-500">
+                            <i class="bi bi-person-fill text-xl mr-2"></i>
+                            Informações do Comprador
+                        </h2>
+                        <form>
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-300 py-1">Nome Completo</label>
+                                <input type="text" id="name"
+                                    class="py-2 px-3 block w-full bg-gray-700 text-white border border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                    placeholder="Seu nome completo">
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-300 py-1">E-mail</label>
+                                <input type="email" id="email"
+                                    class="py-2 px-3 block w-full bg-gray-700 text-white border border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                    placeholder="example@email.com">
+                            </div>
+                            <div class="mb-4">
+                                <label for="phone" class="block text-gray-300 py-1">Telefone</label>
+                                <input type="text" id="phone"
+                                    class="py-2 px-3 block w-full bg-gray-700 text-white border border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                    placeholder="(00) 00000-0000">
+                            </div>
+                        </form>
                     </div>
-                    <button class="w-full bg-gray-900 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mb-6">
-                        validar pagamento
+                </div>
+
+                <!-- Botão para Prosseguir -->
+                <div class="mt-6">
+                    <button
+                        class="w-full bg-blue-500 text-white py-3 px-6 rounded-lg font-semibold flex items-center justify-center hover:bg-blue-600">
+                        <i class="bi bi-credit-card-fill text-xl mr-2"></i>
+                        Prosseguir para o Pagamento
                     </button>
-                    <div class="relative">
-                        <input type="text" value="00020101021226830014br.gov.bcb.pix2561api.p" readonly
-                            class="w-full bg-gray-200 text-black py-2 px-3 pr-10 rounded" />
-                        <button
-                            class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                            </svg>
-                        </button>
-                    </div>
-                    <p class="text-xs text-center mt-2 text-gray-400">Pix Copia e Cola</p>
                 </div>
             </div>
         </div>
 
-
-
         <!-- Footer -->
-        <footer class="bg-gray-100 py-8">
-            <div class="container-local mx-auto my-10 px-5 block md:hidden">
+        <footer class="bg-blue-950 py-8 text-white">
+            <div class="container mx-auto px-5">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <!-- Acesso Rápido -->
                     <div>
-                        <h2 class="text-2xl font-bold mb-4">Acesso rápido</h2>
+                        <h2 class="text-xl font-semibold mb-4">Acesso Rápido</h2>
                         <ul class="space-y-2">
-                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Minhas compras</a></li>
-                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Meu perfil</a></li>
-                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Suporte ao Fâ</a></li>
-                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Acessibilidade</a></li>
+                            <li><a href="#" class="hover:text-blue-500">Minhas compras</a></li>
+                            <li><a href="#" class="hover:text-blue-500">Meu perfil</a></li>
+                            <li><a href="#" class="hover:text-blue-500">Suporte ao Fã</a></li>
+                            <li><a href="#" class="hover:text-blue-500">Acessibilidade</a></li>
                         </ul>
                     </div>
+                    <!-- Termos e Políticas -->
                     <div>
-                        <h2 class="text-2xl font-bold mb-4">Termos e Políticas</h2>
+                        <h2 class="text-xl font-semibold mb-4">Termos e Políticas</h2>
                         <ul class="space-y-2">
-                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Termos de uso</a></li>
-                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Política de Compra</a></li>
-                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Politíca de Cookies</a></li>
-                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Politíca de Privacidade</a>
-                            </li>
+                            <li><a href="#" class="hover:text-blue-500">Termos de uso</a></li>
+                            <li><a href="#" class="hover:text-blue-500">Política de Compra</a></li>
+                            <li><a href="#" class="hover:text-blue-500">Política de Cookies</a></li>
+                            <li><a href="#" class="hover:text-blue-500">Política de Privacidade</a></li>
                         </ul>
                     </div>
+                    <!-- Sobre o Ingressar -->
                     <div>
-                        <h2 class="text-2xl font-bold mb-4">Sobre o Ingressar</h2>
+                        <h2 class="text-xl font-semibold mb-4">Sobre o Ingressar</h2>
                         <ul class="space-y-2">
-                            <li><a href="#" class="text-gray-700 hover:text-blue-600">História</a></li>
-                            <li><a href="#" class="text-gray-700 hover:text-blue-600">Localização</a></li>
-                            <li><a href="#" class="text-gray-700 hover:text-blue-600">A casa</a></li>
+                            <li><a href="#" class="hover:text-blue-500">História</a></li>
+                            <li><a href="#" class="hover:text-blue-500">Localização</a></li>
+                            <li><a href="#" class="hover:text-blue-500">A casa</a></li>
                         </ul>
                     </div>
+                    <!-- Contato -->
                     <div>
-                        <h2 class="text-2xl font-bold mb-4">Contato</h2>
-                        <div class="flex items-center space-x-2 mb-6">
-                            <i class="bi bi-telephone-fill text-black-600"></i>
+                        <h2 class="text-xl font-semibold mb-4">Contato</h2>
+                        <div class="flex items-start space-x-3 mb-4">
+                            <i class="bi bi-telephone-fill text-blue-500 text-xl"></i>
                             <div>
-                                <p class="text-gray-700">Telefone para atendimento: (19) 99999-9999</p>
-                                <p class="text-gray-700">Seg a Sex das 8h às 12h | das 13h30 às 18h</p>
+                                <p>Telefone para atendimento: (19) 99999-9999</p>
+                                <p>Seg a Sex das 8h às 12h | das 13h30 às 18h</p>
                             </div>
                         </div>
-                        <div class="flex items-center space-x-2 mb-6">
-                            <i class="bi bi-envelope-fill text-black-600"></i>
-                            <p class="text-gray-700">E-mail: produtora@multiprodutora.com.br</p>
+                        <div class="flex items-start space-x-3 mb-4">
+                            <i class="bi bi-envelope-fill text-blue-500 text-xl"></i>
+                            <p>E-mail: produtora@multiprodutora.com.br</p>
                         </div>
-                        <h2 class="text-2xl font-bold mb-4">Siga nas redes sociais</h2>
+                        <!-- Redes Sociais -->
+                        <h2 class="text-xl font-semibold mb-4">Siga nas Redes Sociais</h2>
                         <div class="flex space-x-4">
-                            <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-youtube"></i></a>
-                            <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="text-gray-700 hover:text-blue-600"><i class="fab fa-tiktok"></i></a>
+                            <a href="#" aria-label="Facebook" class="hover:text-blue-500"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram" class="hover:text-blue-500"><i
+                                    class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="YouTube" class="hover:text-blue-500"><i
+                                    class="fab fa-youtube"></i></a>
+                            <a href="#" aria-label="Twitter" class="hover:text-blue-500"><i
+                                    class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="TikTok" class="hover:text-blue-500"><i
+                                    class="fab fa-tiktok"></i></a>
                         </div>
-                    </div>
-                    <div>
-                        <!--<h2 class="text-2xl font-bold mb-4">Segurança</h2>
-                        <div class="flex space-x-4 mb-4">
-                            <img src="img/logo/selo-trustvox-22e50071258ff3907cdc27dd91584016.png" alt="Segurança"
-                                class="h-24">
-                            <img src="img/logo/02.png" alt="Google Safe Browsing" class="h-24">
-                        </div>-->
-                        <p class="text-gray-700 text-sm">Copyright 2024 Ingressar - Todos os Direitos Reservados.</p>
-                        <p class="text-gray-700 text-sm">Preços e condições de pagamento apresentados neste 'site'
-                            somente são válidos para as compras efetuadas no ato da sua exibição. *Condições de
-                            pagamento à vista somente para depósitos, transferências e boleto bancário.</p>
                     </div>
                 </div>
             </div>
-
-            <div class="mt-10 p-6 rounded shadow-lg text-center text-sm"
-                style="background-color: var(--primary-color); color: var(--background-color); padding-bottom: 50px;">
-                <div>
-                    Ingressar LTDA - Todos os direitos reservados - CNPJ 11.111.111/0001-01 Endereço
-                </div>
-                <div class="mt-4">
-                    &copy; <span id="copyrightYear"></span> Marco Nascimento. Todos os direitos reservados.
+            <div class="bg-gray-950 border-t border-blue-500 p-8 mt-8 pt-8">
+                <!-- Direitos Autorais -->
+                <div class="text-center text-sm text-gray-400">
+                    <p>&copy; 2024 Ingressar - Todos os Direitos Reservados.</p>
+                    <p class="mt-2">
+                        Preços e condições de pagamento apresentados neste site somente são válidos para as compras
+                        efetuadas no ato da sua exibição.
+                    </p>
                 </div>
             </div>
         </footer>
     </div>
 
     <div id="cartSidebar"
-        class="fixed right-0 top-0 h-full w-72 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+        class="fixed right-0 top-0 h-full w-72 bg-gray-800 text-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out z-50">
         <div class="p-4">
             <div class="flex justify-between items-center">
                 <h2 class="text-2xl font-bold">Meus ingressos</h2>
-                <button onclick="toggleSidebarCart('cartSidebar')" class="text-gray-600 hover:text-gray-900">
-                    <i class="bi bi-x-lg"></i>
+                <button onclick="toggleSidebarCart('cartSidebar')" class="text-gray-400 hover:text-white">
+                    <i class="bi bi-x-lg text-2xl"></i>
                 </button>
             </div>
             <ul id="cartItems" class="mt-4 space-y-4">
                 <!-- Lista de ingressos selecionados -->
             </ul>
             <button
-                class="mt-4 w-full py-2 px-4 rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-color"
-                style="background-color: var(--primary-color); color: var(--background-color);">Finalizar
-                Compra</button>
+                class="mt-4 w-full py-2 px-4 rounded-md bg-blue-500 hover:bg-blue-600 shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Finalizar Compra
+            </button>
         </div>
     </div>
+
 
 
     <div id="loginModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
@@ -512,7 +512,11 @@
     <script src="js/Event.js" type="module"></script>
     <script src="js/Flyers.js" type="module"></script>
     <script src="js/loader.js" type="module"></script>
-    <script src="js/Checkout.js" type="module"></script>
+
+
+    <!-- Checkout -->
+    <script src="js/Checkout/Checkout.js" type="module"></script>
+    <script src="js/Checkout/TicketTotal.js" type="module"></script>
 
     <!-- Authentication User -->
     <script src="js/AuthenticationUser/AuthApi.js" type="module"></script>
@@ -527,7 +531,64 @@
     <script src="js/ProfileUser/ProfileUiHandler.js" type="module"></script>
     <script src="js/ProfileUser/ComponentsPage.js" type="module"></script>
 
+    <!-- Mercado Pago -->
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+
     <script>
+
+        function checkUserIdAndRedirect() {
+            const data = localStorage.getItem('user');
+            if (data) {
+                const parsedData = JSON.parse(data);
+                console.log('Dados do usuário:', parsedData);
+
+                const eventDetails = document.getElementById('eventDetailsContainer');
+                console.log('Detalhes do evento:', eventDetails);
+
+                const eventName = eventDetails.querySelector('h2').innerText.trim();
+                const ticketPriceAmount = document.getElementById('amountTotalTicket');
+
+                const ticketPriceText = ticketPriceAmount.innerText.replace('R$', '').trim();
+                const ticketPriceTotal = parseFloat(ticketPriceText.replace('.', '').replace(',', '.'));
+
+                const buyQuantity = parseInt(1); // Quantidade de ingressos como Integer
+                const userId = String(parsedData.user?.id) || "ID não encontrado"; // Convertendo o userId para string
+
+                fetch('https://backend-ingressar.onrender.com/api/payments/create-preference', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        eventName: eventName,
+                        ticketPriceTotal: ticketPriceTotal,
+                        buyQuantity: 1,
+                        userId: userId
+                    })
+                })
+                    .then(response => response.text())
+                    .then(preferenceId => {
+                        console.log('ID da preferência:', preferenceId);
+
+                        const mp = new MercadoPago('APP_USR-82cf6735-6432-4efe-bd3e-f1dba9ba3459', {
+                            locale: 'pt-BR'
+                        });
+
+                        mp.checkout({
+                            preference: {
+                                id: preferenceId
+                            },
+                            autoOpen: true
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Erro ao criar a preferência:', error);
+                    });
+            } else {
+                alert('Você precisa estar logado para continuar.');
+                window.location.href = 'index.html';
+            }
+        }
 
         document.getElementById('copyrightYear').textContent = new Date().getFullYear();
 
@@ -581,88 +642,6 @@
             });
         });
 
-
-
-        async function fetchEventDetails(tenantId, eventId) {
-            const url = `https://assuring-amazingly-monitor.ngrok-free.app/api/tenants/${tenantId}/events/${eventId}`;
-
-            try {
-                const response = await fetch(url, {
-                    method: "GET",
-                    headers: {
-                        'ngrok-skip-browser-warning': 'true',
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const event = await response.json();
-                console.log('Event details:', event);
-                displayEventDetails(event);
-            } catch (error) {
-                console.error('Erro ao buscar detalhes do evento:', error);
-            }
-        }
-
-        function displayEventDetails(event) {
-            const container = document.querySelector("#eventDetailsContainer");
-            if (!container) {
-                return;
-            }
-            container.innerHTML = '';
-
-            const titleDiv = document.createElement("div");
-            titleDiv.classList.add("mb-4");
-            const title = document.createElement("h2");
-            title.classList.add("text-3xl", "font-bold", "text-gray-800");
-            title.textContent = event.titleEvent;
-            titleDiv.appendChild(title);
-
-            const dateDiv = document.createElement("div");
-            dateDiv.classList.add("mb-4");
-            const dateLabel = document.createElement("span");
-            dateLabel.classList.add("text-lg", "font-semibold", "text-gray-600");
-            dateLabel.textContent = "Data do Evento: ";
-            const date = document.createElement("span");
-            date.classList.add("text-lg", "text-gray-800");
-            date.textContent = new Date(event.date).toLocaleDateString();
-            dateDiv.appendChild(dateLabel);
-            dateDiv.appendChild(date);
-
-            const addressDiv = document.createElement("div");
-            addressDiv.classList.add("mb-4");
-            const addressLabel = document.createElement("span");
-            addressLabel.classList.add("text-lg", "font-semibold", "text-gray-600");
-            addressLabel.textContent = "Endereço: ";
-            const address = document.createElement("span");
-            address.classList.add("text-lg", "text-gray-800");
-            address.textContent = event.address;
-            addressDiv.appendChild(addressLabel);
-            addressDiv.appendChild(address);
-
-            container.appendChild(imageDiv);
-            container.appendChild(titleDiv);
-            container.appendChild(dateDiv);
-            container.appendChild(addressDiv);
-
-            if (event.description) {
-                const descriptionDiv = document.createElement("div");
-                descriptionDiv.classList.add("mb-4");
-                const descriptionLabel = document.createElement("span");
-                descriptionLabel.classList.add("text-lg", "font-semibold", "text-gray-600");
-                descriptionLabel.textContent = "Descrição: ";
-                const description = document.createElement("p");
-                description.classList.add("text-lg", "text-gray-800");
-                description.textContent = event.description;
-                descriptionDiv.appendChild(descriptionLabel);
-                descriptionDiv.appendChild(description);
-                container.appendChild(descriptionDiv);
-            }
-        }
-
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
             return {
@@ -678,7 +657,6 @@
             console.error('Parâmetros tenantId e eventId não encontrados na URL.');
         }
     </script>
-
 
 </body>
 
