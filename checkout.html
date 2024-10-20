@@ -126,9 +126,99 @@
         <!-- Mobile Header -->
         <header class="p-3 bg-blue-950 shadow-2xl">
             <div class="flex justify-between items-center w-full">
-                <button class="text-white" aria-label="Menu" onclick="toggleSidebar()">
-                    <i class="bi bi-list text-2xl"></i>
-                </button>
+
+                <!-- Sidebar -->
+                <div x-data="{ sidebarOpen: false }" class="relative md:hidden">
+                    <!-- Botão para abrir o sidebar -->
+                    <button @click="sidebarOpen = true" class="text-white top-20 left-4 z-50">
+                        <i class="bi bi-list text-2xl"></i>
+                    </button>
+
+                    <!-- Overlay -->
+                    <div x-show="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40"
+                        @click="sidebarOpen = false" x-transition:enter="transition-opacity ease-out duration-300"
+                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-50"
+                        x-transition:leave="transition-opacity ease-in duration-300"
+                        x-transition:leave-start="opacity-50" x-transition:leave-end="opacity-0"></div>
+
+                    <!-- Conteúdo do Sidebar -->
+                    <div x-show="sidebarOpen"
+                        class="fixed top-0 left-0 h-full w-64 bg-gray-800 text-white z-50 transform"
+                        x-transition:enter="transition ease-out duration-300 transform"
+                        x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
+                        x-transition:leave="transition ease-in duration-300 transform"
+                        x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
+                        @keydown.escape.window="sidebarOpen = false">
+                        <div class="flex items-center p-4 space-x-2">
+                            <div id="profileImageContainer"
+                                class="profile-image-container bg-blue-500 rounded-full w-10 h-10 flex items-center justify-center">
+                                <!-- Espaço para a foto de perfil -->
+                            </div>
+                            <span id="userGreeting" class="ml-2">Olá, Visitante</span>
+                            <button @click="sidebarOpen = false" class="ml-auto text-2xl focus:outline-none"
+                                aria-label="Fechar Menu">
+                                &times;
+                            </button>
+                        </div>
+                        <div class="flex flex-col p-4 space-y-2">
+                            <a href="index.html" class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700">
+                                <i class="bi bi-house-door-fill text-xl"></i>
+                                <span>Início</span>
+                            </a>
+                            <a href="#" class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700 toggle-login">
+                                <i class="bi bi-person-fill text-xl"></i>
+                                <span>Entrar</span>
+                            </a>
+                            <a href="#"
+                                class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700 toggle-cadastro">
+                                <i class="bi bi-person-plus-fill text-xl"></i>
+                                <span>Cadastrar-se</span>
+                            </a>
+                            <a href="#" class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700 toggle-cart">
+                                <i class="bi bi-ticket-perforated-fill text-xl"></i>
+                                <span>Meus Ingressos</span>
+                            </a>
+                            <!-- Submenu de Eventos -->
+                            <div x-data="{ submenuOpen: false }" class="relative">
+                                <button @click="submenuOpen = !submenuOpen"
+                                    class="flex items-center space-x-2 p-2 w-full rounded hover:bg-gray-700 focus:outline-none">
+                                    <i class="bi bi-grid-fill text-xl"></i>
+                                    <span>Eventos</span>
+                                    <i
+                                        :class="submenuOpen ? 'bi bi-chevron-up ml-auto' : 'bi bi-chevron-down ml-auto'"></i>
+                                </button>
+                                <div x-show="submenuOpen" class="mt-1 bg-gray-700 rounded shadow-lg space-y-1"
+                                    x-transition:enter="transition ease-out duration-200"
+                                    x-transition:enter-start="opacity-0 transform scale-95"
+                                    x-transition:enter-end="opacity-100 transform scale-100"
+                                    x-transition:leave="transition ease-in duration-75"
+                                    x-transition:leave-start="opacity-100 transform scale-100"
+                                    x-transition:leave-end="opacity-0 transform scale-95">
+                                    <a href="#" class="block p-2 hover:bg-gray-600 rounded">Categoria 1</a>
+                                    <a href="#" class="block p-2 hover:bg-gray-600 rounded">Categoria 2</a>
+                                </div>
+                            </div>
+                            <a href="#" class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700">
+                                <i class="bi bi-question-circle-fill text-xl"></i>
+                                <span>FAQ</span>
+                            </a>
+                            <a href="#" class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700">
+                                <i class="bi bi-headset text-xl"></i>
+                                <span>Contato</span>
+                            </a>
+                            <a href="#" id="logoutLink"
+                                class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700"
+                                style="display: none;">
+                                <i class="bi bi-box-arrow-right text-xl"></i>
+                                <span>Sair</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
                 <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-1/3">
                 <button class="text-white" aria-label="Carrinho de Compras">
                     <i class="bi bi-cart-check-fill text-2xl "></i>
@@ -187,71 +277,6 @@
             </div>
         </header>
 
-
-        <!-- Sidebar -->
-        <div id="sidebar"
-            class="fixed top-0 left-0 h-full w-64 text-white transition-transform transform -translate-x-full md:hidden z-50"
-            style="background-color: var(--background-color)">
-            <div class="flex items-center p-4 space-x-1">
-                <div id="profileImageContainer" class="profile-image-container"
-                    style="background-color: var(--primary-color);">
-                    <!-- Espaço para a foto de perfil -->
-                </div>
-                <span id="userGreeting" style="margin-left: 10px; color: var(--primary-text-color);">Olá,
-                    Visitante</span>
-                <span style="color: var(--primary-text-color);" class="absolute top-4 right-4 text-2xl cursor-pointer"
-                    onclick="toggleSidebar()">&times;</span>
-            </div>
-            <div class="flex flex-col p-4 space-y-4">
-                <a href="index.html" style="color: var(--primary-text-color);"
-                    class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded">
-                    <i class="bi bi-house-door-fill"></i>
-                    <span style="color: var(--primary-text-color);">Início</span>
-                </a>
-                <a href="#" style="color: var(--primary-text-color);"
-                    class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded toggle-login">
-                    <i class="bi bi-person-fill"></i>
-                    <span style="color: var(--primary-text-color);">Entrar</span>
-                </a>
-                <a href="#" style="color: var(--primary-text-color);"
-                    class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded toggle-cadastro">
-                    <i class="bi bi-person-fill"></i>
-                    <span style="color: var(--primary-text-color);">Cadastrar-se</span>
-                </a>
-                <a href="#" style="color: var(--primary-text-color);"
-                    class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded toggle-cart">
-                    <i class="bi bi-box-seam"></i>
-                    <span style="color: var(--primary-text-color);">Meus Ingressos</span>
-                </a>
-                <div class="group relative">
-                    <a href="#" style="color: var(--primary-text-color);"
-                        class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded">
-                        <i class="bi bi-grid-fill"></i>
-                        <span style="color: var(--primary-text-color);">Eventos</span>
-                    </a>
-                    <div style="color: var(--primary-text-color);"
-                        class="absolute left-full top-0 hidden group-hover:block bg-gray-800 p-2 rounded shadow-lg">
-                        <a href="#" class="block p-2 hover:bg-secondary-color rounded">Categoria 1</a>
-                        <a href="#" class="block p-2 hover:bg-secondary-color rounded">Categoria 2</a>
-                    </div>
-                </div>
-                <a href="#" style="color: var(--primary-text-color);"
-                    class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded">
-                    <i class="bi bi-question-circle-fill"></i>
-                    <span style="color: var(--primary-text-color);">FAQ</span>
-                </a>
-                <a href="#" style="color: var(--primary-text-color);"
-                    class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded">
-                    <i class="bi bi-headset"></i>
-                    <span>Contato</span>
-                </a>
-                <a href="#" id="logoutLink" style="display:none; color: var(--primary-text-color);"
-                    class="flex items-center space-x-1 hover:bg-secondary-color p-2 rounded">
-                    <i class="bi bi-logout"></i>
-                    <span>Sair</span>
-                </a>
-            </div>
-        </div>
         <div class="bg-gray-900 container mx-auto px-4 py-8">
             <div class="bg-gray-800 max-w-4xl mx-auto mt-10 p-6 rounded-lg shadow-md">
                 <h1 class="text-2xl text-white font-bold mb-6">Resumo</h1>
@@ -414,8 +439,6 @@
         </div>
     </div>
 
-
-
     <div id="loginModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
         <div class="flex items-center justify-center min-h-screen">
             <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
@@ -513,6 +536,8 @@
     <script src="js/Flyers.js" type="module"></script>
     <script src="js/loader.js" type="module"></script>
 
+    <!-- Alpine -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
     <!-- Checkout -->
     <script src="js/Checkout/Checkout.js" type="module"></script>
@@ -609,38 +634,6 @@
         mybutton.onclick = function () {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
-
-        function toggleSidebar() {
-            var sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle('-translate-x-full');
-        }
-
-        function toggleModal(modalId) {
-            const modal = document.getElementById(modalId);
-            const mainContent = document.querySelector('.main-content');
-
-            modal.classList.toggle('hidden');
-            mainContent.classList.toggle('blurred');
-        }
-
-        function toggleSidebarCart(sidebarId) {
-            const sidebar = document.getElementById(sidebarId);
-            sidebar.classList.toggle('translate-x-full');
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.toggle-login').forEach(button => {
-                button.addEventListener('click', () => toggleModal('loginModal'));
-            });
-
-            document.querySelectorAll('.toggle-cadastro').forEach(button => {
-                button.addEventListener('click', () => toggleModal('cadastroModal'));
-            });
-
-            document.querySelectorAll('.toggle-cart').forEach(button => {
-                button.addEventListener('click', () => toggleSidebarCart('cartSidebar'));
-            });
-        });
 
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
