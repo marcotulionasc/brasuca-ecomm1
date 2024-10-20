@@ -147,10 +147,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderTickets(tickets, tenantId, eventId) {
         ticketOptions.innerHTML = '';
-        
+
         // Agrupar tickets por areaTicket
         const ticketsByArea = {};
-        
+
         tickets.forEach(ticket => {
             const area = ticket.areaTicket;
             if (!ticketsByArea[area]) {
@@ -158,100 +158,114 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             ticketsByArea[area].push(ticket);
         });
-        
-        // Para cada areaTicket, criar um elemento de ticket
+
+        // Para cada areaTicket, criar um único elemento de ticket
         for (const area in ticketsByArea) {
-            const firstTicket = ticketsByArea[area][0];  // Pegue o primeiro ticket para obter nameTicket
-            const ticketDiv = createTicketElement(area, firstTicket.nameTicket); // Passando nameTicket
+            const ticketsInArea = ticketsByArea[area];
+            const ticketDiv = createTicketElement(area);
             ticketOptions.appendChild(ticketDiv);
-        
-            // Obter os IDs dos tickets nessa área
-            const ticketIds = ticketsByArea[area].map(ticket => ticket.id);
-        
-            // Passar o areaTicket explicitamente
-            fetchLotsForArea(tenantId, eventId, ticketIds, ticketDiv, area);
+
+            // Passar todos os tickets dessa área para fetchLotsForArea
+            fetchLotsForArea(tenantId, eventId, ticketsInArea, ticketDiv, area);
         }
     }
-    
-    function createTicketElement(areaTicket, nameTicket) {
+
+    function createTicketElement(areaTicket) {
         const ticketDiv = document.createElement("div");
-        ticketDiv.classList.add("bg-gradient-to-r", "from-blue-400", "to-indigo-500", "rounded-xl", "shadow-xl", "p-6", "mb-8", "text-white", "relative", "hover:shadow-2xl", "transition", "duration-300", "ease-in-out");
-    
+        ticketDiv.classList.add(
+            "bg-gray-900",
+            "p-4",
+            "rounded-lg",
+            "shadow-lg",
+            "text-white",
+            
+        );
+
         const areaId = areaTicket.replace(/\s+/g, '_');
-    
+
         ticketDiv.innerHTML = `
             <div class="flex items-center justify-between">
                 <h3 class="text-lg font-bold">${areaTicket}</h3>
-                <span class="bg-yellow-500 text-black text-xs font-semibold px-3 py-1 rounded-full">Novo</span>
             </div>
-            <p class="mt-4 text-sm">Selecione os lugares:</p>
-            <p class="mb-4 text-xs text-gray-200">Você pode selecionar até 10 lugares</p>
-            <p class="mb-4 text-sm font-semibold">(Nenhum selecionado)</p>
+            <p class="mt-4 text-sm">Selecione os ingressos disponíveis nesta área:</p>
             <details id="lots_${areaId}" class="bg-white text-black rounded-lg p-4 shadow-sm">
                 <summary class="font-semibold cursor-pointer hover:text-indigo-500 bg-gray-100 p-2 rounded-lg transition duration-300 ease-in-out">
-                    ${nameTicket} <!-- Agora exibimos nameTicket em vez de areaTicket -->
+                    Ver ingressos
                 </summary>
+                <div id="tickets_container_${areaId}"></div>
             </details>
         `;
         return ticketDiv;
     }
-    
-    
-    async function fetchLotsForArea(tenantId, eventId, ticketIds, ticketDiv, areaTicket) {
-        let allLots = [];
-    
-        for (const ticketId of ticketIds) {
+
+    async function fetchLotsForArea(tenantId, eventId, ticketsInArea, ticketDiv, areaTicket) {
+        const areaId = areaTicket.replace(/\s+/g, '_');
+        const ticketsContainer = ticketDiv.querySelector(`#tickets_container_${areaId}`);
+
+        for (const ticket of ticketsInArea) {
+            const ticketId = ticket.id;
+            const nameTicket = ticket.nameTicket || ticket.name || ticket.title || 'Ingresso';
+
             const lotsUrl = `${getBaseUrl}/api/tenants/${tenantId}/events/${eventId}/tickets/${ticketId}/lots`;
-    
+
             try {
                 const response = await fetch(lotsUrl, { method: 'GET' });
                 const text = await response.text();
-    
+
                 if (text.startsWith('<')) {
                     throw new Error('Received HTML response instead of JSON. Please check the endpoint URL.');
                 }
-    
+
                 const lots = JSON.parse(text);
-                allLots = allLots.concat(lots);
+
+                // Filtrar lotes ativos
+                const activeLots = lots.filter(lot => lot.isLotActive === "ACTIVE");
+
+                if (activeLots.length > 0) {
+                    // Ordenar lotes ativos pela data de criação
+                    activeLots.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+                    // Selecionar o primeiro lote ativo
+                    const firstLot = activeLots[0];
+
+                    // Criar o elemento do lote e adicionar ao contêiner de tickets
+                    const lotDiv = createLotElement(firstLot, nameTicket);
+                    ticketsContainer.appendChild(lotDiv);
+
+                    // Adicionar event listeners
+                    setupLotEventListeners(lotDiv, firstLot);
+                } else {
+                    console.log(`No active lots found for ticketId: ${ticketId}`);
+                }
             } catch (error) {
                 console.error(`Error fetching lots for ticketId ${ticketId}:`, error);
             }
         }
-    
-        // Filtrar lotes ativos comparando com a string "ACTIVE"
-        const activeLots = allLots.filter(lot => lot.isLotActive === "ACTIVE");
-    
-        if (activeLots.length > 0) {
-            // Ordenar lotes ativos pela data de criação
-            activeLots.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-    
-            // Selecionar o lote ativo criado primeiro
-            const firstLot = activeLots[0];
-    
-            // Criar o elemento do lote e adicionar ao ticketDiv
-            const lotsDiv = ticketDiv.querySelector(`#lots_${areaTicket.replace(/\s+/g, '_')}`);
-    
-            const lotDiv = createLotElement(firstLot);
-            lotsDiv.appendChild(lotDiv);
-    
-            // Adicionar event listeners
-            setupLotEventListeners(lotDiv, firstLot);
-        } else {
-            console.log(`No active lots found for areaTicket: ${areaTicket}`);
-        }
     }
-    
-    
-    function createLotElement(lot) {
+
+    function createLotElement(lot, nameTicket) {
         const lotDiv = document.createElement("div");
-        lotDiv.classList.add("bg-gray-50", "rounded-xl", "shadow-lg", "p-4", "mb-4", "hover:shadow-xl", "transition", "duration-300", "ease-in-out");
-    
+        lotDiv.classList.add(
+            "bg-gray-50",
+            "rounded-xl",
+            "shadow-lg",
+            "p-4",
+            "mb-4",
+            "hover:shadow-xl",
+            "transition",
+            "duration-300",
+            "ease-in-out"
+        );
+
         lotDiv.innerHTML = `
             <div class="flex justify-between items-center mb-2">
-                <h4 class="text-md font-semibold text-gray-800">${lot.nameLot}</h4>
+                <h5 class="text-md font-semibold text-gray-800">${nameTicket}</h5>
+                <h6 class="text-md text-gray-800">${lot.nameLot}</h6>
             </div>
             <div class="flex flex-col items-start mb-2">
-                <span class="text-sm text-gray-600">R$ ${parseFloat(lot.priceTicket).toFixed(2).replace('.', ',')} + Taxa: R$ ${(parseFloat(lot.priceTicket) * (lot.taxPriceTicket / 100)).toFixed(2).replace('.', ',')}</span>
+                <span class="text-sm text-gray-600">
+                    R$ ${parseFloat(lot.priceTicket).toFixed(2).replace('.', ',')} + Taxa: R$ ${(parseFloat(lot.priceTicket) * (lot.taxPriceTicket / 100)).toFixed(2).replace('.', ',')}
+                </span>
             </div>
             <div class="flex justify-center items-center mt-2">
                 <div class="flex items-center">
@@ -261,16 +275,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             </div>
         `;
-    
+
         return lotDiv;
     }
-    
-    
+
     function setupLotEventListeners(lotDiv, lot) {
         const decrementButton = lotDiv.querySelector(`#decrement_${lot.id}`);
         const incrementButton = lotDiv.querySelector(`#increment_${lot.id}`);
         const quantityInput = lotDiv.querySelector(`#quantity_${lot.id}`);
-    
+
         decrementButton.addEventListener('click', () => {
             const currentValue = parseInt(quantityInput.value, 10);
             if (currentValue > 0) {
@@ -278,7 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 updatePriceAndQuantity(lot.priceTicket, lot.taxPriceTicket, -1);
             }
         });
-    
+
         incrementButton.addEventListener('click', () => {
             const currentValue = parseInt(quantityInput.value, 10);
             if (currentValue < lot.amountTicket) {
@@ -287,7 +300,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-
 
     function displayError(message) {
         const errorDiv = document.createElement('div');
@@ -301,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (tenantId && eventId) {
         fetchEventDetails(tenantId, eventId);
         viewDetails(tenantId, eventId);
-        fetchEventConfiguration(tenantId, eventId);
+        // fetchEventConfiguration(tenantId, eventId); // Certifique-se de que esta função exista
     } else {
         console.error('Parâmetros tenantId e eventId não encontrados na URL.');
     }
