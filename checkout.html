@@ -107,7 +107,7 @@
 
 </head>
 
-<body class="font-poppins" style="background-color: var(--background-color); color: var(--primary-text-color);">
+<body class="font-poppins">
 
     <!-- Preloader Start -->
     <div id="preloader-active">
@@ -121,12 +121,10 @@
         </div>
     </div>
 
-    <div class="main-content">
-
+    <div class="main-content bg-gray-900">
         <!-- Mobile Header -->
-        <header class="p-3 bg-blue-950 shadow-2xl">
+        <header class="p-3 md:hidden bg-blue-950 shadow-2xl">
             <div class="flex justify-between items-center w-full">
-
                 <!-- Sidebar -->
                 <div x-data="{ sidebarOpen: false }" class="relative md:hidden">
                     <!-- Botão para abrir o sidebar -->
@@ -216,9 +214,6 @@
                     </div>
                 </div>
 
-
-
-
                 <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-1/3">
                 <button class="text-white" aria-label="Carrinho de Compras">
                     <i class="bi bi-cart-check-fill text-2xl "></i>
@@ -231,54 +226,49 @@
             </div>
         </header>
 
-
-
         <!-- Desktop Header -->
         <header class="p-3 hidden md:flex justify-between items-center bg-gray-950">
-            <div class="flex items-center space-x-6 ml-4 md:ml-10 lg:ml-20">
-                <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-24 md:w-32">
-                <div class="relative w-48 md:w-64 lg:w-96">
+            <div class="flex items-center space-x-6 ml-10">
+                <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-28">
+                <div class="relative w-64 lg:w-96">
                     <input type="text" placeholder="Buscar eventos, artistas, etc..."
-                        class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-action-color w-full">
-                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-                        <i class="bi bi-search text-gray-400"></i>
-                    </div>
+                        class="w-full h-12 pl-4 pr-12 rounded-full bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <i class="bi bi-search absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                 </div>
             </div>
-            <div class="flex items-center space-x-2 md:space-x-4 mr-4 md:mr-10 lg:mr-20">
+            <div class="flex items-center space-x-4 mr-10">
                 <button type="button"
-                    class="px-3 md:px-4 py-2 bg-red-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-red-400 flex items-center">
-                    Meus ingressos <i class="bi bi-ticket ml-2"></i>
+                    class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
+                    <i class="bi bi-ticket-perforated-fill text-xl mr-2"></i>
+                    Meus Ingressos
                 </button>
                 <button type="button"
-                    class="px-3 md:px-4 py-2 bg-blue-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 flex items-center toggle-cadastro">
-                    Criar conta <i class="bi bi-person-plus ml-2"></i>
+                    class="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 toggle-cadastro">
+                    <i class="bi bi-person-plus-fill text-xl mr-2"></i>
+                    Criar Conta
                 </button>
                 <button type="button"
-                    class="px-3 md:px-4 py-2 bg-blue-300 text-white rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 flex items-center toggle-login">
-                    Entrar <i class="bi bi-person ml-2"></i>
+                    class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition duration-300 toggle-login">
+                    <i class="bi bi-person-fill text-xl mr-2"></i>
+                    Entrar
                 </button>
-
-                <div class="flex items-center p-4 space-x-1">
-                    <div id="profileImageContainer" class="profile-image-container"
-                        style="background-color: var(--primary-color);">
+                <div class="flex items-center space-x-2">
+                    <div id="profileImageContainer"
+                        class="bg-blue-500 rounded-full w-10 h-10 flex items-center justify-center">
                         <!-- Espaço para a foto de perfil -->
                     </div>
-                    <span id="userGreeting" style="margin-left: 10px; color: white;">Olá,
-                        Visitante</span>
+                    <span id="userGreeting">Olá, Visitante</span>
                 </div>
-                <hr>
-                </hr>
-
                 <button type="button"
-                    class="px-3 md:px-4 py-2 bg-gray-800 text-white rounded-lg transition duration-300 ease-in-out hover:bg-gray-700 flex items-center toggle-cart">
-                    <i class="bi bi-cart-fill"></i>
+                    class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition duration-300 toggle-cart">
+                    <i class="bi bi-cart-fill text-xl"></i>
                 </button>
             </div>
         </header>
 
-        <div class="bg-gray-900 container mx-auto px-4 py-8">
-            <div class="bg-gray-800 max-w-4xl mx-auto mt-10 p-6 rounded-lg shadow-md">
+
+        <div class="bg-gray-900 container mx-auto px-4 py-12">
+            <div class="bg-gray-800 max-w-4xl mx-auto mt-10 px-8 py-24 rounded-lg shadow-lg">
                 <h1 class="text-2xl text-white font-bold mb-6">Resumo</h1>
                 <div class="flex flex-col md:flex-row justify-between">
                     <!-- Resumo dos Ingressos -->
@@ -344,16 +334,25 @@
         </div>
 
         <!-- Footer -->
-        <footer class="bg-blue-950 py-8 text-white">
+        <footer class="bg-gray-950 py-8 text-white">
             <div class="container mx-auto px-5">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <!-- Sobre Nós -->
+                    <div>
+                        <h2 class="text-xl font-semibold mb-4">Sobre Nós</h2>
+                        <p class="text-gray-400">
+                            A Ingressar é uma plataforma líder em venda de ingressos para eventos, shows e experiências
+                            únicas.
+                            Nossa missão é conectar fãs a momentos inesquecíveis.
+                        </p>
+                    </div>
                     <!-- Acesso Rápido -->
                     <div>
                         <h2 class="text-xl font-semibold mb-4">Acesso Rápido</h2>
                         <ul class="space-y-2">
-                            <li><a href="#" class="hover:text-blue-500">Minhas compras</a></li>
-                            <li><a href="#" class="hover:text-blue-500">Meu perfil</a></li>
-                            <li><a href="#" class="hover:text-blue-500">Suporte ao Fã</a></li>
+                            <li><a href="#" class="hover:text-blue-500">Eventos</a></li>
+                            <li><a href="#" class="hover:text-blue-500">Meus Ingressos</a></li>
+                            <li><a href="#" class="hover:text-blue-500">Suporte</a></li>
                             <li><a href="#" class="hover:text-blue-500">Acessibilidade</a></li>
                         </ul>
                     </div>
@@ -361,63 +360,57 @@
                     <div>
                         <h2 class="text-xl font-semibold mb-4">Termos e Políticas</h2>
                         <ul class="space-y-2">
-                            <li><a href="#" class="hover:text-blue-500">Termos de uso</a></li>
-                            <li><a href="#" class="hover:text-blue-500">Política de Compra</a></li>
-                            <li><a href="#" class="hover:text-blue-500">Política de Cookies</a></li>
+                            <li><a href="#" class="hover:text-blue-500">Termos de Uso</a></li>
                             <li><a href="#" class="hover:text-blue-500">Política de Privacidade</a></li>
-                        </ul>
-                    </div>
-                    <!-- Sobre o Ingressar -->
-                    <div>
-                        <h2 class="text-xl font-semibold mb-4">Sobre o Ingressar</h2>
-                        <ul class="space-y-2">
-                            <li><a href="#" class="hover:text-blue-500">História</a></li>
-                            <li><a href="#" class="hover:text-blue-500">Localização</a></li>
-                            <li><a href="#" class="hover:text-blue-500">A casa</a></li>
+                            <li><a href="#" class="hover:text-blue-500">Política de Cookies</a></li>
+                            <li><a href="#" class="hover:text-blue-500">Política de Reembolso</a></li>
                         </ul>
                     </div>
                     <!-- Contato -->
                     <div>
                         <h2 class="text-xl font-semibold mb-4">Contato</h2>
-                        <div class="flex items-start space-x-3 mb-4">
+                        <p class="text-gray-400 mb-4">
+                            Precisa de ajuda? Entre em contato conosco.
+                        </p>
+                        <div class="flex items-center space-x-3 mb-4">
                             <i class="bi bi-telephone-fill text-blue-500 text-xl"></i>
-                            <div>
-                                <p>Telefone para atendimento: (19) 99999-9999</p>
-                                <p>Seg a Sex das 8h às 12h | das 13h30 às 18h</p>
-                            </div>
+                            <p>(19) 99999-9999</p>
                         </div>
-                        <div class="flex items-start space-x-3 mb-4">
+                        <div class="flex items-center space-x-3 mb-4">
                             <i class="bi bi-envelope-fill text-blue-500 text-xl"></i>
-                            <p>E-mail: produtora@multiprodutora.com.br</p>
+                            <p>contato@ingressar.com.br</p>
                         </div>
                         <!-- Redes Sociais -->
-                        <h2 class="text-xl font-semibold mb-4">Siga nas Redes Sociais</h2>
-                        <div class="flex space-x-4">
-                            <a href="#" aria-label="Facebook" class="hover:text-blue-500"><i
-                                    class="fab fa-facebook-f"></i></a>
-                            <a href="#" aria-label="Instagram" class="hover:text-blue-500"><i
-                                    class="fab fa-instagram"></i></a>
-                            <a href="#" aria-label="YouTube" class="hover:text-blue-500"><i
-                                    class="fab fa-youtube"></i></a>
-                            <a href="#" aria-label="Twitter" class="hover:text-blue-500"><i
-                                    class="fab fa-twitter"></i></a>
-                            <a href="#" aria-label="TikTok" class="hover:text-blue-500"><i
-                                    class="fab fa-tiktok"></i></a>
+                        <div class="mt-4">
+                            <h2 class="text-xl font-semibold mb-4">Siga-nos</h2>
+                            <div class="flex space-x-4">
+                                <a href="#" aria-label="Facebook" class="hover:text-blue-500"><i
+                                        class="fab fa-facebook-f"></i></a>
+                                <a href="#" aria-label="Instagram" class="hover:text-blue-500"><i
+                                        class="fab fa-instagram"></i></a>
+                                <a href="#" aria-label="YouTube" class="hover:text-blue-500"><i
+                                        class="fab fa-youtube"></i></a>
+                                <a href="#" aria-label="Twitter" class="hover:text-blue-500"><i
+                                        class="fab fa-twitter"></i></a>
+                                <a href="#" aria-label="TikTok" class="hover:text-blue-500"><i
+                                        class="fab fa-tiktok"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="bg-gray-950 border-t border-blue-500 p-8 mt-8 pt-8">
-                <!-- Direitos Autorais -->
-                <div class="text-center text-sm text-gray-400">
-                    <p>&copy; 2024 Ingressar - Todos os Direitos Reservados.</p>
-                    <p class="mt-2">
-                        Preços e condições de pagamento apresentados neste site somente são válidos para as compras
-                        efetuadas no ato da sua exibição.
+                <!-- Linha divisória -->
+                <div class="border-t border-gray-800 mt-8 pt-6">
+                    <p class="text-center text-gray-400 text-sm">
+                        &copy; 2024 Ingressar. Todos os direitos reservados. CNPJ 11.111.111/0001-01
+                    </p>
+                    <p class="text-center text-gray-400 text-xs mt-2">
+                        Os preços e condições de pagamento apresentados neste site são válidos para as compras efetuadas
+                        no ato da sua exibição.
                     </p>
                 </div>
             </div>
         </footer>
+
     </div>
 
     <div id="cartSidebar"
@@ -551,15 +544,13 @@
     <!-- Create User -->
     <script src="js/CreateUser/CreateUserApi.js" type="module"></script>
 
-    <!-- Profile User -->
-    <script src="js/ProfileUser/ProfileApi.js" type="module"></script>
-    <script src="js/ProfileUser/ProfileUiHandler.js" type="module"></script>
-    <script src="js/ProfileUser/ComponentsPage.js" type="module"></script>
 
     <!-- Mercado Pago -->
     <script src="https://sdk.mercadopago.com/js/v2"></script>
 
     <script>
+
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
 
         function checkUserIdAndRedirect() {
             const data = localStorage.getItem('user');
@@ -576,8 +567,8 @@
                 const ticketPriceText = ticketPriceAmount.innerText.replace('R$', '').trim();
                 const ticketPriceTotal = parseFloat(ticketPriceText.replace('.', '').replace(',', '.'));
 
-                const buyQuantity = parseInt(1); // Quantidade de ingressos como Integer
-                const userId = String(parsedData.user?.id) || "ID não encontrado"; // Convertendo o userId para string
+                const buyQuantity = parseInt(1);
+                const userId = String(parsedData.user?.id) || "ID não encontrado";
 
                 fetch('https://backend-ingressar.onrender.com/api/payments/create-preference', {
                     method: 'POST',
@@ -614,26 +605,6 @@
                 window.location.href = 'index.html';
             }
         }
-
-        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
-
-        let mybutton = document.getElementById("scrollToTopBtn");
-
-        window.onscroll = function () {
-            scrollFunction();
-        };
-
-        function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                mybutton.style.display = "block";
-            } else {
-                mybutton.style.display = "none";
-            }
-        }
-
-        mybutton.onclick = function () {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
 
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
