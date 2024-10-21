@@ -1,5 +1,5 @@
 import { loginUser } from './AuthApi.js';
-import { toggleLoginModal, updateLoginGreeting, toggleAuthButtons, updateProfilePicture, clearProfilePicture } from './AuthUiHandlers.js';
+import { toggleLoginModal, updateLoginGreeting, toggleAuthButtons, updateProfilePicture, clearProfilePicture, showLoginError } from './AuthUiHandlers.js';
 
 export function saveUserSession(userData) {
     const currentTime = new Date().getTime();
@@ -18,13 +18,10 @@ function getUserSession() {
         const time = 60 * 60 * 1000; // 1 hour
         if (currentTime - parsedData.timestamp > time) {
             clearUserSession();
-            log.console('Session expired');
             return null;
         }
-        console.log('Session still valid');
         return parsedData.user;
     }
-    console.log('No session found');
     return null;
 }
 
@@ -36,16 +33,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const user = getUserSession();
 
     if (user) {
-
         updateLoginGreeting(user.name);
-        toggleAuthButtons(false);
+        toggleAuthButtons(true); // Mostra o estado de logado
         if (user.imageUrl) {
             updateProfilePicture(user.imageUrl);
         }
     } else {
-
         updateLoginGreeting('Visitante');
-        toggleAuthButtons(true);
+        toggleAuthButtons(false); // Mostra o estado de deslogado
         clearProfilePicture();
     }
 });
@@ -63,7 +58,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
 
         toggleLoginModal('loginModal');
         updateLoginGreeting(result.name);
-        toggleAuthButtons(false);
+        toggleAuthButtons(true); // Altera para estado logado
 
         if (result.imageUrl) {
             updateProfilePicture(result.imageUrl);
@@ -76,8 +71,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         });
 
     } catch (error) {
-        console.error('Failed to login:', error);
-        alert('Erro ao fazer login');
+        showLoginError(error);
     }
 });
 
@@ -88,8 +82,8 @@ document.getElementById('logoutLink').addEventListener('click', function (event)
 
 function logoutUser() {
     updateLoginGreeting('Visitante');
-    toggleAuthButtons(true);
+    toggleAuthButtons(false); // Altera para estado deslogado
     clearProfilePicture();
     clearUserSession();
-   alert('Logout realizado com sucesso');
+    alert('Logout realizado com sucesso!');
 }

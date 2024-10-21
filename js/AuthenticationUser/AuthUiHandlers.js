@@ -5,7 +5,6 @@ export function toggleLoginModal(modalId) {
     console.log("Toggle Login Modal:", { modalId, modal, mainContent });
 
     modal.classList.toggle('hidden');
-    // mainContent.classList.toggle('blurred');
 }
 
 export function updateLoginGreeting(name) {
@@ -24,14 +23,15 @@ export function updateLoginGreeting(name) {
     }
 }
 
-
-export function toggleAuthButtons(showLogin) {
-    console.log("Toggle Auth Buttons:", { showLogin });
-    document.querySelector('.toggle-login').style.display = showLogin ? 'flex' : 'none';
-    document.querySelector('.toggle-cadastro').style.display = showLogin ? 'flex' : 'none';
-    // document.getElementById('loginSideBarLink').style.display = showLogin ? 'flex' : 'none';
-    // document.getElementById('cadastroSideBarLink').style.display = showLogin ? 'flex' : 'none';
-    // document.getElementById('logoutLink').style.display = showLogin ? 'none' : 'flex';
+export function toggleAuthButtons(isLoggedIn) {
+    console.log("Toggle Auth Buttons:", { isLoggedIn });
+    
+    // Mostra/Esconde botões de login/cadastro (Header e Sidebar)
+    document.querySelectorAll('.toggle-login').forEach(el => el.style.display = isLoggedIn ? 'none' : 'flex');
+    document.querySelectorAll('.toggle-cadastro').forEach(el => el.style.display = isLoggedIn ? 'none' : 'flex');
+    
+    // Mostra/Esconde botão de logout (Sidebar)
+    document.getElementById('logoutLink').style.display = isLoggedIn ? 'flex' : 'none';
 }
 
 export function updateProfilePicture(imageUrl) {
@@ -45,22 +45,34 @@ export function updateProfilePicture(imageUrl) {
     const desktopProfileImageContainer = document.getElementById('profileImageContainerDesktop');
     if (desktopProfileImageContainer) {
         desktopProfileImageContainer.innerHTML = '';
-        desktopProfileImageContainer.appendChild(img.cloneNode());  // Clona a imagem
+        desktopProfileImageContainer.appendChild(img.cloneNode(true));
     }
 
     // Atualiza a imagem na Sidebar (Mobile)
     const mobileProfileImageContainer = document.getElementById('profileImageContainerMobile');
     if (mobileProfileImageContainer) {
         mobileProfileImageContainer.innerHTML = '';
-        mobileProfileImageContainer.appendChild(img.cloneNode());  // Clona a imagem
+        mobileProfileImageContainer.appendChild(img.cloneNode(true));
     }
 }
 
 export function clearProfilePicture() {
     console.log("Clearing profile picture");
-    const profileImageContainer = document.getElementById('profileImageContainer');
-    profileImageContainer.innerHTML = '';
+
+    // Limpa a imagem de perfil no Header (Desktop)
+    const desktopProfileImageContainer = document.getElementById('profileImageContainerDesktop');
+    if (desktopProfileImageContainer) {
+        desktopProfileImageContainer.innerHTML = '';  // Limpa a área de imagem do Header
+    }
+
+    // Limpa a imagem de perfil na Sidebar (Mobile)
+    const mobileProfileImageContainer = document.getElementById('profileImageContainerMobile');
+    if (mobileProfileImageContainer) {
+        mobileProfileImageContainer.innerHTML = '';  // Limpa a área de imagem da Sidebar
+    }
 }
 
-
-
+export function showLoginError(error) {
+    console.error('Erro de login:', error.message || error);
+    alert('Erro ao fazer login, tente novamente.');
+}
