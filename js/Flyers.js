@@ -45,7 +45,6 @@ function initializeSwiper() {
     });
 }
 
-
 async function loadFlyers() {
     const tenantId = 1;
     const imagePaths = await fetchImageFlyers(tenantId);
@@ -60,7 +59,7 @@ async function loadFlyers() {
                 'rounded-md', 
                 'shadow-lg', 
                 'overflow-hidden', 
-                'p-4', 
+                'p-3', 
                 'flex', 
                 'items-center', 
                 'justify-center', 

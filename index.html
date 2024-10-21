@@ -20,51 +20,6 @@
     <link rel="stylesheet" href="css/wait.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .modal-overlay {
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .search-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 50px;
-        }
-
-        .search-box {
-            display: flex;
-            background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .search-box div {
-            display: flex;
-            align-items: center;
-            padding: 0 1rem;
-        }
-
-        .search-box input,
-        .search-box select {
-            padding: 0.75rem;
-            border: none;
-            outline: none;
-        }
-
-        .search-box button {
-            background: #b7791f;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .search-box button:hover {
-            background: #975a16;
-        }
-
         .grid {
             display: grid;
             grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -196,19 +151,17 @@
                                 <i class="bi bi-house-door-fill text-xl"></i>
                                 <span>Início</span>
                             </a>
-                            <a href="#" class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700 toggle-login">
+                            <button onclick="openModal('loginModal')"
+                                class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700">
                                 <i class="bi bi-person-fill text-xl"></i>
                                 <span>Entrar</span>
+                            </button>
                             </a>
-                            <a href="#"
+                            <button onclick="openModal('cadastroModal')"
                                 class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700 toggle-cadastro">
                                 <i class="bi bi-person-plus-fill text-xl"></i>
                                 <span>Cadastrar-se</span>
-                            </a>
-                            <a href="#" class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700 toggle-cart">
-                                <i class="bi bi-ticket-perforated-fill text-xl"></i>
-                                <span>Meus Ingressos</span>
-                            </a>
+                            </button>
                             <!-- Submenu de Eventos -->
                             <div x-data="{ submenuOpen: false }" class="relative">
                                 <button @click="submenuOpen = !submenuOpen"
@@ -366,6 +319,39 @@
             </div>
         </header>
 
+
+        <div id="loginModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
+            <div class="flex items-center justify-center min-h-screen">
+                <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-2xl font-bold">Entrar</h2>
+                        <button onclick="closeModal('loginModal')" class="text-gray-600 hover:text-gray-900">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                    <form id="loginForm" class="mt-4 space-y-4">
+                        <div>
+                            <label for="loginEmail" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="loginEmail" name="email" required
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
+                                placeholder="Digite seu email">
+                        </div>
+                        <div>
+                            <label for="loginPassword" class="block text-sm font-medium text-gray-700">Senha</label>
+                            <input type="password" id="loginPassword" name="password" required
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
+                                placeholder="Digite sua senha">
+                        </div>
+                        <button type="submit"
+                            class="w-full py-2 px-4 rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-color"
+                            style="background-color: var(--primary-color); color: var(--background-color);">Entrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
         <!-- Swiper Section -->
         <div class="swiper-container relative w-full max-w-6xl mx-auto">
             <div class="swiper-wrapper">
@@ -375,95 +361,71 @@
             <div class="swiper-pagination absolute bottom-4 left-1/2 transform -translate-x-1/2 w-full"></div>
         </div>
 
-
-
-        <!-- Filtros de Busca Desktop -->
-        <div class="container mx-auto mt-8 p-6 rounded-lg hidden md:block ">
-            <div class="mx-6">
-                <div class="flex justify-center items-center flex-wrap">
-                    <form class="search-box flex flex-wrap justify-center space-y-4 p-8">
-                        <!-- Localização -->
-                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
-                            <i class="bi bi-geo-alt-fill text-secondary-color"></i>
-                            <input type="text" placeholder="Campinas"
-                                class="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out">
-                        </div>
-                        <!-- Data -->
-                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
-                            <i class="bi bi-calendar-event-fill text-secondary-color"></i>
-                            <input type="text" placeholder="12 Jun 2018"
-                                class="datepicker form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out"
-                                id="startDate">
-                        </div>
-                        <!-- Preço -->
-                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
-                            <i class="bi bi-cash text-secondary-color"></i>
-                            <input type="text" placeholder="Preço"
-                                class="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out">
-                        </div>
-                        <!-- Tipo de Evento -->
-                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
-                            <i class="bi bi-music-note text-secondary-color"></i>
-                            <select
-                                class="form-select px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color bg-white text-gray-600 transition duration-300 ease-in-out">
-                                <option value="2">ROCK</option>
-                                <option value="3">FORRÓ</option>
-                                <option value="4">FUNK</option>
-                                <option value="5">MPB</option>
-                            </select>
-                        </div>
-                        <!-- Botão de Buscar -->
-                        <button type="button"
-                            class="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300 ease-in-out">
-                            Procurar!
-                        </button>
-                    </form>
-                </div>
-            </div>
+        <!-- Filtro de busca -->
+        <div class="container mx-auto mt-8">
+            <button
+                class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500"
+                onclick="openSearchModal()">
+                Buscar Eventos
+            </button>
         </div>
 
-
-        <!-- Filtros de Busca Mobile -->
-        <div class="container mx-auto bg-gray-950 mt-8 p-4 rounded-lg shadow-lg block md:hidden">
-            <div class="flex flex-col space-y-4">
-                <!-- Tipo de Evento -->
-                <div class="flex flex-col">
-                    <label for="tipo-evento-mobile" class="font-medium text-white">Tipo de Evento</label>
-                    <select id="tipo-evento-mobile"
-                        class="border border-gray-700 bg-gray-900 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out">
-                        <option>Show</option>
-                        <option>Teatro</option>
-                        <option>Esporte</option>
-                        <option>Outros</option>
-                    </select>
-                </div>
-                <!-- Localização -->
-                <div class="flex flex-col">
-                    <label for="localizacao-mobile" class="font-medium text-white">Localização</label>
-                    <input type="text" id="localizacao-mobile" placeholder="Digite a cidade"
-                        class="border border-gray-700 bg-gray-900 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out">
-                </div>
-                <!-- Data -->
-                <div class="flex flex-col">
-                    <label for="data-evento-mobile" class="font-medium text-white">Data</label>
-                    <input type="date" id="data-evento-mobile"
-                        class="border border-gray-700 bg-gray-900 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out">
-                </div>
-                <!-- Preço -->
-                <div class="flex flex-col">
-                    <label for="preco-evento-mobile" class="font-medium text-white">Preço</label>
-                    <input type="number" id="preco-evento-mobile" placeholder="Máximo"
-                        class="border border-gray-700 bg-gray-900 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out">
-                </div>
-                <!-- Botão de Filtrar -->
-                <button
-                    class="px-4 py-2 rounded-lg bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300 ease-in-out">
-                    Filtrar
+        <!-- Modal de busca -->
+        <div id="searchModal"
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 transition-opacity duration-300 ease-in-out hidden">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-3xl mx-4">
+            <!-- Fechar Modal -->
+            <div class="flex justify-between items-center px-6 py-4 border-b">
+                <h2 class="text-xl font-bold">Filtrar</h2>
+                <button class="text-gray-500 hover:text-gray-700 focus:outline-none" onclick="closeSearchModal()">
+                    <i class="bi bi-x-lg"></i>
                 </button>
             </div>
+            <!-- Formulário de busca -->
+            <div class="p-6">
+                <form class="search-box flex flex-wrap justify-center space-y-4 p-4">
+                    <!-- Localização -->
+                    <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
+                        <i class="bi bi-geo-alt-fill text-secondary-color"></i>
+                        <input type="text" placeholder="Campinas"
+                            class="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out">
+                    </div>
+                    <!-- Data -->
+                    <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
+                        <i class="bi bi-calendar-event-fill text-secondary-color"></i>
+                        <input type="text" placeholder="12 Jun 2018"
+                            class="datepicker form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out"
+                            id="startDate">
+                    </div>
+                    <!-- Preço -->
+                    <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
+                        <i class="bi bi-cash text-secondary-color"></i>
+                        <input type="text" placeholder="Preço"
+                            class="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out">
+                    </div>
+                    <!-- Tipo de Evento -->
+                    <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
+                        <i class="bi bi-music-note text-secondary-color"></i>
+                        <select
+                            class="form-select px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color bg-white text-gray-600 transition duration-300 ease-in-out">
+                            <option value="2">ROCK</option>
+                            <option value="3">FORRÓ</option>
+                            <option value="4">FUNK</option>
+                            <option value="5">MPB</option>
+                        </select>
+                    </div>
+                    <!-- Botão de Buscar -->
+                    <div class="w-full md:w-auto mt-4">
+                        <button type="submit"
+                            class="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300 ease-in-out">
+                            Filtrar!
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-
-
+    </div>
+    
         <!-- Event Grid -->
         <div class="container mx-auto px-4 py-8">
             <div class="grid" id="eventGrid">
@@ -474,9 +436,8 @@
             </div>
         </div>
 
-
-        <!-- Mobile Newsletter Section -->
-        <div class="container mx-auto mt-12 block md:hidden">
+        <!-- Newsletter Section -->
+        <div class="container mx-auto mt-12 block max-w-3xl">
             <div class="shadow-md rounded-lg overflow-hidden bg-gray-950">
                 <!-- Cabeçalho da Newsletter -->
                 <div class="text-center py-6 bg-primary-color text-white">
@@ -583,35 +544,7 @@
         </footer>
     </div>
 
-    <div id="loginModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
-        <div class="flex items-center justify-center min-h-screen">
-            <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-2xl font-bold">Entrar</h2>
-                    <button onclick="toggleModal('loginModal')" class="text-gray-600 hover:text-gray-900">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </div>
-                <form id="loginForm" class="mt-4 space-y-4">
-                    <div>
-                        <label for="loginEmail" class="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" id="loginEmail" name="email" required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
-                            placeholder="Digite seu email">
-                    </div>
-                    <div>
-                        <label for="loginPassword" class="block text-sm font-medium text-gray-700">Senha</label>
-                        <input type="password" id="loginPassword" name="password" required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm"
-                            placeholder="Digite sua senha">
-                    </div>
-                    <button type="submit"
-                        class="w-full py-2 px-4 rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-color"
-                        style="background-color: var(--primary-color); color: var(--background-color);">Entrar</button>
-                </form>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Cadastro Modal -->
     <div id="cadastroModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
@@ -619,7 +552,7 @@
             <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
                 <div class="flex justify-between items-center">
                     <h2 class="text-2xl font-bold">Cadastro</h2>
-                    <button onclick="toggleModal('cadastroModal')" class="text-gray-600 hover:text-gray-900">
+                    <button onclick="closeModal('cadastroModal')" class="text-gray-600 hover:text-gray-900">
                         <i class="bi bi-x-lg"></i>
                     </button>
                 </div>
@@ -678,6 +611,7 @@
     <script src="js/Event.js" type="module"></script>
     <script src="js/Flyers.js" type="module"></script>
     <script src="js/loader.js" type="module"></script>
+    <script src="js/Modal/Modal.js"></script> <!-- Não sei se precisa ser module -->
 
     <!-- Authentication User -->
     <script src="js/AuthenticationUser/AuthApi.js" type="module"></script>
@@ -699,7 +633,7 @@
 
         document.addEventListener('alpine:init', () => {
             Alpine.store('cart', {
-                cartCount: 3, // Exemplo inicial
+                cartCount: 3,
                 addItem() {
                     this.cartCount++;
                 },
@@ -710,6 +644,7 @@
         });
 
         document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
 
     </script>
 </body>
