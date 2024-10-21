@@ -5,7 +5,7 @@ export function toggleLoginModal(modalId) {
     console.log("Toggle Login Modal:", { modalId, modal, mainContent });
 
     modal.classList.toggle('hidden');
-    mainContent.classList.toggle('blurred');
+    // mainContent.classList.toggle('blurred');
 }
 
 export function updateLoginGreeting(name) {
