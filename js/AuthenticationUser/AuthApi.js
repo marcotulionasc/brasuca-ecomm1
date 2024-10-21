@@ -11,14 +11,15 @@ export async function loginUser(tenantId, email, password) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'ngrok-skip-browser-warning': 'true'
             },
             body: JSON.stringify(data)
         });
 
         if (!response.ok) {
-            throw new Error('Erro ao fazer login');
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Erro ao fazer login');
         }
+
         alert('Login realizado com sucesso');
         return await response.json();
     } catch (error) {

@@ -29,9 +29,9 @@ export function toggleAuthButtons(showLogin) {
     console.log("Toggle Auth Buttons:", { showLogin });
     document.querySelector('.toggle-login').style.display = showLogin ? 'flex' : 'none';
     document.querySelector('.toggle-cadastro').style.display = showLogin ? 'flex' : 'none';
-    document.getElementById('loginSideBarLink').style.display = showLogin ? 'flex' : 'none';
-    document.getElementById('cadastroSideBarLink').style.display = showLogin ? 'flex' : 'none';
-    document.getElementById('logoutLink').style.display = showLogin ? 'none' : 'flex';
+    // document.getElementById('loginSideBarLink').style.display = showLogin ? 'flex' : 'none';
+    // document.getElementById('cadastroSideBarLink').style.display = showLogin ? 'flex' : 'none';
+    // document.getElementById('logoutLink').style.display = showLogin ? 'none' : 'flex';
 }
 
 export function updateProfilePicture(imageUrl) {
@@ -62,8 +62,5 @@ export function clearProfilePicture() {
     profileImageContainer.innerHTML = '';
 }
 
-export function showLoginError(message) {
-    console.log("Login Error:", message);
-    alert(message);
-}
+
 

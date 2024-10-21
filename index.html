@@ -148,7 +148,7 @@
                         </div>
                         <div class="flex flex-col p-4 space-y-2">
                             <a href="index.html" class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700">
-                                <i class="bi bi-house-door-fill text-xl"></i>
+                                <i class="bi bi-house-door-fill text-2xl"></i>
                                 <span>Início</span>
                             </a>
                             <button onclick="openModal('loginModal')"
@@ -205,7 +205,7 @@
 
                 <div x-data="{ cartOpen: false }" class="relative">
                     <button @click="cartOpen = true"
-                        class="right-4 top-4 bg-blue-500 text-white p-3 rounded-full shadow-lg z-50">
+                        class="right-4 top-4 text-white p-2 rounded-lg shadow-lg z-50">
                         <i class="bi bi-cart-fill text-2xl"></i>
                     </button>
 
@@ -250,6 +250,7 @@
             </div>
         </header>
 
+        <!-- Desktop Header -->
         <header class="p-3 hidden md:flex justify-between items-center bg-gray-950">
             <div class="flex items-center space-x-6 ml-10">
                 <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-28">
@@ -350,8 +351,6 @@
             </div>
         </div>
 
-
-
         <!-- Swiper Section -->
         <div class="swiper-container relative w-full max-w-6xl mx-auto">
             <div class="swiper-wrapper">
@@ -361,71 +360,75 @@
             <div class="swiper-pagination absolute bottom-4 left-1/2 transform -translate-x-1/2 w-full"></div>
         </div>
 
+
         <!-- Filtro de busca -->
-        <div class="container mx-auto mt-8">
-            <button
-                class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500"
-                onclick="openSearchModal()">
-                Buscar Eventos
-            </button>
+        <div class="container mx-auto mt-8 border-t border-gray-800 pt-6">
+            <div class="flex justify-between items-center p-4">
+                <h1 class="text-white text-3xl">Eventos</h1>
+                <button
+                    class="px-5 py-3 bg-green-500 text-white font-semibold text-lg rounded-lg hover:bg-green-600 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500"
+                    onclick="openSearchModal()">
+                    Filtrar
+                </button>
+            </div>
         </div>
 
         <!-- Modal de busca -->
         <div id="searchModal"
-        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 transition-opacity duration-300 ease-in-out hidden">
-        <div class="bg-white rounded-lg shadow-lg w-full max-w-3xl mx-4">
-            <!-- Fechar Modal -->
-            <div class="flex justify-between items-center px-6 py-4 border-b">
-                <h2 class="text-xl font-bold">Filtrar</h2>
-                <button class="text-gray-500 hover:text-gray-700 focus:outline-none" onclick="closeSearchModal()">
-                    <i class="bi bi-x-lg"></i>
-                </button>
-            </div>
-            <!-- Formulário de busca -->
-            <div class="p-6">
-                <form class="search-box flex flex-wrap justify-center space-y-4 p-4">
-                    <!-- Localização -->
-                    <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
-                        <i class="bi bi-geo-alt-fill text-secondary-color"></i>
-                        <input type="text" placeholder="Campinas"
-                            class="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out">
-                    </div>
-                    <!-- Data -->
-                    <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
-                        <i class="bi bi-calendar-event-fill text-secondary-color"></i>
-                        <input type="text" placeholder="12 Jun 2018"
-                            class="datepicker form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out"
-                            id="startDate">
-                    </div>
-                    <!-- Preço -->
-                    <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
-                        <i class="bi bi-cash text-secondary-color"></i>
-                        <input type="text" placeholder="Preço"
-                            class="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out">
-                    </div>
-                    <!-- Tipo de Evento -->
-                    <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
-                        <i class="bi bi-music-note text-secondary-color"></i>
-                        <select
-                            class="form-select px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color bg-white text-gray-600 transition duration-300 ease-in-out">
-                            <option value="2">ROCK</option>
-                            <option value="3">FORRÓ</option>
-                            <option value="4">FUNK</option>
-                            <option value="5">MPB</option>
-                        </select>
-                    </div>
-                    <!-- Botão de Buscar -->
-                    <div class="w-full md:w-auto mt-4">
-                        <button type="submit"
-                            class="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300 ease-in-out">
-                            Filtrar!
-                        </button>
-                    </div>
-                </form>
+            class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 transition-opacity duration-300 ease-in-out hidden">
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-3xl mx-4">
+                <!-- Fechar Modal -->
+                <div class="flex justify-between items-center px-6 py-4 border-b">
+                    <h2 class="text-xl font-bold">Filtrar</h2>
+                    <button class="text-gray-500 hover:text-gray-700 focus:outline-none" onclick="closeSearchModal()">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <!-- Formulário de busca -->
+                <div class="p-6">
+                    <form class="search-box flex flex-wrap justify-center space-y-4 p-4">
+                        <!-- Localização -->
+                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
+                            <i class="bi bi-geo-alt-fill text-secondary-color"></i>
+                            <input type="text" placeholder="Campinas"
+                                class="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out">
+                        </div>
+                        <!-- Data -->
+                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
+                            <i class="bi bi-calendar-event-fill text-secondary-color"></i>
+                            <input type="text" placeholder="12 Jun 2018"
+                                class="datepicker form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out"
+                                id="startDate">
+                        </div>
+                        <!-- Preço -->
+                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
+                            <i class="bi bi-cash text-secondary-color"></i>
+                            <input type="text" placeholder="Preço"
+                                class="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color transition duration-300 ease-in-out">
+                        </div>
+                        <!-- Tipo de Evento -->
+                        <div class="w-full md:w-1/2 lg:w-auto flex items-center space-x-2">
+                            <i class="bi bi-music-note text-secondary-color"></i>
+                            <select
+                                class="form-select px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-color bg-white text-gray-600 transition duration-300 ease-in-out">
+                                <option value="2">ROCK</option>
+                                <option value="3">FORRÓ</option>
+                                <option value="4">FUNK</option>
+                                <option value="5">MPB</option>
+                            </select>
+                        </div>
+                        <!-- Botão de Buscar -->
+                        <div class="w-full md:w-auto mt-4">
+                            <button type="submit"
+                                class="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300 ease-in-out">
+                                Filtrar!
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    
+
         <!-- Event Grid -->
         <div class="container mx-auto px-4 py-8">
             <div class="grid" id="eventGrid">
@@ -437,7 +440,7 @@
         </div>
 
         <!-- Newsletter Section -->
-        <div class="container mx-auto mt-12 block max-w-3xl">
+        <div class="container mx-auto mt-12 block max-w-3xl border-t border-gray-800 mt-8 pt-6">
             <div class="shadow-md rounded-lg overflow-hidden bg-gray-950">
                 <!-- Cabeçalho da Newsletter -->
                 <div class="text-center py-6 bg-primary-color text-white">
@@ -531,7 +534,7 @@
                     </div>
                 </div>
                 <!-- Linha divisória -->
-                <div class="border-t border-gray-800 mt-8 pt-6">
+                <div class="border-t border-gray-800 mt-8 pt-6 p-12">
                     <p class="text-center text-gray-400 text-sm">
                         &copy; 2024 Ingressar. Todos os direitos reservados. CNPJ 11.111.111/0001-01
                     </p>
@@ -543,8 +546,6 @@
             </div>
         </footer>
     </div>
-
-
 
     <!-- Cadastro Modal -->
     <div id="cadastroModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
@@ -644,7 +645,6 @@
         });
 
         document.getElementById('copyrightYear').textContent = new Date().getFullYear();
-
 
     </script>
 </body>

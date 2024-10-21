@@ -1,5 +1,5 @@
 import { loginUser } from './AuthApi.js';
-import { toggleLoginModal, updateLoginGreeting, toggleAuthButtons, updateProfilePicture, clearProfilePicture, showLoginError } from './AuthUiHandlers.js';
+import { toggleLoginModal, updateLoginGreeting, toggleAuthButtons, updateProfilePicture, clearProfilePicture } from './AuthUiHandlers.js';
 
 export function saveUserSession(userData) {
     const currentTime = new Date().getTime();
@@ -76,7 +76,8 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         });
 
     } catch (error) {
-        showLoginError('Erro ao fazer login');
+        console.error('Failed to login:', error);
+        alert('Erro ao fazer login');
     }
 });
 
@@ -90,5 +91,5 @@ function logoutUser() {
     toggleAuthButtons(true);
     clearProfilePicture();
     clearUserSession();
-    showLoginError('Logout successful');
+   alert('Logout realizado com sucesso');
 }
