@@ -84,7 +84,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const image = document.createElement("img");
         image.src = base64Image;
         image.alt = "Imagem do Evento";
-        image.classList.add("w-full", "h-64", "object-cover", "rounded-lg", "relative", "z-10");
+        image.classList.add(
+            "w-full", 
+            "h-64", 
+            "object-cover", 
+            "rounded-lg", 
+            "relative", 
+            "z-10");
 
         container.appendChild(backgroundContainer);
         container.appendChild(image);
@@ -98,21 +104,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         container.innerHTML = '';
 
+        console.log("Dados evento: ", event);
+
         const title = document.createElement("h2");
         title.classList.add("text-2xl", "font-bold", "mt-4");
-        title.style.color = "var(--secondary-color)";
+        title.style.color = "text-white";
         title.textContent = event.titleEvent || "Título não disponível";
 
         const date = document.createElement("p");
-        date.style.color = "var(--primary-text-color)";
+        date.style.color = "text-white";
         date.textContent = event.date ? new Date(event.date).toLocaleDateString() : "Data não disponível";
 
         const address = document.createElement("p");
-        address.style.color = "var(--primary-text-color)";
+        address.style.color = "text-white";
         address.textContent = event.local || "Local não disponível";
 
         const description = document.createElement("p");
-        description.style.color = "var(--primary-text-color)";
+        description.style.color = "text-white";
         description.textContent = event.description || "Descrição não disponível";
 
         container.appendChild(title);
@@ -225,14 +233,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     // Ordenar lotes ativos pela data de criação
                     activeLots.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
-                    // Selecionar o primeiro lote ativo
                     const firstLot = activeLots[0];
 
-                    // Criar o elemento do lote e adicionar ao contêiner de tickets
                     const lotDiv = createLotElement(firstLot, nameTicket);
                     ticketsContainer.appendChild(lotDiv);
 
-                    // Adicionar event listeners
                     setupLotEventListeners(lotDiv, firstLot);
                 } else {
                     console.log(`No active lots found for ticketId: ${ticketId}`);
