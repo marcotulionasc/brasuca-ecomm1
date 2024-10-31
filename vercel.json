@@ -14,18 +14,31 @@
                 {
                     "key": "Access-Control-Allow-Headers",
                     "value": "X-Requested-With, Content-Type, Accept, Authorization"
-                },
-                {
-                    "key": "ngrok-skip-browser-warning",
-                    "value": "true"
                 }
             ]
         }
     ],
+    "redirect": [
+        {
+            "source": "/profile.html?id=:id",
+            "destination": "/profile/:id",
+            "permanent": true
+        },
+        {
+            "source": "/profile.html",
+            "destination": "/", 
+            "permanent": true
+        },
+        {
+            "source": "/event.html",
+            "destination": "/",
+            "permanent": true
+        }
+    ],
     "rewrites": [
         {
-            "source": "/profile/:id",
-            "destination": "/profile.html?id=:id"
+            "source": "index.html",
+            "destination": "/"
         }
     ]
 }
