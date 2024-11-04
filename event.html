@@ -512,7 +512,6 @@
                 const parsedData = JSON.parse(data);
                 console.log('Dados do usuário:', parsedData);
 
-                // Coletar ingressos selecionados
                 const selectedTickets = getSelectedTickets();
 
                 if (selectedTickets.length === 0) {
@@ -520,26 +519,22 @@
                     return;
                 }
 
-                // Armazena os ingressos selecionados no localStorage
                 localStorage.setItem('selectedTickets', JSON.stringify(selectedTickets));
 
                 const eventName = document.getElementById('eventName').innerText;
                 localStorage.setItem('eventName', eventName);
 
-                // Redireciona para checkout.html
                 window.location.href = 'checkout.html';
             } else {
-                // Usuário não está logado, redirecionar para a página de login
+               
                 alert('Você precisa estar logado para continuar.');
                 window.location.href = 'index.html';
             }
         }
-
-        // Função para obter os ingressos selecionados
+        
         function getSelectedTickets() {
             const tickets = [];
 
-            // Seleciona todos os inputs de quantidade de ingressos
             const ticketInputs = document.querySelectorAll('.ticket-quantity');
 
             console.log('Inputs de ingressos encontrados:', ticketInputs);
