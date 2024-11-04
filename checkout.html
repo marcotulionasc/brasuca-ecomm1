@@ -262,71 +262,59 @@
         </header>
 
 
-        <div class="bg-gray-900 container mx-auto px-4 py-12">
-            <div class="bg-gray-800 max-w-4xl mx-auto mt-10 px-8 py-24 rounded-lg shadow-lg">
-                <h1 class="text-2xl text-white font-bold mb-6">Resumo</h1>
-                <div class="flex flex-col md:flex-row justify-between">
-                    <!-- Resumo dos Ingressos -->
-                    <div class="w-full md:w-1/2 mb-6 md:mb-0">
-                        <h2 class="text-xl text-blue-500 font-semibold mb-4 flex items-center">
-                            <i class="bi bi-ticket-fill text-xl mr-2"></i>
-                            Ingressos Selecionados
-                        </h2>
-                        <div class="mb-4">
-                            <div class="flex justify-between text-gray-300">
-                                <p>Ingresso VIP x2</p>
-                                <p class="font-semibold">R$ 200,00</p>
-                            </div>
-                            <div class="flex justify-between text-gray-300">
-                                <p>Ingresso Regular x1</p>
-                                <p class="font-semibold">R$ 50,00</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-between border-t border-gray-700 pt-2 text-white">
-                            <p class="font-semibold">Total</p>
-                            <p class="font-semibold text-xl">R$ 250,00</p>
-                        </div>
+        <!-- Main Content -->
+        <main class="max-w-6xl mx-auto p-4 text-white">
+            <h1 id="eventName" class="text-3xl font-bold text-white mt-6">Detalhes do Evento</h1>
+            <div class="mt-6 flex flex-col md:flex-row md:space-x-8">
+                <!-- Detalhes da Compra -->
+                <div class="w-full md:w-1/2 bg-gray-800 p-6 rounded-lg">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center text-blue-500">
+                        <i class="bi bi-ticket-perforated-fill text-xl mr-2"></i>
+                        Ingressos Selecionados
+                    </h2>
+                    <div id="selectedTicketsContainer">
+                        <!-- Ingressos selecionados serão inseridos aqui -->
                     </div>
-
-                    <!-- Informações do Comprador -->
-                    <div class="w-full md:w-1/2 md:pl-8">
-                        <h2 class="text-xl font-semibold mb-4 flex items-center text-blue-500">
-                            <i class="bi bi-person-fill text-xl mr-2"></i>
-                            Informações do Comprador
-                        </h2>
-                        <form>
-                            <div class="mb-4">
-                                <label for="name" class="block text-gray-300 py-1">Nome Completo</label>
-                                <input type="text" id="name"
-                                    class="py-2 px-3 block w-full bg-gray-700 text-white border border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                    placeholder="Seu nome completo">
-                            </div>
-                            <div class="mb-4">
-                                <label for="email" class="block text-gray-300 py-1">E-mail</label>
-                                <input type="email" id="email"
-                                    class="py-2 px-3 block w-full bg-gray-700 text-white border border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                    placeholder="example@email.com">
-                            </div>
-                            <div class="mb-4">
-                                <label for="phone" class="block text-gray-300 py-1">Telefone</label>
-                                <input type="text" id="phone"
-                                    class="py-2 px-3 block w-full bg-gray-700 text-white border border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                    placeholder="(00) 00000-0000">
-                            </div>
-                        </form>
+                    <div class="flex justify-between border-t border-gray-700 pt-2 text-white">
+                        <p class="font-semibold">Total</p>
+                        <p id="totalAmount" class="font-semibold text-xl">R$ 0,00</p>
                     </div>
                 </div>
 
-                <!-- Botão para Prosseguir -->
-                <div class="mt-6">
-                    <button
-                        class="w-full bg-blue-500 text-white py-3 px-6 rounded-lg font-semibold flex items-center justify-center hover:bg-blue-600">
-                        <i class="bi bi-credit-card-fill text-xl mr-2"></i>
-                        Prosseguir para o Pagamento
-                    </button>
+                <!-- Informações do Comprador -->
+                <div class="w-full md:w-1/2 md:pl-8 mt-6 md:mt-0">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center text-blue-500">
+                        <i class="bi bi-person-fill text-xl mr-2"></i>
+                        Informações do Comprador
+                    </h2>
+                    <form>
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-300 py-1">Nome Completo</label>
+                            <input type="text" id="name"
+                                class="py-2 px-3 block w-full bg-gray-700 text-white border border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                placeholder="Seu nome completo">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-300 py-1">E-mail</label>
+                            <input type="email" id="email"
+                                class="py-2 px-3 block w-full bg-gray-700 text-white border border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                placeholder="example@email.com">
+                        </div>
+                        <div class="mb-4">
+                            <label for="phone" class="block text-gray-300 py-1">Telefone</label>
+                            <input type="text" id="phone"
+                                class="py-2 px-3 block w-full bg-gray-700 text-white border border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                placeholder="(00) 00000-0000">
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>
+
+            <!-- Botão para Prosseguir -->
+            <div class="mt-6">
+                <div id="button-checkout"></div>
+            </div>
+        </main>
 
         <!-- Footer -->
         <footer class="bg-gray-950 py-8 text-white">
@@ -544,76 +532,105 @@
     <script src="https://sdk.mercadopago.com/js/v2"></script>
 
     <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Recuperar os ingressos selecionados do localStorage
+            const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
 
-        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
-
-        function checkUserIdAndRedirect() {
-            const data = localStorage.getItem('user');
-            if (data) {
-                const parsedData = JSON.parse(data);
-                console.log('Dados do usuário:', parsedData);
-
-                const eventDetails = document.getElementById('eventDetailsContainer');
-                console.log('Detalhes do evento:', eventDetails);
-
-                const eventName = eventDetails.querySelector('h2').innerText.trim();
-                const ticketPriceAmount = document.getElementById('amountTotalTicket');
-
-                const ticketPriceText = ticketPriceAmount.innerText.replace('R$', '').trim();
-                const ticketPriceTotal = parseFloat(ticketPriceText.replace('.', '').replace(',', '.'));
-
-                const buyQuantity = parseInt(1);
-                const userId = String(parsedData.user?.id) || "ID não encontrado";
-
-                fetch('https://backend-ingressar.onrender.com/api/payments/create-preference', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        eventName: eventName,
-                        ticketPriceTotal: ticketPriceTotal,
-                        buyQuantity: 1,
-                        userId: userId
-                    })
-                })
-                    .then(response => response.text())
-                    .then(preferenceId => {
-                        console.log('ID da preferência:', preferenceId);
-
-                        const mp = new MercadoPago('APP_USR-82cf6735-6432-4efe-bd3e-f1dba9ba3459', {
-                            locale: 'pt-BR'
-                        });
-
-                        mp.checkout({
-                            preference: {
-                                id: preferenceId
-                            },
-                            autoOpen: true
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Erro ao criar a preferência:', error);
-                    });
-            } else {
-                alert('Você precisa estar logado para continuar.');
-                window.location.href = 'index.html';
+            // Verificar se há ingressos selecionados
+            if (!selectedTickets || selectedTickets.length === 0) {
+                alert('Nenhum ingresso selecionado.');
+                window.location.href = 'event.html'; // Redireciona de volta se não houver ingressos
+                return;
             }
+
+            // Recuperar os dados do usuário do localStorage
+            const userData = JSON.parse(localStorage.getItem('user'));
+            if (!userData) {
+                alert('Usuário não está logado.');
+                window.location.href = 'index.html'; // Redireciona para o login se não estiver logado
+                return;
+            }
+
+            const userId = String(userData.user?.id) || "ID não encontrado";
+
+            // Obter o nome do evento do localStorage
+            const eventName = localStorage.getItem('titleEvent') || 'Nome do Evento Não Encontrado';
+
+            // Atualizar o título do evento na página
+            const eventTitleElement = document.getElementById('eventName');
+            if (eventTitleElement) {
+                eventTitleElement.textContent = eventName;
+            }
+
+            // Exibir os ingressos selecionados na página
+            displaySelectedTickets(selectedTickets);
+
+            // Calcular o valor total
+            const totalAmount = calculateTotalAmount(selectedTickets);
+
+            // Atualizar o total na página
+            document.getElementById('totalAmount').textContent = `R$ ${totalAmount.toFixed(2).replace('.', ',')}`;
+
+            // Preparar os dados para enviar ao Mercado Pago
+            setupMercadoPago(eventName, totalAmount, userId);
+        });
+
+        function displaySelectedTickets(tickets) {
+            const ticketsContainer = document.getElementById('selectedTicketsContainer');
+
+            tickets.forEach(ticket => {
+                const ticketDiv = document.createElement('div');
+                ticketDiv.classList.add('flex', 'justify-between', 'py-2', 'border-b', 'border-gray-700');
+
+                ticketDiv.innerHTML = `
+            <p class="text-white">${ticket.quantity}x ${ticket.name}</p>
+            <p class="text-white">R$ ${(ticket.price * ticket.quantity).toFixed(2).replace('.', ',')}</p>
+        `;
+
+                ticketsContainer.appendChild(ticketDiv);
+            });
         }
 
-        function getUrlParams() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                tenantId: params.get('tenantId'),
-                eventId: params.get('eventId')
-            };
+        function calculateTotalAmount(tickets) {
+            return tickets.reduce((total, ticket) => total + (ticket.price * ticket.quantity), 0);
         }
 
-        const { tenantId, eventId } = getUrlParams();
-        if (tenantId && eventId) {
-            fetchEventDetails(tenantId, eventId);
-        } else {
-            console.error('Parâmetros tenantId e eventId não encontrados na URL.');
+        function setupMercadoPago(eventName, totalAmount, userId) {
+            // Configuração do Mercado Pago aqui
+
+            fetch('https://backend-ingressar.onrender.com/api/payments/create-preference', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    eventName: eventName,
+                    ticketPriceTotal: totalAmount,
+                    buyQuantity: 1, // Conforme mencionado, é fixo
+                    userId: userId
+                })
+            })
+                .then(response => response.text())
+                .then(preferenceId => {
+                    console.log('ID da preferência:', preferenceId);
+
+                    const mp = new MercadoPago('APP_USR-82cf6735-6432-4efe-bd3e-f1dba9ba3459', {
+                        locale: 'pt-BR'
+                    });
+
+                    mp.checkout({
+                        preference: {
+                            id: preferenceId
+                        },
+                        render: {
+                            container: '#button-checkout',
+                            label: 'Pagar',
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao criar preferência de pagamento:', error);
+                });
         }
     </script>
 

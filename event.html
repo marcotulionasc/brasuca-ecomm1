@@ -506,115 +506,73 @@
 
     <script>
 
-
         function checkUserIdAndRedirect() {
             const data = localStorage.getItem('user');
             if (data) {
                 const parsedData = JSON.parse(data);
                 console.log('Dados do usuário:', parsedData);
 
-                const eventDetails = document.getElementById('eventDetailsContainer');
-                console.log('Detalhes do evento:', eventDetails);
+                // Coletar ingressos selecionados
+                const selectedTickets = getSelectedTickets();
 
-                const eventName = eventDetails.querySelector('h2').innerText.trim(); // Garantindo que o nome do evento é uma string
-                const ticketPriceAmount = document.getElementById('amountTotalTicket');
+                if (selectedTickets.length === 0) {
+                    alert('Por favor, selecione pelo menos um ingresso.');
+                    return;
+                }
 
-                // Removendo "R$" e formatando o valor como float
-                const ticketPriceText = ticketPriceAmount.innerText.replace('R$', '').trim();
-                const ticketPriceTotal = parseFloat(ticketPriceText.replace('.', '').replace(',', '.'));
+                // Armazena os ingressos selecionados no localStorage
+                localStorage.setItem('selectedTickets', JSON.stringify(selectedTickets));
 
-                const buyQuantity = parseInt(1); // Quantidade de ingressos como Integer
-                const userId = String(parsedData.user?.id) || "ID não encontrado"; // Convertendo o userId para string
+                const eventName = document.getElementById('eventName').innerText;
+                localStorage.setItem('eventName', eventName);
 
-                fetch('https://backend-ingressar.onrender.com/api/payments/create-preference', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        eventName: eventName,
-                        ticketPriceTotal: ticketPriceTotal,
-                        buyQuantity: 1,
-                        userId: userId
-                    })
-                })
-                    .then(response => response.text())
-                    .then(preferenceId => {
-                        console.log('ID da preferência:', preferenceId);
-
-                        const mp = new MercadoPago('APP_USR-82cf6735-6432-4efe-bd3e-f1dba9ba3459', {
-                            locale: 'pt-BR'
-                        });
-
-                        mp.checkout({
-                            preference: {
-                                id: preferenceId
-                            },
-                            autoOpen: true
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Erro ao criar a preferência:', error);
-                    });
+                // Redireciona para checkout.html
+                window.location.href = 'checkout.html';
             } else {
+                // Usuário não está logado, redirecionar para a página de login
                 alert('Você precisa estar logado para continuar.');
                 window.location.href = 'index.html';
             }
         }
 
+        // Função para obter os ingressos selecionados
+        function getSelectedTickets() {
+            const tickets = [];
+
+            // Seleciona todos os inputs de quantidade de ingressos
+            const ticketInputs = document.querySelectorAll('.ticket-quantity');
+
+            console.log('Inputs de ingressos encontrados:', ticketInputs);
+
+            ticketInputs.forEach(input => {
+                const quantity = parseInt(input.value);
+                console.log('Quantidade do ingresso:', quantity);
+                if (quantity > 0) {
+                    const ticketId = input.getAttribute('data-ticket-id');
+                    const ticketName = input.getAttribute('data-ticket-name');
+                    const ticketPrice = parseFloat(input.getAttribute('data-ticket-price'));
+
+                    console.log('Ingresso selecionado:', {
+                        id: ticketId,
+                        name: ticketName,
+                        price: ticketPrice,
+                        quantity: quantity
+                    });
+
+                    tickets.push({
+                        id: ticketId,
+                        name: ticketName,
+                        price: ticketPrice,
+                        quantity: quantity
+                    });
+                }
+            });
+
+            console.log('Ingressos selecionados:', tickets);
+            return tickets;
+        }
 
         document.getElementById('copyrightYear').textContent = new Date().getFullYear();
-
-        let mybutton = document.getElementById("scrollToTopBtn");
-
-        window.onscroll = function () {
-            scrollFunction();
-        };
-
-        function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                mybutton.style.display = "block";
-            } else {
-                mybutton.style.display = "none";
-            }
-        }
-
-        mybutton.onclick = function () {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
-
-        function toggleSidebar() {
-            var sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle('-translate-x-full');
-        }
-
-        function toggleModal(modalId) {
-            const modal = document.getElementById(modalId);
-            const mainContent = document.querySelector('.main-content');
-
-            modal.classList.toggle('hidden');
-            mainContent.classList.toggle('blurred');
-        }
-
-        function toggleSidebarCart(sidebarId) {
-            const sidebar = document.getElementById(sidebarId);
-            sidebar.classList.toggle('translate-x-full');
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.toggle-login').forEach(button => {
-                button.addEventListener('click', () => toggleModal('loginModal'));
-            });
-
-            document.querySelectorAll('.toggle-cadastro').forEach(button => {
-                button.addEventListener('click', () => toggleModal('cadastroModal'));
-            });
-
-            document.querySelectorAll('.toggle-cart').forEach(button => {
-                button.addEventListener('click', () => toggleSidebarCart('cartSidebar'));
-            });
-        });
-
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
             return {

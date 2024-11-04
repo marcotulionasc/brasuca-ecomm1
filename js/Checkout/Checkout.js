@@ -85,11 +85,11 @@ document.addEventListener("DOMContentLoaded", () => {
         image.src = base64Image;
         image.alt = "Imagem do Evento";
         image.classList.add(
-            "w-full", 
-            "h-64", 
-            "object-cover", 
-            "rounded-lg", 
-            "relative", 
+            "w-full",
+            "h-64",
+            "object-cover",
+            "rounded-lg",
+            "relative",
             "z-10");
 
         container.appendChild(backgroundContainer);
@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "rounded-lg",
             "shadow-lg",
             "text-white",
-            
+
         );
 
         const areaId = areaTicket.replace(/\s+/g, '_');
@@ -275,7 +275,13 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="flex justify-center items-center mt-2">
                 <div class="flex items-center">
                     <button id="decrement_${lot.id}" class="bg-blue-500 text-white rounded-l-md px-3 py-1 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-red-300" style="height: 43px">-</button>
-                    <input type="number" id="quantity_${lot.id}" name="quantity_${lot.id}" min="0" max="${lot.amountTicket}" value="0" class="text-center w-16 px-3 py-2 bg-gray-100 text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 sm:text-sm text-right no-spinner">
+                    <input type="number"
+                            id="quantity_${lot.id}" 
+                            name="quantity_${lot.id}" 
+                            min="0" 
+                            max="${lot.amountTicket}" 
+                            value="0" 
+                            class="ticket-quantity text-center w-16 px-3 py-2 bg-gray-100 text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 sm:text-sm text-right no-spinner">
                     <button id="increment_${lot.id}" class="bg-blue-500 text-white rounded-r-md px-3 py-1 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-green-300" style="height: 43px">+</button>
                 </div>
             </div>
