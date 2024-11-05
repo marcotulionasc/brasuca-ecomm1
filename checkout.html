@@ -533,45 +533,37 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            // Recuperar os ingressos selecionados do localStorage
+
             const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
 
-            // Verificar se há ingressos selecionados
             if (!selectedTickets || selectedTickets.length === 0) {
                 alert('Nenhum ingresso selecionado.');
-                window.location.href = 'event.html'; // Redireciona de volta se não houver ingressos
+                window.location.href = 'event.html';
                 return;
             }
 
-            // Recuperar os dados do usuário do localStorage
             const userData = JSON.parse(localStorage.getItem('user'));
             if (!userData) {
                 alert('Usuário não está logado.');
-                window.location.href = 'index.html'; // Redireciona para o login se não estiver logado
+                window.location.href = 'index.html';
                 return;
             }
 
             const userId = String(userData.user?.id) || "ID não encontrado";
 
-            // Obter o nome do evento do localStorage
             const eventName = localStorage.getItem('titleEvent') || 'Nome do Evento Não Encontrado';
 
-            // Atualizar o título do evento na página
             const eventTitleElement = document.getElementById('eventName');
             if (eventTitleElement) {
                 eventTitleElement.textContent = eventName;
             }
 
-            // Exibir os ingressos selecionados na página
             displaySelectedTickets(selectedTickets);
 
-            // Calcular o valor total
             const totalAmount = calculateTotalAmount(selectedTickets);
 
-            // Atualizar o total na página
             document.getElementById('totalAmount').textContent = `R$ ${totalAmount.toFixed(2).replace('.', ',')}`;
 
-            // Preparar os dados para enviar ao Mercado Pago
             setupMercadoPago(eventName, totalAmount, userId);
         });
 
@@ -596,7 +588,6 @@
         }
 
         function setupMercadoPago(eventName, totalAmount, userId) {
-            // Configuração do Mercado Pago aqui
 
             fetch('https://backend-ingressar.onrender.com/api/payments/create-preference', {
                 method: 'POST',
@@ -606,7 +597,7 @@
                 body: JSON.stringify({
                     eventName: eventName,
                     ticketPriceTotal: totalAmount,
-                    buyQuantity: 1, // Conforme mencionado, é fixo
+                    buyQuantity: 1,
                     userId: userId
                 })
             })

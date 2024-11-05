@@ -107,8 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Dados evento: ", event);
 
         const title = document.createElement("h2");
-        title.classList.add("text-2xl", "font-bold", "mt-4");
-        title.style.color = "text-white";
+        title.id = 'eventName'; // Adiciona o ID aqui
+        title.classList.add("text-2xl", "font-bold", "mt-4", "text-white");
         title.textContent = event.titleEvent || "Título não disponível";
 
         const date = document.createElement("p");
@@ -261,7 +261,9 @@ document.addEventListener("DOMContentLoaded", () => {
             "duration-300",
             "ease-in-out"
         );
-
+    
+        const totalPrice = parseFloat(lot.priceTicket) * (1 + parseFloat(lot.taxPriceTicket) / 100);
+    
         lotDiv.innerHTML = `
             <div class="flex justify-between items-center mb-2">
                 <h5 class="text-md font-semibold text-gray-800">${nameTicket}</h5>
@@ -269,24 +271,27 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="flex flex-col items-start mb-2">
                 <span class="text-sm text-gray-600">
-                    R$ ${parseFloat(lot.priceTicket).toFixed(2).replace('.', ',')} + Taxa: R$ ${(parseFloat(lot.priceTicket) * (lot.taxPriceTicket / 100)).toFixed(2).replace('.', ',')}
+                    R$ ${parseFloat(lot.priceTicket).toFixed(2).replace('.', ',')} + Taxa: R$ ${(parseFloat(lot.priceTicket) * (parseFloat(lot.taxPriceTicket) / 100)).toFixed(2).replace('.', ',')}
                 </span>
             </div>
             <div class="flex justify-center items-center mt-2">
                 <div class="flex items-center">
                     <button id="decrement_${lot.id}" class="bg-blue-500 text-white rounded-l-md px-3 py-1 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-red-300" style="height: 43px">-</button>
                     <input type="number"
-                            id="quantity_${lot.id}" 
-                            name="quantity_${lot.id}" 
-                            min="0" 
-                            max="${lot.amountTicket}" 
-                            value="0" 
-                            class="ticket-quantity text-center w-16 px-3 py-2 bg-gray-100 text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 sm:text-sm text-right no-spinner">
+                        id="quantity_${lot.id}" 
+                        name="quantity_${lot.id}" 
+                        min="0" 
+                        max="${lot.amountTicket}" 
+                        value="0" 
+                        class="ticket-quantity text-center w-16 px-3 py-2 bg-gray-100 text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 sm:text-sm text-right no-spinner"
+                        data-ticket-id="${lot.id}"
+                        data-ticket-name="${nameTicket}"
+                        data-ticket-price="${totalPrice.toFixed(2)}">
                     <button id="increment_${lot.id}" class="bg-blue-500 text-white rounded-r-md px-3 py-1 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-green-300" style="height: 43px">+</button>
                 </div>
             </div>
         `;
-
+    
         return lotDiv;
     }
 
