@@ -67,7 +67,8 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         saveUserSession({
             id: result.id,
             name: result.name,
-            imageUrl: result.imageUrl
+            imageUrl: result.imageUrl,
+            email: result.email
         });
 
     } catch (error) {
