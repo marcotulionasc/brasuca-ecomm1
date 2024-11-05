@@ -45,12 +45,11 @@
                 checkIcon.style.width = `${size}px`;
                 checkIcon.style.height = `${size}px`;
 
-                // Se o ícone alcançar 1000px (ou qualquer tamanho grande), parar a animação e redirecionar
                 if (size >= 1000) {
                     clearInterval(interval);
                     window.location.href = "form-ticket.html";
                 }
-            }, 80); // A cada 80ms, o tamanho aumenta
+            }, 100); // Vamos manter esse intervalo de acordo com a média de processamento da API do Mercado Pago
         }
 
         // Inicia a animação ao carregar a página
