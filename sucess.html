@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento aprovado!</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Estilos iniciais do ícone */
+        #check-icon {
+            width: 50px;
+            /* Tamanho inicial fixo */
+            height: 50px;
+            /* Tamanho inicial fixo */
+            transition: width 0.1s, height 0.1s;
+            /* Transição suave e rápida */
+            border-radius: 50%;
+            /* Mantém a forma circular */
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center h-screen bg-green-100">
+
+    <!-- Ícone de check que será animado -->
+    <div id="check-icon" class="bg-green-500 text-white flex items-center justify-center">
+        <!-- SVG de check -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd" />
+        </svg>
+    </div>
+
+    <!-- Script para aumentar o ícone gradualmente e redirecionar -->
+    <script>
+        function animateProgress() {
+            const checkIcon = document.getElementById('check-icon');
+            let size = 50; // Começa com 50px
+
+            // Intervalo para aumentar o tamanho do ícone
+            const interval = setInterval(() => {
+                size += 13; // Aumenta o tamanho em 15px a cada intervalo
+                checkIcon.style.width = `${size}px`;
+                checkIcon.style.height = `${size}px`;
+
+                // Se o ícone alcançar 1000px (ou qualquer tamanho grande), parar a animação e redirecionar
+                if (size >= 1000) {
+                    clearInterval(interval);
+                    window.location.href = "form-ticket.html";
+                }
+            }, 80); // A cada 80ms, o tamanho aumenta
+        }
+
+        // Inicia a animação ao carregar a página
+        window.onload = animateProgress;
+    </script>
+</body>
+
+</html>
