@@ -13,7 +13,9 @@
             transition: width 0.1s, height 0.1s;
             border-radius: 50%;
         }
-        body, html {
+
+        body,
+        html {
             overflow: visible;
         }
     </style>
@@ -31,7 +33,54 @@
     </div>
 
     <script>
+        function savePaymentInDatabase() {
+            const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
+            const userData = JSON.parse(localStorage.getItem('user'));
+            const userId = userData?.user?.id;
+
+            if (!userId) {
+                console.error("User ID is missing. Cannot save payment.");
+                return Promise.resolve();
+            }
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const eventName = localStorage.getItem('eventName') || 'Nome do Evento Não Encontrado';
+            const totalAmount = calculateTotalAmount(selectedTickets);
+
+            const paymentData = {
+                userId: userId,
+                name: name,
+                email: email,
+                eventName: eventName,
+                totalAmount: totalAmount,
+                selectedTickets: selectedTickets.map(ticket => ({
+                    ticketId: ticket.ticketId || ticket.id,
+                    lotId: ticket.lotId || ticket.lot_id,
+                    quantity: ticket.quantity
+                }))
+            };
+
+            return fetch('https://backend-ingressar.onrender.com/api/payments/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(paymentData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Pagamento salvo com sucesso:', data);
+                })
+                .catch(error => {
+                    console.error('Erro ao salvar pagamento:', error);
+                });
+        }
+
         function animateProgress() {
+            // Chamar savePaymentInDatabase() no início da animação
+            savePaymentInDatabase();
+
             const checkIcon = document.getElementById('check-icon');
             let size = 50;
 
@@ -42,11 +91,10 @@
 
                 if (size >= 1000) {
                     clearInterval(interval);
-
+                    // Redirecionar após a animação terminar, se necessário
+                    window.location.href = "form-ticket.html";
                 }
             }, 100);
-
-           window.location.href = "form-ticket.html";
         }
 
         window.onload = animateProgress;

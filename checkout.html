@@ -617,14 +617,7 @@
                         autoOpen: false,
                         onPaymentApproved: (payment) => {
                             console.log('Pagamento aprovado:', payment);
-                            savePaymentInDatabase().then(() => {
-
-                                window.location.href = "success.html";
-                            }).catch(error => {
-                                console.error('Erro ao salvar pagamento:', error);
-
-                                window.location.href = "success.html";
-                            });
+                            window.location.href = "success.html";
                         }
                     });
 
@@ -634,49 +627,8 @@
                 });
         }
 
-        function savePaymentInDatabase() {
-            const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
-            const userData = JSON.parse(localStorage.getItem('user'));
-            const userId = userData?.user?.id;
 
-            if (!userId) {
-                console.error("User ID is missing. Cannot save payment.");
-                return Promise.resolve();
-            }
 
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const eventName = localStorage.getItem('eventName') || 'Nome do Evento Não Encontrado';
-            const totalAmount = calculateTotalAmount(selectedTickets);
-
-            const paymentData = {
-                userId: userId,
-                name: name,
-                email: email,
-                eventName: eventName,
-                totalAmount: totalAmount,
-                selectedTickets: selectedTickets.map(ticket => ({
-                    ticketId: ticket.ticketId || ticket.id,
-                    lotId: ticket.lotId || ticket.lot_id,
-                    quantity: ticket.quantity
-                }))
-            };
-
-            return fetch('https://backend-ingressar.onrender.com/api/payments/save', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(paymentData)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Pagamento salvo com sucesso:', data);
-                })
-                .catch(error => {
-                    console.error('Erro ao salvar pagamento:', error);
-                });
-        }
     </script>
 
 </body>
