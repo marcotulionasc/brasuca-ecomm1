@@ -229,22 +229,22 @@
                 </div>
             </div>
             <div class="flex items-center space-x-4 mr-10">
-                <button type="button"
+                <button type="button" onclick="openModal('cadastroModal')"
                     class="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 toggle-cadastro">
                     <i class="bi bi-person-plus-fill text-xl mr-2"></i>
                     Criar Conta
                 </button>
-                <button type="button"
+                <button type="button" onclick="openModal('loginModal')"
                     class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition duration-300 toggle-login">
                     <i class="bi bi-person-fill text-xl mr-2"></i>
                     Entrar
                 </button>
                 <div class="flex items-center space-x-2">
-                    <div id="profileImageContainer"
-                        class="bg-blue-500 rounded-full w-10 h-10 flex items-center justify-center">
+                    <div id="profileImageContainerDesktop"
+                        class="profile-image bg-blue-500 rounded-full w-10 h-10 flex items-center justify-center">
                         <!-- Espaço para a foto de perfil -->
                     </div>
-                    <span id="userGreeting">Olá, Visitante</span>
+                    <span id="userGreetingDesktop">Olá, Visitante</span>
                 </div>
                 <div x-data="{ cartOpen: false }" class="relative">
                     <button @click="cartOpen = true"
@@ -293,14 +293,14 @@
             </div>
 
             <div id="eventDetailsContainer" class="bg-gray-900 rounded-lg shadow-md p-6">
-            
+
             </div>
 
             <div id="ticketOptions" class="mt-8">
-            
+
             </div>
             <div id="checkoutSection" class="mt-8">
-            
+
             </div>
         </div>
 
@@ -526,7 +526,7 @@
 
                 window.location.href = 'checkout.html';
             } else {
-               
+
                 alert('Você precisa estar logado para continuar.');
                 window.location.href = 'index.html';
             }
