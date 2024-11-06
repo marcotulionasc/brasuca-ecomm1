@@ -43,8 +43,10 @@
                 return Promise.resolve();
             }
 
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
+            // Obter name e email do localStorage
+            const name = userData.user.name || '';
+            const email = userData.user.email || '';
+
             const eventName = localStorage.getItem('eventName') || 'Nome do Evento Não Encontrado';
             const totalAmount = calculateTotalAmount(selectedTickets);
 
