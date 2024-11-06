@@ -26,7 +26,6 @@ window.onclick = function (event) {
     }
 };
 
-// Funções específicas para abrir/fechar o modal de busca
 function openSearchModal() {
     openModal('searchModal');
 }

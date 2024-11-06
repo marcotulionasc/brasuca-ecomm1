@@ -222,16 +222,16 @@
                 </div>
             </div>
             <div class="flex items-center space-x-4 mr-10">
-                <button type="button"
-                    class="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 toggle-cadastro">
-                    <i class="bi bi-person-plus-fill text-xl mr-2"></i>
-                    Criar Conta
-                </button>
-                <button type="button"
-                    class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition duration-300 toggle-login">
-                    <i class="bi bi-person-fill text-xl mr-2"></i>
-                    Entrar
-                </button>
+                <button type="button" onclick="openModal('cadastroModal')"
+            class="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 toggle-cadastro">
+            <i class="bi bi-person-plus-fill text-xl mr-2"></i>
+            Criar Conta
+        </button>
+        <button type="button" onclick="openModal('loginModal')"
+            class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition duration-300 toggle-login">
+            <i class="bi bi-person-fill text-xl mr-2"></i>
+            Entrar
+        </button>
                 <div class="flex items-center space-x-2">
                     <div id="profileImageContainer"
                         class="bg-blue-500 rounded-full w-10 h-10 flex items-center justify-center">
@@ -280,7 +280,6 @@
                 </div>
             </div>
         </header>
-
 
         <div id="loginModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
             <div class="flex items-center justify-center min-h-screen">

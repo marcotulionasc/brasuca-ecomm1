@@ -79,25 +79,33 @@ a:hover {
 .custom-swiper-pagination .swiper-pagination-bullet {
     width: 32px;
     height: 12px;
-    background-color: #ccc; /* Cor de fundo padrão */
-    opacity: 1; /* Remova a transparência padrão */
-    border-radius: 15px; /* Torne os bullets redondos */
-    margin: 0 4px; /* Espaçamento entre os bullets */
-    transition: background-color 0.3s ease; /* Transição suave ao alterar a cor */
+    background-color: #ccc;
+    /* Cor de fundo padrão */
+    opacity: 1;
+    /* Remova a transparência padrão */
+    border-radius: 15px;
+    /* Torne os bullets redondos */
+    margin: 0 4px;
+    /* Espaçamento entre os bullets */
+    transition: background-color 0.3s ease;
+    /* Transição suave ao alterar a cor */
 }
 
 /* Estilos para o bullet ativo */
 .custom-swiper-pagination .swiper-pagination-bullet-active {
-    background-color: #ff8800; /* Cor de fundo do bullet ativo */
+    background-color: #ff8800;
+    /* Cor de fundo do bullet ativo */
 }
 
 /* Posicionamento da paginação */
 .swiper-container .swiper-pagination {
     position: absolute;
-    bottom: 10px; /* Ajuste a posição vertical conforme necessário */
+    bottom: 10px;
+    /* Ajuste a posição vertical conforme necessário */
     left: 50%;
     transform: translateX(-50%);
-    z-index: 10; /* Garante que a paginação fique sobre a imagem */
+    z-index: 10;
+    /* Garante que a paginação fique sobre a imagem */
 }
 
 .title-custom {
@@ -122,7 +130,7 @@ a:hover {
     width: 100%;
     justify-content: center;
     padding-bottom: 50px;
-    
+
 }
 
 .zoom-on-hover {
@@ -171,7 +179,7 @@ a:hover {
     font-weight: bold;
     width: 300px;
     height: 70px;
-    
+
 }
 
 .vermais-button:hover {
@@ -195,7 +203,7 @@ a:hover {
 }
 
 
-.ajusta-tamanho-whey{
+.ajusta-tamanho-whey {
     width: 100%;
     height: 100%;
     object-fit: cover;
