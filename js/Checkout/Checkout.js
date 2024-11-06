@@ -1,5 +1,5 @@
 import config from '../Configuration.js';
-import { updatePriceAndQuantity } from './TicketTotal.js'; // Importação do novo arquivo
+import { updatePriceAndQuantity } from './TicketTotal.js';
 
 const getBaseUrl = config.getBaseUrl();
 
@@ -107,20 +107,20 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Dados evento: ", event);
 
         const title = document.createElement("h2");
-        title.id = 'eventName'; // Adiciona o ID aqui
+        title.id = 'eventName';
         title.classList.add("text-2xl", "font-bold", "mt-4", "text-white");
         title.textContent = event.titleEvent || "Título não disponível";
 
         const date = document.createElement("p");
-        date.style.color = "text-white";
+        date.classList.add("text-white");
         date.textContent = event.date ? new Date(event.date).toLocaleDateString() : "Data não disponível";
 
         const address = document.createElement("p");
-        address.style.color = "text-white";
+        address.classList.add("text-white");
         address.textContent = event.local || "Local não disponível";
 
         const description = document.createElement("p");
-        description.style.color = "text-white";
+        description.classList.add("text-white");
         description.textContent = event.description || "Descrição não disponível";
 
         container.appendChild(title);
@@ -156,7 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderTickets(tickets, tenantId, eventId) {
         ticketOptions.innerHTML = '';
 
-        // Agrupar tickets por areaTicket
         const ticketsByArea = {};
 
         tickets.forEach(ticket => {
@@ -167,13 +166,11 @@ document.addEventListener("DOMContentLoaded", () => {
             ticketsByArea[area].push(ticket);
         });
 
-        // Para cada areaTicket, criar um único elemento de ticket
         for (const area in ticketsByArea) {
             const ticketsInArea = ticketsByArea[area];
             const ticketDiv = createTicketElement(area);
             ticketOptions.appendChild(ticketDiv);
 
-            // Passar todos os tickets dessa área para fetchLotsForArea
             fetchLotsForArea(tenantId, eventId, ticketsInArea, ticketDiv, area);
         }
     }
@@ -186,7 +183,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "rounded-lg",
             "shadow-lg",
             "text-white",
-
         );
 
         const areaId = areaTicket.replace(/\s+/g, '_');
@@ -196,8 +192,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 <h3 class="text-lg font-bold">${areaTicket}</h3>
             </div>
             <p class="mt-4 text-sm">Selecione os ingressos disponíveis nesta área:</p>
-            <details id="lots_${areaId}" class="bg-white text-black rounded-lg p-4 shadow-sm">
-                <summary class="font-semibold cursor-pointer hover:text-indigo-500 bg-gray-100 p-2 rounded-lg transition duration-300 ease-in-out">
+            <details id="lots_${areaId}" class="bg-gray-800 text-white rounded-lg p-4 shadow-sm">
+                <summary class="font-semibold cursor-pointer hover:text-indigo-500 bg-gray-950 p-2 rounded-lg transition duration-300 ease-in-out">
                     Ver ingressos
                 </summary>
                 <div id="tickets_container_${areaId}"></div>
@@ -226,11 +222,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const lots = JSON.parse(text);
 
-                // Filtrar lotes ativos
                 const activeLots = lots.filter(lot => lot.isLotActive === "ACTIVE");
 
                 if (activeLots.length > 0) {
-                    // Ordenar lotes ativos pela data de criação
                     activeLots.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
                     const firstLot = activeLots[0];
@@ -251,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function createLotElement(lot, nameTicket) {
         const lotDiv = document.createElement("div");
         lotDiv.classList.add(
-            "bg-gray-50",
+            "bg-gray-950",
             "rounded-xl",
             "shadow-lg",
             "p-4",
@@ -261,16 +255,16 @@ document.addEventListener("DOMContentLoaded", () => {
             "duration-300",
             "ease-in-out"
         );
-    
+
         const totalPrice = parseFloat(lot.priceTicket) * (1 + parseFloat(lot.taxPriceTicket) / 100);
-    
+
         lotDiv.innerHTML = `
             <div class="flex justify-between items-center mb-2">
-                <h5 class="text-md font-semibold text-gray-800">${nameTicket}</h5>
-                <h6 class="text-md text-gray-800">${lot.nameLot}</h6>
+                <h5 class="text-md font-semibold text-white">${nameTicket}</h5>
+                <h6 class="text-md text-white">${lot.nameLot}</h6>
             </div>
             <div class="flex flex-col items-start mb-2">
-                <span class="text-sm text-gray-600">
+                <span class="text-sm text-gray-200">
                     R$ ${parseFloat(lot.priceTicket).toFixed(2).replace('.', ',')} + Taxa: R$ ${(parseFloat(lot.priceTicket) * (parseFloat(lot.taxPriceTicket) / 100)).toFixed(2).replace('.', ',')}
                 </span>
             </div>
@@ -283,7 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         min="0" 
                         max="${lot.amountTicket}" 
                         value="0" 
-                        class="ticket-quantity text-center w-16 px-3 py-2 bg-gray-100 text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 sm:text-sm text-right no-spinner"
+                        class="ticket-quantity text-center w-16 px-3 py-2 bg-gray-950 text-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 sm:text-sm text-right no-spinner"
                         data-ticket-id="${lot.id}"
                         data-ticket-name="${nameTicket}"
                         data-ticket-price="${totalPrice.toFixed(2)}">
@@ -291,7 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             </div>
         `;
-    
+
         return lotDiv;
     }
 
@@ -329,7 +323,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (tenantId && eventId) {
         fetchEventDetails(tenantId, eventId);
         viewDetails(tenantId, eventId);
-        // fetchEventConfiguration(tenantId, eventId); // Certifique-se de que esta função exista
     } else {
         console.error('Parâmetros tenantId e eventId não encontrados na URL.');
     }
