@@ -572,9 +572,9 @@
                 ticketDiv.classList.add('flex', 'justify-between', 'py-2', 'border-b', 'border-gray-700');
 
                 ticketDiv.innerHTML = `
-        <p class="text-white">${ticket.quantity}x ${ticket.name}</p>
-        <p class="text-white">R$ ${(ticket.price * ticket.quantity).toFixed(2).replace('.', ',')}</p>
-    `;
+            <p class="text-white">${ticket.quantity}x ${ticket.name}</p>
+            <p class="text-white">R$ ${(ticket.price * ticket.quantity).toFixed(2).replace('.', ',')}</p>
+        `;
 
                 ticketsContainer.appendChild(ticketDiv);
             });
@@ -613,10 +613,18 @@
                             container: '#button-checkout',
                             label: 'Pagar',
                         },
-                        redirectMode: 'modal', // Usar o modo modal
+                        redirectMode: 'modal',
+                        autoOpen: false,
                         onPaymentApproved: (payment) => {
                             console.log('Pagamento aprovado:', payment);
-                            savePaymentInDatabase();
+                            savePaymentInDatabase().then(() => {
+
+                                window.location.href = "success.html";
+                            }).catch(error => {
+                                console.error('Erro ao salvar pagamento:', error);
+
+                                window.location.href = "success.html";
+                            });
                         }
                     });
 
@@ -633,7 +641,7 @@
 
             if (!userId) {
                 console.error("User ID is missing. Cannot save payment.");
-                return;
+                return Promise.resolve();
             }
 
             const name = document.getElementById('name').value;
@@ -654,7 +662,7 @@
                 }))
             };
 
-            fetch('http://backend-ingressar.onrender.com/api/payments/save', {
+            return fetch('https://backend-ingressar.onrender.com/api/payments/save', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -664,13 +672,9 @@
                 .then(response => response.json())
                 .then(data => {
                     console.log('Pagamento salvo com sucesso:', data);
-                    // Redirecionar para a página de sucesso
-                    window.location.href = "success.html";
                 })
                 .catch(error => {
                     console.error('Erro ao salvar pagamento:', error);
-                    // Mesmo em caso de erro, redirecionar
-                    window.location.href = "success.html";
                 });
         }
     </script>
