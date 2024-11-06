@@ -35,5 +35,18 @@ window.onload = function () {
     }
 };
 
+document.addEventListener('DOMContentLoaded', () => {
+
+    const cpfInput = document.getElementById('cadastroCPF');
+    if (cpfInput) {
+        cpfInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            e.target.value = value;
+        });
+    }
+});
 
 
