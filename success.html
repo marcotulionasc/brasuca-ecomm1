@@ -43,72 +43,72 @@
         }
 
         function savePaymentInDatabase() {
-            try {
-                const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
-                console.log('selectedTickets:', selectedTickets);
+    try {
+        const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
+        console.log('selectedTickets:', selectedTickets);
 
-                const userData = JSON.parse(localStorage.getItem('user'));
-                const userId = userData?.user?.id;
+        const userData = JSON.parse(localStorage.getItem('user'));
+        const userId = userData?.user?.id;
 
-                if (!userId) {
-                    console.error("User ID is missing. Cannot save payment.");
-                    return;
-                }
-
-                const name = userData.user.name || '';
-                const email = userData.user.email || '';
-
-                const totalAmount = calculateTotalAmount(selectedTickets);
-
-                const paymentData = {
-                    userId: userId,
-                    name: name,
-                    email: email,
-                    eventId: eventId,
-                    tenantId: tenantId,
-                    totalAmount: totalAmount,
-                    selectedTickets: selectedTickets.map(ticket => ({
-                        ticketId: ticket.ticketId || ticket.id,
-                        quantity: ticket.quantity
-                    }))
-                };
-
-                fetch('https://backend-ingressar.onrender.com/api/payments/save', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(paymentData)
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Pagamento salvo com sucesso:', data);
-                    })
-                    .catch(error => {
-                        console.error('Erro ao salvar pagamento (ignorado):', error);
-                    });
-            } catch (error) {
-                console.error('Erro ao processar pagamento (ignorado):', error);
-            }
+        if (!userId) {
+            console.error("User ID is missing. Cannot save payment.");
+            return;
         }
 
-        function animateProgress() {
-            savePaymentInDatabase();
+        const name = userData.user.name || '';
+        const email = userData.user.email || '';
 
-            const checkIcon = document.getElementById('check-icon');
-            let size = 50;
+        const totalAmount = calculateTotalAmount(selectedTickets);
 
-            const interval = setInterval(() => {
-                size += 25;
-                checkIcon.style.width = `${size}px`;
-                checkIcon.style.height = `${size}px`;
+        const paymentData = {
+            userId: userId,
+            name: name,
+            email: email,
+            eventId: eventId,
+            tenantId: tenantId,
+            totalAmount: totalAmount,
+            selectedTickets: selectedTickets.map(ticket => ({
+                ticketId: ticket.ticketId || ticket.id,
+                quantity: ticket.quantity
+            }))
+        };
 
-                if (size >= 1000) {
-                    clearInterval(interval);
-                    window.location.href = "form-ticket.html"; // Redirecionamento ajustado aqui
-                }
-            }, 100);
+        fetch('https://backend-ingressar.onrender.com/api/payments/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(paymentData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Pagamento salvo com sucesso:', data);
+        })
+        .catch(error => {
+            console.error('Erro ao salvar pagamento (ignorado):', error);
+        });
+    } catch (error) {
+        console.error('Erro ao processar pagamento (ignorado):', error);
+    }
+}
+
+function animateProgress() {
+    savePaymentInDatabase();
+
+    const checkIcon = document.getElementById('check-icon');
+    let size = 50;
+
+    const interval = setInterval(() => {
+        size += 25;
+        checkIcon.style.width = `${size}px`;
+        checkIcon.style.height = `${size}px`;
+
+        if (size >= 1000) {
+            clearInterval(interval);
+            window.location.href = "form-ticket.html"; // Redirecionamento ajustado aqui
         }
+    }, 100);
+}
 
 
         window.onload = function () {
