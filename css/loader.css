@@ -23,8 +23,8 @@
 }
 
 .preloader-circle {
-    width: 130px; /* doubled from 80px */
-    height: 130px; /* doubled from 80px */
+    width: 210px; /* doubled from 80px */
+    height: 210px; /* doubled from 80px */
     border: 10px solid rgba(0, 0, 0, 0.1); /* doubled from 10px */
     border-top: 10px solid #161b14; /* doubled from 10px */
     border-radius: 50%;
