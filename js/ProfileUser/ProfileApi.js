@@ -67,7 +67,7 @@ function validateUserForm() {
         alert('Por favor, preencha o nome.');
         return false;
     }
-    if (!cpf || !/^\d{13}$/.test(cpf)) {
+    if (!cpf || !/^\d{14}$/.test(cpf)) {
         alert('Por favor, preencha um CPF válido (11 dígitos).');
         return false;
     }
