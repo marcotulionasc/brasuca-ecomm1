@@ -147,8 +147,23 @@
 
             const pdfBlob = await generatePDF(ticketData, email);
             if (pdfBlob) {
+                // Baixar o PDF antes do upload
+                downloadPDF(pdfBlob, `${email}_ticket.pdf`);
+
+                // Agora fazer o upload
                 await uploadPDF(pdfBlob, email);
             }
+        }
+
+        function downloadPDF(pdfBlob, filename) {
+            const url = URL.createObjectURL(pdfBlob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            URL.revokeObjectURL(url);
         }
 
         function animateProgress() {
