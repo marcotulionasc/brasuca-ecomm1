@@ -43,7 +43,7 @@
             const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
 
             console.log('selectedTickets:', selectedTickets);
-            
+
             const userData = JSON.parse(localStorage.getItem('user'));
             const userId = userData?.user?.id;
 
@@ -67,7 +67,6 @@
                 totalAmount: totalAmount,
                 selectedTickets: selectedTickets.map(ticket => ({
                     ticketId: ticket.ticketId || ticket.id,
-                    lotId: ticket.lotId || ticket.lot_id,
                     quantity: ticket.quantity
                 }))
             };
