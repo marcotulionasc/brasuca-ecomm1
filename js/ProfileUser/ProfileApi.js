@@ -5,7 +5,7 @@ const getBaseUrl = config.getBaseUrl();
 // Função para capturar o userId da URL
 function getUserIdFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('id'); // Supondo que o parâmetro na URL seja 'id'
+    return urlParams.get('id'); 
 }
 
 // Função para buscar os dados do usuário
@@ -112,7 +112,7 @@ async function saveUserChanges(userId) {
 
     if (!validateUserForm()) {
         return;
-    } 
+    }
 
     const tenantId = 1;
     const userApiUrl = `${getBaseUrl}/api/tenants/${tenantId}/users/${userId}`;
@@ -148,7 +148,7 @@ async function saveUserChanges(userId) {
         cpf: cpf || undefined,
         phone: phone || undefined,
         birthDate: birth_date || undefined,
-        password: password || undefined, 
+        password: password || undefined,
         imageProfileBase64: relativePath || undefined,
         address: {
             street: street || undefined,
