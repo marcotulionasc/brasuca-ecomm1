@@ -575,16 +575,28 @@
             };
         }
 
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (encodeURIComponent(value) || "") + expires + "; path=/";
+        }
+
+
         const { tenantId, eventId } = getUrlParams();
         if (tenantId && eventId) {
-             
-            localStorage.setItem('tenantId', tenantId);
-            localStorage.setItem('eventId', eventId);
+
+            setCookie('tenantId', tenantId, 1); // O cookie expira em 1 dia
+            setCookie('eventId', eventId, 1);
 
             fetchEventDetails(tenantId, eventId);
         } else {
             console.error('Parâmetros tenantId e eventId não encontrados na URL.');
         }
+
     </script>
 
 

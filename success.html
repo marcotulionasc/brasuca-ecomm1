@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <title>Pagamento aprovado!</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         /* Initial styles for the icon */
         #check-icon {
@@ -32,6 +34,22 @@
 
     <script>
 
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+            }
+            return null;
+        }
+
+        const tenantId = getCookie('tenantId');
+        const eventId = getCookie('eventId');
+
+
+
         function calculateTotalAmount(tickets) {
             return tickets.reduce((total, ticket) => total + (ticket.price * ticket.quantity), 0);
         }
@@ -39,7 +57,6 @@
 
         function savePaymentInDatabase() {
             const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
-
             console.log('selectedTickets:', selectedTickets);
 
             const userData = JSON.parse(localStorage.getItem('user'));
@@ -47,15 +64,11 @@
 
             if (!userId) {
                 console.error("User ID is missing. Cannot save payment.");
-                return Promise.resolve();
+                return;
             }
 
-            // Obter name e email do localStorage
             const name = userData.user.name || '';
             const email = userData.user.email || '';
-
-            const eventId = localStorage.getItem('eventId');
-            const tenantId = localStorage.getItem('tenantId');
 
             const totalAmount = calculateTotalAmount(selectedTickets);
 
@@ -72,7 +85,7 @@
                 }))
             };
 
-            return fetch('https://backend-ingressar.onrender.com/api/payments/save', {
+            fetch('https://backend-ingressar.onrender.com/api/payments/save', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -82,6 +95,11 @@
                 .then(response => response.json())
                 .then(data => {
                     console.log('Pagamento salvo com sucesso:', data);
+                    // Limpar cookies e localStorage após salvar
+                    document.cookie = 'tenantId=; Max-Age=0; path=/';
+                    document.cookie = 'eventId=; Max-Age=0; path=/';
+                    localStorage.removeItem('selectedTickets');
+                    localStorage.removeItem('eventName');
                 })
                 .catch(error => {
                     console.error('Erro ao salvar pagamento:', error);
@@ -108,7 +126,19 @@
             }, 100);
         }
 
-        window.onload = animateProgress;
+        window.onload = function () {
+            // Processar os parâmetros da URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const paymentStatus = urlParams.get('status');
+
+            // Verificar se o pagamento foi aprovado
+            if (paymentStatus === 'approved') {
+                animateProgress();
+            } else {
+                console.error('Pagamento não aprovado:', paymentStatus);
+                // Você pode redirecionar ou mostrar uma mensagem de erro aqui
+            }
+        };
     </script>
 </body>
 
