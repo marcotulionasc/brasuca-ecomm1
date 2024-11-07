@@ -569,8 +569,6 @@
             return tickets;
         }
 
-        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
-
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
             localStorage.setItem('tenantId', params.get('tenantId'));
