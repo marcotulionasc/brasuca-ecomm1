@@ -50,9 +50,75 @@ async function fetchUserData(userId) {
     }
 }
 
+function validateUserForm() {
+    const name = document.querySelector('input[name="name"]').value.trim();
+    const cpf = document.querySelector('input[name="cpf"]').value.trim();
+    const email = document.querySelector('input[name="email"]').value.trim();
+    const phone = document.querySelector('input[name="phone"]').value.trim();
+    const birth_date = document.querySelector('input[name="birth_date"]').value.trim();
+    const street = document.querySelector('input[name="street"]').value.trim();
+    const number_address = document.querySelector('input[name="number_address"]').value.trim();
+    const cep = document.querySelector('input[name="cep"]').value.trim();
+    const uf = document.querySelector('input[name="uf"]').value.trim();
+    const city = document.querySelector('input[name="city"]').value.trim();
+    const neighborhood = document.querySelector('input[name="neighborhood"]').value.trim();
+
+    if (!name) {
+        alert('Por favor, preencha o nome.');
+        return false;
+    }
+    if (!cpf || !/^\d{11}$/.test(cpf)) {
+        alert('Por favor, preencha um CPF válido (11 dígitos).');
+        return false;
+    }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert('Por favor, preencha um email válido.');
+        return false;
+    }
+    if (!phone || !/^\d{10,11}$/.test(phone)) {
+        alert('Por favor, preencha um telefone válido (10 ou 11 dígitos).');
+        return false;
+    }
+    if (!birth_date) {
+        alert('Por favor, preencha a data de nascimento.');
+        return false;
+    }
+    if (!street) {
+        alert('Por favor, preencha a rua.');
+        return false;
+    }
+    if (!number_address) {
+        alert('Por favor, preencha o número do endereço.');
+        return false;
+    }
+    if (!cep || !/^\d{8}$/.test(cep)) {
+        alert('Por favor, preencha um CEP válido (8 dígitos).');
+        return false;
+    }
+    if (!uf || uf.length !== 2) {
+        alert('Por favor, preencha um UF válido (2 caracteres).');
+        return false;
+    }
+    if (!city) {
+        alert('Por favor, preencha a cidade.');
+        return false;
+    }
+    if (!neighborhood) {
+        alert('Por favor, preencha o bairro.');
+        return false;
+    }
+
+    return true;
+}
+
 // Função para salvar as alterações do usuário
 async function saveUserChanges(userId) {
-    const tenantId = 1; // Supondo que o tenantId seja 1
+
+    if (!validateUserForm()) {
+        return;
+    } 
+
+    const tenantId = 1;
     const userApiUrl = `${getBaseUrl}/api/tenants/${tenantId}/users/${userId}`;
 
     // Obter os valores dos campos
@@ -86,7 +152,7 @@ async function saveUserChanges(userId) {
         cpf: cpf || undefined,
         phone: phone || undefined,
         birthDate: birth_date || undefined,
-        password: password || undefined, // Incluindo o campo de senha
+        password: password || undefined, 
         imageProfileBase64: relativePath || undefined,
         address: {
             street: street || undefined,
@@ -95,7 +161,7 @@ async function saveUserChanges(userId) {
             cep: cep || undefined,
             uf: uf || undefined,
             city: city || undefined,
-            neighborhood: neighborhood || undefined // Incluindo bairro
+            neighborhood: neighborhood || undefined
         }
     };
 
@@ -110,7 +176,7 @@ async function saveUserChanges(userId) {
 
         if (response.ok) {
             alert('Seus dados foram alterados com sucesso!');
-            window.location.reload();
+            window.location.href = 'index.html';
         } else {
             console.error('Erro ao atualizar o usuário:', response.statusText);
             alert('Erro ao atualizar o usuário.');
@@ -136,7 +202,7 @@ async function uploadProfileImage(file) {
         if (response.ok) {
             const result = await response.json();
             const profileImg = document.querySelector('.profile-img');
-            profileImg.src = `${getBaseUrl}${result.filePath}`; // Atualiza a imagem no frontend
+            profileImg.src = `${getBaseUrl}${result.filePath}`;
             alert(`Imagem de perfil atualizada com sucesso!`);
         } else {
             console.error('Erro ao fazer upload da imagem:', response.statusText);

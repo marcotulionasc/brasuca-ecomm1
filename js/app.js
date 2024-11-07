@@ -49,4 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+function redirectToHome() {
+    window.location.href = 'index.html';
+}
+
 

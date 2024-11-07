@@ -229,7 +229,7 @@
         <!-- Desktop Header -->
         <header class="p-3 hidden md:flex justify-between items-center bg-gray-950">
             <div class="flex items-center space-x-6 ml-10">
-                <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-28">
+                <img src="img/logo/logo-ingressar.png" alt="Logo" class="w-28" onclick="redirectToHome()">
                 <div class="relative w-64 lg:w-96">
                     <input type="text" placeholder="Buscar eventos, artistas, etc..."
                         class="w-full h-12 pl-4 pr-12 rounded-full bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -262,13 +262,15 @@
         </header>
 
 
-        <!-- Main Content -->
-        <main class="max-w-6xl mx-auto p-4 text-white">
-            <h1>Parabéns! Você acabou de obter seus ingressos!</h1>
-            <p>Seu pagamento foi aprovado e seus ingressos foram reservados com sucesso.</p>
-
-            <p>Você será redirecionado para a tela de início em <span id="countdown">5</span> segundos.</p>
-            <button id="redirectButton" onclick="redirectToHome()">Ir agora</button>
+        <main class="max-w-4xl mx-auto p-8 text-center text-white">
+            <h1 class="text-4xl font-bold mb-4">Parabéns! Você acabou de obter seus ingressos!</h1>
+            <p class="text-xl mb-6">Seu pagamento foi aprovado e seus ingressos foram reservados com sucesso.</p>
+            <p class="text-lg mb-6">Você será redirecionado para a tela de início em <span id="countdown">5</span>
+                segundos.</p>
+            <button id="redirectButton" onclick="redirectToHome()"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Ir agora
+            </button>
         </main>
 
         <!-- Footer -->
@@ -484,7 +486,7 @@
 
     <script>
 
-        let countdownNumber = 5;
+        let countdownNumber = 7;
         const countdownElement = document.getElementById('countdown');
 
         const countdownInterval = setInterval(() => {
