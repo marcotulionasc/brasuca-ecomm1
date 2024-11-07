@@ -41,6 +41,9 @@
 
         function savePaymentInDatabase() {
             const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
+
+            console.log('selectedTickets:', selectedTickets);
+            
             const userData = JSON.parse(localStorage.getItem('user'));
             const userId = userData?.user?.id;
 
@@ -100,7 +103,7 @@
                 if (size >= 1000) {
                     clearInterval(interval);
                     // Redirecionar após a animação terminar, se necessário
-                    window.location.href = "form-ticket.html";
+                    // Window.location.href = "form-ticket.html";
                 }
             }, 100);
         }
