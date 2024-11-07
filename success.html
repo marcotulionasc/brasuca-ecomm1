@@ -32,9 +32,13 @@
         </svg>
     </div>
 
-    <script src="js/Checkout/TicketTotal.js"></script>
-
     <script>
+
+        function calculateTotalAmount(tickets) {
+            return tickets.reduce((total, ticket) => total + (ticket.price * ticket.quantity), 0);
+        }
+
+
         function savePaymentInDatabase() {
             const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
             const userData = JSON.parse(localStorage.getItem('user'));
