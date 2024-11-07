@@ -54,12 +54,8 @@
             const name = userData.user.name || '';
             const email = userData.user.email || '';
 
-            const eventName = localStorage.getItem('eventName') || 'Nome do Evento Não Encontrado';
-
-            const eventTitleElement = document.getElementById('eventName');
-            if (eventTitleElement) {
-                eventTitleElement.textContent = eventName;
-            }
+            const eventId = localStorage.getItem('eventId');
+            const tenantId = localStorage.getItem('tenantId');
 
             const totalAmount = calculateTotalAmount(selectedTickets);
 
@@ -67,7 +63,8 @@
                 userId: userId,
                 name: name,
                 email: email,
-                eventName: eventName,
+                eventId: eventId,
+                tenantId: tenantId,
                 totalAmount: totalAmount,
                 selectedTickets: selectedTickets.map(ticket => ({
                     ticketId: ticket.ticketId || ticket.id,
