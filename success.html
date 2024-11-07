@@ -42,55 +42,57 @@
             return tickets.reduce((total, ticket) => total + (ticket.price * ticket.quantity), 0);
         }
 
-
         function savePaymentInDatabase() {
-            const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
-            console.log('selectedTickets:', selectedTickets);
+            try {
+                const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
+                console.log('selectedTickets:', selectedTickets);
 
-            const userData = JSON.parse(localStorage.getItem('user'));
-            const userId = userData?.user?.id;
+                const userData = JSON.parse(localStorage.getItem('user'));
+                const userId = userData?.user?.id;
 
-            if (!userId) {
-                console.error("User ID is missing. Cannot save payment.");
-                return;
-            }
+                if (!userId) {
+                    console.error("User ID is missing. Cannot save payment.");
+                    return;
+                }
 
-            const name = userData.user.name || '';
-            const email = userData.user.email || '';
+                const name = userData.user.name || '';
+                const email = userData.user.email || '';
 
-            const totalAmount = calculateTotalAmount(selectedTickets);
+                const totalAmount = calculateTotalAmount(selectedTickets);
 
-            const paymentData = {
-                userId: userId,
-                name: name,
-                email: email,
-                eventId: eventId,
-                tenantId: tenantId,
-                totalAmount: totalAmount,
-                selectedTickets: selectedTickets.map(ticket => ({
-                    ticketId: ticket.ticketId || ticket.id,
-                    quantity: ticket.quantity
-                }))
-            };
+                const paymentData = {
+                    userId: userId,
+                    name: name,
+                    email: email,
+                    eventId: eventId,
+                    tenantId: tenantId,
+                    totalAmount: totalAmount,
+                    selectedTickets: selectedTickets.map(ticket => ({
+                        ticketId: ticket.ticketId || ticket.id,
+                        quantity: ticket.quantity
+                    }))
+                };
 
-            fetch('https://backend-ingressar.onrender.com/api/payments/save', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(paymentData)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Pagamento salvo com sucesso:', data);
+                fetch('https://backend-ingressar.onrender.com/api/payments/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(paymentData)
                 })
-                .catch(error => {
-                    console.error('Erro ao salvar pagamento:', error);
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Pagamento salvo com sucesso:', data);
+                    })
+                    .catch(error => {
+                        console.error('Erro ao salvar pagamento (ignorado):', error);
+                    });
+            } catch (error) {
+                console.error('Erro ao processar pagamento (ignorado):', error);
+            }
         }
 
         function animateProgress() {
-            
             savePaymentInDatabase();
 
             const checkIcon = document.getElementById('check-icon');
@@ -103,11 +105,11 @@
 
                 if (size >= 1000) {
                     clearInterval(interval);
-                    
-                    //Window.location.href = "form-ticket.html";
+                    window.location.href = "form-ticket.html"; // Redirecionamento ajustado aqui
                 }
             }, 100);
         }
+
 
         window.onload = function () {
             // Processar os parâmetros da URL
