@@ -581,6 +581,9 @@
             localStorage.setItem('eventId', eventId);
             localStorage.setItem('tenantId', tenantId);
 
+            console.log('Event ID armazenado:', localStorage.getItem('eventId'));
+            console.log('Tenant ID armazenado:', localStorage.getItem('tenantId'));
+
             fetchEventDetails(tenantId, eventId);
         } else {
             console.error('Parâmetros tenantId e eventId não encontrados na URL.');
