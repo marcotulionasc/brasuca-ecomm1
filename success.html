@@ -9,11 +9,11 @@
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- Import pdf-lib and qrcode libraries from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.4.4/qrcode.min.js"></script>
 
     <style>
-        /* Initial styles for the icon */
         #check-icon {
             width: 50px;
             height: 50px;
@@ -29,14 +29,13 @@
 </head>
 
 <body class="flex items-center justify-center h-screen bg-green-100 overflow-visible">
-    <!-- Check icon to be animated -->
     <div id="check-icon" class="bg-green-500 text-white flex items-center justify-center">
-        <!-- SVG of the checkmark -->
         <i class="fas fa-check fa-3x"></i>
     </div>
 
     <script>
         async function generatePDF(ticketData, email) {
+            const { PDFDocument, rgb } = window.pdfLib; // Acessa PDFDocument da biblioteca pdf-lib carregada do CDN
             const pdfDoc = await PDFDocument.create();
 
             for (const ticket of ticketData) {
@@ -165,7 +164,7 @@
 
                 if (size >= 1000) {
                     clearInterval(interval);
-                    //window.location.href = "form-ticket.html";
+                    window.location.href = "form-ticket.html";
                 }
             }, 100);
         }
@@ -181,7 +180,6 @@
             }
         };
     </script>
-
 </body>
 
 </html>
