@@ -57,6 +57,12 @@
             const email = userData.user.email || '';
 
             const eventName = localStorage.getItem('eventName') || 'Nome do Evento Não Encontrado';
+
+            const eventTitleElement = document.getElementById('eventName');
+            if (eventTitleElement) {
+                eventTitleElement.textContent = eventName;
+            }
+
             const totalAmount = calculateTotalAmount(selectedTickets);
 
             const paymentData = {
