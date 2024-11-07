@@ -83,11 +83,6 @@
                 .then(response => response.json())
                 .then(data => {
                     console.log('Pagamento salvo com sucesso:', data);
-                    // Limpar cookies e localStorage após salvar
-                    document.cookie = 'tenantId=; Max-Age=0; path=/';
-                    document.cookie = 'eventId=; Max-Age=0; path=/';
-                    localStorage.removeItem('selectedTickets');
-                    localStorage.removeItem('eventName');
                 })
                 .catch(error => {
                     console.error('Erro ao salvar pagamento:', error);
