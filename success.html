@@ -9,8 +9,10 @@
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Import pdf-lib and qrcode libraries from CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <!-- Inclua a biblioteca pdf-lib aqui -->
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <!-- Inclua a biblioteca QRCode se estiver usando -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.4.4/qrcode.min.js"></script>
 
     <style>
@@ -35,7 +37,7 @@
 
     <script>
         async function generatePDF(ticketData, email) {
-            const { PDFDocument, rgb } = window.pdfLib; // Acessa PDFDocument da biblioteca pdf-lib carregada do CDN
+            const { PDFDocument, rgb } = PDFLib; // Acessa PDFDocument da biblioteca pdf-lib carregada do CDN
             const pdfDoc = await PDFDocument.create();
 
             for (const ticket of ticketData) {
