@@ -567,26 +567,21 @@
         }
 
         document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
+            localStorage.setItem('tenantId', params.get('tenantId'));
+            localStorage.setItem('eventId', params.get('eventId'));
+
+            console.log('Parâmetros da URL:', {
+                tenantId: params.get('tenantId'),
+                eventId: params.get('eventId')
+            });
+
             return {
                 tenantId: params.get('tenantId'),
                 eventId: params.get('eventId')
             };
-        }
-
-        const { tenantId, eventId } = getUrlParams();
-        if (tenantId && eventId) {
-
-            localStorage.setItem('eventId', eventId);
-            localStorage.setItem('tenantId', tenantId);
-
-            console.log('Event ID armazenado:', localStorage.getItem('eventId'));
-            console.log('Tenant ID armazenado:', localStorage.getItem('tenantId'));
-
-            fetchEventDetails(tenantId, eventId);
-        } else {
-            console.error('Parâmetros tenantId e eventId não encontrados na URL.');
         }
 
     </script>
