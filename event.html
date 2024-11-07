@@ -508,6 +508,9 @@
 
         function checkUserIdAndRedirect() {
             const data = localStorage.getItem('user');
+
+            getUrlParams();
+
             if (data) {
                 const parsedData = JSON.parse(data);
                 console.log('Dados do usuário:', parsedData);
@@ -583,10 +586,6 @@
                 eventId: params.get('eventId')
             };
         }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            getUrlParams();
-        });
 
     </script>
 
