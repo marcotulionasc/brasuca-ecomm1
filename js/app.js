@@ -53,4 +53,93 @@ function redirectToHome() {
     window.location.href = 'index.html';
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const cadastroForm = document.getElementById('cadastroForm');
+
+    cadastroForm.addEventListener('submit', function (event) {
+        // Limpar mensagens de erro anteriores
+        const errorMessages = cadastroForm.querySelectorAll('.error-message');
+        errorMessages.forEach(msg => msg.remove());
+
+        let isValid = true;
+
+        // Validação da Senha
+        const senhaInput = document.getElementById('cadastroSenha');
+        if (senhaInput.value.length < 8) {
+            mostrarErro(senhaInput, 'A senha deve ter pelo menos 8 caracteres.');
+            isValid = false;
+        }
+
+        // Validação do CPF
+        const cpfInput = document.getElementById('cadastroCPF');
+        if (!validarCPF(cpfInput.value)) {
+            mostrarErro(cpfInput, 'CPF inválido.');
+            isValid = false;
+        }
+
+        // Você pode adicionar outras validações aqui se necessário
+
+        if (!isValid) {
+            event.preventDefault(); // Impede o envio do formulário
+        }
+    });
+
+    /**
+     * Função para mostrar mensagens de erro abaixo do campo
+     * @param {HTMLElement} input - O campo de entrada que teve o erro
+     * @param {string} mensagem - A mensagem de erro a ser exibida
+     */
+    function mostrarErro(input, mensagem) {
+        const erro = document.createElement('div');
+        erro.className = 'error-message';
+        erro.innerText = mensagem;
+        input.parentNode.appendChild(erro);
+    }
+
+    /**
+     * Função para validar CPF
+     * @param {string} strCPF - O CPF a ser validado
+     * @returns {boolean} - Retorna true se o CPF for válido, caso contrário, false
+     */
+    function validarCPF(strCPF) {
+        // Remover pontos e traço
+        strCPF = strCPF.replace(/[^\d]+/g, '');
+
+        if (strCPF.length !== 11 ||
+            /^(\d)\1{10}$/.test(strCPF)) {
+            return false;
+        }
+
+        let soma = 0;
+        let resto;
+
+        // Validação do primeiro dígito
+        for (let i = 1; i <= 9; i++) {
+            soma += parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+        }
+        resto = (soma * 10) % 11;
+        if ((resto === 10) || (resto === 11)) {
+            resto = 0;
+        }
+        if (resto !== parseInt(strCPF.substring(9, 10))) {
+            return false;
+        }
+
+        // Validação do segundo dígito
+        soma = 0;
+        for (let i = 1; i <= 10; i++) {
+            soma += parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+        }
+        resto = (soma * 10) % 11;
+        if ((resto === 10) || (resto === 11)) {
+            resto = 0;
+        }
+        if (resto !== parseInt(strCPF.substring(10, 11))) {
+            return false;
+        }
+
+        return true;
+    }
+});
+
 
