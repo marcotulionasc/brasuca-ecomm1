@@ -142,6 +142,91 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+function mobileCartComponent() {
+    return {
+        cartOpen: false,
+        isLoading: false,
+        cartItems: [],
+        cartCount: 0,
+
+        /**
+         * Abre o carrinho e busca os ingressos
+         */
+        openCart() {
+            this.cartOpen = true;
+            this.fetchCartItems();
+        },
+
+        /**
+         * Fecha o carrinho
+         */
+        closeCart() {
+            this.cartOpen = false;
+        },
+
+        /**
+         * Formata a data para um formato legível
+         * @param {string} dateString - A data no formato ISO
+         * @returns {string} - Data formatada em português
+         */
+        formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('pt-BR', options);
+        },
+
+        /**
+         * Busca os ingressos do usuário via API
+         */
+        async fetchCartItems() {
+            // Recupera o objeto 'user' do localStorage
+            const userString = localStorage.getItem('user');
+            if (!userString) {
+                this.cartItems = [];
+                this.cartCount = 0;
+                return;
+            }
+
+            let user;
+            try {
+                user = JSON.parse(userString);
+            } catch (e) {
+                console.error('Erro ao parsear o objeto user do localStorage:', e);
+                this.cartItems = [];
+                this.cartCount = 0;
+                return;
+            }
+
+            const userId = user.userId;
+            if (!userId) {
+                this.cartItems = [];
+                this.cartCount = 0;
+                return;
+            }
+
+            this.isLoading = true;
+            try {
+                const response = await fetch(`/api/user/${userId}/ticketdata`);
+                if (response.ok) {
+                    const data = await response.json();
+                    this.cartItems = data;
+                    this.cartCount = data.length;
+                } else {
+                    console.error('Erro ao buscar ingressos:', response.status);
+                    this.cartItems = [];
+                    this.cartCount = 0;
+                }
+            } catch (error) {
+                console.error('Erro na requisição:', error);
+                this.cartItems = [];
+                this.cartCount = 0;
+            } finally {
+                this.isLoading = false;
+            }
+        },
+    }
+}
+
+
 function cartComponent() {
     return {
         cartOpen: false,       // Controla a visibilidade do carrinho
