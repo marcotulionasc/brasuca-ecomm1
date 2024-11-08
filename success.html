@@ -215,7 +215,7 @@
             const ticketData = await fetchTicketData(paymentId);
             if (!ticketData) return;
 
-            const logoSrc = 'images/logo-ingressar.png'; 
+            const logoSrc = 'img/logo/logo-ingressar.png'; 
 
             const pdfBlob = await generatePDF(ticketData, email, logoSrc);
             if (pdfBlob) {
