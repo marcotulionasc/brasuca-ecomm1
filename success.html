@@ -100,7 +100,7 @@
                 yPosition -= 20; // Espaço adicional antes do QR Code
 
                 // Gerar dados do QR Code com requisição para atualizar status
-                const qrCodeData = `https://seuapi.com/updateStatus?ticketId=${ticket.idIngresso}&status=AUTHORIZED`;
+                const qrCodeData = `https://backend-ingressar.onrender.com/updateStatus?ticketId=${ticket.idIngresso}&status=AUTHORIZED`;
                 const qrCodeImageUrl = await QRCode.toDataURL(qrCodeData);
                 const qrCodeImage = await pdfDoc.embedPng(qrCodeImageUrl);
 
@@ -112,7 +112,6 @@
                     height: 100,
                 });
 
-                // Elementos decorativos (linhas superior e inferior)
                 page.drawLine({
                     start: { x: 20, y: 20 },
                     end: { x: page.getWidth() - 20, y: 20 },
@@ -215,27 +214,32 @@
             const ticketData = await fetchTicketData(paymentId);
             if (!ticketData) return;
 
-            const logoSrc = 'img/logo/logo-ingressar.png'; 
-
+            const logoSrc = 'img/logo/logo-ingressar.png';
             const pdfBlob = await generatePDF(ticketData, email, logoSrc);
-            if (pdfBlob) {
-                // Baixar o PDF antes do upload
-                downloadPDF(pdfBlob, `${email}_ticket.pdf`);
 
-                // Agora fazer o upload
-                await uploadPDF(pdfBlob, email);
+            if (pdfBlob) {
+                // Enviar o PDF por e-mail
+                await sendEmailWithTicket(pdfBlob, email);
             }
         }
 
-        function downloadPDF(pdfBlob, filename) {
-            const url = URL.createObjectURL(pdfBlob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            URL.revokeObjectURL(url);
+        async function sendEmailWithTicket(pdfBlob, email) {
+            const formData = new FormData();
+            formData.append('file', pdfBlob, `${email}_ticket.pdf`);
+            formData.append('email', email);
+            formData.append('subject', 'Seu ingresso para o evento');
+            formData.append('body', 'Obrigado por sua compra! Em anexo está seu ingresso.');
+
+            try {
+                const response = await fetch('https://backend-ingressar.onrender.com/api/email/send-ticket', {
+                    method: 'POST',
+                    body: formData,
+                });
+                const result = await response.json();
+                console.log('E-mail enviado com sucesso:', result);
+            } catch (error) {
+                console.error('Erro ao enviar e-mail com o ingresso:', error);
+            }
         }
 
         function animateProgress() {
@@ -245,7 +249,7 @@
             let size = 50;
 
             const interval = setInterval(() => {
-                size += 25;
+                size += 7;
                 checkIcon.style.width = `${size}px`;
                 checkIcon.style.height = `${size}px`;
 
