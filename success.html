@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -34,28 +34,98 @@
     </div>
 
     <script>
-        async function generatePDF(ticketData, email) {
-            const { PDFDocument, rgb } = PDFLib; // Acessa PDFDocument da biblioteca pdf-lib carregada do CDN
+
+        async function generatePDF(ticketData, email, logoSrc) {
+            const { PDFDocument, rgb, StandardFonts } = PDFLib;
             const pdfDoc = await PDFDocument.create();
+
+            // Carregar imagem do logotipo
+            const logoImageBytes = await fetch(logoSrc).then(res => res.arrayBuffer());
+            const logoImage = await pdfDoc.embedPng(logoImageBytes);
+            const logoDims = logoImage.scale(0.5);
+
+            // Definir cores
+            const backgroundColor = rgb(1, 1, 1); // Branco
+            const primaryColor = rgb(0.0, 0.53, 0.8); // Azul
+            const textColor = rgb(0, 0, 0); // Preto
+
+            // Fonte padrão
+            const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
             for (const ticket of ticketData) {
                 const page = pdfDoc.addPage([400, 600]);
-                const { nomeEvento, dataEvento, localEvento, nomeIngresso, areaIngresso, valorLote, taxaLote, dataCompra, nomeComprador, textoNoIngresso } = ticket;
 
-                page.drawText(`Evento: ${nomeEvento}`, { x: 50, y: 550, size: 14, color: rgb(0, 0, 0) });
-                page.drawText(`Data: ${dataEvento}`, { x: 50, y: 530, size: 12, color: rgb(0, 0, 0) });
-                page.drawText(`Local: ${localEvento}`, { x: 50, y: 510, size: 12, color: rgb(0, 0, 0) });
-                page.drawText(`Ingresso: ${nomeIngresso}`, { x: 50, y: 490, size: 12, color: rgb(0, 0, 0) });
-                page.drawText(`Área: ${areaIngresso}`, { x: 50, y: 470, size: 12, color: rgb(0, 0, 0) });
-                page.drawText(`Valor: R$${valorLote} + Taxa: R$${taxaLote}`, { x: 50, y: 450, size: 12, color: rgb(0, 0, 0) });
-                page.drawText(`Comprado por: ${nomeComprador}`, { x: 50, y: 430, size: 12, color: rgb(0, 0, 0) });
-                page.drawText(`Data da compra: ${dataCompra}`, { x: 50, y: 410, size: 12, color: rgb(0, 0, 0) });
-                page.drawText(textoNoIngresso, { x: 50, y: 390, size: 12, color: rgb(0, 0, 0) });
+                // Desenhar fundo
+                page.drawRectangle({
+                    x: 0,
+                    y: 0,
+                    width: page.getWidth(),
+                    height: page.getHeight(),
+                    color: backgroundColor,
+                });
 
-                const qrCodeData = JSON.stringify({ ticketId: ticket.idIngresso, userEmail: email });
+                // Desenhar logotipo no topo centralizado
+                page.drawImage(logoImage, {
+                    x: (page.getWidth() - logoDims.width) / 2,
+                    y: page.getHeight() - logoDims.height - 20,
+                    width: logoDims.width,
+                    height: logoDims.height,
+                });
+
+                // Posição inicial para o texto
+                let yPosition = page.getHeight() - logoDims.height - 60;
+
+                // Opções de texto
+                const textOptions = { size: 12, font: font, color: textColor };
+
+                // Detalhes do ingresso
+                const fields = [
+                    `Evento: ${ticket.nomeEvento}`,
+                    `Data: ${ticket.dataEvento}`,
+                    `Local: ${ticket.localEvento}`,
+                    `Ingresso: ${ticket.nomeIngresso}`,
+                    `Área: ${ticket.areaIngresso}`,
+                    `Valor: R$${ticket.valorLote} + Taxa: R$${ticket.taxaLote}`,
+                    `Comprado por: ${ticket.nomeComprador}`,
+                    `Data da compra: ${ticket.dataCompra}`,
+                    ticket.textoNoIngresso,
+                ];
+
+                // Desenhar detalhes do ingresso
+                for (const field of fields) {
+                    page.drawText(field, { x: 50, y: yPosition, ...textOptions });
+                    yPosition -= 20;
+                }
+
+                yPosition -= 20; // Espaço adicional antes do QR Code
+
+                // Gerar dados do QR Code com requisição para atualizar status
+                const qrCodeData = `https://seuapi.com/updateStatus?ticketId=${ticket.idIngresso}&status=AUTHORIZED`;
                 const qrCodeImageUrl = await QRCode.toDataURL(qrCodeData);
                 const qrCodeImage = await pdfDoc.embedPng(qrCodeImageUrl);
-                page.drawImage(qrCodeImage, { x: 150, y: 200, width: 100, height: 100 });
+
+                // Desenhar QR Code
+                page.drawImage(qrCodeImage, {
+                    x: (page.getWidth() - 100) / 2,
+                    y: yPosition - 100,
+                    width: 100,
+                    height: 100,
+                });
+
+                // Elementos decorativos (linhas superior e inferior)
+                page.drawLine({
+                    start: { x: 20, y: 20 },
+                    end: { x: page.getWidth() - 20, y: 20 },
+                    thickness: 2,
+                    color: primaryColor,
+                });
+
+                page.drawLine({
+                    start: { x: 20, y: page.getHeight() - 20 },
+                    end: { x: page.getWidth() - 20, y: page.getHeight() - 20 },
+                    thickness: 2,
+                    color: primaryColor,
+                });
             }
 
             const pdfBytes = await pdfDoc.save();
@@ -145,7 +215,9 @@
             const ticketData = await fetchTicketData(paymentId);
             if (!ticketData) return;
 
-            const pdfBlob = await generatePDF(ticketData, email);
+            const logoSrc = 'images/logo-ingressar.png'; 
+
+            const pdfBlob = await generatePDF(ticketData, email, logoSrc);
             if (pdfBlob) {
                 // Baixar o PDF antes do upload
                 downloadPDF(pdfBlob, `${email}_ticket.pdf`);
