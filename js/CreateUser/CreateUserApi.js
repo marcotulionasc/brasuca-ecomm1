@@ -57,8 +57,13 @@ if (cadastroForm) {
 
                     window.location.href = `profile.html?id=${loginResult.id}`;
                 } catch (loginError) {
-                    console.error('Erro ao fazer login após o registro:', loginError);
-                    alert('Erro ao fazer login automático. Por favor, tente fazer login manualmente.');
+                    if (loginError.status === 403 && loginError.message === 'User is not active') {
+                        alert("Acesse o email cadastrado e clique no link para validar. Quando estiver validado, faça o seu login!");
+                        window.location.href = 'index.html';
+                    } else {
+                        console.error('Erro ao fazer login após o registro:', loginError);
+                        alert('Erro ao fazer login automático. Por favor, tente fazer login manualmente.');
+                    }
                 }
             } else {
                 const errorData = await response.json();
