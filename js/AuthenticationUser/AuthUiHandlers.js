@@ -2,13 +2,10 @@ export function toggleLoginModal(modalId) {
     const modal = document.getElementById(modalId);
     const mainContent = document.querySelector('.main-content');
 
-    console.log("Toggle Login Modal:", { modalId, modal, mainContent });
-
     modal.classList.toggle('hidden');
 }
 
 export function updateLoginGreeting(name) {
-    console.log("Updating login greeting for:", name);
 
     // Atualiza o nome no Header (Desktop)
     const desktopGreeting = document.getElementById('userGreetingDesktop');
@@ -24,7 +21,6 @@ export function updateLoginGreeting(name) {
 }
 
 export function toggleAuthButtons(isLoggedIn) {
-    console.log("Toggle Auth Buttons:", { isLoggedIn });
     
     // Mostra/Esconde botões de login/cadastro (Header e Sidebar)
     document.querySelectorAll('.toggle-login').forEach(el => el.style.display = isLoggedIn ? 'none' : 'flex');
@@ -35,7 +31,6 @@ export function toggleAuthButtons(isLoggedIn) {
 }
 
 export function updateProfilePicture(imageUrl) {
-    console.log("Updating profile picture with image URL:", imageUrl);
 
     const img = document.createElement('img');
     img.src = imageUrl;
@@ -57,7 +52,6 @@ export function updateProfilePicture(imageUrl) {
 }
 
 export function clearProfilePicture() {
-    console.log("Clearing profile picture");
 
     // Limpa a imagem de perfil no Header (Desktop)
     const desktopProfileImageContainer = document.getElementById('profileImageContainerDesktop');

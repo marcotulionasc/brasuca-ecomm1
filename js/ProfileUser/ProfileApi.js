@@ -32,11 +32,6 @@ async function fetchUserData(userId) {
         document.querySelector('input[name="neighborhood"]').value = userData.neighborhood; // Adicionando bairro
         document.querySelector('input[name="password"]').value = ''; // Senha deve ser deixada vazia por segurança
 
-        console.log("Data de nascimento: ", userData);
-
-
-
-
         const userNameDisplay = document.querySelector('.name');
         userNameDisplay.textContent = userData.name;
 
@@ -138,8 +133,6 @@ async function saveUserChanges(userId) {
 
     // Obter apenas o caminho relativo
     const relativePath = url.pathname;
-
-    console.log(relativePath);
 
     // Criar objeto com os dados do usuário
     const updateUserDTO = {

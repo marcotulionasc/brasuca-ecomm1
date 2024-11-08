@@ -38,7 +38,6 @@ async function uploadPDF(pdfBlob, email) {
             body: formData,
         });
         const result = await response.json();
-        console.log('Upload realizado com sucesso:', result);
         return result.filePath;
     } catch (error) {
         console.error('Erro ao fazer upload do PDF:', error);

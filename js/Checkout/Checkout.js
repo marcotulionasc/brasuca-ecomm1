@@ -5,14 +5,6 @@ const getBaseUrl = config.getBaseUrl();
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const eventDetails = document.getElementById("eventDetails");
-    const ticketOptions = document.getElementById("ticketOptions");
-    const checkoutSection = document.getElementById("checkoutSection");
-
-    console.log("Elemento #eventDetails:", eventDetails);
-    console.log("Elemento #ticketOptions:", ticketOptions);
-    console.log("Elemento #checkoutSection:", checkoutSection);
-
     function getUrlParams() {
         const params = new URLSearchParams(window.location.search);
         return {
@@ -103,8 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         container.innerHTML = '';
-
-        console.log("Dados evento: ", event);
 
         const title = document.createElement("h2");
         title.id = 'eventName';

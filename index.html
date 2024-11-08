@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="css/loader.css">
     <link rel="stylesheet" href="css/wait.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style> 
+    <style>
         .grid {
             display: grid;
             grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -74,7 +74,8 @@
     <div class="main-content">
 
         <!-- Navigation Mobile -->
-        <nav class="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 shadow-lg z-50 md:hidden">
+        <nav class="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 shadow-lg z-50 md:hidden"
+            x-data="mobileCartComponent()">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-around items-center h-16">
                     <!-- Início -->
@@ -96,16 +97,65 @@
                         <span class="text-xs">Conta</span>
                     </a>
                     <!-- Ingressos / Carrinho -->
-                    <button @click="cartOpen = false"
+                    <button @click="openCart()"
                         class="relative flex flex-col items-center text-gray-400 hover:text-white transition-colors duration-300 focus:outline-none">
                         <i class="bi bi-ticket-detailed-fill text-xl mb-1"></i>
                         <span class="text-xs">Ingressos</span>
                         <!-- Badge de Itens no Carrinho -->
                         <span x-show="cartCount > 0"
                             class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full transform translate-x-1/2 -translate-y-1/2">
-                            <span x-text="cartCount">1</span>
+                            <span x-text="cartCount"></span>
                         </span>
                     </button>
+                </div>
+            </div>
+
+            <!-- Conteúdo do Carrinho -->
+            <div x-show="cartOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40" @click="closeCart()"
+                x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-50" x-transition:leave="transition-opacity ease-in duration-300"
+                x-transition:leave-start="opacity-50" x-transition:leave-end="opacity-0"></div>
+
+            <div x-show="cartOpen"
+                class="fixed right-0 top-0 h-full w-72 bg-gray-800 text-white shadow-lg transform transition-transform duration-300 ease-in-out z-50"
+                x-transition:enter="transition ease-out duration-300 transform"
+                x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+                x-transition:leave="transition ease-in duration-300 transform" x-transition:leave-start="translate-x-0"
+                x-transition:leave-end="translate-x-full" @keydown.escape.window="closeCart()">
+                <div class="p-4">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-2xl font-bold">Meus Ingressos</h2>
+                        <button @click="closeCart()" class="text-gray-400 hover:text-white"
+                            aria-label="Fechar Carrinho">
+                            <i class="bi bi-x-lg text-2xl"></i>
+                        </button>
+                    </div>
+                    <div class="mt-4">
+                        <!-- Spinner de Carregamento -->
+                        <div x-show="isLoading" class="flex justify-center items-center">
+                            <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white"></div>
+                        </div>
+
+                        <!-- Lista de Ingressos -->
+                        <ul class="mt-4 space-y-4" x-show="!isLoading && cartItems.length > 0">
+                            <template x-for="item in cartItems" :key="item.idIngresso">
+                                <li class="flex items-center justify-between p-2 bg-gray-700 rounded-lg">
+                                    <div>
+                                        <h3 class="text-lg font-semibold" x-text="item.nomeIngresso"></h3>
+                                        <p x-text="`Evento: ${item.nomeEvento}`"></p>
+                                        <p x-text="`Data: ${formatDate(item.dataEvento)}`"></p>
+                                        <p x-text="`Local: ${item.localEvento}`"></p>
+                                        <p x-text="`Valor: R$ ${item.valorLote}`"></p>
+                                    </div>
+                                </li>
+                            </template>
+                        </ul>
+
+                        <!-- Mensagem de Nenhum Ingresso -->
+                        <p x-show="!isLoading && cartItems.length === 0" class="text-center text-gray-400">
+                            Você ainda não comprou nenhum ingresso.
+                        </p>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -118,60 +168,68 @@
                     <button @click="sidebarOpen = true" class="text-white top-20 left-4 z-50">
                         <i class="bi bi-list text-2xl"></i>
                     </button>
-                
-                    <div x-show="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40" @click="sidebarOpen = false"
-                        x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0"
-                        x-transition:enter-end="opacity-50" x-transition:leave="transition-opacity ease-in duration-300"
+
+                    <div x-show="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40"
+                        @click="sidebarOpen = false" x-transition:enter="transition-opacity ease-out duration-300"
+                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-50"
+                        x-transition:leave="transition-opacity ease-in duration-300"
                         x-transition:leave-start="opacity-50" x-transition:leave-end="opacity-0"></div>
-                
-                    <div x-show="sidebarOpen" class="fixed top-0 left-0 h-full w-64 bg-gray-800 text-white z-50 transform"
-                        x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="-translate-x-full"
-                        x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in duration-300 transform"
-                        x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full" @keydown.escape.window="sidebarOpen = false">
-                        
+
+                    <div x-show="sidebarOpen"
+                        class="fixed top-0 left-0 h-full w-64 bg-gray-800 text-white z-50 transform"
+                        x-transition:enter="transition ease-out duration-300 transform"
+                        x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
+                        x-transition:leave="transition ease-in duration-300 transform"
+                        x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
+                        @keydown.escape.window="sidebarOpen = false">
+
                         <div class="flex items-center p-4 space-x-2">
-                            <div id="profileImageContainerMobile" class="profile-image-container bg-blue-500 rounded-full w-10 h-10 flex items-center justify-center">
+                            <div id="profileImageContainerMobile"
+                                class="profile-image-container bg-blue-500 rounded-full w-10 h-10 flex items-center justify-center">
                                 <!-- Imagem de perfil aqui -->
                             </div>
                             <span id="userGreetingMobile" class="ml-2">Olá, Visitante</span>
-                            <button @click="sidebarOpen = false" class="ml-auto text-2xl focus:outline-none" aria-label="Fechar Menu">
+                            <button @click="sidebarOpen = false" class="ml-auto text-2xl focus:outline-none"
+                                aria-label="Fechar Menu">
                                 &times;
                             </button>
                         </div>
-                
+
                         <div class="flex flex-col p-4 space-y-2">
                             <a href="index.html" class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700">
                                 <i class="bi bi-house-door-fill text-2xl"></i>
                                 <span>Início</span>
                             </a>
-                            <button onclick="openModal('loginModal')" class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700 toggle-login">
+                            <button onclick="openModal('loginModal')"
+                                class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700 toggle-login">
                                 <i class="bi bi-person-fill text-xl"></i>
                                 <span>Entrar</span>
                             </button>
-                            <button onclick="openModal('cadastroModal')" class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700 toggle-cadastro">
+                            <button onclick="openModal('cadastroModal')"
+                                class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700 toggle-cadastro">
                                 <i class="bi bi-person-plus-fill text-xl"></i>
                                 <span>Cadastrar-se</span>
                             </button>
-                            <a href="#" id="logoutLink" class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700" style="display: none;">
+                            <a href="#" id="logoutLink"
+                                class="flex items-center space-x-2 p-2 rounded hover:bg-gray-700"
+                                style="display: none;">
                                 <i class="bi bi-box-arrow-right text-xl"></i>
                                 <span>Sair</span>
                             </a>
                         </div>
                     </div>
                 </div>
-                
 
                 <img src="img/logo/brasuca-multicultural-logo.webp" alt="Logo" class="w-1/3">
 
-
-                <div x-data="{ cartOpen: false }" class="relative">
-                    <button @click="cartOpen = true"
-                        class="right-4 top-4 text-white p-2 rounded-lg shadow-lg z-50">
+                <!-- Componente do Carrinho no Header Mobile -->
+                <div x-data="mobileCartComponent()" class="relative">
+                    <button @click="openCart()" class="bg-blue-500 text-white p-2 rounded-lg shadow-lg z-50">
                         <i class="bi bi-ticket-detailed-fill text-2xl"></i>
                     </button>
 
                     <!-- Overlay -->
-                    <div x-show="cartOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40" @click="cartOpen = false"
+                    <div x-show="cartOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40" @click="closeCart()"
                         x-transition:enter="transition-opacity ease-out duration-300"
                         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                         x-transition:leave="transition-opacity ease-in duration-300"
@@ -184,22 +242,46 @@
                         x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
                         x-transition:leave="transition ease-in duration-300 transform"
                         x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
-                        @keydown.escape.window="cartOpen = false">
+                        @keydown.escape.window="closeCart()">
                         <div class="p-4">
                             <div class="flex justify-between items-center">
-                                <h2 class="text-2xl font-bold">Meus ingressos</h2>
-                                <button @click="cartOpen = false" class="text-gray-400 hover:text-white"
+                                <h2 class="text-2xl font-bold">Meus Ingressos</h2>
+                                <button @click="closeCart()" class="text-gray-400 hover:text-white"
                                     aria-label="Fechar Carrinho">
                                     <i class="bi bi-x-lg text-2xl"></i>
                                 </button>
                             </div>
-                            <ul id="cartItems" class="mt-4 space-y-4">
-                                <!-- Lista de ingressos selecionados -->
-                            </ul>
-                             
+                            <div class="mt-4">
+                                <!-- Spinner de Carregamento -->
+                                <div x-show="isLoading" class="flex justify-center items-center">
+                                    <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white">
+                                    </div>
+                                </div>
+
+                                <!-- Lista de Ingressos -->
+                                <ul class="mt-4 space-y-4" x-show="!isLoading && cartItems.length > 0">
+                                    <template x-for="item in cartItems" :key="item.idIngresso">
+                                        <li class="flex items-center justify-between p-2 bg-gray-700 rounded-lg">
+                                            <div>
+                                                <h3 class="text-lg font-semibold" x-text="item.nomeIngresso"></h3>
+                                                <p x-text="`Evento: ${item.nomeEvento}`"></p>
+                                                <p x-text="`Data: ${formatDate(item.dataEvento)}`"></p>
+                                                <p x-text="`Local: ${item.localEvento}`"></p>
+                                                <p x-text="`Valor: R$ ${item.valorLote}`"></p>
+                                            </div>
+                                        </li>
+                                    </template>
+                                </ul>
+
+                                <!-- Mensagem de Nenhum Ingresso -->
+                                <p x-show="!isLoading && cartItems.length === 0" class="text-center text-gray-400">
+                                    Você ainda não comprou nenhum ingresso.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!-- Fim do Componente do Carrinho no Header Mobile -->
             </div>
             <div class="relative w-full mt-4">
                 <input type="text" placeholder="Encontre o evento perfeito para você!"
@@ -211,7 +293,8 @@
         <!-- Desktop Header -->
         <header class="p-3 hidden md:flex justify-between items-center bg-gray-950">
             <div class="flex items-center space-x-6 ml-10">
-                <img src="img/logo/brasuca-multicultural-logo.webp" alt="Logo" class="w-28" onclick="redirectToHome()">
+                <img src="img/logo/brasuca-multicultural-logo.webp" alt="Logo" class="w-28 cursor-pointer"
+                    onclick="redirectToHome()">
                 <div class="relative w-64 lg:w-96">
                     <input type="text" placeholder="Buscar eventos, artistas, etc..."
                         class="w-full h-12 pl-4 pr-12 rounded-full bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -220,29 +303,30 @@
             </div>
             <div class="flex items-center space-x-4 mr-10">
                 <button type="button" onclick="openModal('cadastroModal')"
-            class="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 toggle-cadastro">
-            <i class="bi bi-person-plus-fill text-xl mr-2"></i>
-            Criar Conta
-        </button>
-        <button type="button" onclick="openModal('loginModal')"
-            class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition duration-300 toggle-login">
-            <i class="bi bi-person-fill text-xl mr-2"></i>
-            Entrar
-        </button>
+                    class="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 toggle-cadastro">
+                    <i class="bi bi-person-plus-fill text-xl mr-2"></i>
+                    Criar Conta
+                </button>
+                <button type="button" onclick="openModal('loginModal')"
+                    class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition duration-300 toggle-login">
+                    <i class="bi bi-person-fill text-xl mr-2"></i>
+                    Entrar
+                </button>
                 <div class="flex items-center space-x-2">
-                    <div id="profileImageContainerDesktop" class="profile-image bg-blue-500 rounded-full w-10 h-10 flex items-center justify-center">
+                    <div id="profileImageContainerDesktop"
+                        class="profile-image bg-blue-500 rounded-full w-10 h-10 flex items-center justify-center">
                         <!-- Espaço para a foto de perfil -->
                     </div>
                     <span id="userGreetingDesktop">Olá, Visitante</span>
                 </div>
-                <div x-data="{ cartOpen: false }" class="relative">
-                    <button @click="cartOpen = true"
-                        class="right-4 top-4 bg-blue-500 text-white p-3 rounded-full shadow-lg z-50">
+                <!-- Componente do Carrinho com Alpine.js -->
+                <div x-data="cartComponent()" class="relative">
+                    <button @click="openCart()" class="bg-blue-500 text-white p-3 rounded-full shadow-lg z-50">
                         <i class="bi bi-ticket-detailed-fill text-2xl"></i>
                     </button>
 
                     <!-- Overlay -->
-                    <div x-show="cartOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40" @click="cartOpen = false"
+                    <div x-show="cartOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40" @click="closeCart()"
                         x-transition:enter="transition-opacity ease-out duration-300"
                         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                         x-transition:leave="transition-opacity ease-in duration-300"
@@ -255,22 +339,53 @@
                         x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
                         x-transition:leave="transition ease-in duration-300 transform"
                         x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
-                        @keydown.escape.window="cartOpen = false">
+                        @keydown.escape.window="closeCart()">
                         <div class="p-4">
                             <div class="flex justify-between items-center">
-                                <h2 class="text-2xl font-bold">Meus ingressos</h2>
-                                <button @click="cartOpen = false" class="text-gray-400 hover:text-white"
+                                <h2 class="text-2xl font-bold">Meus Ingressos</h2>
+                                <button @click="closeCart()" class="text-gray-400 hover:text-white"
                                     aria-label="Fechar Carrinho">
                                     <i class="bi bi-x-lg text-2xl"></i>
                                 </button>
                             </div>
-                            <ul id="cartItems" class="mt-4 space-y-4">
-                                <!-- Lista de ingressos selecionados -->
-                            </ul>
-                             
+                            <div class="mt-4">
+                                <!-- Estado de Carregamento -->
+                                <div x-show="isLoading" class="flex justify-center items-center">
+                                    <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white">
+                                    </div>
+                                </div>
+
+                                <!-- Lista de Ingressos -->
+                                <ul class="mt-4 space-y-4" x-show="!isLoading && cartItems.length > 0">
+                                    <template x-for="item in cartItems" :key="item.idIngresso">
+                                        <li class="flex items-center justify-between p-2 bg-gray-700 rounded-lg">
+                                            <div>
+                                                <h3 class="text-lg font-semibold" x-text="item.nomeIngresso"></h3>
+                                                <p x-text="`Evento: ${item.nomeEvento}`"></p>
+                                                <p x-text="`Data: ${formatDate(item.dataEvento)}`"></p>
+                                                <p x-text="`Local: ${item.localEvento}`"></p>
+                                                <p x-text="`Valor: R$ ${item.valorLote}`"></p>
+                                            </div>
+                                            <!-- Botão para remover ingresso (opcional) -->
+                                            <!--
+                                            <button @click="removeItem(item.idIngresso)"
+                                                class="text-red-500 hover:text-red-700">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                            -->
+                                        </li>
+                                    </template>
+                                </ul>
+
+                                <!-- Mensagem de Nenhum Ingresso -->
+                                <p x-show="!isLoading && cartItems.length === 0" class="text-center text-gray-400">
+                                    Você ainda não comprou nenhum ingresso.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!-- Fim do Componente do Carrinho -->
             </div>
         </header>
 

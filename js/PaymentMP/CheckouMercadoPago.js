@@ -28,10 +28,8 @@ document.getElementById('payment-form').addEventListener('submit', async functio
         const tokenResponse = await mp.createCardToken(cardData);
 
         const rawAmount = document.getElementById('valor-ingresso').value; // Aqui deve ser .value, não .textContent
-        console.log(rawAmount);
 
         const transactionAmount = parseFloat(rawAmount);
-        console.log(transactionAmount);
 
         if (isNaN(transactionAmount)) {
             throw new Error('Invalid amount');
@@ -54,7 +52,6 @@ document.getElementById('payment-form').addEventListener('submit', async functio
         });
 
         const paymentResult = await paymentResponse.json();
-        console.log(paymentResult);
         alert('Pagamento realizado com sucesso!');
     } catch (error) {
         console.error('Erro capturado:', error.message);

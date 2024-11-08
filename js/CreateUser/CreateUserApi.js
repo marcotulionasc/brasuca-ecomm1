@@ -45,13 +45,10 @@ if (cadastroForm) {
             if (response.ok) {
                 const result = await response.json();
                 alert('Usuário cadastrado com sucesso');
-                console.log('Usuário cadastrado com sucesso:', result);
 
                 // Após cadastro bem-sucedido, tenta logar o usuário
                 try {
-                    const loginResult = await loginUser(tenantId, data.email, data.password);
-                    console.log('Login realizado com sucesso:', loginResult);
-                    
+                    const loginResult = await loginUser(tenantId, data.email, data.password);                  
                     
                     saveUserSession(loginResult);
 
@@ -99,7 +96,6 @@ async function uploadImage(file) {
 
         if (response.ok) {
             const result = await response.json();
-            console.log('Upload result:', result);
             return result.filePath;
         } else {
             const errorText = await response.text();

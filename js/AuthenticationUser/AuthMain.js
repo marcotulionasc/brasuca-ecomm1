@@ -54,7 +54,6 @@ document.getElementById('loginForm').addEventListener('submit', async function (
 
     try {
         const result = await loginUser(tenantId, email, password);
-        console.log('Login result:', result);
 
         toggleLoginModal('loginModal');
         updateLoginGreeting(result.name);
