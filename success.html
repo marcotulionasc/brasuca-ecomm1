@@ -218,10 +218,16 @@
             const pdfBlob = await generatePDF(ticketData, email, logoSrc);
 
             if (pdfBlob) {
-                // Enviar o PDF por e-mail
-                await sendEmailWithTicket(pdfBlob, email);
+                const emailSent = await sendEmailWithTicket(pdfBlob, email);
+                if (emailSent) {
+                    // Redireciona somente após o envio bem-sucedido do e-mail
+                    window.location.href = "form-ticket.html";
+                } else {
+                    console.error('Falha ao enviar o e-mail. Não será redirecionado.');
+                }
             }
         }
+
 
         async function sendEmailWithTicket(pdfBlob, email) {
             const formData = new FormData();
@@ -237,8 +243,10 @@
                 });
                 const result = await response.json();
                 console.log('E-mail enviado com sucesso:', result);
+                return true; // Retorna sucesso
             } catch (error) {
                 console.error('Erro ao enviar e-mail com o ingresso:', error);
+                return false; // Retorna falha
             }
         }
 
