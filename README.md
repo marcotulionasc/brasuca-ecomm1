@@ -1,11 +1,12 @@
 # Ingressar
 
-## Regras de reescrita
+## Introdução
 
-[x] Reescrever "/index.html" para "/"
+Ingressar é um projeto de e-commerce focado na venda de ingressos para eventos multiculturais. A plataforma oferece aos usuários uma experiência intuitiva para descobrir, comprar e gerenciar ingressos para diversos eventos. O objetivo é conectar pessoas a experiências únicas, facilitando o acesso a eventos culturais, musicais e artísticos.
 
-## Regras de redirecionamento
+## Instalação
 
-[x] Acessar "/profile.html?id=:id" será redirecionado para "profile/:id"
-[x] Acessar "/profile.html" será redirecionado para "/" (Nesse caso é a Home do site)
-[x] Acessar "/event.html" será redirecionado para "/" (Nesse caso é a Home do site)
+Siga os passos abaixo para instalar o projeto localmente:
+
+1. **Clone o repositório:**
+   

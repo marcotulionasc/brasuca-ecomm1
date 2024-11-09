@@ -26,14 +26,13 @@ if (cadastroForm) {
         };
 
         try {
-            // Verifica se há uma imagem de perfil para upload
+
             const imageUser = formData.get('imageProfileBase64');
 
             if (imageUser) {
                 data.imageProfileBase64 = await uploadImage(imageUser);
             }
 
-            // Faz a requisição de cadastro do usuário
             const response = await fetch(userCreateUrl, {
                 method: 'POST',
                 headers: {
@@ -44,24 +43,9 @@ if (cadastroForm) {
 
             if (response.ok) {
                 const result = await response.json();
-                alert('Usuário cadastrado com sucesso');
+                alert('Usuário cadastrado com sucesso! Acesse seu e-mail para ativar sua conta.');
+                window.location.href = 'index.html';
 
-                // Após cadastro bem-sucedido, tenta logar o usuário
-                try {
-                    const loginResult = await loginUser(tenantId, data.email, data.password);                  
-                    
-                    saveUserSession(loginResult);
-
-                    window.location.href = `profile.html?id=${loginResult.id}`;
-                } catch (loginError) {
-                    if (loginError.status === 403 && loginError.message === 'User is not active') {
-                        alert("Acesse o email cadastrado e clique no link para validar. Quando estiver validado, faça o seu login!");
-                        window.location.href = 'index.html';
-                    } else {
-                        console.error('Erro ao fazer login após o registro:', loginError);
-                        alert('Erro ao fazer login automático. Por favor, tente fazer login manualmente.');
-                    }
-                }
             } else {
                 const errorData = await response.json();
                 console.error('Erro ao cadastrar usuário', errorData);
