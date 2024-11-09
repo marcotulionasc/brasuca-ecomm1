@@ -1,3 +1,7 @@
+import config from '../Configuration.js';
+
+const getBaseUrl = config.getBaseUrl();
+
 function startCountdown(duration, display) {
     var timer = duration, minutes, seconds;
     var countdownInterval = setInterval(function () {
@@ -205,7 +209,7 @@ function mobileCartComponent() {
 
             this.isLoading = true;
             try {
-                const response = await fetch(`/api/user/${userId}/ticketdata`);
+                const response = await fetch(`${getBaseUrl}/api/user/${userId}/ticketdata`);
                 if (response.ok) {
                     const data = await response.json();
                     this.cartItems = data;
@@ -286,7 +290,7 @@ function cartComponent() {
 
             this.isLoading = true;
             try {
-                const response = await fetch(`/api/user/${userId}/ticketdata`);
+                const response = await fetch(`${getBaseUrl}/api/user/${userId}/ticketdata`);
                 if (response.ok) {
                     const data = await response.json();
                     this.cartItems = data;
