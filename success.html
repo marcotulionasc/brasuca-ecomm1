@@ -40,23 +40,25 @@
             const { PDFDocument, rgb, StandardFonts } = PDFLib;
             const pdfDoc = await PDFDocument.create();
 
-            // Carregar imagem do logotipo
             const logoImageBytes = await fetch(logoSrc).then(res => res.arrayBuffer());
             const logoImage = await pdfDoc.embedPng(logoImageBytes);
-            const logoDims = logoImage.scale(0.5);
+            const logoDims = logoImage.scale(0.4);
 
-            // Definir cores
-            const backgroundColor = rgb(1, 1, 1); // Branco
-            const primaryColor = rgb(0.0, 0.53, 0.8); // Azul
-            const textColor = rgb(0, 0, 0); // Preto
+            // Cores
+            const backgroundColor = rgb(1, 1, 1);
+            const primaryColor = rgb(0.0, 0.53, 0.8);
+            const secondaryColor = rgb(0.8, 0.8, 0.8);
+            const textColor = rgb(0, 0, 0);
+            const highlightColor = rgb(0.2, 0.6, 1);
 
-            // Fonte padrão
-            const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+            // Fontes
+            const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+            const fontRegular = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
             for (const ticket of ticketData) {
                 const page = pdfDoc.addPage([400, 600]);
 
-                // Desenhar fundo
+                // Fundo
                 page.drawRectangle({
                     x: 0,
                     y: 0,
@@ -65,47 +67,93 @@
                     color: backgroundColor,
                 });
 
-                // Desenhar logotipo no topo centralizado
+                // Logo
                 page.drawImage(logoImage, {
                     x: (page.getWidth() - logoDims.width) / 2,
-                    y: page.getHeight() - logoDims.height - 20,
+                    y: page.getHeight() - logoDims.height - 30,
                     width: logoDims.width,
                     height: logoDims.height,
                 });
 
-                // Posição inicial para o texto
-                let yPosition = page.getHeight() - logoDims.height - 60;
+                let yPosition = page.getHeight() - logoDims.height - 50;
 
-                // Opções de texto
-                const textOptions = { size: 12, font: font, color: textColor };
+                // Título
+                page.drawText(`Evento: ${ticket.nomeEvento}`, {
+                    x: 30,
+                    y: yPosition,
+                    size: 16,
+                    font: fontBold,
+                    color: highlightColor,
+                });
+                yPosition -= 30;
 
-                // Detalhes do ingresso
+                // Linha separadora
+                page.drawLine({
+                    start: { x: 20, y: yPosition },
+                    end: { x: page.getWidth() - 20, y: yPosition },
+                    thickness: 0.5,
+                    color: secondaryColor,
+                });
+                yPosition -= 20;
+
+                // Informações do Ingresso
                 const fields = [
-                    `Evento: ${ticket.nomeEvento}`,
-                    `Data: ${ticket.dataEvento}`,
-                    `Local: ${ticket.localEvento}`,
-                    `Ingresso: ${ticket.nomeIngresso}`,
-                    `Área: ${ticket.areaIngresso}`,
-                    `Valor: R$${ticket.valorLote} + Taxa: R$${ticket.taxaLote}`,
-                    `Comprado por: ${ticket.nomeComprador}`,
-                    `Data da compra: ${ticket.dataCompra}`,
-                    ticket.textoNoIngresso,
+                    { label: "Data", value: ticket.dataEvento },
+                    { label: "Local", value: ticket.localEvento },
+                    { label: "Ingresso", value: ticket.nomeIngresso },
+                    { label: "Área", value: ticket.areaIngresso },
+                    { label: "Comprador", value: ticket.nomeComprador },
+                    { label: "Data da Compra", value: ticket.dataCompra },
                 ];
 
-                // Desenhar detalhes do ingresso
+                const textOptions = { size: 12, font: fontRegular, color: textColor };
+
                 for (const field of fields) {
-                    page.drawText(field, { x: 50, y: yPosition, ...textOptions });
+                    page.drawText(`${field.label}: ${field.value}`, {
+                        x: 30,
+                        y: yPosition,
+                        ...textOptions,
+                    });
                     yPosition -= 20;
+
+                    // Linha separadora
+                    page.drawLine({
+                        start: { x: 20, y: yPosition },
+                        end: { x: page.getWidth() - 20, y: yPosition },
+                        thickness: 0.5,
+                        color: secondaryColor,
+                    });
+                    yPosition -= 10;
                 }
 
-                yPosition -= 20; // Espaço adicional antes do QR Code
+                // Valor do Ingresso
+                const taxaEmReais = (ticket.valorLote * ticket.taxaLote / 100).toFixed(2).replace('.', ',');
+                const valorLoteFormatado = ticket.valorLote.toFixed(2).replace('.', ',');
 
-                // Gerar dados do QR Code com requisição para atualizar status
+                page.drawText(`Valor: R$ ${valorLoteFormatado} + Taxa: R$ ${taxaEmReais}`, {
+                    x: 30,
+                    y: yPosition,
+                    size: 14,
+                    font: fontBold,
+                    color: highlightColor,
+                });
+                yPosition -= 30;
+
+                // Texto do Ingresso
+                page.drawText(ticket.textoNoIngresso || "", {
+                    x: 30,
+                    y: yPosition,
+                    size: 10,
+                    font: fontRegular,
+                    color: textColor,
+                });
+                yPosition -= 40;
+
+                // QR Code
                 const qrCodeData = `https://backend-ingressar.onrender.com/updateStatus?ticketId=${ticket.idIngresso}&status=AUTHORIZED`;
                 const qrCodeImageUrl = await QRCode.toDataURL(qrCodeData);
                 const qrCodeImage = await pdfDoc.embedPng(qrCodeImageUrl);
 
-                // Desenhar QR Code
                 page.drawImage(qrCodeImage, {
                     x: (page.getWidth() - 100) / 2,
                     y: yPosition - 100,
@@ -113,17 +161,13 @@
                     height: 100,
                 });
 
+                yPosition -= 140;
+
+                // Rodapé
                 page.drawLine({
                     start: { x: 20, y: 20 },
                     end: { x: page.getWidth() - 20, y: 20 },
-                    thickness: 2,
-                    color: primaryColor,
-                });
-
-                page.drawLine({
-                    start: { x: 20, y: page.getHeight() - 20 },
-                    end: { x: page.getWidth() - 20, y: page.getHeight() - 20 },
-                    thickness: 2,
+                    thickness: 1,
                     color: primaryColor,
                 });
             }
@@ -131,6 +175,7 @@
             const pdfBytes = await pdfDoc.save();
             return new Blob([pdfBytes], { type: 'application/pdf' });
         }
+
 
         async function uploadPDF(pdfBlob, email) {
             const formData = new FormData();
@@ -222,7 +267,7 @@
                 const emailSent = await sendEmailWithTicket(pdfBlob, email);
                 if (emailSent) {
                     // Redireciona somente após o envio bem-sucedido do e-mail
-                    // window.location.href = "form-ticket.html";
+                    window.location.href = "form-ticket.html";
                 } else {
                     console.error('Falha ao enviar o e-mail. Não será redirecionado.');
                 }
