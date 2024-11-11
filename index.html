@@ -138,18 +138,18 @@
 
                         <!-- Lista de Ingressos -->
                         <ul class="mt-4 space-y-4" x-show="!isLoading && cartItems.length > 0">
-                            <template x-for="item in cartItems" :key="item.id">
-                                <li class="flex items-center justify-between p-2 bg-gray-700 rounded-lg">
-                                    <div>
-                                        <h3 class="text-lg font-semibold" x-text="item.eventName"></h3>
-                                        <p x-text="`Evento: ${item.eventName}`"></p>
-                                        <p x-text="`Data: ${formatDate(item.eventDate)}`"></p>
-                                        <p x-text="`Local: ${item.eventLocation}`"></p>
-                                        <p x-text="`Valor: R$ ${item.ticketPrice}`"></p>
-                                    </div>
-                                </li>
+                            <template x-for="(item, index) in cartItems" :key="item.idIngresso || index">
+                              <li class="flex items-center justify-between p-2 bg-gray-700 rounded-lg">
+                                <div>
+                                  <h3 class="text-lg font-semibold" x-text="item.nomeIngresso || 'Nome do ingresso não disponível'"></h3>
+                                  <p x-text="`Evento: ${item.nomeEvento || 'Evento não disponível'}`"></p>
+                                  <p x-text="`Data: ${item.dataEvento ? formatDate(item.dataEvento) : 'Data não disponível'}`"></p>
+                                  <p x-text="`Local: ${item.localEvento || 'Local não disponível'}`"></p>
+                                  <p x-text="`Valor: R$ ${item.valorLote || 'Valor não disponível'}`"></p>
+                                </div>
+                              </li>
                             </template>
-                        </ul>
+                          </ul>
 
                         <!-- Mensagem de Nenhum Ingresso -->
                         <p x-show="!isLoading && cartItems.length === 0" class="text-center text-gray-400">
@@ -712,139 +712,150 @@
 
 
         function mobileCartComponent() {
-            return {
-                cartOpen: false,
-                isLoading: false,
-                cartItems: [],
-                cartCount: 0,
+    return {
+      cartOpen: false,
+      isLoading: false,
+      cartItems: [],
+      cartCount: 0,
 
-                openCart() {
-                    this.cartOpen = true;
-                    this.fetchCartItems();
-                },
+      openCart() {
+        this.cartOpen = true;
+        this.fetchCartItems();
+      },
 
-                closeCart() {
-                    this.cartOpen = false;
-                },
+      closeCart() {
+        this.cartOpen = false;
+      },
 
-                formatDate(dateString) {
-                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                    return new Date(dateString).toLocaleDateString('pt-BR', options);
-                },
+      formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('pt-BR', options);
+      },
 
-                async fetchCartItems() {
-                    const userString = localStorage.getItem('user');
-                    if (!userString) {
-                        alert('Por favor, faça login para ver seus ingressos.');
-                        this.cartItems = [];
-                        this.cartCount = 0;
-                        return;
-                    }
-
-                    let user;
-                    try {
-                        user = JSON.parse(userString);
-                    } catch (e) {
-                        console.error('Erro ao parsear o objeto user do localStorage:', e);
-                        this.cartItems = [];
-                        this.cartCount = 0;
-                        return;
-                    }
-
-                    const userId = user.user?.id; // Corrigido para acessar o ID corretamente
-                    if (!userId) {
-                        alert('Por favor, faça login para ver seus ingressos.');
-                        this.cartItems = [];
-                        this.cartCount = 0;
-                        return;
-                    }
-
-                    this.isLoading = true;
-                    try {
-                        const response = await fetch(`https://backend-ingressar.onrender.com/api/user/${userId}/ticketdata`);
-                        if (response.ok) {
-                            const data = await response.json();
-                            this.cartItems = data;
-                            this.cartCount = data.length;
-                        } else {
-                            console.error('Erro ao buscar ingressos:', response.status);
-                            this.cartItems = [];
-                            this.cartCount = 0;
-                        }
-                    } catch (error) {
-                        console.error('Erro na requisição:', error);
-                        this.cartItems = [];
-                        this.cartCount = 0;
-                    } finally {
-                        this.isLoading = false;
-                    }
-                },
-            }
+      async fetchCartItems() {
+        const userString = localStorage.getItem('user');
+        if (!userString) {
+          alert('Por favor, faça login para ver seus ingressos.');
+          this.cartItems = [];
+          this.cartCount = 0;
+          return;
         }
 
-        function cartComponent() {
-            return {
-                cartOpen: false,
-                isLoading: false,
-                cartItems: [],
-
-                openCart() {
-                    this.cartOpen = true;
-                    this.fetchCartItems();
-                },
-
-                closeCart() {
-                    this.cartOpen = false;
-                },
-
-                formatDate(dateString) {
-                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                    return new Date(dateString).toLocaleDateString('pt-BR', options);
-                },
-
-                async fetchCartItems() {
-                    const userString = localStorage.getItem('user');
-                    if (!userString) {
-                        alert('Por favor, faça login para ver seus ingressos.');
-                        this.cartItems = [];
-                        return;
-                    }
-
-                    let user;
-                    try {
-                        user = JSON.parse(userString);
-                    } catch (e) {
-                        console.error('Erro ao parsear o objeto user do localStorage:', e);
-                        this.cartItems = [];
-                        return;
-                    }
-
-                    const userId = user.user?.id; // Corrigido para acessar o ID corretamente
-                    if (!userId) {
-                        alert('Por favor, faça login para ver seus ingressos.');
-                        this.cartItems = [];
-                        return;
-                    }
-
-                    this.isLoading = true;
-                    try {
-                        const response = await fetch(`https://backend-ingressar.onrender.com/api/user/${userId}/ticketdata`);
-                        if (response.ok) {
-                            const data = await response.json();
-                            this.cartItems = data;
-                        } else {
-                            console.error('Erro ao buscar ingressos:', response.status);
-                            this.cartItems = [];
-                        }
-                    } catch (error) {
-                        console.error('Erro na requisição:', error);
-                        this.cartItems = [];
-                    } finally {
-                        this.isLoading = false;
-                    }
-                },
-            }
+        let user;
+        try {
+          user = JSON.parse(userString);
+        } catch (e) {
+          console.error('Erro ao parsear o objeto user do localStorage:', e);
+          this.cartItems = [];
+          this.cartCount = 0;
+          return;
         }
+
+        const userId = user.user?.id;
+        if (!userId) {
+          alert('Por favor, faça login para ver seus ingressos.');
+          this.cartItems = [];
+          this.cartCount = 0;
+          return;
+        }
+
+        this.isLoading = true;
+        try {
+          const response = await fetch(`https://backend-ingressar.onrender.com/api/user/${userId}/ticketdata`);
+          if (response.ok) {
+            const data = await response.json();
+            if (Array.isArray(data)) {
+              this.cartItems = data;
+              this.cartCount = data.length;
+            } else {
+              console.error('Dados retornados não são uma lista de ingressos.');
+              this.cartItems = [];
+              this.cartCount = 0;
+            }
+          } else {
+            console.error('Erro ao buscar ingressos:', response.status);
+            this.cartItems = [];
+            this.cartCount = 0;
+          }
+        } catch (error) {
+          console.error('Erro na requisição:', error);
+          this.cartItems = [];
+          this.cartCount = 0;
+        } finally {
+          this.isLoading = false;
+        }
+      },
+    }
+  }
+
+  function cartComponent() {
+    return {
+      cartOpen: false,
+      isLoading: false,
+      cartItems: [],
+
+      openCart() {
+        this.cartOpen = true;
+        this.fetchCartItems();
+      },
+
+      closeCart() {
+        this.cartOpen = false;
+      },
+
+      formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('pt-BR', options);
+      },
+
+      async fetchCartItems() {
+        const userString = localStorage.getItem('user');
+        if (!userString) {
+          alert('Por favor, faça login para ver seus ingressos.');
+          this.cartItems = [];
+          return;
+        }
+
+        let user;
+        try {
+          user = JSON.parse(userString);
+        } catch (e) {
+          console.error('Erro ao parsear o objeto user do localStorage:', e);
+          this.cartItems = [];
+          return;
+        }
+
+        const userId = user.user?.id;
+        if (!userId) {
+          alert('Por favor, faça login para ver seus ingressos.');
+          this.cartItems = [];
+          return;
+        }
+
+        this.isLoading = true;
+        try {
+          const response = await fetch(`https://backend-ingressar.onrender.com/api/user/${userId}/ticketdata`);
+          if (response.ok) {
+            const data = await response.json();
+            if (Array.isArray(data)) {
+              this.cartItems = data;
+            } else {
+              console.error('Dados retornados não são uma lista de ingressos.');
+              this.cartItems = [];
+            }
+          } else {
+            console.error('Erro ao buscar ingressos:', response.status);
+            this.cartItems = [];
+          }
+        } catch (error) {
+          console.error('Erro na requisição:', error);
+          this.cartItems = [];
+        } finally {
+          this.isLoading = false;
+        }
+      },
+    }
+  }
     </script>
 </body>
 
