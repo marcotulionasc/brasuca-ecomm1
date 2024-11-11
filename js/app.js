@@ -1,7 +1,3 @@
-import config from '../Configuration.js';
-
-const getBaseUrl = config.getBaseUrl();
-
 function startCountdown(duration, display) {
     var timer = duration, minutes, seconds;
     var countdownInterval = setInterval(function () {
