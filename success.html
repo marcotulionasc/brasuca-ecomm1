@@ -126,10 +126,14 @@
                     yPosition -= 10;
                 }
 
-                // Valor do Ingresso
-                const taxaEmReais = (ticket.valorLote * ticket.taxaLote / 100).toFixed(2).replace('.', ',');
-                const valorLoteFormatado = ticket.valorLote.toFixed(2).replace('.', ',');
 
+                const valorLote = Number(ticket.valorLote) || 0;
+                const taxaLote = Number(ticket.taxaLote) || 0;
+
+                const taxaEmReais = (valorLote * taxaLote / 100).toFixed(2).replace('.', ',');
+                const valorLoteFormatado = valorLote.toFixed(2).replace('.', ',');
+
+                // Exibindo o texto formatado no PDF
                 page.drawText(`Valor: R$ ${valorLoteFormatado} + Taxa: R$ ${taxaEmReais}`, {
                     x: 30,
                     y: yPosition,
@@ -138,6 +142,7 @@
                     color: highlightColor,
                 });
                 yPosition -= 30;
+
 
                 // Texto do Ingresso
                 page.drawText(ticket.textoNoIngresso || "", {
