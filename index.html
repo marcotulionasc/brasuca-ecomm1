@@ -138,17 +138,18 @@
 
                         <!-- Lista de Ingressos -->
                         <ul class="mt-4 space-y-4" x-show="!isLoading && cartItems.length > 0">
-                            <template x-for="(item, index) in cartItems" :key="item.idIngresso || index">
-                              <li class="flex items-center justify-between p-2 bg-gray-700 rounded-lg">
-                                <div>
-                                  <h3 class="text-lg font-semibold" x-text="item.nomeIngresso || 'Nome do ingresso não disponível'"></h3>
-                                  <p x-text="`Evento: ${item.nomeEvento || 'Evento não disponível'}`"></p>
-                                  <p x-text="`Data: ${item.dataEvento ? formatDate(item.dataEvento) : 'Data não disponível'}`"></p>
-                                  <p x-text="`Local: ${item.localEvento || 'Local não disponível'}`"></p>
-                                  <p x-text="`Valor: R$ ${item.valorLote || 'Valor não disponível'}`"></p>
-                                </div>
-                              </li>
-                            </template>
+                            <template x-for="(item, index) in cartItems" :key="index">
+                                <li class="flex items-center justify-between p-2 bg-gray-700 rounded-lg">
+                                  <div>
+                                    <h3 class="text-lg font-semibold" x-text="item.nomeIngresso || 'Nome do ingresso não disponível'"></h3>
+                                    <p x-text="`Evento: ${item.nomeEvento || 'Evento não disponível'}`"></p>
+                                    <p x-text="`Data: ${item.dataEvento ? formatDate(item.dataEvento) : 'Data não disponível'}`"></p>
+                                    <p x-text="`Abertura: ${item.aberturaPortas || 'Horário não disponível'}`"></p>
+                                    <p x-text="`Local: ${item.localEvento || 'Local não disponível'}`"></p>
+                                    <p x-text="`Valor: R$ ${item.valorLote || 'Valor não disponível'}`"></p>
+                                  </div>
+                                </li>
+                              </template>
                           </ul>
 
                         <!-- Mensagem de Nenhum Ingresso -->
