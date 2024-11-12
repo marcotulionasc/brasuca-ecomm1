@@ -34,11 +34,11 @@ function initializeSwiper() {
         },
         breakpoints: {
             768: {
-                slidesPerView: 2, // Mostra dois slides em telas médias
+                slidesPerView: 2, 
                 spaceBetween: 20,
             },
             1024: {
-                slidesPerView: 3, // Mostra três slides em telas grandes
+                slidesPerView: 3, 
                 spaceBetween: 30,
             }
         }
