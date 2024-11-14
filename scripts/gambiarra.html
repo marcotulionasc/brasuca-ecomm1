@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gerar PDF do Ingresso</title>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+</head>
+
+<body>
+    <h1>Gerar PDF e Enviar Ingresso</h1>
+    <label for="ticketId">ID do Ingresso:</label>
+    <input type="text" id="ticketId" placeholder="Digite o ID do ingresso">
+    <button onclick="generateAndSendTicket()">Gerar PDF e Enviar</button>
+
+    <div id="status"></div>
+
+    <script>
+        async function fetchTicketData(ticketId) {
+            try {
+                const response = await fetch(`https://backend-ingressar.onrender.com/api/${ticketId}/ticketdata`);
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Erro ao buscar dados do ingresso:', error);
+                return null;
+            }
+        }
+
+        async function generatePDF(ticketData) {
+            const { PDFDocument, rgb, StandardFonts } = PDFLib;
+            const pdfDoc = await PDFDocument.create();
+
+            const logoSrc = 'img/logo/logo-ingressar.png';
+            const logoImageBytes = await fetch(logoSrc).then(res => res.arrayBuffer());
+            const logoImage = await pdfDoc.embedPng(logoImageBytes);
+            const logoDims = logoImage.scale(0.4);
+
+            const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+            const fontRegular = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+            const ticket = ticketData[0];
+            const page = pdfDoc.addPage([400, 600]);
+            const textColor = rgb(0, 0, 0);
+            const highlightColor = rgb(0.2, 0.6, 1);
+
+            let yPosition = page.getHeight() - 50;
+
+            // Título do Evento
+            page.drawText(ticket.nomeEvento, {
+                x: 30,
+                y: yPosition,
+                size: 18,
+                font: fontBold,
+                color: highlightColor,
+            });
+            yPosition -= 35;
+
+            // Informações do Ingresso
+            const fields = [
+                { label: "Data do Evento", value: ticket.dataEvento },
+                { label: "Local", value: ticket.localEvento },
+                { label: "Ingresso", value: ticket.nomeIngresso },
+                { label: "Área", value: ticket.areaIngresso },
+                { label: "Nome do Comprador", value: ticket.nomeComprador },
+                { label: "Data da Compra", value: ticket.dataCompra },
+            ];
+
+            for (const field of fields) {
+                page.drawText(`${field.label}: ${field.value}`, {
+                    x: 30,
+                    y: yPosition,
+                    size: 12,
+                    font: fontRegular,
+                    color: textColor,
+                });
+                yPosition -= 25;
+            }
+
+            // QR Code
+            const qrCodeData = `https://backend-ingressar.onrender.com/updateStatus?ticketId=${ticket.idIngresso}&status=AUTHORIZED`;
+            const qrCodeImageUrl = await QRCode.toDataURL(qrCodeData);
+            const qrCodeImage = await pdfDoc.embedPng(qrCodeImageUrl);
+
+            page.drawImage(qrCodeImage, {
+                x: (page.getWidth() - 100) / 2,
+                y: yPosition - 100,
+                width: 100,
+                height: 100,
+            });
+
+            yPosition -= 140;
+
+            // Salvar o PDF
+            const pdfBytes = await pdfDoc.save();
+            return new Blob([pdfBytes], { type: 'application/pdf' });
+        }
+
+        async function sendEmailWithTicket(pdfBlob, email) {
+            const formData = new FormData();
+            formData.append('file', pdfBlob, `${email}_ticket.pdf`);
+            formData.append('email', 'thiago.ceart@gmail.com'); // Por enquanto tem que mudar o e-mail manualmente
+            formData.append('subject', 'Seu ingresso para o evento');
+            formData.append('body', 'Obrigado por sua compra! Em anexo está seu ingresso.');
+
+            try {
+                const response = await fetch('https://backend-ingressar.onrender.com/api/email/send-ticket', {
+                    method: 'POST',
+                    body: formData,
+                });
+                const result = await response.json();
+                console.log('E-mail enviado com sucesso:', result);
+                return true; // Retorna sucesso
+            } catch (error) {
+                console.error('Erro ao enviar e-mail com o ingresso:', error);
+                return false; // Retorna falha
+            }
+        }
+
+        async function generateAndSendTicket() {
+            const ticketId = document.getElementById('ticketId').value;
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = 'Buscando dados do ingresso...';
+
+            const ticketData = await fetchTicketData(ticketId);
+            if (!ticketData || ticketData.length === 0) {
+                statusDiv.textContent = 'Erro ao buscar dados do ingresso.';
+                return;
+            }
+
+            const email = ticketData[0].nomeComprador; // Pegando o e-mail do comprador
+            statusDiv.textContent = 'Gerando PDF...';
+
+            const pdfBlob = await generatePDF(ticketData);
+            if (pdfBlob) {
+                statusDiv.textContent = 'Enviando e-mail com o ingresso...';
+                const emailSent = await sendEmailWithTicket(pdfBlob, email);
+                statusDiv.textContent = emailSent ? 'E-mail enviado com sucesso!' : 'Erro ao enviar o e-mail.';
+            } else {
+                statusDiv.textContent = 'Erro ao gerar o PDF.';
+            }
+        }
+    </script>
+</body>
+
+</html>

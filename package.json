@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "pdf-lib": "^1.17.1",
-    "qrcode": "^1.5.4"
-  }
-}

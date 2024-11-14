@@ -125,6 +125,24 @@
 
     <div class="main-content bg-gray-900">
 
+        <div class="p-1 flex bg-gray-800 justify-center">
+            <div class="flex items-center h-8 space-x-6">
+                <!-- Link para Criar Conta -->
+                <a href="javascript:void(0)" onclick="openModal('cadastroModal')"
+                    class="flex items-center text-sm text-gray-300 hover:text-white transition-colors duration-300">
+                    <i class="bi bi-person-plus-fill mr-2"></i>
+                    Cadastrar!
+                </a>
+
+                <!-- Link para Minha Conta -->
+                <a href="javascript:void(0)" onclick="openModal('loginModal')"
+                    class="flex items-center text-sm text-gray-300 hover:text-white transition-colors duration-300">
+                    <i class="bi bi-person-fill mr-2"></i>
+                    Entrar!
+                </a>
+            </div>
+        </div>
+
         <!-- Mobile Header -->
         <header class="p-3 md:hidden bg-gray-950 shadow-2xl">
             <div class="flex justify-between items-center w-full">
@@ -255,37 +273,31 @@
             </div>
         </header>
 
-        <!-- Desktop Header -->
-        <header class="p-3 hidden md:flex justify-between items-center bg-gray-950">
-            <div class="flex items-center space-x-6 ml-10">
-                <img src="img/logo/brasuca-multicultural-logo.webp" alt="Logo" class="w-28 cursor-pointer"
+         <!-- Desktop Header -->
+         <header class="p-3 hidden md:flex justify-center items-center bg-gray-950 border-b">
+            <div class="flex items-center space-x-12">
+                <!-- Logo -->
+                <img src="img/logo/brasuca-multicultural-logo.webp" alt="Logo" class="w-32 h-28 cursor-pointer"
                     onclick="redirectToHome()">
+
+                <!-- Barra de Pesquisa -->
                 <div class="relative w-64 lg:w-96">
                     <input type="text" placeholder="Buscar eventos, artistas, etc..."
                         class="w-full h-12 pl-4 pr-12 rounded-full bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <i class="bi bi-search absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                 </div>
-            </div>
-            <div class="flex items-center space-x-4 mr-10">
-                <button type="button" onclick="openModal('cadastroModal')"
-                    class="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 toggle-cadastro">
-                    <i class="bi bi-person-plus-fill text-xl mr-2"></i>
-                    Criar Conta
-                </button>
-                <button type="button" onclick="openModal('loginModal')"
-                    class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition duration-300 toggle-login">
-                    <i class="bi bi-person-fill text-xl mr-2"></i>
-                    Entrar
-                </button>
-                <div class="flex items-center space-x-2">
+
+                <!-- Foto e Saudação -->
+                <div class="flex items-center space-x-4">
                     <div id="profileImageContainerDesktop"
-                        class="profile-image bg-blue-500 rounded-full w-10 h-10 flex items-center justify-center">
+                        class="bg-blue-500 border-white border-2 rounded-full flex w-16 h-16 items-center justify-center">
                     </div>
-                    <span id="userGreetingDesktop" class="text-white">Olá, Visitante</span>
+                    <span id="userGreetingDesktop" class="text-white text-lg">Olá, Visitante</span>
                 </div>
 
+                <!-- Botão dos Ingressos -->
                 <div x-data="cartComponent()" class="relative">
-                    <button @click="openCart()" class="bg-blue-500 text-white p-3 rounded-full shadow-lg z-50">
+                    <button @click="openCart()" class="bg-blue-950 text-white p-2 rounded-md shadow-lg">
                         <i class="bi bi-ticket-detailed-fill text-2xl"></i>
                     </button>
 
@@ -298,13 +310,13 @@
 
                     <!-- Conteúdo do Carrinho -->
                     <div x-show="cartOpen"
-                        class="fixed right-0 top-0 h-full w-72 bg-gray-800 text-white shadow-lg transform transition-transform duration-300 ease-in-out z-50"
+                        class="fixed right-0 top-0 h-full w-80 bg-gray-800 text-white shadow-lg transform transition-transform duration-300 ease-in-out z-50"
                         x-transition:enter="transition ease-out duration-300 transform"
                         x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
                         x-transition:leave="transition ease-in duration-300 transform"
                         x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
                         @keydown.escape.window="closeCart()">
-                        <div class="p-4">
+                        <div class="p-6">
                             <div class="flex justify-between items-center">
                                 <h2 class="text-2xl font-bold">Meus Ingressos</h2>
                                 <button @click="closeCart()" class="text-gray-400 hover:text-white"
@@ -312,17 +324,17 @@
                                     <i class="bi bi-x-lg text-2xl"></i>
                                 </button>
                             </div>
-                            <div class="mt-4">
+                            <div class="mt-6">
                                 <!-- Estado de Carregamento -->
                                 <div x-show="isLoading" class="flex justify-center items-center">
-                                    <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white">
+                                    <div class="animate-spin rounded-full h-10 w-10 border-t-4 border-b-4 border-white">
                                     </div>
                                 </div>
 
                                 <!-- Lista de Ingressos -->
                                 <ul class="mt-4 space-y-4" x-show="!isLoading && cartItems.length > 0">
                                     <template x-for="(item, index) in cartItems" :key="index">
-                                        <li class="flex items-center justify-between p-2 bg-gray-700 rounded-lg">
+                                        <li class="flex items-start p-4 bg-gray-700 rounded-lg">
                                             <div>
                                                 <h3 class="text-lg font-semibold"
                                                     x-text="item.nomeIngresso || 'Nome do ingresso não disponível'">
@@ -341,7 +353,6 @@
                                     </template>
                                 </ul>
 
-
                                 <!-- Mensagem de Nenhum Ingresso -->
                                 <p x-show="!isLoading && cartItems.length === 0" class="text-center text-gray-400">
                                     Você ainda não comprou nenhum ingresso.
@@ -350,7 +361,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Fim do Componente do Carrinho -->
             </div>
         </header>
 
