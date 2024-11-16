@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const date = document.createElement("p");
         date.classList.add("text-white");
-        date.textContent = event.date ? new Date(event.date).toLocaleDateString() : "Data não disponível";
+        date.textContent = event.date;
 
         const address = document.createElement("p");
         address.classList.add("text-white");
