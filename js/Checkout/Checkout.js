@@ -103,7 +103,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const date = document.createElement("p");
         date.classList.add("text-white");
-        date.textContent = event.date;
+
+        const dateObj = event.date.split('-');
+        const dateFormatted = `${dateObj[2]}/${dateObj[1]}/${dateObj[0]}`;
+
+        date.textContent = dateFormatted || "Data não disponível";
 
         const address = document.createElement("p");
         address.classList.add("text-white");

@@ -50,17 +50,17 @@ function displayEvents(events) {
 function createEventElement(event) {
     const eventDiv = document.createElement("div");
     eventDiv.classList.add(
-        "relative", 
-        "group", 
-        "border", 
-        "border-gray-700", 
-        "rounded-lg", 
-        "p-4", 
-        "bg-gray-950", 
-        "shadow-lg", 
-        "transition-transform", 
-        "duration-300", 
-        "hover:scale-105", 
+        "relative",
+        "group",
+        "border",
+        "border-gray-700",
+        "rounded-lg",
+        "p-4",
+        "bg-gray-950",
+        "shadow-lg",
+        "transition-transform",
+        "duration-300",
+        "hover:scale-105",
         "hover:shadow-xl"
     );
 
@@ -78,7 +78,10 @@ function createEventElement(event) {
 
     const date = document.createElement("p");
     date.classList.add("text-gray-400", "text-sm", "mt-2"); // Texto claro
-    date.textContent = new Date(event.date).toLocaleDateString();
+    const dateObj = event.date.split('-');
+    const dateFormatted = `${dateObj[2]}/${dateObj[1]}/${dateObj[0]}`;
+
+    date.textContent = dateFormatted || "Data não disponível";
 
     const address = document.createElement("p");
     address.classList.add("text-gray-400", "text-sm"); // Texto claro
@@ -86,17 +89,17 @@ function createEventElement(event) {
 
     const button = document.createElement("button");
     button.classList.add(
-        "px-6", 
-        "py-2", 
-        "bg-green-500", 
-        "text-white", 
-        "rounded-lg", 
-        "mt-4", 
-        "hover:bg-green-600", 
-        "focus:outline-none", 
-        "focus:ring-2", 
-        "focus:ring-green-500", 
-        "transition", 
+        "px-6",
+        "py-2",
+        "bg-green-500",
+        "text-white",
+        "rounded-lg",
+        "mt-4",
+        "hover:bg-green-600",
+        "focus:outline-none",
+        "focus:ring-2",
+        "focus:ring-green-500",
+        "transition",
         "duration-300"
     );
     button.textContent = "COMPRAR";
@@ -130,15 +133,15 @@ function setupPagination(events) {
         const button = document.createElement("button");
         button.textContent = i;
         button.classList.add(
-            "mx-1", 
-            "px-4", 
-            "py-2", 
-            "rounded-lg", 
-            "border", 
-            "border-gray-300", 
-            "transition-colors", 
-            "duration-300", 
-            "hover:bg-secondary-color", 
+            "mx-1",
+            "px-4",
+            "py-2",
+            "rounded-lg",
+            "border",
+            "border-gray-300",
+            "transition-colors",
+            "duration-300",
+            "hover:bg-secondary-color",
             "hover:text-white"
         );
         if (i === currentPage) {
