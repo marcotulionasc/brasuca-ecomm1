@@ -7,7 +7,6 @@ async function fetchImageFlyers(tenantId) {
     const options = {
         method: "GET",
         headers: {
-            'ngrok-skip-browser-warning': 'true',
             'Accept': 'application/json'
         }
     };
