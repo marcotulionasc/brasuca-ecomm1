@@ -36,6 +36,9 @@
 
     <script>
 
+        let localUrl = 'http://localhost:8080';
+        let prodUrl = 'https://backend-ingressar.onrender.com';
+
         async function generatePDF(ticketData, email, logoSrc) {
             const { PDFDocument, rgb, StandardFonts } = PDFLib;
             const pdfDoc = await PDFDocument.create();
@@ -44,21 +47,18 @@
             const logoImage = await pdfDoc.embedPng(logoImageBytes);
             const logoDims = logoImage.scale(0.4);
 
-            // Cores
             const backgroundColor = rgb(1, 1, 1);
-            const primaryColor = rgb(0.2, 0.2, 0.2); // Cinza Escuro
-            const secondaryColor = rgb(0.85, 0.85, 0.85); // Cinza Claro
+            const primaryColor = rgb(0.2, 0.2, 0.2);
+            const secondaryColor = rgb(0.85, 0.85, 0.85);
             const textColor = rgb(0, 0, 0);
             const highlightColor = rgb(0.2, 0.6, 1);
 
-            // Fontes
             const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
             const fontRegular = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
             for (const ticket of ticketData) {
                 const page = pdfDoc.addPage([400, 600]);
 
-                // Fundo
                 page.drawRectangle({
                     x: 0,
                     y: 0,
@@ -67,7 +67,6 @@
                     color: backgroundColor,
                 });
 
-                // Linha Cinza Escuro acima do logo
                 page.drawLine({
                     start: { x: 20, y: page.getHeight() - 20 },
                     end: { x: page.getWidth() - 20, y: page.getHeight() - 20 },
@@ -75,7 +74,6 @@
                     color: primaryColor,
                 });
 
-                // Logo
                 page.drawImage(logoImage, {
                     x: (page.getWidth() - logoDims.width) / 2,
                     y: page.getHeight() - logoDims.height - 30,
@@ -85,7 +83,6 @@
 
                 let yPosition = page.getHeight() - logoDims.height - 50;
 
-                // Título do Evento
                 page.drawText(ticket.nomeEvento, {
                     x: 30,
                     y: yPosition,
@@ -95,7 +92,6 @@
                 });
                 yPosition -= 35;
 
-                // Barra Cinza Claro para os campos de informações do ingresso
                 page.drawLine({
                     start: { x: 20, y: yPosition },
                     end: { x: page.getWidth() - 20, y: yPosition },
@@ -104,7 +100,6 @@
                 });
                 yPosition -= 20;
 
-                // Informações do Ingresso
                 const fields = [
                     { label: "Data do Evento", value: ticket.dataEvento },
                     { label: "Local", value: ticket.localEvento },
@@ -123,7 +118,6 @@
                     yPosition -= 25;
                 }
 
-                // Barra Cinza Claro abaixo dos campos de ingresso
                 page.drawLine({
                     start: { x: 20, y: yPosition },
                     end: { x: page.getWidth() - 20, y: yPosition },
@@ -132,7 +126,6 @@
                 });
                 yPosition -= 20;
 
-                // Informações do Ticket
                 const ticketFields = [
                     { label: "Nome do Comprador", value: ticket.nomeComprador },
                     { label: "Data da Compra", value: ticket.dataCompra },
@@ -147,7 +140,6 @@
                     yPosition -= 25;
                 }
 
-                // Barra Cinza Claro abaixo das informações do ticket
                 page.drawLine({
                     start: { x: 20, y: yPosition },
                     end: { x: page.getWidth() - 20, y: yPosition },
@@ -156,7 +148,6 @@
                 });
                 yPosition -= 20;
 
-                // Valor e Taxa
                 const valorLote = Number(ticket.valorLote) || 0;
                 const taxaLote = Number(ticket.taxaLote) || 0;
                 const taxaEmReais = (valorLote * taxaLote / 100).toFixed(2).replace('.', ',');
@@ -171,8 +162,7 @@
                 });
                 yPosition -= 30;
 
-                // QR Code
-                const qrCodeData = `https://backend-ingressar.onrender.com/updateStatus?ticketId=${ticket.idIngresso}&status=AUTHORIZED`;
+                const qrCodeData = `${localUrl}/updateStatus?ticketId=${ticket.idIngresso}&status=AUTHORIZED`;
                 const qrCodeImageUrl = await QRCode.toDataURL(qrCodeData);
                 const qrCodeImage = await pdfDoc.embedPng(qrCodeImageUrl);
 
@@ -185,7 +175,6 @@
 
                 yPosition -= 140;
 
-                // Linha Cinza Escuro abaixo do rodapé
                 page.drawLine({
                     start: { x: 20, y: 20 },
                     end: { x: page.getWidth() - 20, y: 20 },
@@ -198,14 +187,12 @@
             return new Blob([pdfBytes], { type: 'application/pdf' });
         }
 
-
-
         async function uploadPDF(pdfBlob, email) {
             const formData = new FormData();
             formData.append('file', pdfBlob, `${email}_ticket.pdf`);
 
             try {
-                const response = await fetch('https://backend-ingressar.onrender.com/api/upload', {
+                const response = await fetch(`${localUrl}/api/upload`, {
                     method: 'POST',
                     body: formData,
                 });
@@ -219,7 +206,7 @@
         }
 
         function fetchTicketData(paymentId) {
-            return fetch(`https://backend-ingressar.onrender.com/api/${paymentId}/ticketdata`)
+            return fetch(`${localUrl}/api/${paymentId}/ticketdata`)
                 .then(response => response.json())
                 .catch(error => {
                     console.error('Erro ao buscar dados do ingresso:', error);
@@ -261,7 +248,7 @@
                 }))
             };
 
-            fetch('https://backend-ingressar.onrender.com/api/payments/save', {
+            fetch(`${localUrl}/api/payments/save`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -289,7 +276,6 @@
             if (pdfBlob) {
                 const emailSent = await sendEmailWithTicket(pdfBlob, email);
                 if (emailSent) {
-                    // Redireciona somente após o envio bem-sucedido do e-mail
                     window.location.href = "form-ticket.html";
                 } else {
                     console.error('Falha ao enviar o e-mail. Não será redirecionado.');
@@ -305,16 +291,16 @@
             formData.append('body', 'Obrigado por sua compra! Em anexo está seu ingresso.');
 
             try {
-                const response = await fetch('https://backend-ingressar.onrender.com/api/email/send-ticket', {
+                const response = await fetch(`${localUrl}/api/email/send-ticket`, {
                     method: 'POST',
                     body: formData,
                 });
                 const result = await response.json();
                 console.log('E-mail enviado com sucesso:', result);
-                return true; // Retorna sucesso
+                return true;
             } catch (error) {
                 console.error('Erro ao enviar e-mail com o ingresso:', error);
-                return false; // Retorna falha
+                return false;
             }
         }
 

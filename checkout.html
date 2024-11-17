@@ -606,26 +606,26 @@
     <script src="js/loader.js" type="module"></script>
     <script src="js/Modal/Modal.js"></script>
 
-    <!-- Alpine -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
-    <!-- Checkout -->
     <script src="js/Checkout/Checkout.js" type="module"></script>
     <script src="js/Checkout/TicketTotal.js" type="module"></script>
 
-    <!-- Authentication User -->
     <script src="js/AuthenticationUser/AuthApi.js" type="module"></script>
     <script src="js/AuthenticationUser/AuthMain.js" type="module"></script>
     <script src="js/AuthenticationUser/AuthUiHandlers.js" type="module"></script>
 
-    <!-- Create User -->
     <script src="js/CreateUser/CreateUserApi.js" type="module"></script>
 
-
-    <!-- Mercado Pago -->
     <script src="https://sdk.mercadopago.com/js/v2"></script>
 
     <script>
+
+        let localUrl = 'http://localhost:8080';
+        let prodUrl = 'https://backend-ingressar.onrender.com'
+        let localPublicKey = 'TEST-5efa5f80-2b76-4bc2-9cbc-56172977d4de';
+        let prodPublicKey = 'APP_USR-82cf6735-6432-4efe-bd3e-f1dba9ba3459';
+
         document.addEventListener('DOMContentLoaded', async () => {
 
             const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
@@ -638,7 +638,7 @@
 
             const userData = JSON.parse(localStorage.getItem('user'));
             if (!userData) {
-                alert('Usuário não está logado.');
+                alert('É necessário fazer o login!');
                 window.location.href = 'index.html';
                 return;
             }
@@ -688,7 +688,7 @@
         }
 
         function setupMercadoPago(eventName, totalAmount, userId) {
-            fetch('https://backend-ingressar.onrender.com/api/payments/create-preference', {
+            fetch(`${localUrl}/api/payments/create-preference`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -704,7 +704,7 @@
                 .then(preferenceId => {
                     console.log('ID da preferência:', preferenceId);
 
-                    const mp = new MercadoPago('APP_USR-82cf6735-6432-4efe-bd3e-f1dba9ba3459', {
+                    const mp = new MercadoPago(prodPublicKey, {
                         locale: 'pt-BR'
                     });
 

@@ -32,7 +32,7 @@
             const { PDFDocument, rgb, StandardFonts } = PDFLib;
             const pdfDoc = await PDFDocument.create();
 
-            const logoSrc = 'img/logo/logo-ingressar.png';
+            const logoSrc = '../img/logo/logo-ingressar.png';
             const logoImageBytes = await fetch(logoSrc).then(res => res.arrayBuffer());
             const logoImage = await pdfDoc.embedPng(logoImageBytes);
             const logoDims = logoImage.scale(0.4);
