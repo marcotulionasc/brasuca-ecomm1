@@ -162,7 +162,7 @@
                 });
                 yPosition -= 30;
 
-                const qrCodeData = `${localUrl}/updateStatus?ticketId=${ticket.idIngresso}&status=AUTHORIZED`;
+                const qrCodeData = `${prodUrl}/updateStatus?ticketId=${ticket.idIngresso}&status=AUTHORIZED`;
                 const qrCodeImageUrl = await QRCode.toDataURL(qrCodeData);
                 const qrCodeImage = await pdfDoc.embedPng(qrCodeImageUrl);
 
@@ -192,7 +192,7 @@
             formData.append('file', pdfBlob, `${email}_ticket.pdf`);
 
             try {
-                const response = await fetch(`${localUrl}/api/upload`, {
+                const response = await fetch(`${prodUrl}/api/upload`, {
                     method: 'POST',
                     body: formData,
                 });
@@ -206,7 +206,7 @@
         }
 
         function fetchTicketData(paymentId) {
-            return fetch(`${localUrl}/api/${paymentId}/ticketdata`)
+            return fetch(`${prodUrl}/api/${paymentId}/ticketdata`)
                 .then(response => response.json())
                 .catch(error => {
                     console.error('Erro ao buscar dados do ingresso:', error);
@@ -248,7 +248,7 @@
                 }))
             };
 
-            fetch(`${localUrl}/api/payments/save`, {
+            fetch(`${prodUrl}/api/payments/save`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -291,7 +291,7 @@
             formData.append('body', 'Obrigado por sua compra! Em anexo está seu ingresso.');
 
             try {
-                const response = await fetch(`${localUrl}/api/email/send-ticket`, {
+                const response = await fetch(`${prodUrl}/api/email/send-ticket`, {
                     method: 'POST',
                     body: formData,
                 });

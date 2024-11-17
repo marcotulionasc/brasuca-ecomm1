@@ -688,7 +688,7 @@
         }
 
         function setupMercadoPago(eventName, totalAmount, userId) {
-            fetch(`${localUrl}/api/payments/create-preference`, {
+            fetch(`${prodUrl}/api/payments/create-preference`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
