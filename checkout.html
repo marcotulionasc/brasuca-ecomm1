@@ -711,8 +711,13 @@
                     tenantId: tenantId
                 })
             })
-                .then(response => response.text())
-                .then(preferenceId => {
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na resposta da API');
+                    }
+                    return response.json();
+                })
+                .then(data => {
                     console.log('Resposta completa da API:', data);
                     const preferenceId = data.id;
                     console.log('ID da preferência:', preferenceId);
@@ -733,13 +738,13 @@
                         autoOpen: false,
                         onPaymentApproved: (payment) => {
                             console.log('Pagamento aprovado:', payment);
-                            // window.location.href = "success.html"; // Criação ingresso
+                            // window.location.href = "success.html"; // Redirecionar após pagamento aprovado
                         }
                     });
-
                 })
                 .catch(error => {
                     console.error('Erro ao criar preferência de pagamento:', error);
+                    alert('Ocorreu um erro ao processar seu pagamento. Por favor, tente novamente.');
                 });
         }
 
