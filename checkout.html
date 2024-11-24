@@ -713,6 +713,8 @@
             })
                 .then(response => response.text())
                 .then(preferenceId => {
+                    console.log('Resposta completa da API:', data);
+                    const preferenceId = data.id;
                     console.log('ID da preferência:', preferenceId);
 
                     const mp = new MercadoPago(prodPublicKey, {
