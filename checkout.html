@@ -719,7 +719,11 @@
                 })
                 .then(data => {
                     console.log('Resposta completa da API:', data);
-                    const preferenceId = data.id;
+                    const preferenceId = data.preferenceId; // ID da preferência de pagamento
+
+                    if (!preferenceId) {
+                        throw new Error('preferenceId não encontrado na resposta da API');
+                    }
                     console.log('ID da preferência:', preferenceId);
 
                     const mp = new MercadoPago(prodPublicKey, {
