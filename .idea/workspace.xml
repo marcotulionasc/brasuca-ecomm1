@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ff871a81-3a9a-43a6-9d65-d5173f5a78f0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/event.html" beforeDir="false" afterPath="$PROJECT_DIR$/event.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Config/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Event.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Event.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Flyers.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Flyers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Modal.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "marcotulionasc"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/marcotulionasc/brasuca-ecomm1.git",
+    "accountId": "c59abf97-e788-46b5-af64-9bb215ea7160"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2jZ0wxhIKQCNm6zvHBAGIbyg2eg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ff871a81-3a9a-43a6-9d65-d5173f5a78f0" name="Changes" comment="" />
+      <created>1721579538709</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1721579538709</updated>
+    </task>
+    <servers />
+  </component>
+</project>

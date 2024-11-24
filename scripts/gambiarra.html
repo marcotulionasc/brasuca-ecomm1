@@ -100,7 +100,7 @@
         async function sendEmailWithTicket(pdfBlob, email) {
             const formData = new FormData();
             formData.append('file', pdfBlob, `${email}_ticket.pdf`);
-            formData.append('email', 'thiago.ceart@gmail.com'); // Por enquanto tem que mudar o e-mail manualmente
+            formData.append('email', 'marcohostal@gmail.com'); // Por enquanto tem que mudar o e-mail manualmente
             formData.append('subject', 'Seu ingresso para o evento');
             formData.append('body', 'Obrigado por sua compra! Em anexo está seu ingresso.');
 

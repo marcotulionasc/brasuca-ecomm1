@@ -273,8 +273,8 @@
             </div>
         </header>
 
-         <!-- Desktop Header -->
-         <header class="p-3 hidden md:flex justify-center items-center bg-gray-950 border-b">
+        <!-- Desktop Header -->
+        <header class="p-3 hidden md:flex justify-center items-center bg-gray-950 border-b">
             <div class="flex items-center space-x-12">
                 <!-- Logo -->
                 <img src="img/logo/brasuca-multicultural-logo.webp" alt="Logo" class="w-32 h-28 cursor-pointer"
@@ -623,7 +623,7 @@
 
         let localUrl = 'http://localhost:8080';
         let prodUrl = 'https://backend-ingressar.onrender.com'
-        let localPublicKey = 'TEST-5efa5f80-2b76-4bc2-9cbc-56172977d4de';
+        let localPublicKey = 'TEST-e2c51c49-3109-49a8-ba7a-7b6242c2313e';
         let prodPublicKey = 'APP_USR-82cf6735-6432-4efe-bd3e-f1dba9ba3459';
 
         document.addEventListener('DOMContentLoaded', async () => {
@@ -650,6 +650,12 @@
                 document.getElementById('email').value = userData.user.email || '';
             }
 
+            userName = userData.user.name || '';
+            userEmail = userData.user.email || '';
+
+            const tenantId = localStorage.getItem('tenantId') || new URLSearchParams(window.location.search).get('tenantId');
+            const eventId = localStorage.getItem('eventId') || new URLSearchParams(window.location.search).get('eventId');
+
             const eventName = localStorage.getItem('eventName') || 'Nome do Evento Não Encontrado';
 
             const eventTitleElement = document.getElementById('eventName');
@@ -663,7 +669,7 @@
 
             document.getElementById('totalAmount').textContent = `R$ ${totalAmount.toFixed(2).replace('.', ',')}`;
 
-            setupMercadoPago(eventName, totalAmount, userId);
+            setupMercadoPago(eventName, totalAmount, userId, userName, userEmail, selectedTickets, eventId, tenantId);
 
         });
 
@@ -687,7 +693,7 @@
             return tickets.reduce((total, ticket) => total + (ticket.price * ticket.quantity), 0);
         }
 
-        function setupMercadoPago(eventName, totalAmount, userId) {
+        function setupMercadoPago(eventName, totalAmount, userId, userName, userEmail, selectedTickets, eventId, tenantId) {
             fetch(`${prodUrl}/api/payments/create-preference`, {
                 method: 'POST',
                 headers: {
@@ -697,7 +703,12 @@
                     eventName: eventName,
                     ticketPriceTotal: totalAmount,
                     buyQuantity: 1,
-                    userId: userId
+                    userId: userId,
+                    userName: userName,
+                    userEmail: userEmail,
+                    selectedTickets: selectedTickets,
+                    eventId: eventId,
+                    tenantId: tenantId
                 })
             })
                 .then(response => response.text())
@@ -720,7 +731,7 @@
                         autoOpen: false,
                         onPaymentApproved: (payment) => {
                             console.log('Pagamento aprovado:', payment);
-                            window.location.href = "success.html";
+                            // window.location.href = "success.html"; // Criação ingresso
                         }
                     });
 
