@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log(lots);
     
                  
-                const activeLots = lots.filter(lot => lot.isLotActive === "ACTIVE" && lot.order_lot === 3);
+                const activeLots = lots.filter(lot => lot.isLotActive === "ACTIVE" && lot.orderLot === 1);
     
                 if (activeLots.length > 0) {
                      
