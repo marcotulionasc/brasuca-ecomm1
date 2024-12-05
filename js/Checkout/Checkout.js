@@ -217,6 +217,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
     
                 const lots = JSON.parse(text);
+
+                console.log(lots);
     
                 // Filtrar lotes ativos com order_lot igual a 1
                 const activeLots = lots.filter(lot => lot.isLotActive === "ACTIVE" && lot.order_lot === 1);
