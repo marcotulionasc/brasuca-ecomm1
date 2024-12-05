@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="flex items-center justify-between">
                 <h3 class="text-lg font-bold">${areaTicket}</h3>
             </div>
-            <p class="mt-4 text-sm">Selecione os ingressos disponíveis nesta área:</p>
+            <p class="mt-4 text-sm">Selecione os ingressos disponíveis:</p>
             <details id="lots_${areaId}" class="bg-gray-800 text-white rounded-lg p-4 shadow-sm">
                 <summary class="font-semibold cursor-pointer hover:text-indigo-500 bg-gray-950 p-2 rounded-lg transition duration-300 ease-in-out">
                     Ver ingressos
