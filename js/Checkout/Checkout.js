@@ -69,24 +69,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
         container.innerHTML = '';
 
+        // Contêiner para a imagem e o fundo
+        const imageWrapper = document.createElement("div");
+        imageWrapper.classList.add("relative", "w-full", "overflow-hidden");
+
         const backgroundContainer = document.createElement("div");
         backgroundContainer.style.backgroundImage = `url('${base64Image}')`;
-        backgroundContainer.classList.add("blur-scale", "absolute", "top-0", "left-0", "right-0", "bottom-0", "z-0");
+        backgroundContainer.classList.add(
+            "blur-scale",
+            "absolute",
+            "top-0",
+            "left-0",
+            "w-full",
+            "h-full",
+            "z-0"
+        );
 
         const image = document.createElement("img");
         image.src = base64Image;
         image.alt = "Imagem do Evento";
         image.classList.add(
-            "w-full",
-            "h-64",
-            "object-cover",
+            "max-w-full",
+            "h-auto",
+            "object-contain",
             "rounded-lg",
             "relative",
-            "z-10");
+            "z-10"
+        );
 
-        container.appendChild(backgroundContainer);
-        container.appendChild(image);
+        imageWrapper.appendChild(backgroundContainer);
+        imageWrapper.appendChild(image);
+
+        container.appendChild(imageWrapper);
     }
+
 
     function displayEventDetails(event) {
         const container = document.querySelector("#eventDetailsContainer");
@@ -199,37 +215,37 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchLotsForArea(tenantId, eventId, ticketsInArea, ticketDiv, areaTicket) {
         const areaId = areaTicket.replace(/\s+/g, '_');
         const ticketsContainer = ticketDiv.querySelector(`#tickets_container_${areaId}`);
-    
+
         let allActiveLots = [];
-    
+
         for (const ticket of ticketsInArea) {
             const ticketId = ticket.id;
             const nameTicket = ticket.nameTicket || ticket.name || ticket.title || 'Ingresso';
-    
+
             const lotsUrl = `${getBaseUrl}/api/tenants/${tenantId}/events/${eventId}/tickets/${ticketId}/lots`;
-    
+
             try {
                 const response = await fetch(lotsUrl, { method: 'GET' });
                 const text = await response.text();
-    
+
                 if (text.startsWith('<')) {
                     throw new Error('Recebeu resposta HTML em vez de JSON. Por favor, verifique a URL do endpoint.');
                 }
-    
+
                 const lots = JSON.parse(text);
 
                 console.log(lots);
-    
-                 
+
+
                 const activeLots = lots.filter(lot => lot.isLotActive === "ACTIVE" && lot.orderLot === 1);
-    
+
                 if (activeLots.length > 0) {
-                     
+
                     activeLots.forEach(lot => {
                         lot.ticketId = ticketId;
                         lot.nameTicket = nameTicket;
                     });
-    
+
                     // Coletar todos os lotes ativos com order_lot igual a 1
                     allActiveLots.push(...activeLots);
                 } else {
@@ -239,7 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error(`Erro ao buscar lotes para ticketId ${ticketId}:`, error);
             }
         }
-    
+
         if (allActiveLots.length > 0) {
             // Exibir apenas os lotes com order_lot igual a 1
             for (const lot of allActiveLots) {
