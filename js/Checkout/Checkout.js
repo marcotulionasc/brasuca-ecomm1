@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const text = await response.text();
 
                 if (text.startsWith('<')) {
-                    throw new Error('Received HTML response instead of JSON. Please check the endpoint URL.');
+                    throw new Error('Recebeu resposta HTML em vez de JSON. Por favor, verifique a URL do endpoint.');
                 }
 
                 const lots = JSON.parse(text);
@@ -219,7 +219,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const activeLots = lots.filter(lot => lot.isLotActive === "ACTIVE");
 
                 if (activeLots.length > 0) {
-                    activeLots.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+                    // Ordenar lotes ativos pelo campo 'order_lot'
+                    activeLots.sort((a, b) => a.order_lot - b.order_lot);
 
                     const firstLot = activeLots[0];
 
@@ -228,13 +229,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     setupLotEventListeners(lotDiv, firstLot);
                 } else {
-                    console.log(`No active lots found for ticketId: ${ticketId}`);
+                    console.log(`Nenhum lote ativo encontrado para ticketId: ${ticketId}`);
                 }
             } catch (error) {
-                console.error(`Error fetching lots for ticketId ${ticketId}:`, error);
+                console.error(`Erro ao buscar lotes para ticketId ${ticketId}:`, error);
             }
         }
     }
+
 
     function createLotElement(lot, nameTicket) {
         const lotDiv = document.createElement("div");
