@@ -103,7 +103,8 @@ document.addEventListener("DOMContentLoaded", () => {
             "max-h-full",
             "max-w-full",
             "object-contain",
-            "z-10"
+            "z-10",
+            "mb-4"
         );
 
         imageWrapper.appendChild(backgroundContainer);
