@@ -220,11 +220,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 console.log(lots);
     
-                // Filtrar lotes ativos com order_lot igual a 1
-                const activeLots = lots.filter(lot => lot.isLotActive === "ACTIVE" && lot.order_lot === 1);
+                 
+                const activeLots = lots.filter(lot => lot.isLotActive === "ACTIVE" && lot.order_lot === 3);
     
                 if (activeLots.length > 0) {
-                    // Adicionar informações do ingresso a cada lote, se necessário
+                     
                     activeLots.forEach(lot => {
                         lot.ticketId = ticketId;
                         lot.nameTicket = nameTicket;
