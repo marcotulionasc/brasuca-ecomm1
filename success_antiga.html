@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pagamento aprovado!</title>
+    <link rel="icon" href="img/logo/brasuca-multicultural-logo.webp" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Inclua a biblioteca pdf-lib -->
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <!-- Inclua a biblioteca QRCode -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <style>
+        #check-icon {
+            width: 50px;
+            height: 50px;
+            transition: width 0.1s, height 0.1s;
+            border-radius: 50%;
+        }
+
+        body,
+        html {
+            overflow: visible;
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center h-screen bg-green-100 overflow-visible">
+    <div id="check-icon" class="bg-green-500 text-white flex items-center justify-center">
+        <i class="fas fa-check fa-3x"></i>
+    </div>
+
+    <!-- <script>
+
+        let localUrl = 'http://localhost:8080';
+        let prodUrl = 'https://backend-ingressar.onrender.com';
+
+        async function generatePDF(ticketData, email, logoSrc) {
+            const { PDFDocument, rgb, StandardFonts } = PDFLib;
+            const pdfDoc = await PDFDocument.create();
+
+            const logoImageBytes = await fetch(logoSrc).then(res => res.arrayBuffer());
+            const logoImage = await pdfDoc.embedPng(logoImageBytes);
+            const logoDims = logoImage.scale(0.4);
+
+            const backgroundColor = rgb(1, 1, 1);
+            const primaryColor = rgb(0.2, 0.2, 0.2);
+            const secondaryColor = rgb(0.85, 0.85, 0.85);
+            const textColor = rgb(0, 0, 0);
+            const highlightColor = rgb(0.2, 0.6, 1);
+
+            const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+            const fontRegular = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+            for (const ticket of ticketData) {
+                const page = pdfDoc.addPage([400, 600]);
+
+                page.drawRectangle({
+                    x: 0,
+                    y: 0,
+                    width: page.getWidth(),
+                    height: page.getHeight(),
+                    color: backgroundColor,
+                });
+
+                page.drawLine({
+                    start: { x: 20, y: page.getHeight() - 20 },
+                    end: { x: page.getWidth() - 20, y: page.getHeight() - 20 },
+                    thickness: 1,
+                    color: primaryColor,
+                });
+
+                page.drawImage(logoImage, {
+                    x: (page.getWidth() - logoDims.width) / 2,
+                    y: page.getHeight() - logoDims.height - 30,
+                    width: logoDims.width,
+                    height: logoDims.height,
+                });
+
+                let yPosition = page.getHeight() - logoDims.height - 50;
+
+                page.drawText(ticket.nomeEvento, {
+                    x: 30,
+                    y: yPosition,
+                    size: 18,
+                    font: fontBold,
+                    color: highlightColor,
+                });
+                yPosition -= 35;
+
+                page.drawLine({
+                    start: { x: 20, y: yPosition },
+                    end: { x: page.getWidth() - 20, y: yPosition },
+                    thickness: 1,
+                    color: secondaryColor,
+                });
+                yPosition -= 20;
+
+                const fields = [
+                    { label: "Data do Evento", value: ticket.dataEvento },
+                    { label: "Local", value: ticket.localEvento },
+                    { label: "Ingresso", value: ticket.nomeIngresso },
+                    { label: "Área", value: ticket.areaIngresso },
+                ];
+
+                const textOptions = { size: 12, font: fontRegular, color: textColor };
+
+                for (const field of fields) {
+                    page.drawText(`${field.label}: ${field.value}`, {
+                        x: 30,
+                        y: yPosition,
+                        ...textOptions,
+                    });
+                    yPosition -= 25;
+                }
+
+                page.drawLine({
+                    start: { x: 20, y: yPosition },
+                    end: { x: page.getWidth() - 20, y: yPosition },
+                    thickness: 1,
+                    color: secondaryColor,
+                });
+                yPosition -= 20;
+
+                const ticketFields = [
+                    { label: "Nome do Comprador", value: ticket.nomeComprador },
+                    { label: "Data da Compra", value: ticket.dataCompra },
+                ];
+
+                for (const field of ticketFields) {
+                    page.drawText(`${field.label}: ${field.value}`, {
+                        x: 30,
+                        y: yPosition,
+                        ...textOptions,
+                    });
+                    yPosition -= 25;
+                }
+
+                page.drawLine({
+                    start: { x: 20, y: yPosition },
+                    end: { x: page.getWidth() - 20, y: yPosition },
+                    thickness: 1,
+                    color: secondaryColor,
+                });
+                yPosition -= 20;
+
+                const valorLote = Number(ticket.valorLote) || 0;
+                const taxaLote = Number(ticket.taxaLote) || 0;
+                const taxaEmReais = (valorLote * taxaLote / 100).toFixed(2).replace('.', ',');
+                const valorLoteFormatado = valorLote.toFixed(2).replace('.', ',');
+
+                page.drawText(`Valor: R$ ${valorLoteFormatado} + Taxa: R$ ${taxaEmReais}`, {
+                    x: 30,
+                    y: yPosition,
+                    size: 14,
+                    font: fontBold,
+                    color: highlightColor,
+                });
+                yPosition -= 30;
+
+                const qrCodeData = `${prodUrl}/updateStatus?ticketId=${ticket.idIngresso}&status=AUTHORIZED`;
+                const qrCodeImageUrl = await QRCode.toDataURL(qrCodeData);
+                const qrCodeImage = await pdfDoc.embedPng(qrCodeImageUrl);
+
+                page.drawImage(qrCodeImage, {
+                    x: (page.getWidth() - 100) / 2,
+                    y: yPosition - 100,
+                    width: 100,
+                    height: 100,
+                });
+
+                yPosition -= 140;
+
+                page.drawLine({
+                    start: { x: 20, y: 20 },
+                    end: { x: page.getWidth() - 20, y: 20 },
+                    thickness: 1,
+                    color: primaryColor,
+                });
+            }
+
+            const pdfBytes = await pdfDoc.save();
+            return new Blob([pdfBytes], { type: 'application/pdf' });
+        }
+
+        async function uploadPDF(pdfBlob, email) {
+            const formData = new FormData();
+            formData.append('file', pdfBlob, `${email}_ticket.pdf`);
+
+            try {
+                const response = await fetch(`${prodUrl}/api/upload`, {
+                    method: 'POST',
+                    body: formData,
+                });
+                const result = await response.json();
+                console.log('Upload realizado com sucesso:', result);
+                return result.filePath;
+            } catch (error) {
+                console.error('Erro ao fazer upload do PDF:', error);
+                return null;
+            }
+        }
+
+        function fetchTicketData(paymentId) {
+            return fetch(`${prodUrl}/api/${paymentId}/ticketdata`)
+                .then(response => response.json())
+                .catch(error => {
+                    console.error('Erro ao buscar dados do ingresso:', error);
+                    return null;
+                });
+        }
+
+        const tenantId = localStorage.getItem('tenantId');
+        const eventId = localStorage.getItem('eventId');
+
+        function calculateTotalAmount(tickets) {
+            return tickets.reduce((total, ticket) => total + (ticket.price * ticket.quantity), 0);
+        }
+
+        function savePaymentInDatabase() {
+            const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
+            const userData = JSON.parse(localStorage.getItem('user'));
+            const userId = userData?.user?.id;
+
+            if (!userId) {
+                console.error("User ID is missing. Cannot save payment.");
+                return;
+            }
+
+            const name = userData.user.name || '';
+            const email = userData.user.email || '';
+            const totalAmount = calculateTotalAmount(selectedTickets);
+
+            const paymentData = {
+                userId: userId,
+                name: name,
+                email: email,
+                eventId: eventId,
+                tenantId: tenantId,
+                totalAmount: totalAmount,
+                selectedTickets: selectedTickets.map(ticket => ({
+                    ticketId: ticket.ticketId || ticket.id,
+                    quantity: ticket.quantity
+                }))
+            };
+
+            fetch(`${prodUrl}/api/payments/save`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(paymentData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const paymentId = data.paymentId;
+                    localStorage.setItem('paymentId', paymentId);
+                    return processTicketPDF(paymentId, email);
+                })
+                .catch(error => {
+                    console.error('Erro ao salvar pagamento:', error);
+                });
+        }
+
+        async function processTicketPDF(paymentId, email) {
+            const ticketData = await fetchTicketData(paymentId);
+            if (!ticketData) return;
+
+            const logoSrc = 'img/logo/logo-ingressar.png';
+            const pdfBlob = await generatePDF(ticketData, email, logoSrc);
+
+            if (pdfBlob) {
+                const emailSent = await sendEmailWithTicket(pdfBlob, email);
+                if (emailSent) {
+                    window.location.href = "form-ticket.html";
+                } else {
+                    console.error('Falha ao enviar o e-mail. Não será redirecionado.');
+                }
+            }
+        }
+
+        async function sendEmailWithTicket(pdfBlob, email) {
+            const formData = new FormData();
+            formData.append('file', pdfBlob, `${email}_ticket.pdf`);
+            formData.append('email', email);
+            formData.append('subject', 'Seu ingresso para o evento');
+            formData.append('body', 'Obrigado por sua compra! Em anexo está seu ingresso.');
+
+            try {
+                const response = await fetch(`${prodUrl}/api/email/send-ticket`, {
+                    method: 'POST',
+                    body: formData,
+                });
+                const result = await response.json();
+                console.log('E-mail enviado com sucesso:', result);
+                return true;
+            } catch (error) {
+                console.error('Erro ao enviar e-mail com o ingresso:', error);
+                return false;
+            }
+        }
+
+        function animateProgress() {
+            savePaymentInDatabase();
+
+            const checkIcon = document.getElementById('check-icon');
+            let size = 50;
+
+            const interval = setInterval(() => {
+                size += 7;
+                checkIcon.style.width = `${size}px`;
+                checkIcon.style.height = `${size}px`;
+
+                if (size >= 1000) {
+                    clearInterval(interval);
+                    window.location.href = "form-ticket.html";
+                }
+            }, 100);
+        }
+
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const paymentStatus = urlParams.get('status');
+
+            if (paymentStatus === 'approved') {
+                animateProgress();
+            } else {
+                console.error('Pagamento não aprovado:', paymentStatus);
+            }
+        };
+    </script> -->
+</body>
+
+</html>
