@@ -71,29 +71,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Contêiner para a imagem e o fundo
         const imageWrapper = document.createElement("div");
-        imageWrapper.classList.add("relative", "w-full", "overflow-hidden");
+        imageWrapper.classList.add("relative", "w-full", "max-w-[800px]", "mx-auto", "overflow-hidden", "rounded-lg");
+        imageWrapper.style.height = "400px"; // Altura fixa para o contêiner
 
+        // Fundo desfocado
         const backgroundContainer = document.createElement("div");
         backgroundContainer.style.backgroundImage = `url('${base64Image}')`;
         backgroundContainer.classList.add(
-            "blur-scale",
             "absolute",
             "top-0",
             "left-0",
             "w-full",
             "h-full",
-            "z-0"
+            "z-0",
+            "blur-scale"
         );
+        backgroundContainer.style.backgroundSize = "cover";
+        backgroundContainer.style.backgroundPosition = "center";
 
+        // Imagem principal
         const image = document.createElement("img");
         image.src = base64Image;
         image.alt = "Imagem do Evento";
         image.classList.add(
+            "absolute",
+            "top-1/2",
+            "left-1/2",
+            "transform",
+            "-translate-x-1/2",
+            "-translate-y-1/2",
+            "max-h-full",
             "max-w-full",
-            "h-auto",
             "object-contain",
-            "rounded-lg",
-            "relative",
             "z-10"
         );
 
@@ -102,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         container.appendChild(imageWrapper);
     }
+
 
 
     function displayEventDetails(event) {
