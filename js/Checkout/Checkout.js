@@ -200,6 +200,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const areaId = areaTicket.replace(/\s+/g, '_');
         const ticketsContainer = ticketDiv.querySelector(`#tickets_container_${areaId}`);
 
+        let allActiveLots = [];
+
         for (const ticket of ticketsInArea) {
             const ticketId = ticket.id;
             const nameTicket = ticket.nameTicket || ticket.name || ticket.title || 'Ingresso';
@@ -219,15 +221,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 const activeLots = lots.filter(lot => lot.isLotActive === "ACTIVE");
 
                 if (activeLots.length > 0) {
-                    // Ordenar lotes ativos pelo campo 'order_lot'
-                    activeLots.sort((a, b) => a.order_lot - b.order_lot);
+                    // Adicionar informações do ingresso a cada lote, se necessário
+                    activeLots.forEach(lot => {
+                        lot.ticketId = ticketId;
+                        lot.nameTicket = nameTicket;
+                    });
 
-                    const firstLot = activeLots[0];
-
-                    const lotDiv = createLotElement(firstLot, nameTicket);
-                    ticketsContainer.appendChild(lotDiv);
-
-                    setupLotEventListeners(lotDiv, firstLot);
+                    // Coletar todos os lotes ativos
+                    allActiveLots.push(...activeLots);
                 } else {
                     console.log(`Nenhum lote ativo encontrado para ticketId: ${ticketId}`);
                 }
@@ -235,7 +236,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error(`Erro ao buscar lotes para ticketId ${ticketId}:`, error);
             }
         }
+
+        if (allActiveLots.length > 0) {
+            // Ordenar todos os lotes ativos pelo order_lot
+            allActiveLots.sort((a, b) => a.order_lot - b.order_lot);
+
+            // Processar os lotes ordenados conforme necessário
+            for (const lot of allActiveLots) {
+                const lotDiv = createLotElement(lot, lot.nameTicket);
+                ticketsContainer.appendChild(lotDiv);
+                setupLotEventListeners(lotDiv, lot);
+            }
+        } else {
+            console.log("Nenhum lote ativo encontrado.");
+        }
     }
+
 
 
     function createLotElement(lot, nameTicket) {
