@@ -152,6 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
         // Título do evento
         const title = document.createElement("h2");
+        title.id = 'eventName';
         title.classList.add("text-2xl", "font-bold", "mt-4", "text-white");
         title.textContent = event.titleEvent || "Título não disponível";
     
