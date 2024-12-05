@@ -203,6 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "rounded-lg",
             "shadow-lg",
             "text-white",
+            "mb-6",
         );
 
         const areaId = areaTicket.replace(/\s+/g, '_');
