@@ -199,63 +199,56 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchLotsForArea(tenantId, eventId, ticketsInArea, ticketDiv, areaTicket) {
         const areaId = areaTicket.replace(/\s+/g, '_');
         const ticketsContainer = ticketDiv.querySelector(`#tickets_container_${areaId}`);
-
+    
         let allActiveLots = [];
-
+    
         for (const ticket of ticketsInArea) {
             const ticketId = ticket.id;
             const nameTicket = ticket.nameTicket || ticket.name || ticket.title || 'Ingresso';
-
+    
             const lotsUrl = `${getBaseUrl}/api/tenants/${tenantId}/events/${eventId}/tickets/${ticketId}/lots`;
-
+    
             try {
                 const response = await fetch(lotsUrl, { method: 'GET' });
                 const text = await response.text();
-
+    
                 if (text.startsWith('<')) {
                     throw new Error('Recebeu resposta HTML em vez de JSON. Por favor, verifique a URL do endpoint.');
                 }
-
+    
                 const lots = JSON.parse(text);
-
-                const activeLots = lots.filter(lot => lot.isLotActive === "ACTIVE");
-
+    
+                // Filtrar lotes ativos com order_lot igual a 1
+                const activeLots = lots.filter(lot => lot.isLotActive === "ACTIVE" && lot.order_lot === 1);
+    
                 if (activeLots.length > 0) {
                     // Adicionar informações do ingresso a cada lote, se necessário
                     activeLots.forEach(lot => {
                         lot.ticketId = ticketId;
                         lot.nameTicket = nameTicket;
                     });
-
-                    // Coletar todos os lotes ativos
+    
+                    // Coletar todos os lotes ativos com order_lot igual a 1
                     allActiveLots.push(...activeLots);
                 } else {
-                    console.log(`Nenhum lote ativo encontrado para ticketId: ${ticketId}`);
+                    console.log(`Nenhum lote ativo com order_lot igual a 1 encontrado para ticketId: ${ticketId}`);
                 }
             } catch (error) {
                 console.error(`Erro ao buscar lotes para ticketId ${ticketId}:`, error);
             }
         }
-
+    
         if (allActiveLots.length > 0) {
-            // Encontrar o menor order_lot entre todos os lotes ativos
-            const minOrderLot = Math.min(...allActiveLots.map(lot => lot.order_lot));
-
-            // Filtrar os lotes que têm o menor order_lot
-            const lotsWithMinOrder = allActiveLots.filter(lot => lot.order_lot === minOrderLot);
-
-            // Exibir apenas os lotes com o menor order_lot
-            for (const lot of lotsWithMinOrder) {
+            // Exibir apenas os lotes com order_lot igual a 1
+            for (const lot of allActiveLots) {
                 const lotDiv = createLotElement(lot, lot.nameTicket);
                 ticketsContainer.appendChild(lotDiv);
                 setupLotEventListeners(lotDiv, lot);
             }
         } else {
-            console.log("Nenhum lote ativo encontrado.");
+            console.log("Nenhum lote ativo com order_lot igual a 1 encontrado.");
         }
     }
-
-
 
 
     function createLotElement(lot, nameTicket) {
