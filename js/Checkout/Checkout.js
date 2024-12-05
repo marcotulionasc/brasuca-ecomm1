@@ -238,11 +238,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (allActiveLots.length > 0) {
-            // Ordenar todos os lotes ativos pelo order_lot
-            allActiveLots.sort((a, b) => a.order_lot - b.order_lot);
+            // Encontrar o menor order_lot entre todos os lotes ativos
+            const minOrderLot = Math.min(...allActiveLots.map(lot => lot.order_lot));
 
-            // Processar os lotes ordenados conforme necessário
-            for (const lot of allActiveLots) {
+            // Filtrar os lotes que têm o menor order_lot
+            const lotsWithMinOrder = allActiveLots.filter(lot => lot.order_lot === minOrderLot);
+
+            // Exibir apenas os lotes com o menor order_lot
+            for (const lot of lotsWithMinOrder) {
                 const lotDiv = createLotElement(lot, lot.nameTicket);
                 ticketsContainer.appendChild(lotDiv);
                 setupLotEventListeners(lotDiv, lot);
@@ -251,6 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Nenhum lote ativo encontrado.");
         }
     }
+
 
 
 
