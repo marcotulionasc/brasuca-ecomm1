@@ -122,32 +122,102 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         container.innerHTML = '';
-
+    
+        // Criar o contêiner das abas
+        const tabsContainer = document.createElement("div");
+        tabsContainer.classList.add("tabs-container");
+    
+        // Criar o cabeçalho das abas
+        const tabsHeader = document.createElement("div");
+        tabsHeader.classList.add("tabs-header", "flex", "border-b", "border-gray-200", "mt-4");
+    
+        const tabInfoButton = document.createElement("button");
+        tabInfoButton.classList.add("tab-button", "px-4", "py-2", "focus:outline-none", "text-white", "bg-gray-800");
+        tabInfoButton.textContent = "Informações";
+    
+        const tabDescriptionButton = document.createElement("button");
+        tabDescriptionButton.classList.add("tab-button", "px-4", "py-2", "focus:outline-none", "text-white", "bg-gray-700");
+        tabDescriptionButton.textContent = "Descrição Evento";
+    
+        tabsHeader.appendChild(tabInfoButton);
+        tabsHeader.appendChild(tabDescriptionButton);
+    
+        // Criar o conteúdo das abas
+        const tabsContent = document.createElement("div");
+        tabsContent.classList.add("tabs-content", "mt-4");
+    
+        // Conteúdo da aba Informações com dados dinâmicos
+        const tabInfoContent = document.createElement("div");
+        tabInfoContent.classList.add("tab-content");
+    
+        // Título do evento
         const title = document.createElement("h2");
-        title.id = 'eventName';
         title.classList.add("text-2xl", "font-bold", "mt-4", "text-white");
         title.textContent = event.titleEvent || "Título não disponível";
-
+    
+        // Data do evento
         const date = document.createElement("p");
         date.classList.add("text-white");
-
-        const dateObj = event.date.split('-');
-        const dateFormatted = `${dateObj[2]}/${dateObj[1]}/${dateObj[0]}`;
-
-        date.textContent = dateFormatted || "Data não disponível";
-
+        if (event.date) {
+            const dateObj = event.date.split('-');
+            const dateFormatted = `${dateObj[2]}/${dateObj[1]}/${dateObj[0]}`;
+            date.textContent = dateFormatted;
+        } else {
+            date.textContent = "Data não disponível";
+        }
+    
+        // Local do evento
         const address = document.createElement("p");
         address.classList.add("text-white");
         address.textContent = event.local || "Local não disponível";
-
+    
+        // Adicionar os elementos ao conteúdo da aba Informações
+        tabInfoContent.appendChild(title);
+        tabInfoContent.appendChild(date);
+        tabInfoContent.appendChild(address);
+    
+        // Conteúdo da aba Descrição Evento
+        const tabDescriptionContent = document.createElement("div");
+        tabDescriptionContent.classList.add("tab-content", "hidden");
+    
+        // Descrição do evento
         const description = document.createElement("p");
         description.classList.add("text-white");
         description.textContent = event.description || "Descrição não disponível";
-
-        container.appendChild(title);
-        container.appendChild(date);
-        container.appendChild(address);
-        container.appendChild(description);
+    
+        // Adicionar o elemento ao conteúdo da aba Descrição Evento
+        tabDescriptionContent.appendChild(description);
+    
+        // Adicionar os conteúdos ao contêiner das abas
+        tabsContent.appendChild(tabInfoContent);
+        tabsContent.appendChild(tabDescriptionContent);
+    
+        // Adicionar eventos de clique nas abas
+        tabInfoButton.addEventListener("click", () => {
+            tabInfoButton.classList.add("bg-gray-800");
+            tabInfoButton.classList.remove("bg-gray-700");
+            tabDescriptionButton.classList.add("bg-gray-700");
+            tabDescriptionButton.classList.remove("bg-gray-800");
+    
+            tabInfoContent.classList.remove("hidden");
+            tabDescriptionContent.classList.add("hidden");
+        });
+    
+        tabDescriptionButton.addEventListener("click", () => {
+            tabDescriptionButton.classList.add("bg-gray-800");
+            tabDescriptionButton.classList.remove("bg-gray-700");
+            tabInfoButton.classList.add("bg-gray-700");
+            tabInfoButton.classList.remove("bg-gray-800");
+    
+            tabDescriptionContent.classList.remove("hidden");
+            tabInfoContent.classList.add("hidden");
+        });
+    
+        // Montar tudo no container principal
+        tabsContainer.appendChild(tabsHeader);
+        tabsContainer.appendChild(tabsContent);
+    
+        container.appendChild(tabsContainer);
     }
 
     async function viewDetails(tenantId, eventId) {
