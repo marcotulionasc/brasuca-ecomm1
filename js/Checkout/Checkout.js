@@ -171,11 +171,24 @@ document.addEventListener("DOMContentLoaded", () => {
         const address = document.createElement("p");
         address.classList.add("text-white");
         address.textContent = event.local || "Local não disponível";
+
+        // Horário que começará o evento
+        const timeStart = document.createElement("p");
+        time.classList.add("text-white");
+        time.textContent = "16h" || "Horário não disponível";
+
+        // Horário que começará o evento
+        const timeEnd = document.createElement("p");
+        time.classList.add("text-white");
+        time.textContent = "02h" || "Horário não disponível";
     
         // Adicionar os elementos ao conteúdo da aba Informações
         tabInfoContent.appendChild(title);
         tabInfoContent.appendChild(date);
         tabInfoContent.appendChild(address);
+        tabInfoContent.appendChild(timeStart);
+        tabInfoContent.appendChild(timeEnd);
+      
     
         // Conteúdo da aba Descrição Evento
         const tabDescriptionContent = document.createElement("div");
