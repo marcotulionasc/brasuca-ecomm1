@@ -4,6 +4,22 @@ import { updatePriceAndQuantity } from './TicketTotal.js';
 const getBaseUrl = config.getBaseUrl();
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Selecionar elementos necessários
+    const eventDetailsContainer = document.querySelector("#eventDetailsContainer");
+    const eventDetails = document.querySelector("#eventDetails");
+    const ticketOptions = document.querySelector("#ticketOptions"); // Adicionado
+
+    if (!eventDetailsContainer) {
+        console.error("Elemento #eventDetailsContainer não encontrado.");
+    }
+
+    if (!eventDetails) {
+        console.error("Elemento #eventDetails não encontrado.");
+    }
+
+    if (!ticketOptions) {
+        console.error("Elemento #ticketOptions não encontrado.");
+    }
 
     function getUrlParams() {
         const params = new URLSearchParams(window.location.search);
@@ -61,13 +77,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function displayEventImage(base64Image) {
-        const container = document.querySelector("#eventDetails");
-        if (!container) {
+        if (!eventDetails) {
             console.error("Elemento #eventDetails não encontrado ao exibir imagem.");
             return;
         }
 
-        container.innerHTML = '';
+        eventDetails.innerHTML = '';
 
         // Contêiner para a imagem e o fundo
         const imageWrapper = document.createElement("div");
@@ -110,52 +125,49 @@ document.addEventListener("DOMContentLoaded", () => {
         imageWrapper.appendChild(backgroundContainer);
         imageWrapper.appendChild(image);
 
-        container.appendChild(imageWrapper);
+        eventDetails.appendChild(imageWrapper);
     }
 
-
-
     function displayEventDetails(event) {
-        const container = document.querySelector("#eventDetailsContainer");
-        if (!container) {
+        if (!eventDetailsContainer) {
             console.error("Elemento #eventDetailsContainer não encontrado ao exibir detalhes.");
             return;
         }
-        container.innerHTML = '';
-    
+        eventDetailsContainer.innerHTML = '';
+
         // Criar o contêiner das abas
         const tabsContainer = document.createElement("div");
         tabsContainer.classList.add("tabs-container");
-    
+
         // Criar o cabeçalho das abas
         const tabsHeader = document.createElement("div");
         tabsHeader.classList.add("tabs-header", "flex", "border-b", "border-gray-200", "mt-4");
-    
+
         const tabInfoButton = document.createElement("button");
         tabInfoButton.classList.add("tab-button", "px-4", "py-2", "focus:outline-none", "text-white", "bg-gray-800");
         tabInfoButton.textContent = "Informações";
-    
+
         const tabDescriptionButton = document.createElement("button");
         tabDescriptionButton.classList.add("tab-button", "px-4", "py-2", "focus:outline-none", "text-white", "bg-gray-700");
         tabDescriptionButton.textContent = "Descrição Evento";
-    
+
         tabsHeader.appendChild(tabInfoButton);
         tabsHeader.appendChild(tabDescriptionButton);
-    
+
         // Criar o conteúdo das abas
         const tabsContent = document.createElement("div");
         tabsContent.classList.add("tabs-content", "mt-4");
-    
+
         // Conteúdo da aba Informações com dados dinâmicos
         const tabInfoContent = document.createElement("div");
         tabInfoContent.classList.add("tab-content");
-    
+
         // Título do evento
         const title = document.createElement("h2");
         title.id = 'eventName';
         title.classList.add("text-2xl", "font-bold", "mt-4", "text-white");
         title.textContent = event.titleEvent || "Título não disponível";
-    
+
         // Data do evento
         const date = document.createElement("p");
         date.classList.add("text-white");
@@ -166,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             date.textContent = "Data não disponível";
         }
-    
+
         // Local do evento
         const address = document.createElement("p");
         address.classList.add("text-white");
@@ -174,64 +186,63 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Horário que começará o evento
         const timeStart = document.createElement("p");
-        time.classList.add("text-white");
-        time.textContent = "16h" || "Horário não disponível";
+        timeStart.classList.add("text-white"); // Corrigido
+        timeStart.textContent = "16h" || "Horário não disponível";
 
-        // Horário que começará o evento
+        // Horário que terminará o evento
         const timeEnd = document.createElement("p");
-        time.classList.add("text-white");
-        time.textContent = "02h" || "Horário não disponível";
-    
+        timeEnd.classList.add("text-white"); // Corrigido
+        timeEnd.textContent = "02h" || "Horário não disponível";
+
         // Adicionar os elementos ao conteúdo da aba Informações
         tabInfoContent.appendChild(title);
         tabInfoContent.appendChild(date);
         tabInfoContent.appendChild(address);
         tabInfoContent.appendChild(timeStart);
         tabInfoContent.appendChild(timeEnd);
-      
-    
+
         // Conteúdo da aba Descrição Evento
         const tabDescriptionContent = document.createElement("div");
         tabDescriptionContent.classList.add("tab-content", "hidden");
-    
+
         // Descrição do evento
         const description = document.createElement("p");
         description.classList.add("text-white");
         description.textContent = event.description || "Descrição não disponível";
-    
+
         // Adicionar o elemento ao conteúdo da aba Descrição Evento
         tabDescriptionContent.appendChild(description);
-    
+
         // Adicionar os conteúdos ao contêiner das abas
         tabsContent.appendChild(tabInfoContent);
         tabsContent.appendChild(tabDescriptionContent);
-    
+
         // Adicionar eventos de clique nas abas
         tabInfoButton.addEventListener("click", () => {
             tabInfoButton.classList.add("bg-gray-800");
             tabInfoButton.classList.remove("bg-gray-700");
             tabDescriptionButton.classList.add("bg-gray-700");
             tabDescriptionButton.classList.remove("bg-gray-800");
-    
+
             tabInfoContent.classList.remove("hidden");
             tabDescriptionContent.classList.add("hidden");
         });
-    
+
         tabDescriptionButton.addEventListener("click", () => {
             tabDescriptionButton.classList.add("bg-gray-800");
             tabDescriptionButton.classList.remove("bg-gray-700");
             tabInfoButton.classList.add("bg-gray-700");
             tabInfoButton.classList.remove("bg-gray-800");
-    
+
             tabDescriptionContent.classList.remove("hidden");
             tabInfoContent.classList.add("hidden");
         });
-    
+
         // Montar tudo no container principal
         tabsContainer.appendChild(tabsHeader);
         tabsContainer.appendChild(tabsContent);
-    
-        container.appendChild(tabsContainer);
+
+        eventDetailsContainer.appendChild(tabsContainer);
     }
 
     async function viewDetails(tenantId, eventId) {
@@ -259,6 +270,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function renderTickets(tickets, tenantId, eventId) {
+        if (!ticketOptions) {
+            console.error("Elemento #ticketOptions não encontrado ao renderizar tickets.");
+            return;
+        }
+
         ticketOptions.innerHTML = '';
 
         const ticketsByArea = {};
@@ -312,6 +328,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const areaId = areaTicket.replace(/\s+/g, '_');
         const ticketsContainer = ticketDiv.querySelector(`#tickets_container_${areaId}`);
 
+        if (!ticketsContainer) {
+            console.error(`Elemento #tickets_container_${areaId} não encontrado.`);
+            return;
+        }
+
         let allActiveLots = [];
 
         for (const ticket of ticketsInArea) {
@@ -332,11 +353,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 console.log(lots);
 
-
                 const activeLots = lots.filter(lot => lot.isLotActive === "ACTIVE" && lot.orderLot === 1);
 
                 if (activeLots.length > 0) {
-
                     activeLots.forEach(lot => {
                         lot.ticketId = ticketId;
                         lot.nameTicket = nameTicket;
@@ -417,8 +436,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const incrementButton = lotDiv.querySelector(`#increment_${lot.id}`);
         const quantityInput = lotDiv.querySelector(`#quantity_${lot.id}`);
 
+        if (!decrementButton || !incrementButton || !quantityInput) {
+            console.error(`Elementos de controle não encontrados para o lote ${lot.id}.`);
+            return;
+        }
+
         decrementButton.addEventListener('click', () => {
-            const currentValue = parseInt(quantityInput.value, 10);
+            let currentValue = parseInt(quantityInput.value, 10);
             if (currentValue > 0) {
                 quantityInput.value = currentValue - 1;
                 updatePriceAndQuantity(lot.priceTicket, lot.taxPriceTicket, -1);
@@ -426,7 +450,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         incrementButton.addEventListener('click', () => {
-            const currentValue = parseInt(quantityInput.value, 10);
+            let currentValue = parseInt(quantityInput.value, 10);
             if (currentValue < lot.amountTicket) {
                 quantityInput.value = currentValue + 1;
                 updatePriceAndQuantity(lot.priceTicket, lot.taxPriceTicket, 1);
@@ -435,6 +459,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function displayError(message) {
+        if (!ticketOptions) {
+            console.error("Elemento #ticketOptions não encontrado ao exibir erro.");
+            return;
+        }
+
         const errorDiv = document.createElement('div');
         errorDiv.classList.add('bg-red-500', 'text-white', 'p-4', 'rounded-lg', 'mb-6');
         errorDiv.textContent = message;
