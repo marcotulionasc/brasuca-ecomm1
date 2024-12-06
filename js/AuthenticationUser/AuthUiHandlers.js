@@ -68,5 +68,5 @@ export function clearProfilePicture() {
 
 export function showLoginError(error) {
     console.error('Erro de login:', error.message || error);
-    alert('Erro ao fazer login, tente novamente.');
+    // alert('Erro ao fazer login, tente novamente.');
 }

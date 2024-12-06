@@ -12,16 +12,18 @@ export async function loginUser(tenantId, email, password) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
         });
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.message || 'Erro ao fazer login');
+            alert(errorData.error || 'Erro ao fazer login');
+            throw new Error(errorData.error || 'Erro ao fazer login');
         }
 
+        const userData = await response.json();
         alert('Login realizado com sucesso');
-        return await response.json();
+        return userData;
     } catch (error) {
         console.error('Erro:', error);
         throw error;

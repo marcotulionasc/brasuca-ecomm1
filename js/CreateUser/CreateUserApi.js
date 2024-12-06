@@ -1,7 +1,7 @@
 import config from '../Configuration.js';
 import { loginUser } from '../AuthenticationUser/AuthApi.js';
 import { saveUserSession } from '../AuthenticationUser/AuthMain.js'; // Importa a função de login
-import { showPreloader } from '../LoaderApi/LoaderApi.js';
+import { showPreloader, hidePreloader } from '../LoaderApi/LoaderApi.js';
 
 const getBaseUrl = config.getBaseUrl();
 
@@ -26,10 +26,9 @@ if (cadastroForm) {
         };
 
         try {
-
             const imageUser = formData.get('imageProfileBase64');
 
-            if (imageUser) {
+            if (imageUser && imageUser.size > 0) { // Verifica se há uma imagem selecionada
                 data.imageProfileBase64 = await uploadImage(imageUser);
             }
 
@@ -41,19 +40,20 @@ if (cadastroForm) {
                 body: JSON.stringify(data)
             });
 
-            if (response.ok) {
-                const result = await response.json();
-                alert('Usuário cadastrado com sucesso! Acesse seu e-mail para ativar sua conta.');
-                window.location.href = 'index.html';
+            const result = await response.json();
 
+            if (response.ok) {
+                
+                alert(result.message || 'Usuário cadastrado com sucesso! Acesse seu e-mail para ativar sua conta.');
+                window.location.href = 'index.html';
             } else {
-                const errorData = await response.json();
-                console.error('Erro ao cadastrar usuário', errorData);
-                alert('Erro ao cadastrar usuário');
+                 
+                const errorMessage = result.error || 'Erro ao cadastrar usuário. Por favor, tente novamente.';
+                alert(errorMessage);
             }
         } catch (error) {
             console.error('Erro ao cadastrar usuário:', error);
-            alert('Erro ao cadastrar usuário');
+            alert('Erro ao cadastrar usuário. Por favor, tente novamente mais tarde.');
         } finally {
             hidePreloader();
         }
@@ -66,7 +66,7 @@ async function uploadImage(file) {
 
     if (file.size > maxSizeBytes) {
         alert(`O arquivo excede o limite de ${maxSizeMB} MB. Por favor, envie uma imagem menor.`);
-        return;
+        throw new Error(`Arquivo muito grande: ${file.size} bytes.`);
     }
 
     const formData = new FormData();
@@ -84,13 +84,12 @@ async function uploadImage(file) {
         } else {
             const errorText = await response.text();
             console.error('Erro ao fazer upload da imagem:', errorText);
+            alert('Erro ao fazer upload da imagem. Por favor, tente novamente.');
             throw new Error('Erro ao fazer upload da imagem');
         }
     } catch (error) {
         console.error('Erro no upload da imagem:', error);
-        alert('Erro ao fazer upload da imagem');
+        alert('Erro ao fazer upload da imagem. Por favor, tente novamente.');
         throw error;
     }
 }
-
-
