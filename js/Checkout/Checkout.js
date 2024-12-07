@@ -420,7 +420,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         max="${lot.amountTicket}" 
                         value="0" 
                         class="ticket-quantity text-center w-16 px-3 py-2 bg-gray-950 text-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 sm:text-sm text-right no-spinner"
-                        data-ticket-id="${lot.id}"
+                        data-ticket-id="${ticket.id}"
                         data-ticket-name="${nameTicket}"
                         data-ticket-price="${totalPrice.toFixed(2)}">
                     <button id="increment_${lot.id}" class="bg-blue-500 text-white rounded-r-md px-3 py-1 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-green-300" style="height: 43px">+</button>
