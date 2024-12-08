@@ -4,7 +4,7 @@ import { updatePriceAndQuantity } from './TicketTotal.js';
 const getBaseUrl = config.getBaseUrl();
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Selecionar elementos necessários
+    
     const eventDetailsContainer = document.querySelector("#eventDetailsContainer");
     const eventDetails = document.querySelector("#eventDetails");
     const ticketOptions = document.querySelector("#ticketOptions"); // Adicionado
@@ -196,10 +196,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Adicionar os elementos ao conteúdo da aba Informações
         tabInfoContent.appendChild(title);
-        tabInfoContent.appendChild(date);
-        tabInfoContent.appendChild(address);
-        tabInfoContent.appendChild(timeStart);
-        tabInfoContent.appendChild(timeEnd);
+        tabInfoContent.appendChild("Data do evento: " + date);
+        tabInfoContent.appendChild("Local: " + address);
+        tabInfoContent.appendChild("Horário íncio" + timeStart);
+        tabInfoContent.appendChild("Horário encerramento: " + timeEnd);
 
         // Conteúdo da aba Descrição Evento
         const tabDescriptionContent = document.createElement("div");
