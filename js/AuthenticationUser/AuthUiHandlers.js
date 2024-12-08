@@ -35,6 +35,7 @@ export function updateProfilePicture(imageUrl) {
     const img = document.createElement('img');
     img.src = imageUrl;
     img.classList.add('profile-image');
+    img.classList.add('w-full', 'h-full', 'object-cover', 'object-center', 'block');
 
     // Atualiza a imagem no Header (Desktop)
     const desktopProfileImageContainer = document.getElementById('profileImageContainerDesktop');

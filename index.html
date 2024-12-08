@@ -318,10 +318,11 @@
                     <i class="bi bi-search absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                 </div>
 
-                <!-- Foto e Saudação -->
                 <div class="flex items-center space-x-4">
                     <div id="profileImageContainerDesktop"
-                        class="bg-blue-500 border-white border-2 rounded-full flex w-16 h-16 items-center justify-center">
+                        class="relative bg-white border-blue-500 border-4 rounded-full flex w-16 h-16 items-center justify-center overflow-hidden">
+                        <img id="profileImageDesktop" src="caminho-da-imagem.jpg" alt="Imagem do perfil"
+                            class="w-full h-full object-cover object-center">
                     </div>
                     <span id="userGreetingDesktop" class="text-white text-lg">Olá, Visitante</span>
                 </div>
@@ -424,10 +425,10 @@
                     </form>
 
                     <a href="https://backend-ingressar.onrender.com/tenants/1/users/forgot-password"
-                    class="block text-center text-sm text-blue-500 mt-4">Esqueceu sua senha?</a>
+                        class="block text-center text-sm text-blue-500 mt-4">Esqueceu sua senha?</a>
 
                     <a href="javascript:void(0)" onclick="closeModal('loginModal'); openModal('cadastroModal');"
-                    class="block text-center text-sm text-blue-500 mt-4">Criar conta</a>
+                        class="block text-center text-sm text-blue-500 mt-4">Criar conta</a>
                 </div>
             </div>
         </div>
@@ -663,7 +664,7 @@
                         style="background-color: var(--primary-color); color: var(--background-color);">Cadastrar</button>
                 </form>
                 <a href="javascript:void(0)" onclick="closeModal('cadastroModal'); openModal('loginModal');"
-                class="block text-center text-sm text-blue-500 mt-4">Já tem conta? Faça o login</a>
+                    class="block text-center text-sm text-blue-500 mt-4">Já tem conta? Faça o login</a>
             </div>
         </div>
     </div>
@@ -695,8 +696,8 @@
     <script>
 
 
-            let localUrl = 'http://localhost:8080';
-            let prodUrl = 'https://backend-ingressar.onrender.com'
+        let localUrl = 'http://localhost:8080';
+        let prodUrl = 'https://backend-ingressar.onrender.com'
 
         document.addEventListener('alpine:init', () => {
             Alpine.store('cart', {
@@ -866,15 +867,15 @@
         function handleAccountClick() {
             const userString = localStorage.getItem('user');
             if (userString) {
-                 
+
                 const user = JSON.parse(userString);
                 const userId = user.user && user.user.id;
                 if (userId) {
-                    
+
                     window.location.href = `profile.html?id=${userId}`;
                 } else {
-                   alert('Você não está logado.');
-                   openModal('loginModal');
+                    alert('Você não está logado.');
+                    openModal('loginModal');
                 }
             } else {
                 alert('Você não está logado.');
