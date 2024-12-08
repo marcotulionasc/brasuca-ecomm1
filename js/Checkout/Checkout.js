@@ -196,10 +196,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Adicionar os elementos ao conteúdo da aba Informações
         tabInfoContent.appendChild(title);
-        tabInfoContent.appendChild("Data do evento: " + date);
-        tabInfoContent.appendChild("Local: " + address);
-        tabInfoContent.appendChild("Horário íncio" + timeStart);
-        tabInfoContent.appendChild("Horário encerramento: " + timeEnd);
+        tabInfoContent.appendChild(date);
+        tabInfoContent.appendChild(address);
+        tabInfoContent.appendChild(timeStart);
+        tabInfoContent.appendChild(timeEnd);
 
         // Conteúdo da aba Descrição Evento
         const tabDescriptionContent = document.createElement("div");
