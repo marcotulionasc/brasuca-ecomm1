@@ -4,7 +4,7 @@ import { updatePriceAndQuantity } from './TicketTotal.js';
 const getBaseUrl = config.getBaseUrl();
 
 document.addEventListener("DOMContentLoaded", () => {
-    
+
     const eventDetailsContainer = document.querySelector("#eventDetailsContainer");
     const eventDetails = document.querySelector("#eventDetails");
     const ticketOptions = document.querySelector("#ticketOptions"); // Adicionado
@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (event.date) {
             const dateObj = event.date.split('-');
             const dateFormatted = `${dateObj[2]}/${dateObj[1]}/${dateObj[0]}`;
-            date.textContent = dateFormatted;
+            date.textContent = "Data: " + dateFormatted;
         } else {
             date.textContent = "Data não disponível";
         }
@@ -182,17 +182,17 @@ document.addEventListener("DOMContentLoaded", () => {
         // Local do evento
         const address = document.createElement("p");
         address.classList.add("text-white");
-        address.textContent = event.local || "Local não disponível";
+        address.textContent = "Local: " + event.local + ", " + event.address || "Local não disponível";
 
         // Horário que começará o evento
         const timeStart = document.createElement("p");
         timeStart.classList.add("text-white"); // Corrigido
-        timeStart.textContent = "16h" || "Horário não disponível";
+        timeStart.textContent = "Horário ínicio" + "16h" || "Horário não disponível";
 
         // Horário que terminará o evento
         const timeEnd = document.createElement("p");
         timeEnd.classList.add("text-white"); // Corrigido
-        timeEnd.textContent = "02h" || "Horário não disponível";
+        timeEnd.textContent = "Horário encerramento: " + "02h" || "Horário não disponível";
 
         // Adicionar os elementos ao conteúdo da aba Informações
         tabInfoContent.appendChild(title);
@@ -206,12 +206,39 @@ document.addEventListener("DOMContentLoaded", () => {
         tabDescriptionContent.classList.add("tab-content", "hidden");
 
         // Descrição do evento
-        const description = document.createElement("p");
-        description.classList.add("text-white");
-        description.textContent = event.description || "Descrição não disponível";
+        // const description = document.createElement("p");
+        // description.classList.add("text-white");
+        // description.textContent = event.description || "Descrição não disponível";
+
+        // Parágrafo 01
+        const firstP = document.createElement("p");
+        firstP.classList.add("text-white");
+        firstP.classList.add("mb-4");
+        firstP.style.textAlign = "justify"; // Justifica o texto
+        firstP.textContent = "Prepare-se para uma noite inesquecível de forró no dia 22 de dezembro de 2024, domingo, com início às 16h e término às 2h da manhã. O evento contará com 10 horas ininterruptas de música e dança, apresentando renomados artistas do cenário forrozeiro: Dois Dobrado, Cléber Gonzaga, Coisa de Zé, Severina e Trio Alvorada. A classificação etária é de 18 anos." || "Parágrafo não disponível";
+
+        // Parágrafo 02
+        const secondP = document.createElement("p");
+        secondP.classList.add("text-white");
+        secondP.classList.add("mb-4"); // Adicionando espaçamento entre o segundo e o próximo parágrafo
+        secondP.style.textAlign = "justify"; // Justifica o texto
+        secondP.textContent = "A banda Dois Dobrado é conhecida por sua energia contagiante e por mesclar ritmos da cultura nordestina com influências do interior paulista, proporcionando uma experiência única aos amantes do forró. Cléber Gonzaga, por sua vez, traz em suas apresentações a essência do forró tradicional, cativando o público com sua autenticidade. O grupo Coisa de Zé, com mais de 15 anos de trajetória, é reconhecido por sua versatilidade e paixão pelo gênero. Severina e Trio Alvorada completam o lineup, garantindo uma noite repleta de música de qualidade e muita dança." || "Parágrafo não disponível";
+
+        // Parágrafo 03
+        const thirdP = document.createElement("p");
+        thirdP.classList.add("text-white");
+        thirdP.classList.add("mt-4"); // Espaçamento adicional entre o segundo e o terceiro parágrafo
+        thirdP.style.textAlign = "justify"; // Justifica o texto
+        thirdP.textContent = "Este evento promete ser uma celebração imperdível para os aficionados por forró, oferecendo uma maratona musical que resgata a tradição e a alegria desse gênero tão emblemático da cultura brasileira. Não perca a oportunidade de vivenciar momentos memoráveis ao som de grandes nomes do forró em uma noite que ficará marcada na memória de todos os presentes." || "Parágrafo não disponível";
 
         // Adicionar o elemento ao conteúdo da aba Descrição Evento
-        tabDescriptionContent.appendChild(description);
+        // tabDescriptionContent.appendChild(description);
+
+        // Elementos aba de descrição do evento
+        tabDescriptionContent.appendChild(firstP);
+        tabDescriptionContent.appendChild(secondP);
+        tabDescriptionContent.appendChild(thirdP);
+
 
         // Adicionar os conteúdos ao contêiner das abas
         tabsContent.appendChild(tabInfoContent);
