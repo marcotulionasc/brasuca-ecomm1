@@ -187,12 +187,22 @@ document.addEventListener("DOMContentLoaded", () => {
         // Horário que começará o evento
         const timeStart = document.createElement("p");
         timeStart.classList.add("text-white"); // Corrigido
-        timeStart.textContent = "Horário ínicio" + "16h" || "Horário não disponível";
+        timeStart.textContent = "Horário ínicio: " + "16h" || "Horário não disponível";
 
         // Horário que terminará o evento
         const timeEnd = document.createElement("p");
         timeEnd.classList.add("text-white"); // Corrigido
         timeEnd.textContent = "Horário encerramento: " + "02h" || "Horário não disponível";
+
+        // Classificação etária
+        const classification = document.createElement("p");
+        timeEnd.classList.add("text-white");
+        timeEnd.textContent = "Classificação: " + "+18" || "Horário não disponível";
+
+        // Gênero musical
+        const genero = document.createElement("p");
+        timeEnd.classList.add("text-white");
+        timeEnd.textContent = "Género: " + "Forró" || "Horário não disponível";
 
         // Adicionar os elementos ao conteúdo da aba Informações
         tabInfoContent.appendChild(title);
@@ -200,6 +210,8 @@ document.addEventListener("DOMContentLoaded", () => {
         tabInfoContent.appendChild(address);
         tabInfoContent.appendChild(timeStart);
         tabInfoContent.appendChild(timeEnd);
+        tabInfoContent.appendChild(genero);
+        tabInfoContent.appendChild(classification);
 
         // Conteúdo da aba Descrição Evento
         const tabDescriptionContent = document.createElement("div");
@@ -292,7 +304,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         } catch (error) {
             console.error('Error fetching tickets:', error);
-            displayError('Failed to load ticket details. Please try again later.');
+            displayError('Seu link está incorreto! Iremos te redirecionar para nossa página principal.');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 5000);
         }
     }
 
