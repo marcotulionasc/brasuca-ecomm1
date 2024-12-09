@@ -718,7 +718,7 @@
                     })
                     .then(data => {
                         console.log('Resposta completa da API:', data);
-                        const preferenceId = data.preferenceId; // ID da preferência de pagamento
+                        const preferenceId = data.preferenceId;
 
                         if (!preferenceId) {
                             throw new Error('preferenceId não encontrado na resposta da API');
@@ -750,6 +750,7 @@
                         alert('Ocorreu um erro ao processar seu pagamento. Por favor, tente novamente.');
                     });
             }
+
 
 
             function mobileCartComponent() {
