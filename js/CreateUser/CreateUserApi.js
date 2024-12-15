@@ -1,7 +1,4 @@
 import config from '../Configuration.js';
-import { loginUser } from '../AuthenticationUser/AuthApi.js';
-import { saveUserSession } from '../AuthenticationUser/AuthMain.js'; // Importa a função de login
-import { showPreloader, hidePreloader } from '../LoaderApi/LoaderApi.js';
 
 const getBaseUrl = config.getBaseUrl();
 
@@ -10,7 +7,6 @@ if (cadastroForm) {
     cadastroForm.addEventListener('submit', async function (event) {
         event.preventDefault();
 
-        showPreloader();
         const tenantId = 1;
         const userCreateUrl = `${getBaseUrl}/api/tenants/${tenantId}/user/create`;
 
@@ -27,8 +23,7 @@ if (cadastroForm) {
 
         try {
             const imageUser = formData.get('imageProfileBase64');
-
-            if (imageUser && imageUser.size > 0) { // Verifica se há uma imagem selecionada
+            if (imageUser && imageUser.size > 0) {
                 data.imageProfileBase64 = await uploadImage(imageUser);
             }
 
@@ -43,19 +38,34 @@ if (cadastroForm) {
             const result = await response.json();
 
             if (response.ok) {
-                
-                alert(result.message || 'Usuário cadastrado com sucesso! Acesse seu e-mail para ativar sua conta.');
-                window.location.href = 'index.html';
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sucesso',
+                    text: result.message || 'Usuário cadastrado com sucesso! Acesse seu e-mail para ativar sua conta. Se não encontrar o e-mail, verifique a caixa de spam. Você entendeu que deve verificar o seu e-mail?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ok, vou verificar!',
+                }).then((res) => {
+                    if (res.isConfirmed) {
+                        window.location.href = 'index.html';
+                    }
+                });
             } else {
-                 
                 const errorMessage = result.error || 'Erro ao cadastrar usuário. Por favor, tente novamente.';
-                alert(errorMessage);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    text: errorMessage,
+                    confirmButtonText: 'OK'
+                });
             }
         } catch (error) {
             console.error('Erro ao cadastrar usuário:', error);
-            alert('Erro ao cadastrar usuário. Por favor, tente novamente mais tarde.');
-        } finally {
-            hidePreloader();
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'Erro ao cadastrar usuário. Por favor, tente novamente mais tarde.',
+                confirmButtonText: 'OK'
+            });
         }
     });
 }
@@ -65,7 +75,12 @@ async function uploadImage(file) {
     const maxSizeBytes = maxSizeMB * 1024 * 1024;
 
     if (file.size > maxSizeBytes) {
-        alert(`O arquivo excede o limite de ${maxSizeMB} MB. Por favor, envie uma imagem menor.`);
+        Swal.fire({
+            icon: 'warning',
+            title: 'Aviso',
+            text: `O arquivo excede o limite de ${maxSizeMB} MB. Por favor, envie uma imagem menor.`,
+            confirmButtonText: 'OK'
+        });
         throw new Error(`Arquivo muito grande: ${file.size} bytes.`);
     }
 
@@ -84,12 +99,22 @@ async function uploadImage(file) {
         } else {
             const errorText = await response.text();
             console.error('Erro ao fazer upload da imagem:', errorText);
-            alert('Erro ao fazer upload da imagem. Por favor, tente novamente.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'Erro ao fazer upload da imagem. Por favor, tente novamente.',
+                confirmButtonText: 'OK'
+            });
             throw new Error('Erro ao fazer upload da imagem');
         }
     } catch (error) {
         console.error('Erro no upload da imagem:', error);
-        alert('Erro ao fazer upload da imagem. Por favor, tente novamente.');
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Erro ao fazer upload da imagem. Por favor, tente novamente.',
+            confirmButtonText: 'OK'
+        });
         throw error;
     }
 }

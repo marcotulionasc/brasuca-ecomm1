@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="css/loader.css">
     <link rel="stylesheet" href="css/wait.css">
     <script src="https://cdn.tailwindcss.com" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         .grid {
             display: grid;
@@ -678,19 +681,11 @@
     <script src="js/Flyers.js" type="module" defer></script>
     <script src="js/loader.js" type="module" defer></script>
     <script src="js/Modal/Modal.js" defer></script>
-
-    <!-- Authentication User -->
     <script src="js/AuthenticationUser/AuthApi.js" type="module" defer></script>
     <script src="js/AuthenticationUser/AuthMain.js" type="module" defer></script>
     <script src="js/AuthenticationUser/AuthUiHandlers.js" type="module" defer></script>
-
-    <!-- Create User -->
     <script src="js/CreateUser/CreateUserApi.js" type="module" defer></script>
-
-    <!-- Profile User -->
     <script src="js/ProfileUser/ProfileApi.js" type="module" defer></script>
-
-    <!-- Alpine -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
     <script>
@@ -714,12 +709,12 @@
         document.getElementById('copyrightYear').textContent = new Date().getFullYear();
 
 
-        function mobileCartComponent() {
+        function createCartHandler({ withCount = false }) {
             return {
                 cartOpen: false,
                 isLoading: false,
                 cartItems: [],
-                cartCount: 0,
+                ...(withCount ? { cartCount: 0 } : {}),
 
                 openCart() {
                     this.cartOpen = true;
@@ -738,10 +733,17 @@
                 async fetchCartItems() {
                     const userString = localStorage.getItem('user');
                     if (!userString) {
-                        alert('Por favor, faça login para ver seus ingressos.');
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Ação Necessária',
+                            text: 'Por favor, faça login para ver seus ingressos.',
+                            confirmButtonText: 'OK'
+                        });
+
+                        closeCart();
                         openModal('cadastroModal');
                         this.cartItems = [];
-                        this.cartCount = 0;
+                        if (withCount) this.cartCount = 0;
                         return;
                     }
 
@@ -751,16 +753,23 @@
                     } catch (e) {
                         console.error('Erro ao parsear o objeto user do localStorage:', e);
                         this.cartItems = [];
-                        this.cartCount = 0;
+                        if (withCount) this.cartCount = 0;
                         return;
                     }
 
                     const userId = user.user?.id;
                     if (!userId) {
-                        alert('Por favor, faça login para ver seus ingressos.');
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Ação Necessária',
+                            text: 'Por favor, faça login para ver seus ingressos.',
+                            confirmButtonText: 'OK'
+                        });
+
+                        closeCart();
                         openModal('cadastroModal');
                         this.cartItems = [];
-                        this.cartCount = 0;
+                        if (withCount) this.cartCount = 0;
                         return;
                     }
 
@@ -771,98 +780,36 @@
                             const data = await response.json();
                             if (Array.isArray(data)) {
                                 this.cartItems = data;
-                                this.cartCount = data.length;
+                                if (withCount) this.cartCount = data.length;
                             } else {
                                 console.error('Dados retornados não são uma lista de ingressos.');
                                 this.cartItems = [];
-                                this.cartCount = 0;
+                                if (withCount) this.cartCount = 0;
                             }
                         } else {
                             console.error('Erro ao buscar ingressos:', response.status);
                             this.cartItems = [];
-                            this.cartCount = 0;
+                            if (withCount) this.cartCount = 0;
                         }
                     } catch (error) {
                         console.error('Erro na requisição:', error);
                         this.cartItems = [];
-                        this.cartCount = 0;
+                        if (withCount) this.cartCount = 0;
                     } finally {
                         this.isLoading = false;
                     }
                 },
-            }
+            };
+        }
+
+        function mobileCartComponent() {
+            return createCartHandler({ withCount: true });
         }
 
         function cartComponent() {
-            return {
-                cartOpen: false,
-                isLoading: false,
-                cartItems: [],
-
-                openCart() {
-                    this.cartOpen = true;
-                    this.fetchCartItems();
-                },
-
-                closeCart() {
-                    this.cartOpen = false;
-                },
-
-                formatDate(dateString) {
-                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                    return new Date(dateString).toLocaleDateString('pt-BR', options);
-                },
-
-                async fetchCartItems() {
-                    const userString = localStorage.getItem('user');
-                    if (!userString) {
-                        alert('Por favor, faça login para ver seus ingressos.');
-                        openModal('cadastroModal');
-                        this.cartItems = [];
-                        return;
-                    }
-
-                    let user;
-                    try {
-                        user = JSON.parse(userString);
-                    } catch (e) {
-                        console.error('Erro ao parsear o objeto user do localStorage:', e);
-                        this.cartItems = [];
-                        return;
-                    }
-
-                    const userId = user.user?.id;
-                    if (!userId) {
-                        alert('Por favor, faça login para ver seus ingressos.');
-                        openModal('cadastroModal');
-                        this.cartItems = [];
-                        return;
-                    }
-
-                    this.isLoading = true;
-                    try {
-                        const response = await fetch(`${prodUrl}/api/user/${userId}/ticketdata`);
-                        if (response.ok) {
-                            const data = await response.json();
-                            if (Array.isArray(data)) {
-                                this.cartItems = data;
-                            } else {
-                                console.error('Dados retornados não são uma lista de ingressos.');
-                                this.cartItems = [];
-                            }
-                        } else {
-                            console.error('Erro ao buscar ingressos:', response.status);
-                            this.cartItems = [];
-                        }
-                    } catch (error) {
-                        console.error('Erro na requisição:', error);
-                        this.cartItems = [];
-                    } finally {
-                        this.isLoading = false;
-                    }
-                },
-            }
+            return createCartHandler({ withCount: false });
         }
+
 
         function handleAccountClick() {
             const userString = localStorage.getItem('user');
@@ -874,11 +821,23 @@
 
                     window.location.href = `profile.html?id=${userId}`;
                 } else {
-                    alert('Você não está logado.');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Ação Necessária',
+                        text: 'Você não está logado.',
+                        confirmButtonText: 'OK'
+                    });
+
                     openModal('loginModal');
                 }
             } else {
-                alert('Você não está logado.');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Ação Necessária',
+                    text: 'Você não está logado.',
+                    confirmButtonText: 'OK'
+                });
+
                 openModal('loginModal');
             }
         }

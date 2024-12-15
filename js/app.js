@@ -19,7 +19,13 @@ function startCountdown(duration, display) {
 }
 
 function showModalAndRedirect() {
-    alert('O tempo expirou! Você será redirecionado para a página inicial.');
+    Swal.fire({
+        icon: 'warning',
+        title: 'Tempo Expirado',
+        text: 'O tempo expirou! Você será redirecionado para a página inicial.',
+        confirmButtonText: 'OK'
+      });
+      
     localStorage.removeItem('timer');
     window.location.href = 'index.html';
 }

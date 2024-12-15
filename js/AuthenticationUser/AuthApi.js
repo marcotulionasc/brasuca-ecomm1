@@ -17,12 +17,24 @@ export async function loginUser(tenantId, email, password) {
 
         if (!response.ok) {
             const errorData = await response.json();
-            alert(errorData.error || 'Erro ao fazer login');
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: errorData.error || 'Erro ao fazer login',
+                confirmButtonText: 'OK'
+              });
+              
             throw new Error(errorData.error || 'Erro ao fazer login');
         }
 
         const userData = await response.json();
-        alert('Login realizado com sucesso');
+        Swal.fire({
+            icon: 'success',
+            title: 'Sucesso',
+            text: 'Login realizado com sucesso',
+            confirmButtonText: 'OK'
+          });
+          
         return userData;
     } catch (error) {
         console.error('Erro:', error);

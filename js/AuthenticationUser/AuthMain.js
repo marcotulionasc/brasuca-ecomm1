@@ -85,5 +85,11 @@ function logoutUser() {
     toggleAuthButtons(false); // Altera para estado deslogado
     clearProfilePicture();
     clearUserSession();
-    alert('Logout realizado com sucesso!');
+    Swal.fire({
+        icon: 'success',
+        title: 'Sucesso',
+        text: 'Logout realizado com sucesso!',
+        confirmButtonText: 'OK'
+      });
+      
 }

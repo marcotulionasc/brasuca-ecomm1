@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="css/checkout.css">
     <link rel="stylesheet" href="css/wait.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .grid {
             display: grid;
@@ -573,7 +575,13 @@
                 const selectedTickets = getSelectedTickets();
 
                 if (selectedTickets.length === 0) {
-                    alert('Por favor, selecione pelo menos um ingresso.');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Aviso',
+                        text: 'Por favor, selecione pelo menos um ingresso.',
+                        confirmButtonText: 'OK'
+                    });
+
                     return;
                 }
 
@@ -584,7 +592,13 @@
 
                 window.location.href = `checkout.html?tenantId=${tenantId}&eventId=${eventId}`;
             } else {
-                alert('Você precisa estar logado para continuar.');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Ação Necessária',
+                    text: 'Você precisa estar logado para continuar.',
+                    confirmButtonText: 'OK'
+                });
+
                 openModal('loginModal');
             }
         }
@@ -664,7 +678,13 @@
                 async fetchCartItems() {
                     const userString = localStorage.getItem('user');
                     if (!userString) {
-                        alert('Por favor, faça login para ver seus ingressos.');
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Ação Necessária',
+                            text: 'Por favor, faça login para ver seus ingressos.',
+                            confirmButtonText: 'OK'
+                        });
+
                         openModal('cadastroModal');
                         this.cartItems = [];
                         this.cartCount = 0;
@@ -683,7 +703,13 @@
 
                     const userId = user.user?.id;
                     if (!userId) {
-                        alert('Por favor, faça login para ver seus ingressos.');
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Ação Necessária',
+                            text: 'Por favor, faça login para ver seus ingressos.',
+                            confirmButtonText: 'OK'
+                        });
+
                         openModal('cadastroModal');
                         this.cartItems = [];
                         this.cartCount = 0;
@@ -742,7 +768,13 @@
                 async fetchCartItems() {
                     const userString = localStorage.getItem('user');
                     if (!userString) {
-                        alert('Por favor, faça login para ver seus ingressos.');
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Ação Necessária',
+                            text: 'Por favor, faça login para ver seus ingressos.',
+                            confirmButtonText: 'OK'
+                        });
+
                         openModal('cadastroModal');
                         this.cartItems = [];
                         return;
@@ -759,7 +791,13 @@
 
                     const userId = user.user?.id;
                     if (!userId) {
-                        alert('Por favor, faça login para ver seus ingressos.');
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Ação Necessária',
+                            text: 'Por favor, faça login para ver seus ingressos.',
+                            confirmButtonText: 'OK'
+                        });
+
                         openModal('cadastroModal');
                         this.cartItems = [];
                         return;

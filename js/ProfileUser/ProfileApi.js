@@ -59,43 +59,103 @@ function validateUserForm() {
     const neighborhood = document.querySelector('input[name="neighborhood"]').value.trim();
 
     if (!name) {
-        alert('Por favor, preencha o nome.');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Aviso',
+            text: 'Por favor, preencha seu nome.',
+            confirmButtonText: 'OK'
+          });
+          
         return false;
     }
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        alert('Por favor, preencha um email válido.');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Aviso',
+            text: 'Por favor, preencha um email válido.',
+            confirmButtonText: 'OK'
+          });
+          
         return false;
     }
     if (!phone || !/^\d{10,11}$/.test(phone)) {
-        alert('Por favor, preencha um telefone válido (10 ou 11 dígitos).');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Aviso',
+            text: 'Por favor, preencha um telefone válido (10 ou 11 dígitos).',
+            confirmButtonText: 'OK'
+          });
+          
         return false;
     }
     if (!birth_date) {
-        alert('Por favor, preencha a data de nascimento.');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Aviso',
+            text: 'Por favor, preencha a data de nascimento.',
+            confirmButtonText: 'OK'
+          });
+          
         return false;
     }
     if (!street) {
-        alert('Por favor, preencha a rua.');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Aviso',
+            text: 'Por favor, preencha a rua.',
+            confirmButtonText: 'OK'
+          });
+          
         return false;
     }
     if (!number_address) {
-        alert('Por favor, preencha o número do endereço.');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Aviso',
+            text: 'Por favor, preencha o número do endereço.',
+            confirmButtonText: 'OK'
+          });
+          
         return false;
     }
     if (!cep || !/^\d{8}$/.test(cep)) {
-        alert('Por favor, preencha um CEP válido (8 dígitos).');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Aviso',
+            text: 'Por favor, preencha um CEP válido (8 dígitos).',
+            confirmButtonText: 'OK'
+          });
+          
         return false;
     }
     if (!uf || uf.length !== 2) {
-        alert('Por favor, preencha um UF válido (2 caracteres).');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Aviso',
+            text: 'Por favor, preencha um UF válido (2 caracteres).',
+            confirmButtonText: 'OK'
+          });
+          
         return false;
     }
     if (!city) {
-        alert('Por favor, preencha a cidade.');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Aviso',
+            text: 'Por favor, preencha a cidade.',
+            confirmButtonText: 'OK'
+          });
+          
         return false;
     }
     if (!neighborhood) {
-        alert('Por favor, preencha o bairro.');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Aviso',
+            text: 'Por favor, preencha o bairro.',
+            confirmButtonText: 'OK'
+          });
+          
         return false;
     }
 
@@ -164,15 +224,33 @@ async function saveUserChanges(userId) {
         });
 
         if (response.ok) {
-            alert('Seus dados foram alterados com sucesso!');
+            Swal.fire({
+                icon: 'success',
+                title: 'Sucesso',
+                text: 'Seus dados foram alterados com sucesso!',
+                confirmButtonText: 'OK'
+              });
+              
             window.location.href = 'index.html';
         } else {
             console.error('Erro ao atualizar o usuário:', response.statusText);
-            alert('Erro ao atualizar o usuário.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'Erro ao atualizar o usuário.',
+                confirmButtonText: 'OK'
+              });
+              
         }
     } catch (error) {
         console.error('Erro ao fazer a requisição:', error);
-        alert('Erro ao atualizar o usuário.');
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Erro ao atualizar o usuário.',
+            confirmButtonText: 'OK'
+          });
+          
     }
 }
 
@@ -192,14 +270,32 @@ async function uploadProfileImage(file) {
             const result = await response.json();
             const profileImg = document.querySelector('.profile-img');
             profileImg.src = `${getBaseUrl}${result.filePath}`;
-            alert(`Imagem de perfil atualizada com sucesso!`);
+            Swal.fire({
+                icon: 'success',
+                title: 'Sucesso',
+                text: 'Imagem de perfil atualizada com sucesso!',
+                confirmButtonText: 'OK'
+              });
+              
         } else {
             console.error('Erro ao fazer upload da imagem:', response.statusText);
-            alert('Erro ao fazer upload da imagem.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'Erro ao fazer upload da imagem.',
+                confirmButtonText: 'OK'
+              });
+              
         }
     } catch (error) {
         console.error('Erro ao fazer a requisição de upload:', error);
-        alert('Erro ao fazer upload da imagem.');
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Erro ao fazer upload da imagem.',
+            confirmButtonText: 'OK'
+          });
+          
     }
 }
 

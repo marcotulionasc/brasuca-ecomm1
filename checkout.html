@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="css/loader.css">
     <link rel="stylesheet" href="css/checkout.css">
     <link rel="stylesheet" href="css/wait.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .modal-overlay {
             background-color: rgba(0, 0, 0, 0.5);
@@ -630,14 +632,26 @@
                 const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
 
                 if (!selectedTickets || selectedTickets.length === 0) {
-                    alert('Nenhum ingresso selecionado.');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Aviso',
+                        text: 'Nenhum ingresso selecionado.',
+                        confirmButtonText: 'OK'
+                    });
+
                     window.location.href = 'event.html';
                     return;
                 }
 
                 const userData = JSON.parse(localStorage.getItem('user'));
                 if (!userData) {
-                    alert('É necessário fazer o login!');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Ação Necessária',
+                        text: 'É necessário fazer o login!',
+                        confirmButtonText: 'OK'
+                    });
+
                     window.location.href = 'index.html';
                     return;
                 }
@@ -747,7 +761,13 @@
                     })
                     .catch(error => {
                         console.error('Erro ao criar preferência de pagamento:', error);
-                        alert('Ocorreu um erro ao processar seu pagamento. Por favor, tente novamente.');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro',
+                            text: 'Ocorreu um erro ao processar seu pagamento. Por favor, tente novamente.',
+                            confirmButtonText: 'OK'
+                        });
+
                     });
             }
 
@@ -777,7 +797,13 @@
                     async fetchCartItems() {
                         const userString = localStorage.getItem('user');
                         if (!userString) {
-                            alert('Por favor, faça login para ver seus ingressos.');
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Ação Necessária',
+                                text: 'Por favor, faça login para ver seus ingressos.',
+                                confirmButtonText: 'OK'
+                            });
+
                             openModal('cadastroModal');
                             this.cartItems = [];
                             this.cartCount = 0;
@@ -796,7 +822,13 @@
 
                         const userId = user.user?.id;
                         if (!userId) {
-                            alert('Por favor, faça login para ver seus ingressos.');
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Ação Necessária',
+                                text: 'Por favor, faça login para ver seus ingressos.',
+                                confirmButtonText: 'OK'
+                            });
+
                             openModal('cadastroModal');
                             this.cartItems = [];
                             this.cartCount = 0;
@@ -855,7 +887,13 @@
                     async fetchCartItems() {
                         const userString = localStorage.getItem('user');
                         if (!userString) {
-                            alert('Por favor, faça login para ver seus ingressos.');
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Ação Necessária',
+                                text: 'Por favor, faça login para ver seus ingressos.',
+                                confirmButtonText: 'OK'
+                            });
+
                             openModal('cadastroModal');
                             this.cartItems = [];
                             return;
@@ -872,7 +910,13 @@
 
                         const userId = user.user?.id;
                         if (!userId) {
-                            alert('Por favor, faça login para ver seus ingressos.');
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Ação Necessária',
+                                text: 'Por favor, faça login para ver seus ingressos.',
+                                confirmButtonText: 'OK'
+                            });
+
                             openModal('cadastroModal');
                             this.cartItems = [];
                             return;
