@@ -668,6 +668,7 @@
 
                 const tenantId = localStorage.getItem('tenantId') || new URLSearchParams(window.location.search).get('tenantId');
                 const eventId = localStorage.getItem('eventId') || new URLSearchParams(window.location.search).get('eventId');
+                const totalTicketQuantity = selectedTickets.reduce((sum, ticket) => sum + ticket.quantity, 0);
 
                 const eventName = localStorage.getItem('eventName') || 'Nome do Evento Não Encontrado';
 
@@ -715,7 +716,7 @@
                     body: JSON.stringify({
                         eventName: eventName,
                         ticketPriceTotal: totalAmount,
-                        buyQuantity: 1,
+                        buyQuantity: totalTicketQuantity, // Aqui chatGPT, aqui está hard coded também
                         userId: userId,
                         userName: userName,
                         userEmail: userEmail,
