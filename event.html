@@ -618,18 +618,19 @@
                     const ticketPrice = parseFloat(input.getAttribute('data-ticket-price'));
 
                     console.log('Ingresso selecionado:', {
-                        id: ticketId,
+                        ticketId: ticketId,
                         name: ticketName,
                         price: ticketPrice,
                         quantity: quantity
                     });
 
                     tickets.push({
-                        id: ticketId,
-                        name: ticketName,
-                        price: ticketPrice,
-                        quantity: quantity
-                    });
+    ticketId: ticketId,
+    name: ticketName,
+    price: ticketPrice,
+    quantity: quantity
+});
+
                 }
             });
 
