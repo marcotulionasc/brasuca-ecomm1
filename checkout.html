@@ -619,18 +619,16 @@
         <script src="js/CreateUser/CreateUserApi.js" type="module"></script>
 
         <script src="https://sdk.mercadopago.com/js/v2"></script>
-
         <script>
-
             let localUrl = 'http://localhost:8080';
             let prodUrl = 'https://backend-ingressar.onrender.com'
             let localPublicKey = 'TEST-e2c51c49-3109-49a8-ba7a-7b6242c2313e';
             let prodPublicKey = 'APP_USR-82cf6735-6432-4efe-bd3e-f1dba9ba3459';
-
+        
             document.addEventListener('DOMContentLoaded', async () => {
-
+        
                 const selectedTickets = JSON.parse(localStorage.getItem('selectedTickets'));
-
+        
                 if (!selectedTickets || selectedTickets.length === 0) {
                     Swal.fire({
                         icon: 'warning',
@@ -638,11 +636,11 @@
                         text: 'Nenhum ingresso selecionado.',
                         confirmButtonText: 'OK'
                     });
-
+        
                     window.location.href = 'event.html';
                     return;
                 }
-
+        
                 const userData = JSON.parse(localStorage.getItem('user'));
                 if (!userData) {
                     Swal.fire({
@@ -651,63 +649,65 @@
                         text: 'É necessário fazer o login!',
                         confirmButtonText: 'OK'
                     });
-
+        
                     window.location.href = 'index.html';
                     return;
                 }
-
+        
                 const userId = String(userData.user?.id) || "ID não encontrado";
-
+        
                 if (userData && userData.user) {
                     document.getElementById('name').value = userData.user.name || '';
                     document.getElementById('email').value = userData.user.email || '';
                 }
-
+        
                 userName = userData.user.name || '';
                 userEmail = userData.user.email || '';
-
+        
                 const tenantId = localStorage.getItem('tenantId') || new URLSearchParams(window.location.search).get('tenantId');
                 const eventId = localStorage.getItem('eventId') || new URLSearchParams(window.location.search).get('eventId');
+                
+                // Calcula a quantidade total de ingressos selecionados
                 const totalTicketQuantity = selectedTickets.reduce((sum, ticket) => sum + ticket.quantity, 0);
-
+        
                 const eventName = localStorage.getItem('eventName') || 'Nome do Evento Não Encontrado';
-
+        
                 const eventTitleElement = document.getElementById('eventName');
                 if (eventTitleElement) {
                     eventTitleElement.textContent = eventName;
                 }
-
+        
                 displaySelectedTickets(selectedTickets);
-
+        
                 const totalAmount = calculateTotalAmount(selectedTickets);
-
+        
                 document.getElementById('totalAmount').textContent = `R$ ${totalAmount.toFixed(2).replace('.', ',')}`;
-
-                setupMercadoPago(eventName, totalAmount, userId, userName, userEmail, selectedTickets, eventId, tenantId);
-
+        
+                setupMercadoPago(eventName, totalAmount, userId, userName, userEmail, selectedTickets, eventId, tenantId, totalTicketQuantity);
+        
             });
-
+        
             function displaySelectedTickets(tickets) {
                 const ticketsContainer = document.getElementById('selectedTicketsContainer');
-
+        
                 tickets.forEach(ticket => {
                     const ticketDiv = document.createElement('div');
                     ticketDiv.classList.add('flex', 'justify-between', 'py-2', 'border-b', 'border-gray-700');
-
+        
                     ticketDiv.innerHTML = `
-            <p class="text-white">${ticket.quantity}x ${ticket.name}</p>
-            <p class="text-white">R$ ${(ticket.price * ticket.quantity).toFixed(2).replace('.', ',')}</p>
-        `;
-
+                        <p class="text-white">${ticket.quantity}x ${ticket.name}</p>
+                        <p class="text-white">R$ ${(ticket.price * ticket.quantity).toFixed(2).replace('.', ',')}</p>
+                    `;
+        
                     ticketsContainer.appendChild(ticketDiv);
                 });
             }
-
+        
             function calculateTotalAmount(tickets) {
                 return tickets.reduce((total, ticket) => total + (ticket.price * ticket.quantity), 0);
             }
-
-            function setupMercadoPago(eventName, totalAmount, userId, userName, userEmail, selectedTickets, eventId, tenantId) {
+        
+            function setupMercadoPago(eventName, totalAmount, userId, userName, userEmail, selectedTickets, eventId, tenantId, totalTicketQuantity) {
                 fetch(`${prodUrl}/api/payments/create-preference`, {
                     method: 'POST',
                     headers: {
@@ -716,7 +716,7 @@
                     body: JSON.stringify({
                         eventName: eventName,
                         ticketPriceTotal: totalAmount,
-                        buyQuantity: totalTicketQuantity, // Aqui chatGPT, aqui está hard coded também
+                        buyQuantity: totalTicketQuantity,
                         userId: userId,
                         userName: userName,
                         userEmail: userEmail,
@@ -734,16 +734,16 @@
                     .then(data => {
                         console.log('Resposta completa da API:', data);
                         const preferenceId = data.preferenceId;
-
+        
                         if (!preferenceId) {
                             throw new Error('preferenceId não encontrado na resposta da API');
                         }
                         console.log('ID da preferência:', preferenceId);
-
+        
                         const mp = new MercadoPago(prodPublicKey, {
                             locale: 'pt-BR'
                         });
-
+        
                         const checkout = mp.checkout({
                             preference: {
                                 id: preferenceId
@@ -768,33 +768,30 @@
                             text: 'Ocorreu um erro ao processar seu pagamento. Por favor, tente novamente.',
                             confirmButtonText: 'OK'
                         });
-
                     });
             }
-
-
-
+        
             function mobileCartComponent() {
                 return {
                     cartOpen: false,
                     isLoading: false,
                     cartItems: [],
                     cartCount: 0,
-
+        
                     openCart() {
                         this.cartOpen = true;
                         this.fetchCartItems();
                     },
-
+        
                     closeCart() {
                         this.cartOpen = false;
                     },
-
+        
                     formatDate(dateString) {
                         const options = { year: 'numeric', month: 'long', day: 'numeric' };
                         return new Date(dateString).toLocaleDateString('pt-BR', options);
                     },
-
+        
                     async fetchCartItems() {
                         const userString = localStorage.getItem('user');
                         if (!userString) {
@@ -804,13 +801,13 @@
                                 text: 'Por favor, faça login para ver seus ingressos.',
                                 confirmButtonText: 'OK'
                             });
-
+        
                             openModal('cadastroModal');
                             this.cartItems = [];
                             this.cartCount = 0;
                             return;
                         }
-
+        
                         let user;
                         try {
                             user = JSON.parse(userString);
@@ -820,7 +817,7 @@
                             this.cartCount = 0;
                             return;
                         }
-
+        
                         const userId = user.user?.id;
                         if (!userId) {
                             Swal.fire({
@@ -829,13 +826,13 @@
                                 text: 'Por favor, faça login para ver seus ingressos.',
                                 confirmButtonText: 'OK'
                             });
-
+        
                             openModal('cadastroModal');
                             this.cartItems = [];
                             this.cartCount = 0;
                             return;
                         }
-
+        
                         this.isLoading = true;
                         try {
                             const response = await fetch(`https://backend-ingressar.onrender.com/api/user/${userId}/ticketdata`);
@@ -864,27 +861,27 @@
                     },
                 }
             }
-
+        
             function cartComponent() {
                 return {
                     cartOpen: false,
                     isLoading: false,
                     cartItems: [],
-
+        
                     openCart() {
                         this.cartOpen = true;
                         this.fetchCartItems();
                     },
-
+        
                     closeCart() {
                         this.cartOpen = false;
                     },
-
+        
                     formatDate(dateString) {
                         const options = { year: 'numeric', month: 'long', day: 'numeric' };
                         return new Date(dateString).toLocaleDateString('pt-BR', options);
                     },
-
+        
                     async fetchCartItems() {
                         const userString = localStorage.getItem('user');
                         if (!userString) {
@@ -894,12 +891,12 @@
                                 text: 'Por favor, faça login para ver seus ingressos.',
                                 confirmButtonText: 'OK'
                             });
-
+        
                             openModal('cadastroModal');
                             this.cartItems = [];
                             return;
                         }
-
+        
                         let user;
                         try {
                             user = JSON.parse(userString);
@@ -908,7 +905,7 @@
                             this.cartItems = [];
                             return;
                         }
-
+        
                         const userId = user.user?.id;
                         if (!userId) {
                             Swal.fire({
@@ -917,12 +914,12 @@
                                 text: 'Por favor, faça login para ver seus ingressos.',
                                 confirmButtonText: 'OK'
                             });
-
+        
                             openModal('cadastroModal');
                             this.cartItems = [];
                             return;
                         }
-
+        
                         this.isLoading = true;
                         try {
                             const response = await fetch(`https://backend-ingressar.onrender.com/api/user/${userId}/ticketdata`);
@@ -947,9 +944,8 @@
                     },
                 }
             }
-
         </script>
-
+        
 </body>
 
 </html>
