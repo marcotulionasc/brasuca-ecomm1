@@ -757,8 +757,8 @@
                         return;
                     }
 
-                    const userId = user.user?.id;
-                    if (!userId) {
+                    const userEmail = user.user?.email;
+                    if (!userEmail) {
                         Swal.fire({
                             icon: 'warning',
                             title: 'Ação Necessária',
@@ -775,7 +775,7 @@
 
                     this.isLoading = true;
                     try {
-                        const response = await fetch(`${prodUrl}/api/user/${userId}/ticketdata`);
+                        const response = await fetch(`${prodUrl}/api/user/${userEmail}/ticketdata`);
                         if (response.ok) {
                             const data = await response.json();
                             if (Array.isArray(data)) {
