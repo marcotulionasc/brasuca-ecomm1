@@ -206,8 +206,8 @@
                 </div>
 
                 <img src="img/logo/brasuca-multicultural-logo.webp" alt="Logo" class="w-1/3">
-
-                <div x-data="mobileCartComponent" class="relative">
+                <div class="ml-"></div>
+                <!-- <div x-data="mobileCartComponent" class="relative">
                     <button @click="openCart()" class="bg-blue-500 text-white p-2 rounded-lg shadow-lg z-50">
                         <i class="bi bi-ticket-detailed-fill text-2xl"></i>
                     </button>
@@ -266,7 +266,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="relative w-full mt-4">
                 <input type="text" placeholder="Encontre o evento perfeito para você!"
@@ -300,20 +300,20 @@
                 </div>
 
                 <!-- Botão dos Ingressos -->
-                <div x-data="cartComponent()" class="relative">
+                <!-- <div x-data="cartComponent()" class="relative">
                     <button @click="openCart()" class="bg-blue-950 text-white p-2 rounded-md shadow-lg">
                         <i class="bi bi-ticket-detailed-fill text-2xl"></i>
                     </button>
 
                     <!-- Overlay -->
-                    <div x-show="cartOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40" @click="closeCart()"
+                    <!-- <div x-show="cartOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40" @click="closeCart()"
                         x-transition:enter="transition-opacity ease-out duration-300"
                         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                         x-transition:leave="transition-opacity ease-in duration-300"
-                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div> -->
 
                     <!-- Conteúdo do Carrinho -->
-                    <div x-show="cartOpen"
+                    <!-- <div x-show="cartOpen"
                         class="fixed right-0 top-0 h-full w-80 bg-gray-800 text-white shadow-lg transform transition-transform duration-300 ease-in-out z-50"
                         x-transition:enter="transition ease-out duration-300 transform"
                         x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
@@ -330,13 +330,13 @@
                             </div>
                             <div class="mt-6">
                                 <!-- Estado de Carregamento -->
-                                <div x-show="isLoading" class="flex justify-center items-center">
+                                <!-- <div x-show="isLoading" class="flex justify-center items-center">
                                     <div class="animate-spin rounded-full h-10 w-10 border-t-4 border-b-4 border-white">
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <!-- Lista de Ingressos -->
-                                <ul class="mt-4 space-y-4" x-show="!isLoading && cartItems.length > 0">
+                                <!-- <ul class="mt-4 space-y-4" x-show="!isLoading && cartItems.length > 0">
                                     <template x-for="(item, index) in cartItems" :key="index">
                                         <li class="flex items-start p-4 bg-gray-700 rounded-lg">
                                             <div>
@@ -355,16 +355,16 @@
                                             </div>
                                         </li>
                                     </template>
-                                </ul>
+                                </ul> -->
 
                                 <!-- Mensagem de Nenhum Ingresso -->
-                                <p x-show="!isLoading && cartItems.length === 0" class="text-center text-gray-400">
+                                <!-- <p x-show="!isLoading && cartItems.length === 0" class="text-center text-gray-400">
                                     Você ainda não comprou nenhum ingresso.
                                 </p>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div> -->
+                <!-- </div> --> 
             </div>
         </header>
 
