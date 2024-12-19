@@ -122,37 +122,57 @@
                 <div class="p-4">
                     <div class="flex justify-between items-center">
                         <h2 class="text-2xl font-bold">Meus Ingressos</h2>
-                        <button @click="closeCart()" class="text-gray-400 hover:text-white"
-                            aria-label="Fechar Carrinho">
+                        <button @click="closeCart" class="text-gray-400 hover:text-white" aria-label="Fechar Carrinho">
                             <i class="bi bi-x-lg text-2xl"></i>
                         </button>
                     </div>
+
                     <div class="mt-4">
                         <div x-show="isLoading" class="flex justify-center items-center">
                             <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white"></div>
                         </div>
 
-                        <ul class="mt-4 space-y-4" x-show="!isLoading && cartItems.length > 0">
-                            <template x-for="(item, index) in cartItems" :key="index">
-                                <li class="flex items-center justify-between p-2 bg-gray-700 rounded-lg">
+                        <!-- Lista de Ingressos -->
+                        <ul class="mt-4 space-y-4" x-show="!isLoading && tickets.length > 0">
+                            <template x-for="(ticket, index) in tickets" :key="index">
+                                <li class="p-4 bg-gray-700 rounded-lg flex justify-between items-center">
                                     <div>
-                                        <h3 class="text-lg font-semibold"
-                                            x-text="item.nomeIngresso || 'Nome do ingresso não disponível'"></h3>
-                                        <p x-text="`Evento: ${item.nomeEvento || 'Evento não disponível'}`"></p>
-                                        <p
-                                            x-text="`Data: ${item.dataEvento ? formatDate(item.dataEvento) : 'Data não disponível'}`">
-                                        </p>
-                                        <p x-text="`Abertura: ${item.aberturaPortas || 'Horário não disponível'}`"></p>
-                                        <p x-text="`Local: ${item.localEvento || 'Local não disponível'}`"></p>
-                                        <p x-text="`Valor: R$ ${item.valorLote || 'Valor não disponível'}`"></p>
+                                        <h3 class="text-lg font-semibold" x-text="ticket.nomeEvento"></h3>
+                                        <p x-text="`${ticket.localEvento || 'Local não disponível'}`"></p>
+                                        <p x-text="`Data: ${formatDate(ticket.dataCompra)}`"></p>
                                     </div>
+                                    <button @click="openTicketModal(ticket)" class="text-blue-500 hover:underline">
+                                        Ver detalhes
+                                    </button>
                                 </li>
                             </template>
                         </ul>
 
-                        <p x-show="!isLoading && cartItems.length === 0" class="text-center text-gray-400">
+                        <p x-show="!isLoading && tickets.length === 0" class="text-center text-gray-400">
                             Você ainda não comprou nenhum ingresso.
                         </p>
+                    </div>
+
+                    <!-- Modal para detalhes do ingresso -->
+                    <div x-show="showModal"
+                        class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+                            <div class="flex justify-between items-center">
+                                <h2 class="text-xl font-bold">Detalhes do Ingresso</h2>
+                                <button @click="closeModal" class="text-gray-400 hover:text-black">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </div>
+                            <div class="mt-4">
+                                <p><strong>Nome do Evento:</strong> <span x-text="selectedTicket.nomeEvento"></span></p>
+                                <p><strong>Local:</strong> <span x-text="selectedTicket.localEvento"></span></p>
+                                <p><strong>Data:</strong> <span x-text="formatDate(selectedTicket.dataCompra)"></span>
+                                </p>
+                                <p><strong>Horário de Abertura:</strong> <span
+                                        x-text="selectedTicket.aberturaPortas || 'Horário não disponível'"></span></p>
+                                <p><strong>Valor:</strong> R$ <span x-text="selectedTicket.valorLote"></span></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -260,41 +280,64 @@
                         <div class="p-4">
                             <div class="flex justify-between items-center">
                                 <h2 class="text-2xl font-bold">Meus Ingressos</h2>
-                                <button @click="closeCart()" class="text-gray-400 hover:text-white"
+                                <button @click="closeCart" class="text-gray-400 hover:text-white"
                                     aria-label="Fechar Carrinho">
                                     <i class="bi bi-x-lg text-2xl"></i>
                                 </button>
                             </div>
+
                             <div class="mt-4">
                                 <div x-show="isLoading" class="flex justify-center items-center">
                                     <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white">
                                     </div>
                                 </div>
 
-                                <ul class="mt-4 space-y-4" x-show="!isLoading && cartItems.length > 0">
-                                    <template x-for="(item, index) in cartItems" :key="index">
-                                        <li class="flex items-center justify-between p-2 bg-gray-700 rounded-lg">
+                                <!-- Lista de Ingressos -->
+                                <ul class="mt-4 space-y-4" x-show="!isLoading && tickets.length > 0">
+                                    <template x-for="(ticket, index) in tickets" :key="index">
+                                        <li class="p-4 bg-gray-700 rounded-lg flex justify-between items-center">
                                             <div>
-                                                <h3 class="text-lg font-semibold"
-                                                    x-text="item.nomeIngresso || 'Nome do ingresso não disponível'">
-                                                </h3>
-                                                <p x-text="`Evento: ${item.nomeEvento || 'Evento não disponível'}`"></p>
-                                                <p
-                                                    x-text="`Data: ${item.dataEvento ? formatDate(item.dataEvento) : 'Data não disponível'}`">
-                                                </p>
-                                                <p
-                                                    x-text="`Abertura: ${item.aberturaPortas || 'Horário não disponível'}`">
-                                                </p>
-                                                <p x-text="`Local: ${item.localEvento || 'Local não disponível'}`"></p>
-                                                <p x-text="`Valor: R$ ${item.valorLote || 'Valor não disponível'}`"></p>
+                                                <h3 class="text-lg font-semibold" x-text="ticket.nomeEvento"></h3>
+                                                <p x-text="`${ticket.localEvento || 'Local não disponível'}`"></p>
+                                                <p x-text="`Data: ${formatDate(ticket.dataCompra)}`"></p>
                                             </div>
+                                            <button @click="openTicketModal(ticket)"
+                                                class="text-blue-500 hover:underline">
+                                                Ver detalhes
+                                            </button>
                                         </li>
                                     </template>
                                 </ul>
 
-                                <p x-show="!isLoading && cartItems.length === 0" class="text-center text-gray-400">
+                                <p x-show="!isLoading && tickets.length === 0" class="text-center text-gray-400">
                                     Você ainda não comprou nenhum ingresso.
                                 </p>
+                            </div>
+
+                            <!-- Modal para detalhes do ingresso -->
+                            <div x-show="showModal"
+                                class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                                <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+                                    <div class="flex justify-between items-center">
+                                        <h2 class="text-xl font-bold">Detalhes do Ingresso</h2>
+                                        <button @click="closeModal" class="text-gray-400 hover:text-black">
+                                            <i class="bi bi-x-lg"></i>
+                                        </button>
+                                    </div>
+                                    <div class="mt-4">
+                                        <p><strong>Nome do Evento:</strong> <span
+                                                x-text="selectedTicket.nomeEvento"></span>
+                                        </p>
+                                        <p><strong></strong> <span x-text="selectedTicket.localEvento"></span></p>
+                                        <p><strong>Data:</strong> <span
+                                                x-text="formatDate(selectedTicket.dataCompra)"></span></p>
+                                        <p><strong>Horário de Abertura:</strong> <span
+                                                x-text="selectedTicket.aberturaPortas || 'Horário não disponível'"></span>
+                                        </p>
+                                        <p><strong>Valor:</strong> R$ <span x-text="selectedTicket.valorLote"></span>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -354,44 +397,64 @@
                         <div class="p-6">
                             <div class="flex justify-between items-center">
                                 <h2 class="text-2xl font-bold">Meus Ingressos</h2>
-                                <button @click="closeCart()" class="text-gray-400 hover:text-white"
+                                <button @click="closeCart" class="text-gray-400 hover:text-white"
                                     aria-label="Fechar Carrinho">
                                     <i class="bi bi-x-lg text-2xl"></i>
                                 </button>
                             </div>
-                            <div class="mt-6">
-                                <!-- Estado de Carregamento -->
+
+                            <div class="mt-4">
                                 <div x-show="isLoading" class="flex justify-center items-center">
-                                    <div class="animate-spin rounded-full h-10 w-10 border-t-4 border-b-4 border-white">
+                                    <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white">
                                     </div>
                                 </div>
 
                                 <!-- Lista de Ingressos -->
-                                <ul class="mt-4 space-y-4" x-show="!isLoading && cartItems.length > 0">
-                                    <template x-for="(item, index) in cartItems" :key="index">
-                                        <li class="flex items-start p-4 bg-gray-700 rounded-lg">
+                                <ul class="mt-4 space-y-4" x-show="!isLoading && tickets.length > 0">
+                                    <template x-for="(ticket, index) in tickets" :key="index">
+                                        <li class="p-4 bg-gray-700 rounded-lg flex justify-between items-center">
                                             <div>
-                                                <h3 class="text-lg font-semibold"
-                                                    x-text="item.nomeIngresso || 'Nome do ingresso não disponível'">
-                                                </h3>
-                                                <p x-text="`Evento: ${item.nomeEvento || 'Evento não disponível'}`"></p>
-                                                <p
-                                                    x-text="`Data: ${item.dataEvento ? formatDate(item.dataEvento) : 'Data não disponível'}`">
-                                                </p>
-                                                <p
-                                                    x-text="`Abertura: ${item.aberturaPortas || 'Horário não disponível'}`">
-                                                </p>
-                                                <p x-text="`Local: ${item.localEvento || 'Local não disponível'}`"></p>
-                                                <p x-text="`Valor: R$ ${item.valorLote || 'Valor não disponível'}`"></p>
+                                                <h3 class="text-lg font-semibold" x-text="ticket.nomeEvento"></h3>
+                                                <p x-text="`${ticket.localEvento || 'Local não disponível'}`"></p>
+                                                <p x-text="`Data: ${formatDate(ticket.dataCompra)}`"></p>
                                             </div>
+                                            <button @click="openTicketModal(ticket)"
+                                                class="text-blue-500 hover:underline">
+                                                Ver detalhes
+                                            </button>
                                         </li>
                                     </template>
                                 </ul>
 
-                                <!-- Mensagem de Nenhum Ingresso -->
-                                <p x-show="!isLoading && cartItems.length === 0" class="text-center text-gray-400">
+                                <p x-show="!isLoading && tickets.length === 0" class="text-center text-gray-400">
                                     Você ainda não comprou nenhum ingresso.
                                 </p>
+                            </div>
+
+                            <!-- Modal para detalhes do ingresso -->
+                            <div x-show="showModal"
+                                class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                                <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+                                    <div class="flex justify-between items-center">
+                                        <h2 class="text-xl font-bold">Detalhes do Ingresso</h2>
+                                        <button @click="closeModal" class="text-gray-400 hover:text-black">
+                                            <i class="bi bi-x-lg"></i>
+                                        </button>
+                                    </div>
+                                    <div class="mt-4">
+                                        <p><strong>Nome do Evento:</strong> <span
+                                                x-text="selectedTicket.nomeEvento"></span>
+                                        </p>
+                                        <p><strong></strong> <span x-text="selectedTicket.localEvento"></span></p>
+                                        <p><strong>Data:</strong> <span
+                                                x-text="formatDate(selectedTicket.dataCompra)"></span></p>
+                                        <p><strong>Horário de Abertura:</strong> <span
+                                                x-text="selectedTicket.aberturaPortas || 'Horário não disponível'"></span>
+                                        </p>
+                                        <p><strong>Valor:</strong> R$ <span x-text="selectedTicket.valorLote"></span>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -689,10 +752,17 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
     <script>
-
-
         let localUrl = 'http://localhost:8080';
-        let prodUrl = 'https://backend-ingressar.onrender.com'
+        let prodUrl = 'https://backend-ingressar.onrender.com';
+
+        function openTicketModal(ticket) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Manutenção!',
+                text: 'Nos desculpe, mas essa funcionalidade ainda está em manutenção.',
+                confirmButtonText: 'Ok, obrigado(a)!'
+            });
+        }
 
         document.addEventListener('alpine:init', () => {
             Alpine.store('cart', {
@@ -704,33 +774,79 @@
                     if (this.cartCount > 0) this.cartCount--;
                 }
             });
+
+            Alpine.data('ticketApp', () => ({
+                isLoading: false,
+                showModal: false,
+                tickets: [],
+                selectedTicket: {},
+
+                formatDate(date) {
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    return new Date(date).toLocaleDateString('pt-BR', options);
+                },
+
+                openTicketModal(ticket) {
+
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Manutenção!',
+                        text: 'Nos desculpe, mas essa funcionalidade ainda está em manutenção.',
+                        confirmButtonText: 'Ok, obrigado(a)!'
+                    });
+                },
+
+                closeModal() {
+                    this.showModal = false;
+                    this.selectedTicket = {};
+                },
+
+                async fetchTickets(userId) {
+                    this.isLoading = true;
+                    try {
+                        const response = await fetch(`${prodUrl}/api/user-tickets/${userId}`);
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.tickets = Array.isArray(data) ? data : [];
+                        } else {
+                            console.error('Erro ao buscar ingressos:', response.status);
+                            this.tickets = [];
+                        }
+                    } catch (error) {
+                        console.error('Erro na requisição:', error);
+                        this.tickets = [];
+                    } finally {
+                        this.isLoading = false;
+                    }
+                }
+            }));
+
+            const userId = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).user?.id : null;
+            if (userId) {
+                // Certifique-se de que 'ticketApp' está sendo usado corretamente
+                Alpine.data('ticketApp').fetchTickets(userId);
+            } else {
+                console.warn('Usuário não logado, não foi possível carregar ingressos.');
+            }
         });
-
-        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
-
 
         function createCartHandler({ withCount = false }) {
             return {
                 cartOpen: false,
                 isLoading: false,
-                cartItems: [],
+                tickets: [], // Renomeado para 'tickets'
                 ...(withCount ? { cartCount: 0 } : {}),
 
                 openCart() {
                     this.cartOpen = true;
-                    this.fetchCartItems();
+                    this.fetchTickets(); // Renomeado para 'fetchTickets'
                 },
 
                 closeCart() {
                     this.cartOpen = false;
                 },
 
-                formatDate(dateString) {
-                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                    return new Date(dateString).toLocaleDateString('pt-BR', options);
-                },
-
-                async fetchCartItems() {
+                async fetchTickets() { // Renomeado
                     const userString = localStorage.getItem('user');
                     if (!userString) {
                         Swal.fire({
@@ -740,10 +856,7 @@
                             confirmButtonText: 'OK'
                         });
 
-                        closeCart();
-                        openModal('cadastroModal');
-                        this.cartItems = [];
-                        if (withCount) this.cartCount = 0;
+                        this.closeCart();
                         return;
                     }
 
@@ -752,13 +865,12 @@
                         user = JSON.parse(userString);
                     } catch (e) {
                         console.error('Erro ao parsear o objeto user do localStorage:', e);
-                        this.cartItems = [];
-                        if (withCount) this.cartCount = 0;
+                        this.tickets = [];
                         return;
                     }
 
-                    const userEmail = user.user?.email;
-                    if (!userEmail) {
+                    const userId = user.user?.id;
+                    if (!userId) {
                         Swal.fire({
                             icon: 'warning',
                             title: 'Ação Necessária',
@@ -766,39 +878,27 @@
                             confirmButtonText: 'OK'
                         });
 
-                        closeCart();
-                        openModal('cadastroModal');
-                        this.cartItems = [];
-                        if (withCount) this.cartCount = 0;
+                        this.closeCart();
                         return;
                     }
 
                     this.isLoading = true;
                     try {
-                        const response = await fetch(`${prodUrl}/api/user/${userEmail}/ticketdata`);
+                        const response = await fetch(`${prodUrl}/api/user-tickets/${userId}`);
                         if (response.ok) {
                             const data = await response.json();
-                            if (Array.isArray(data)) {
-                                this.cartItems = data;
-                                if (withCount) this.cartCount = data.length;
-                            } else {
-                                console.error('Dados retornados não são uma lista de ingressos.');
-                                this.cartItems = [];
-                                if (withCount) this.cartCount = 0;
-                            }
+                            this.tickets = Array.isArray(data) ? data : [];
                         } else {
                             console.error('Erro ao buscar ingressos:', response.status);
-                            this.cartItems = [];
-                            if (withCount) this.cartCount = 0;
+                            this.tickets = [];
                         }
                     } catch (error) {
                         console.error('Erro na requisição:', error);
-                        this.cartItems = [];
-                        if (withCount) this.cartCount = 0;
+                        this.tickets = [];
                     } finally {
                         this.isLoading = false;
                     }
-                },
+                }
             };
         }
 
@@ -810,15 +910,12 @@
             return createCartHandler({ withCount: false });
         }
 
-
         function handleAccountClick() {
             const userString = localStorage.getItem('user');
             if (userString) {
-
                 const user = JSON.parse(userString);
-                const userId = user.user && user.user.id;
+                const userId = user.user?.id;
                 if (userId) {
-
                     window.location.href = `profile.html?id=${userId}`;
                 } else {
                     Swal.fire({
@@ -827,7 +924,6 @@
                         text: 'Você não está logado.',
                         confirmButtonText: 'OK'
                     });
-
                     openModal('loginModal');
                 }
             } else {
@@ -837,11 +933,11 @@
                     text: 'Você não está logado.',
                     confirmButtonText: 'OK'
                 });
-
                 openModal('loginModal');
             }
         }
     </script>
+
 </body>
 
 </html>
